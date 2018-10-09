@@ -288,6 +288,9 @@ bool j1Map::LoadMap()
 	return ret;
 }
 
+
+
+
 bool j1Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
 {
 	bool ret = true;
@@ -385,26 +388,26 @@ bool j1Map::LoadColliders(pugi::xml_node& object_node)
 	bool ret = true;
 	pugi::xml_node object_data = object_node.child("object");
 
-
-
 	for (object_data; object_data; object_data = object_data.next_sibling("object"))
+	{
+		++data.num_colliders;
+	}
+
+	data.map_colliders = new p2List_item<Collider*>*[data.num_colliders];
+	object_data = object_node.child("object");
+
+
+	for (uint i = 0; i < data.num_colliders; ++i)
 	{
 		SDL_Rect rect;
 		rect.x = object_data.attribute("x").as_int(0);
 		rect.y = object_data.attribute("y").as_int(0);
 		rect.w = object_data.attribute("width").as_int(0);
 		rect.h = object_data.attribute("height").as_int(0);
+		data.map_colliders[1] = App->collision->AddCollider(rect, COLLIDER_WALL, this);
+		object_data = object_data.next_sibling("object");
+	}
 
 
-		p2List_item<Collider*> *item = data.map_colliders.start;
-
-		while (item != NULL)
-		{
-			item = item->next;
-		}
-
-		item = App->collision->AddCollider(rect, COLLIDER_WALL, this);
-
-	} 
 	return ret;
 }

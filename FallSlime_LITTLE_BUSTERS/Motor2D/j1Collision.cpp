@@ -164,6 +164,9 @@ bool j1Collision:: CleanUp()
 	Collider* collider = new Collider(rect, type , callback);
 
 	return colliders.add(collider);
+
+
+
 }
 
 bool Collider::CheckCollision(const SDL_Rect& r) const

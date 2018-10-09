@@ -60,7 +60,17 @@ struct MapData
 	MapTypes			          type;
 	p2List<TileSet*>	          tilesets;
 	p2List<MapLayer*>	          layers;
-	p2List<Collider*>	          map_colliders;
+	p2List_item<Collider*> **     map_colliders = nullptr;
+	uint                          num_colliders = 0u;
+
+	~MapData()
+	{
+		if (map_colliders != nullptr)
+			delete[] map_colliders;
+	}
+
+
+
 };
 
 // ----------------------------------------------------
@@ -93,6 +103,8 @@ private:
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 	bool LoadColliders(pugi::xml_node& object_node);
+
+	bool UnloadMap();
 
 public:
 
