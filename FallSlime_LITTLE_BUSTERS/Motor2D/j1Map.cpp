@@ -70,10 +70,12 @@ inline uint MapLayer::Get(int x, int y) const
 
 iPoint j1Map::MapToWorld(int x, int y) const
 {
-	iPoint ret;
+	iPoint ret(0,0);
 
 	ret.x = x * data.tile_width;
 	ret.y = y * data.tile_height;
+
+
 
 	return ret;
 }
