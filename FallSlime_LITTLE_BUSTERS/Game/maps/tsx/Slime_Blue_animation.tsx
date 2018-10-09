@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.0" name="Slime_animation_tile_Magenta" tilewidth="33" tileheight="33" tilecount="11" columns="11">
- <image source="../Slime/Riped/Slime_animation_tile_Magenta.png" width="363" height="33"/>
+<tileset firstgid="65" name="Slime_Blue_animation" tilewidth="33" tileheight="33" tilecount="11" columns="11">
+    <image source="Slime_Blue_animation.png" width="363" height="33"/>
  <tile id="0">
   <animation>
    <frame tileid="0" duration="100"/>

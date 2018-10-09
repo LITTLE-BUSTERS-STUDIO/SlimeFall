@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.0" name="Basic" tilewidth="16" tileheight="16" tilecount="60" columns="10">
- <image source="../UNI/2nd Año/Desarrollo de videojuegos/Global_Platform_Game Assest/Tileset.png" width="160" height="96"/>
+<tileset firstgid="1" name="Basic_tileset" tilewidth="16" tileheight="16" tilecount="60" columns="10">
+ <image source="Basic_tileset.png" width="160" height="96"/>
  <terraintypes>
   <terrain name="Ground" tile="-1"/>
   <terrain name="Rock" tile="-1"/>
