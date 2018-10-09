@@ -7,6 +7,7 @@
 #include "j1Module.h"
 
 struct Collider;
+enum COLLIDER_TYPE;
 
 struct MapLayer 
 {
@@ -21,6 +22,9 @@ struct MapLayer
 		delete[]  tiles;
 	}
 };
+
+
+
 
 // ----------------------------------------------------
 struct TileSet
@@ -42,6 +46,23 @@ struct TileSet
 	uint					offset_y;
 };
 
+struct CollidersGroup
+{
+	
+	COLLIDER_TYPE			      type;
+	p2List_item<Collider*> **     colls = nullptr;
+	uint                          num_colliders = 0u;
+
+	~CollidersGroup()
+	{
+		if (colls != nullptr)
+			delete[] colls;
+	}
+
+
+
+};
+
 enum MapTypes
 {
 	MAPTYPE_UNKNOWN = 0,
@@ -60,16 +81,7 @@ struct MapData
 	MapTypes			          type;
 	p2List<TileSet*>	          tilesets;
 	p2List<MapLayer*>	          layers;
-	p2List_item<Collider*> **     map_colliders = nullptr;
-	uint                          num_colliders = 0u;
-
-	~MapData()
-	{
-		if (map_colliders != nullptr)
-			delete[] map_colliders;
-	}
-
-
+	p2List<CollidersGroup*>       coll_groups;           
 
 };
 
@@ -102,8 +114,7 @@ private:
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
-	bool LoadColliders(pugi::xml_node& object_node);
-
+	bool LoadColliders(pugi::xml_node& object_node, CollidersGroup* group);
 	bool UnloadMap();
 
 public:

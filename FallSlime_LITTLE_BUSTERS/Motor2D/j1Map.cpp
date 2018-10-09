@@ -32,12 +32,10 @@ void j1Map::Draw()
 	if (map_loaded == false)
 		return;
 
-	p2List_item<MapLayer*>* item_layer = nullptr;
-
 	TileSet *tileset = data.tilesets.start->data;
 	p2List_item <MapLayer*>*layer = data.layers.start;
 
-	// TODO 5: Prepare the loop to draw all tilesets + Blit
+
 
 	while (layer != NULL)
 	{
@@ -107,9 +105,7 @@ bool j1Map::CleanUp()
 	}
 	data.tilesets.clear();
 
-	// TODO 2: clean up all layer data
 	// Remove all layers
-
 	p2List_item<MapLayer*>* item_2;
 	item_2 = data.layers.start;
 
@@ -120,7 +116,18 @@ bool j1Map::CleanUp()
 	}
 
 	data.layers.clear();
-	
+
+	// Remove all collider groups
+	p2List_item<CollidersGroup*>* item_3;
+	item_3 = data.coll_groups.start;
+
+	while (item_3 != NULL)
+	{
+		RELEASE(item_3->data);
+		item_3 = item_3->next;
+	}
+
+	data.coll_groups.clear();
 
 	// Clean up the pugui tree
 	map_file.reset();
@@ -181,15 +188,24 @@ bool j1Map::Load(const char* file_name)
 		data.layers.add(set);
 	}
 
+	// Load colliders info ----------------------------------------------
+
 	pugi::xml_node objectgroup;
 
 	for (objectgroup = map_file.child("map").child("objectgroup"); objectgroup && ret; objectgroup = objectgroup.next_sibling("objectgroup"))
 	{
+		CollidersGroup* group = new CollidersGroup();
+
 		if (ret == true)
 		{
-			ret = LoadColliders(objectgroup);
+			ret = LoadColliders(objectgroup, group);
 		}
+
+		data.coll_groups.add(group);
 	}
+
+
+	//LOG All info ------------------------------------------------------
 
 	if(ret == true)
 	{
@@ -385,29 +401,29 @@ bool j1Map::LoadLayer(pugi::xml_node& layer_node, MapLayer* layer)
 	return ret;
 }
 
-bool j1Map::LoadColliders(pugi::xml_node& object_node)
+
+bool j1Map::LoadColliders(pugi::xml_node& object_node, CollidersGroup* group)
 {
 	bool ret = true;
-	pugi::xml_node object_data = object_node.child("object");
+	
 
-	for (object_data; object_data; object_data = object_data.next_sibling("object"))
+	for (pugi::xml_node object_data = object_node.child("object"); object_data; object_data = object_data.next_sibling("object"))
 	{
-		++data.num_colliders;
+		++group->num_colliders;
 	}
 
-	data.map_colliders = new p2List_item<Collider*>*[data.num_colliders];
-	object_data = object_node.child("object");
+	group->colls = new p2List_item<Collider*>*[group->num_colliders];
+	uint counter = 0;
 
-
-	for (uint i = 0; i < data.num_colliders; ++i)
+	for (pugi::xml_node object_data = object_node.child("object"); object_data; object_data = object_data.next_sibling("object"))
 	{
 		SDL_Rect rect;
 		rect.x = object_data.attribute("x").as_int(0);
 		rect.y = object_data.attribute("y").as_int(0);
 		rect.w = object_data.attribute("width").as_int(0);
 		rect.h = object_data.attribute("height").as_int(0);
-		data.map_colliders[1] = App->collision->AddCollider(rect, COLLIDER_WALL, this);
-		object_data = object_data.next_sibling("object");
+		group->colls[counter] = App->collision->AddCollider(rect, COLLIDER_WALL, this);
+		++counter;
 	}
 
 
