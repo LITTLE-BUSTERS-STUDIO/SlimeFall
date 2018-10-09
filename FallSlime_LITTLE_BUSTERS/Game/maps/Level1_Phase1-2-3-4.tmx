@@ -1,11 +1,126 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
 <map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="100" height="50" tilewidth="16" tileheight="16" infinite="1" nextlayerid="22" nextobjectid="263">
- <tileset firstgid="1" source="../../../../../Downloads/Basic.tsx"/>
- <tileset firstgid="61" source="Collision Boxes.tsx"/>
- <tileset firstgid="65" source="Slime_animation_tile_Blue.tsx"/>
- <tileset firstgid="76" source="Slime_animation_tile_Magenta.tsx"/>
- <tileset firstgid="87" source="Slime_animation_tile_Green.tsx"/>
- <tileset firstgid="98" name="wateranimate3" tilewidth="32" tileheight="32" tilecount="15" columns="5">
+  
+  <tileset firstgid="1" name="Basic_tileset" tilewidth="16" tileheight="16" tilecount="60" columns="10">
+    <image source="Basic_tileset.png" width="160" height="96"/>
+    <terraintypes>
+      <terrain name="Ground" tile="-1"/>
+      <terrain name="Rock" tile="-1"/>
+      <terrain name="Grass" tile="-1"/>
+      <terrain name="Bush" tile="-1"/>
+      <terrain name="Spikes" tile="-1"/>
+      <terrain name="Fence" tile="0"/>
+      <terrain name="Bridge" tile="0"/>
+    </terraintypes>
+    <tile id="0" terrain=",,,0"/>
+    <tile id="1" terrain=",,0,0"/>
+    <tile id="2" terrain=",,0,"/>
+    <tile id="3" terrain=",,0,0"/>
+    <tile id="4" terrain="0,0,0,"/>
+    <tile id="5" terrain="0,0,,0"/>
+    <tile id="6" terrain=",0,0,0"/>
+    <tile id="7" terrain="0,,,0"/>
+    <tile id="10" terrain=",0,,0"/>
+    <tile id="11" terrain="0,0,0,0"/>
+    <tile id="12" terrain="0,,0,"/>
+    <tile id="13" terrain="0,0,0,0"/>
+    <tile id="14" terrain="0,,0,0"/>
+    <tile id="15" terrain=",0,0,"/>
+    <tile id="20" terrain=",0,,"/>
+    <tile id="21" terrain="0,0,,"/>
+    <tile id="22" terrain="0,,,"/>
+    <tile id="23" terrain="0,0,0,0"/>
+    <tile id="26" terrain=",2,,"/>
+    <tile id="27" terrain="2,2,,"/>
+    <tile id="28" terrain="2,2,,"/>
+    <tile id="29" terrain="2,,,"/>
+    <tile id="30" terrain=",,,1"/>
+    <tile id="31" terrain=",,1,1"/>
+    <tile id="32" terrain=",,1,"/>
+    <tile id="33" terrain="1,1,1,"/>
+    <tile id="34" terrain="1,1,,1"/>
+    <tile id="36" terrain=",5,,"/>
+    <tile id="37" terrain="5,5,,"/>
+    <tile id="38" terrain="5,5,,"/>
+    <tile id="39" terrain="5,,,"/>
+    <tile id="40" terrain=",1,,1"/>
+    <tile id="41" terrain="1,1,1,1"/>
+    <tile id="42" terrain="1,,1,"/>
+    <tile id="43" terrain="1,,1,1"/>
+    <tile id="44" terrain=",1,1,1"/>
+    <tile id="46" terrain="6,,,"/>
+    <tile id="47" terrain="6,6,,"/>
+    <tile id="48" terrain=",6,,"/>
+    <tile id="49" terrain="4,4,4,4"/>
+    <tile id="50" terrain=",1,,"/>
+    <tile id="51" terrain="1,1,,"/>
+    <tile id="52" terrain="1,,,"/>
+    <tile id="53" terrain="1,,,1"/>
+    <tile id="54" terrain=",1,1,"/>
+    <tile id="55" terrain=",3,,"/>
+    <tile id="56" terrain="3,3,,"/>
+    <tile id="57" terrain="3,,,"/>
+  </tileset>
+  
+  <tileset firstgid="65" name="Slime_Blue_animation" tilewidth="33" tileheight="33" tilecount="11" columns="11">
+    <image source="Slime_Blue_animation.png" width="363" height="33"/>
+    <tile id="0">
+      <animation>
+        <frame tileid="0" duration="100"/>
+        <frame tileid="1" duration="100"/>
+        <frame tileid="2" duration="100"/>
+        <frame tileid="3" duration="100"/>
+        <frame tileid="4" duration="100"/>
+        <frame tileid="5" duration="100"/>
+        <frame tileid="6" duration="100"/>
+        <frame tileid="7" duration="100"/>
+        <frame tileid="8" duration="100"/>
+        <frame tileid="9" duration="100"/>
+        <frame tileid="10" duration="100"/>
+      </animation>
+    </tile>
+  </tileset>
+  
+  <tileset firstgid="76" name="Slime_Magenta_animation" tilewidth="33" tileheight="33" tilecount="11" columns="11">
+    <image source="Slime_Magenta_animation.png" width="363" height="33"/>
+    <tile id="0">
+      <animation>
+        <frame tileid="0" duration="100"/>
+        <frame tileid="1" duration="100"/>
+        <frame tileid="2" duration="100"/>
+        <frame tileid="3" duration="100"/>
+        <frame tileid="4" duration="100"/>
+        <frame tileid="5" duration="100"/>
+        <frame tileid="6" duration="100"/>
+        <frame tileid="7" duration="100"/>
+        <frame tileid="8" duration="100"/>
+        <frame tileid="9" duration="100"/>
+        <frame tileid="10" duration="100"/>
+      </animation>
+    </tile>
+  </tileset>
+
+  <tileset firstgid="87" name="Slime_Green_animation" tilewidth="33" tileheight="33" tilecount="11" columns="11">
+    <image source="Slime_Green_animation.png" width="363" height="33"/>
+    <tile id="0">
+      <animation>
+        <frame tileid="0" duration="100"/>
+        <frame tileid="1" duration="100"/>
+        <frame tileid="2" duration="100"/>
+        <frame tileid="3" duration="100"/>
+        <frame tileid="4" duration="100"/>
+        <frame tileid="5" duration="100"/>
+        <frame tileid="6" duration="100"/>
+        <frame tileid="7" duration="100"/>
+        <frame tileid="8" duration="100"/>
+        <frame tileid="9" duration="100"/>
+        <frame tileid="10" duration="100"/>
+      </animation>
+    </tile>
+  </tileset>
+
+  <tileset firstgid="98" name="wateranimate3" tilewidth="32" tileheight="32" tilecount="15" columns="5">
   <image source="../wateranimate3.png" width="160" height="96"/>
   <tile id="0">
    <animation>
@@ -33,10 +148,45 @@
    </animation>
   </tile>
  </tileset>
- <tileset firstgid="113" source="wateranimate4.tsx"/>
- <tileset firstgid="117" source="wateranimate5.tsx"/>
- <tileset firstgid="121" source="wateranimate6.tsx"/>
- <layer id="9" name="MiddleGround" width="100" height="50">
+  
+  <tileset firstgid="113" name="Water_fall" tilewidth="90" tileheight="173" tilecount="4" columns="4">
+    <image source="Water_fall.png" width="382" height="173"/>
+    <tile id="0">
+      <animation>
+        <frame tileid="0" duration="100"/>
+        <frame tileid="1" duration="200"/>
+        <frame tileid="2" duration="200"/>
+        <frame tileid="3" duration="200"/>
+      </animation>
+    </tile>
+  </tileset>
+
+  <tileset firstgid="117" name="Water_fall2" tilewidth="90" tileheight="314" tilecount="4" columns="4">
+    <image source="Water_fall2.png" width="382" height="314"/>
+    <tile id="0">
+      <animation>
+        <frame tileid="0" duration="200"/>
+        <frame tileid="1" duration="200"/>
+        <frame tileid="2" duration="200"/>
+        <frame tileid="3" duration="200"/>
+      </animation>
+    </tile>
+  </tileset>
+
+  <tileset firstgid="121" name="Water_fall3" tilewidth="90" tileheight="261" tilecount="4" columns="4">
+    <image source="Water_fall3.png" width="382" height="261"/>
+    <tile id="0">
+      <animation>
+        <frame tileid="0" duration="200"/>
+        <frame tileid="1" duration="200"/>
+        <frame tileid="2" duration="200"/>
+        <frame tileid="3" duration="200"/>
+      </animation>
+    </tile>
+  </tileset>
+
+  
+  <layer id="9" name="MiddleGround" width="100" height="50">
   <data>
    <chunk x="-32" y="-48" width="16" height="16">
     <tile/>
@@ -3910,8 +4060,8 @@
    </chunk>
   </data>
  </layer>
- <imagelayer id="11" name="Tree" offsetx="-560" offsety="-720">
-  <image source="../Tree_SlimeFall.png" width="152" height="196"/>
+ <imagelayer id="11" name="Tree_tileset" offsetx="-560" offsety="-720">
+  <image source="Tree_tileset.png" width="152" height="196"/>
  </imagelayer>
  <layer id="1" name="Spikes" width="100" height="50">
   <data>

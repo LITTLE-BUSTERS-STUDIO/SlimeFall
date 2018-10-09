@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.0" name="Collision Boxes" tilewidth="16" tileheight="16" tilecount="4" columns="2">
- <image source="../Collision Box.png" width="32" height="32"/>
+<tileset firstgid="61" name="Collision_boxes" tilewidth="16" tileheight="16" tilecount="4" columns="2">
+ <image source="../Collision_boxes.png" width="32" height="32"/>
  <terraintypes>
   <terrain name="Floor" tile="0"/>
   <terrain name="Death" tile="2"/>
