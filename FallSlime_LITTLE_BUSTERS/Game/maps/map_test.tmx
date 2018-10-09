@@ -2,7 +2,7 @@
 <!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
 <map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="50" height="29" tilewidth="16" tileheight="16" infinite="0" nextlayerid="16" nextobjectid="37">
   <tileset firstgid="1" tiledversion="1.2.0" name="Basic" tilewidth="16" tileheight="16" tilecount="60" columns="10">
-    <image source="Tileset.png" width="160" height="96"/>
+    <image source="Basic_tileset.png" width="160" height="96"/>
     <terraintypes>
       <terrain name="Ground" tile="-1"/>
       <terrain name="Rock" tile="-1"/>
