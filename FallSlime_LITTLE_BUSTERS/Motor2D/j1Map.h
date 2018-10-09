@@ -48,7 +48,7 @@ struct TileSet
 
 struct CollidersGroup
 {
-	
+	p2SString			          name;
 	COLLIDER_TYPE			      type;
 	p2List_item<Collider*> **     colls = nullptr;
 	uint                          num_colliders = 0u;

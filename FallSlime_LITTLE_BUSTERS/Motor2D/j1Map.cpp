@@ -32,7 +32,7 @@ void j1Map::Draw()
 	if (map_loaded == false)
 		return;
 
-	TileSet *tileset = data.tilesets.start->data;
+	p2List_item <TileSet*> *tileset = nullptr;
 	p2List_item <MapLayer*>*layer = data.layers.start;
 
 
@@ -43,12 +43,26 @@ void j1Map::Draw()
 		{
 			for (uint i = 0; i < data.width; i++)
 			{
-
 				uint id = layer->data->tiles [layer->data->Get(i, j)];
+
+				tileset = data.tilesets.start;
+
+
+			/*	while (tileset->next != NULL)
+				{
+					if (id < tileset->data->firstgid)
+					{
+						break;
+					}
+					tileset = tileset->next;
+				}
+*/
+
+
 				iPoint map_pos = MapToWorld(i, j);
-				SDL_Rect rect = tileset->GetTileRect(id);
+				SDL_Rect rect = tileset->data->GetTileRect(id);
 				if (id != 0)
-					App->render->Blit(tileset->texture, map_pos.x, map_pos.y, &rect);
+					App->render->Blit(tileset->data->texture, map_pos.x, map_pos.y, &rect);
 			}
 		}
 		layer = layer->next;
@@ -404,6 +418,7 @@ bool j1Map::LoadColliders(pugi::xml_node& object_node, CollidersGroup* group)
 {
 	bool ret = true;
 	
+	group->name.create(object_node.attribute("name").as_string());
 
 	for (pugi::xml_node object_data = object_node.child("object"); object_data; object_data = object_data.next_sibling("object"))
 	{
@@ -423,6 +438,8 @@ bool j1Map::LoadColliders(pugi::xml_node& object_node, CollidersGroup* group)
 		group->colls[counter] = App->collision->AddCollider(rect, COLLIDER_WALL, this);
 		++counter;
 	}
+
+	LOG("Added colliders %s----", object_node.attribute("name").as_string());
 
 
 	return ret;
