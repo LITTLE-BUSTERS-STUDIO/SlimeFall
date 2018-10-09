@@ -115,6 +115,8 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Game\maps\hello2.tmx" />
+    <None Include="..\Game\maps\Level1_Phase1-2-3-4.tmx">
+      <Filter>Programacio 2 ===========</Filter>
+    </None>
   </ItemGroup>
 </Project>

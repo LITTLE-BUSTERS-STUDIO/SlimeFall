@@ -110,7 +110,7 @@
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Game\maps\hello2.tmx" />
+    <None Include="..\Game\maps\Level1_Phase1-2-3-4.tmx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
