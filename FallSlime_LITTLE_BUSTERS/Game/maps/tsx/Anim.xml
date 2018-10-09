@@ -1,0 +1,115 @@
+<anim firstgid="61" name="Slime_Blue_animation" tilewidth="33" tileheight="33" tilecount="11" columns="11">
+  <image source="Slime_Blue_animation.png" width="363" height="33"/>
+  <tile id="0">
+    <animation>
+      <frame tileid="0" duration="100"/>
+      <frame tileid="1" duration="100"/>
+      <frame tileid="2" duration="100"/>
+      <frame tileid="3" duration="100"/>
+      <frame tileid="4" duration="100"/>
+      <frame tileid="5" duration="100"/>
+      <frame tileid="6" duration="100"/>
+      <frame tileid="7" duration="100"/>
+      <frame tileid="8" duration="100"/>
+      <frame tileid="9" duration="100"/>
+      <frame tileid="10" duration="100"/>
+    </animation>
+  </tile>
+</anim>
+<anim firstgid="72" name="Slime_Magenta_animation" tilewidth="33" tileheight="33" tilecount="11" columns="11">
+  <image source="Slime_Magenta_animation.png" width="363" height="33"/>
+  <tile id="0">
+    <animation>
+      <frame tileid="0" duration="100"/>
+      <frame tileid="1" duration="100"/>
+      <frame tileid="2" duration="100"/>
+      <frame tileid="3" duration="100"/>
+      <frame tileid="4" duration="100"/>
+      <frame tileid="5" duration="100"/>
+      <frame tileid="6" duration="100"/>
+      <frame tileid="7" duration="100"/>
+      <frame tileid="8" duration="100"/>
+      <frame tileid="9" duration="100"/>
+      <frame tileid="10" duration="100"/>
+    </animation>
+  </tile>
+</anim>
+<anim firstgid="83" name="Slime_Green_animation" tilewidth="33" tileheight="33" tilecount="11" columns="11">
+  <image source="Slime_Green_animation.png" width="363" height="33"/>
+  <tile id="0">
+    <animation>
+      <frame tileid="0" duration="100"/>
+      <frame tileid="1" duration="100"/>
+      <frame tileid="2" duration="100"/>
+      <frame tileid="3" duration="100"/>
+      <frame tileid="4" duration="100"/>
+      <frame tileid="5" duration="100"/>
+      <frame tileid="6" duration="100"/>
+      <frame tileid="7" duration="100"/>
+      <frame tileid="8" duration="100"/>
+      <frame tileid="9" duration="100"/>
+      <frame tileid="10" duration="100"/>
+    </animation>
+  </tile>
+</anim>
+<anim firstgid="94" name="wateranimate3" tilewidth="32" tileheight="32" tilecount="15" columns="5">
+  <image source="wateranimate3.png" width="160" height="96"/>
+  <tile id="0">
+    <animation>
+      <frame tileid="0" duration="300"/>
+      <frame tileid="1" duration="300"/>
+      <frame tileid="2" duration="300"/>
+      <frame tileid="3" duration="200"/>
+      <frame tileid="4" duration="200"/>
+    </animation>
+  </tile>
+  <tile id="5">
+    <animation>
+      <frame tileid="5" duration="300"/>
+      <frame tileid="6" duration="300"/>
+      <frame tileid="7" duration="300"/>
+      <frame tileid="8" duration="200"/>
+      <frame tileid="9" duration="200"/>
+    </animation>
+  </tile>
+  <tile id="10">
+    <animation>
+      <frame tileid="10" duration="300"/>
+      <frame tileid="11" duration="200"/>
+      <frame tileid="12" duration="200"/>
+    </animation>
+  </tile>
+</anim>
+<anim firstgid="109" name="Water_fall" tilewidth="90" tileheight="173" tilecount="4" columns="4">
+  <image source="Water_fall.png" width="382" height="173"/>
+  <tile id="0">
+    <animation>
+      <frame tileid="0" duration="100"/>
+      <frame tileid="1" duration="200"/>
+      <frame tileid="2" duration="200"/>
+      <frame tileid="3" duration="200"/>
+    </animation>
+  </tile>
+</anim>
+<anim firstgid="113" name="Water_fall2" tilewidth="90" tileheight="314" tilecount="4" columns="4">
+  <image source="Water_fall2.png" width="382" height="314"/>
+  <tile id="0">
+    <animation>
+      <frame tileid="0" duration="200"/>
+      <frame tileid="1" duration="200"/>
+      <frame tileid="2" duration="200"/>
+      <frame tileid="3" duration="200"/>
+    </animation>
+  </tile>
+</anim>
+<anim firstgid="117" name="Water_fall3" tilewidth="90" tileheight="261" tilecount="4" columns="4">
+  <image source="Water_fall3.png" width="382" height="261"/>
+  <tile id="0">
+    <animation>
+      <frame tileid="0" duration="200"/>
+      <frame tileid="1" duration="200"/>
+      <frame tileid="2" duration="200"/>
+      <frame tileid="3" duration="200"/>
+    </animation>
+  </tile>
+</anim>
