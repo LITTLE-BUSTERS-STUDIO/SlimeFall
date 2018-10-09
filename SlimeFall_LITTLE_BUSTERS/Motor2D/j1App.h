@@ -10,9 +10,11 @@ class j1Window;
 class j1Input;
 class j1Render;
 class j1Textures;
+class j1Collision;
 class j1Audio;
 class j1Scene;
 class j1Map;
+
 
 class j1App
 {
@@ -83,6 +85,7 @@ public:
 	j1Audio*			audio;
 	j1Scene*			scene;
 	j1Map*				map;
+	j1Collision*        collision;
 
 private:
 

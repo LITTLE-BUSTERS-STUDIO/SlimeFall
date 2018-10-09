@@ -64,18 +64,22 @@ public:
 	// Check if a certain window event happened
 	bool GetWindowEvent(int code);
 
-	// Get mouse / axis position
+	// Get mouse / Get keyboar state / axis position
 	void GetMousePosition(int &x, int &y);
 	void GetMouseMotion(int& x, int& y);
 
 private:
 	bool		windowEvents[WE_COUNT];
-	j1KeyState*	keyboard;
 	j1KeyState	mouse_buttons[NUM_MOUSE_BUTTONS];
 	int			mouse_motion_x;
 	int			mouse_motion_y;
 	int			mouse_x;
 	int			mouse_y;
+
+public:
+	j1KeyState * keyboard;
+
+
 };
 
 #endif // __j1INPUT_H__
