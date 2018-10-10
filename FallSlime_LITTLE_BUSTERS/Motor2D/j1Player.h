@@ -42,7 +42,8 @@ public:
 	// Called by collision module
 	  bool OnCollision(Collider*, Collider*);
 
-private:
+//private:
+
 	//Transform
 	iPoint position;
 	uint width;

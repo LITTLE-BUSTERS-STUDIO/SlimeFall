@@ -45,7 +45,7 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	int speed = 1;
+	int speed = 0;
 
 	//if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 	//	App->SaveGame();

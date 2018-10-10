@@ -3,6 +3,9 @@
 #include "j1App.h"
 #include "j1Window.h"
 #include "j1Render.h"
+#include "j1Player.h"
+
+#include "j1Input.h"
 
 #define VSYNC true
 
@@ -69,7 +72,10 @@ bool j1Render::PreUpdate()
 
 bool j1Render::Update(float dt)
 {
-	int speed = 1;
+	//Tests var
+	int speed = 3;
+	int level_width = 300;
+	int level_high = 300;
 
 	//Camera hit screen
 	if (App->render->camera.x >= 0)
@@ -77,15 +83,27 @@ bool j1Render::Update(float dt)
 		App->render->StopCamera(speed, NULL);
 		LOG("-OUTSIDE- %d %d", App->render->camera.w, App->render->camera.h);
 	}
-	else if(-App->render->camera.x >= App->render->camera.w)
+	else if(-App->render->camera.x >= level_width) //level width
 	{
 		App->render->StopCamera(-speed, NULL);
 		LOG("-OUTSIDE- %d %d", App->render->camera.w, App->render->camera.h);
 	}
+	else if (App->render->camera.y >= 0)
+	{
+		App->render->StopCamera(NULL, speed);
+		LOG("-OUTSIDE- %d %d", App->render->camera.w, App->render->camera.h);
+	}
+	else if (-App->render->camera.y >= level_high) //level high
+	{
+		App->render->StopCamera(NULL, -speed);
+		LOG("-OUTSIDE- %d %d", App->render->camera.w, App->render->camera.h);
+	}
 
 	//Camera follow player
-
-
+	camera.x = -2 *App->player->position.x ;
+	camera.y = -2 *App->player->position.y ;
+	/*if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+		camera.x -= 2;*/
 	return true;
 }
 
