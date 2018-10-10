@@ -5,8 +5,6 @@
 #include "p2Defs.h"
 #include "p2Log.h"
 
-#include "j1Window.h"
-
 
 j1Collision::j1Collision()
 {
@@ -134,7 +132,7 @@ bool j1Collision::PostUpdate()
 			break;
 		case COLLIDER_PLAYER: // green
 			App->render->DrawQuad(item->data->rect, 0, 255, 0, alpha);
-			App->render->DrawCircle(App->win->screen_surface->w/2, App->win->screen_surface->w/2, 1, 50, 255, 50, alpha); // Circle middle of the screen
+			App->render->DrawCircle(640, 360, 1, 50, 255, 50, alpha); // Circle middle of the screen
 
 			break;
 		case COLLIDER_ENEMY: // red

@@ -55,6 +55,11 @@ public:
 	SDL_Rect		camera;
 	SDL_Rect		viewport;
 	SDL_Color		background;
+
+public:
+	//XML vars
+	int zoomedOutSize = 1;
+	int max_zoom = 5;
 };
 
 #endif // __j1RENDER_H__

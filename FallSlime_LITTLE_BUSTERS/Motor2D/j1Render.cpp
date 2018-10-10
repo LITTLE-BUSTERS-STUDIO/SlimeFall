@@ -100,10 +100,30 @@ bool j1Render::Update(float dt)
 	}
 
 	//Camera follow player
-	camera.x = -2 *App->player->position.x + camera.w / 2;
-	camera.y = -2 *App->player->position.y + camera.h / 2;
-	/*if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-		camera.x -= 2;*/
+	camera.x = -2 * App->player->position.x + camera.w / 2;
+	camera.y = -2 * App->player->position.y + camera.h / 2;
+	
+	
+	//ZOOM
+	if (App->input->keyboard[SDL_SCANCODE_F10] == KEY_DOWN)
+	{
+		if (zoomedOutSize < max_zoom)
+		{
+			zoomedOutSize++;
+			SDL_RenderSetLogicalSize(renderer, camera.w * zoomedOutSize, camera.h * zoomedOutSize);
+		}
+	}
+	else if (App->input->keyboard[SDL_SCANCODE_F11] == KEY_DOWN)
+	{
+		if (zoomedOutSize > 1)
+		{
+			zoomedOutSize--;
+			SDL_RenderSetLogicalSize(renderer, camera.w  * zoomedOutSize, camera.h * zoomedOutSize);
+		}
+	}
+	
+
+
 	return true;
 }
 
