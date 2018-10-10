@@ -33,11 +33,8 @@ void j1Map::Draw()
 		return;
 
 	p2List_item <TileSet*> *tileset = nullptr;
-	p2List_item <MapLayer*>*layer = data.layers.start;
 
-
-
-	while (layer != NULL)
+	for(p2List_item <MapLayer*>*layer = data.layers.start; layer; layer = layer->next)
 	{
 		for (uint j = 0; j < data.height; j++)
 		{
@@ -48,30 +45,13 @@ void j1Map::Draw()
 				tileset = data.tilesets.start;
 
 
-			/*	while (tileset->next != NULL)
-				{
-					if (id < tileset->data->firstgid)
-					{
-						break;
-					}
-					tileset = tileset->next;
-				}
-*/
-
-
 				iPoint map_pos = MapToWorld(i, j);
 				SDL_Rect rect = tileset->data->GetTileRect(id);
 				if (id != 0)
 					App->render->Blit(tileset->data->texture, map_pos.x, map_pos.y, &rect);
 			}
 		}
-		layer = layer->next;
 	}
-
-	
-
-		// TODO 9: Complete the draw function
-
 }
 
 inline uint MapLayer::Get(int x, int y) const
