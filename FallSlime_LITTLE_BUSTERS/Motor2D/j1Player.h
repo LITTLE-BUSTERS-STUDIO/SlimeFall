@@ -45,8 +45,13 @@ public:
 private:
 	//Transform
 	iPoint position;
-	uint width;
-	uint height;
+	SDL_Rect collider_rect;
+
+	//Physics
+	uint gravity;
+	uint speed_air;
+	uint speed_ground;
+	uint speed_jump;
 
 	//Collision
 	bool onCollisionLeft;
@@ -54,8 +59,9 @@ private:
 	bool onCollisionUp;
 	bool onCollisionDown;
 
-
+	
 	//Assets
+	p2SString idle_path;
 	Animation idle;
 	p2List_item<Collider*>  *collider = nullptr;
 	

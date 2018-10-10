@@ -36,13 +36,14 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(win);
 	AddModule(tex);
 	AddModule(audio);
-	AddModule(collision);
 	AddModule(map);
 	AddModule(scene);
 	AddModule(player);
 
+	// Colission needs to be always before render
+	AddModule(collision);
 
-	// render last to swap buffer
+	// Render last to swap buffer
 	AddModule(render);
 }
 

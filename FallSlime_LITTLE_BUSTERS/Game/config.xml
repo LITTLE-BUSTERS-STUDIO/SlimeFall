@@ -25,5 +25,11 @@
   <map>
     <folder>maps/</folder>
   </map>
+  <player>
+    <texture path =""/>
+    <collider width="" height=""/>
+    <physics gravity =" " speed_air =""  speed_ground ="" speed_jump =""/>
+    
 
+  </player>
 </config>

@@ -33,6 +33,14 @@ void j1Player::Init()
 bool  j1Player::Awake(pugi::xml_node& node )
 {
 	bool ret = true;
+	collider_rect.w = node.child("collider").attribute("width").as_uint(0);
+	collider_rect.h = node.child("collider").attribute("height").as_uint(0);
+	gravity = node.child("physics").attribute("gravity").as_uint(0);
+	speed_ground = node.child("physics").attribute("speed_ground").as_uint(0);
+	speed_air = node.child("physics").attribute("speed_air").as_uint(0);
+	speed_jump = node.child("physics").attribute("speed_jump").as_uint(0);
+
+
 	return ret;
 }
 

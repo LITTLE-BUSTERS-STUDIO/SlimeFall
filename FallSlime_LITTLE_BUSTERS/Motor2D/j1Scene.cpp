@@ -42,6 +42,9 @@ bool j1Scene::PreUpdate()
 	return true;
 }
 
+
+
+
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
