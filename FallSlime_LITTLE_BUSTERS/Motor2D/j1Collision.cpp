@@ -49,12 +49,7 @@ bool j1Collision::PreUpdate()
 	}
 	
 	// Collision detection and callbacks 
-	if (item != NULL)
-	{
-		item = colliders.start;
-		item_2 = item->next;
-	}
-	
+	item = colliders.start;
 
 	while (item != NULL)
 	{
@@ -66,6 +61,13 @@ bool j1Collision::PreUpdate()
 		}
 
 		c1 = item->data;
+
+
+		if (item != NULL)
+		{
+			item_2 = item->next;
+		}
+
 
 		// Avoid checking collisions already checked
 

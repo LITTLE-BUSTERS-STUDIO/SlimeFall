@@ -1,3 +1,4 @@
+<Player> 
 <anim firstgid="61" name="Slime_Blue_animation" tilewidth="33" tileheight="33" tilecount="11" columns="11">
   <image source="Slime_Blue_animation.png" width="363" height="33"/>
   <tile id="0">
@@ -16,6 +17,7 @@
     </animation>
   </tile>
 </anim>
+
 <anim firstgid="72" name="Slime_Magenta_animation" tilewidth="33" tileheight="33" tilecount="11" columns="11">
   <image source="Slime_Magenta_animation.png" width="363" height="33"/>
   <tile id="0">
@@ -113,3 +115,4 @@
     </animation>
   </tile>
 </anim>
+</Player>

@@ -112,6 +112,26 @@ void j1Render::SetBackgroundColor(SDL_Color color)
 	background = color;
 }
 
+
+
+bool j1Render::StopCamera()
+{
+	bool ret = false;
+	
+	return ret;
+}
+
+bool j1Render::MoveCamera(int velocity_x, int velocity_y)
+{
+	if (!StopCamera()) {
+		camera.x += velocity_x;
+		camera.y += velocity_y;
+	}
+	
+
+	return true;
+}
+
 void j1Render::SetViewPort(const SDL_Rect& rect)
 {
 	SDL_RenderSetViewport(renderer, &rect);
