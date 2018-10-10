@@ -29,7 +29,7 @@ j1Collision::j1Collision()
 j1Collision::~j1Collision()
 {}
 
-bool j1Collision::PreUpdate()
+bool j1Collision::Update(float dt)
 {
 	// Remove all colliders scheduled for deletion
 	p2List_item<Collider*>* item = nullptr;
@@ -163,17 +163,14 @@ bool j1Collision:: CleanUp()
 	return true;
 }
 
-    p2List_item <Collider*> * j1Collision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback)
+Collider * j1Collision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback)
 {
-	Collider* collider = new Collider(rect, type , callback);
-
-	return colliders.add(collider);
+	Collider* collider = new Collider(rect, type, callback);
+	colliders.add(collider);
+	return  collider;
 }
 
 bool Collider::CheckCollision(const SDL_Rect& r) const
 {
-	return (rect.x < r.x + r.w &&
-		rect.x + rect.w > r.x &&
-		rect.y < r.y + r.h &&
-		rect.h + rect.y > r.y);
+	return !(r.x >= (rect.x + rect.w) || (r.x + r.w) <= rect.x || r.y >= (rect.y + rect.h) || (r.y + r.h) <= rect.y);
 }

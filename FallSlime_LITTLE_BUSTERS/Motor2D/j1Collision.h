@@ -47,11 +47,11 @@ public:
 	j1Collision();
 	~j1Collision();
 
-	bool PreUpdate();
+	bool Update(float dt);
 	bool PostUpdate();
 	bool CleanUp();
 
-	p2List_item<Collider*> * AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback = nullptr);
+	Collider * AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback = nullptr);
 
 private:
 	p2List<Collider*> colliders;

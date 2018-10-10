@@ -6,6 +6,19 @@
 #include "p2Point.h"
 #include "Animation.h"
 
+enum class State
+{
+	idle
+};
+
+enum class Direction: uint
+{
+	right,
+	left,
+	up,
+	down,
+	max
+};
 
 class j1Player : public j1Module
 {
@@ -42,30 +55,29 @@ public:
 	// Called by collision module
 	  bool OnCollision(Collider*, Collider*);
 
-//private:
+private:
 
 	//Transform
-	iPoint position;
+	fPoint position;
 	SDL_Rect collider_rect;
+	State current_state;
+	
 
 	//Physics
-	uint gravity;
-	uint speed_air;
-	uint speed_ground;
-	uint speed_jump;
-
+	fPoint velocity;
+	fPoint acceleration;
+	float gravity;
+	float speed_air;
+	float speed_ground;
+	float speed_jump;
 
 	//Collision
-	bool onCollisionLeft;
-	bool onCollisionRight;
-	bool onCollisionUp;
-	bool onCollisionDown;
-
+	bool on_ground;
 	
 	//Assets
 	p2SString idle_path;
 	Animation idle;
-	p2List_item<Collider*>  *collider = nullptr;
+	Collider  *collider = nullptr;
 	
 };
 

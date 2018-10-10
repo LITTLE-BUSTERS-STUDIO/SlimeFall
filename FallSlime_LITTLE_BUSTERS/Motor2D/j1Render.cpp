@@ -99,7 +99,7 @@ bool j1Render::Update(float dt)
 		LOG("-OUTSIDE- %d %d", App->render->camera.w, App->render->camera.h);
 	}
 
-	//Camera follow player
+	//dCamera follow player
 	/*camera.x = App->win->GetScale() * App->player->position.x - camera.w / 2;
 	camera.y = App->win->GetScale() * App->player->position.y + camera.h / 2;
 	*/

@@ -9,14 +9,15 @@
 #include "j1Collision.h"
 #include "j1Player.h"
 
-
-
-
-
 j1Player::j1Player() 
 {
 	name.create("player");
-	position.x = position.y = 200;
+	position.x = 140;
+	position.y = 60;
+	velocity.x = 0;
+	velocity.y = 0;
+	acceleration.x = 0;
+	acceleration.y = 0;
 }
 
 j1Player::~j1Player()
@@ -32,70 +33,82 @@ void j1Player::Init()
 // Called before render is available
 bool  j1Player::Awake(pugi::xml_node& node )
 {
-	bool ret = true;
+	collider_rect.x = position.x;
+	collider_rect.y = position.y;
 	collider_rect.w = node.child("collider").attribute("width").as_uint(0);
 	collider_rect.h = node.child("collider").attribute("height").as_uint(0);
-	gravity = node.child("physics").attribute("gravity").as_uint(0);
-	speed_ground = node.child("physics").attribute("speed_ground").as_uint(0);
-	speed_air = node.child("physics").attribute("speed_air").as_uint(0);
-	speed_jump = node.child("physics").attribute("speed_jump").as_uint(0);
+	gravity = node.child("physics").attribute("gravity").as_float(0);
+	speed_ground = node.child("physics").attribute("speed_ground").as_float(0);
+	speed_air = node.child("physics").attribute("speed_air").as_float(0);
+	speed_jump = node.child("physics").attribute("speed_jump").as_float(0);
 
-
-	return ret;
+	return true;
 }
 
 // Called before the first frame
 bool j1Player::Start()
 {
-	bool ret = true;
-	collider = App->collision->AddCollider({ 0,0,20,20 }, COLLIDER_PLAYER, this);
-	return ret;
+	// Add all components 
+	collider = App->collision->AddCollider( collider_rect, COLLIDER_PLAYER, this);
+
+	return true;
 }
 
 // Called each loop iteration
 bool j1Player::PreUpdate()
 {
-	bool ret = true;
-
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-		position.y -= 1;
-
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-		position.y += 1;
+	// Only if player is on ground 
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && on_ground)
+	{
+		velocity.y = -speed_jump;
+		on_ground = false;
+	}
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-		position.x -= 1;
+	{
+		if (on_ground)
+			velocity.x = -speed_ground;
+		else
+			velocity.x = -speed_air;
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	{
+		if (on_ground)
+			velocity.x = +speed_ground;
+		else
+			velocity.x = +speed_air;
+	}
+	else
+		velocity.x = 0;
 
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-		position.x += 1;
-	
-	if (collider != NULL)
-		collider->data->SetPos(position.x - collider_rect.w / 2, position.y - collider_rect.h / 2);
-
-	return ret;
+	return true;
 }
 
 // Called each loop iteration
 bool j1Player::Update(float dt)
 {
-	bool ret = true;
+	if (on_ground == false)
+	{
+		acceleration.y = gravity;
+	}
 
-	
-	return ret;
+	velocity += acceleration;
+	position += velocity;
+	collider->SetPos(position.x - collider_rect.w/2, position.y);
+
+	return true;
 }
 
 // Called each loop iteration
 bool j1Player::PostUpdate()
 {
-	bool ret = true;
-	return ret;
+	return true;
 }
 
 // Called before quitting
 bool j1Player::CleanUp()
 {
-	bool ret = true;
-	return ret;
+	return true;
 }
 
 //Save and Load
@@ -111,18 +124,65 @@ bool j1Player::Save(pugi::xml_node& node) const
 	return ret;
 }
 
-// Called by collision module
+// Remove Colliders Overlap
 bool j1Player::OnCollision(Collider* c1, Collider* c2)
 {
 	bool ret = true;
 	LOG("Collision!!!!");
 
-	if (c2->rect.y + c2->rect.h > c1->rect.y)
+	// Switch all collider types
+	switch (c2->type)
 	{
-		position.y += 1;
+	case COLLIDER_WALL:
+
+		bool directions[(uint)Direction::max];
+		directions[(uint)Direction::left] = velocity.x < 0;
+		directions[(uint)Direction::right] = velocity.x > 0;
+		directions[(uint)Direction::up] = velocity.y < 0;
+		directions[(uint)Direction::down] = velocity.y > 0;
+
+		uint distances[(uint)Direction::max];
+		distances[(uint)Direction::left] = (c2->rect.x + c2->rect.w) - (position.x - c1->rect.w / 2);
+		distances[(uint)Direction::right] = (position.x + c1->rect.w / 2) - c2->rect.x;
+		distances[(uint)Direction::up] = (c2->rect.y + c2->rect.h) - (position.y - c1->rect.h);
+		distances[(uint)Direction::down] = position.y - c2->rect.y;
+
+		int offset_direction = -1;
+
+		for (uint i = 0; i < (uint)Direction::max; ++i)
+		{
+			if (directions[i]) {
+				if (offset_direction == -1)
+					offset_direction = i;
+				else if (distances[i] < distances[(uint)offset_direction])
+					offset_direction = i;
+			}
+		}
+
+		switch ((Direction)offset_direction) {
+
+		case Direction::down:
+			position.y = c2->rect.y;
+			velocity.y = 0;
+			acceleration.y = 0;
+			on_ground = true;
+			break;
+		case Direction::up:
+			position.y = c2->rect.y + c2->rect.h + collider->rect.h;
+			velocity.y = 0;
+			acceleration.y = 0;
+			break;
+		case Direction::left:
+			position.x = c2->rect.x + c2->rect.w + collider->rect.w / 2;
+			velocity.x = 0;
+			break;
+		case Direction::right:
+			position.x = c2->rect.x - collider->rect.w / 2;
+			velocity.x = 0;
+			break;
+		}
+
+		collider->SetPos(position.x - collider->rect.w / 2, position.y - collider->rect.h);
 	}
-
-
-	
 	return ret;
 }

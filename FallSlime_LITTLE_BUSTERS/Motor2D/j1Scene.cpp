@@ -31,7 +31,7 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 
-	App->map->Load("Level1_Phase1-2-3-4.tmx");
+	App->map->Load("map_test.tmx");
 
 	return true;
 }

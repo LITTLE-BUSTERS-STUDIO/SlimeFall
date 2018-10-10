@@ -407,7 +407,7 @@ bool j1Map::LoadColliders(pugi::xml_node& object_node, CollidersGroup* group)
 		++group->num_colliders;
 	}
 
-	group->colls = new p2List_item<Collider*>*[group->num_colliders];
+	group->colls = new Collider*[group->num_colliders];
 	uint counter = 0;
 
 	for (pugi::xml_node object_data = object_node.child("object"); object_data; object_data = object_data.next_sibling("object"))
