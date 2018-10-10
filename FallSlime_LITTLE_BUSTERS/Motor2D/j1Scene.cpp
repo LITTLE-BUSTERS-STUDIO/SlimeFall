@@ -66,18 +66,21 @@ bool j1Scene::Update(float dt)
 		App->render->MoveCamera(-speed, NULL);
 
 	//Camera hit screen
-	if (App->render->camera.x <= 0 && -App->render->camera.x <= App->render->camera.w)
+	if (App->render->camera.x >= 0 || -App->render->camera.x >= App->render->camera.w)
 	{
-		App->render->StopCamera();
-		LOG("-INSIDE- %d %d", App->render->camera.w, App->render->camera.h);
-	}
-	else
+		//App->render->StopCamera();
 		LOG("-OUTSIDE- %d %d", App->render->camera.w, App->render->camera.h);
+	}
 
-		
+	else
+		LOG("-INSIDE- %d %d", App->render->camera.w, App->render->camera.h);
+
 		
 	
+		
 
+		
+		
 
 
 	//App->render->Blit(img, 0, 0);

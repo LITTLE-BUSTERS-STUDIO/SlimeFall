@@ -117,7 +117,7 @@ void j1Render::SetBackgroundColor(SDL_Color color)
 bool j1Render::StopCamera()
 {
 	bool ret = false;
-	
+
 	return ret;
 }
 
