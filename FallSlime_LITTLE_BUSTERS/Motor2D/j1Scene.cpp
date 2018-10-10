@@ -62,18 +62,6 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->MoveCamera(-speed, NULL);
 
-	//Camera hit screen
-
-	if (App->render->camera.x >= 0 || -App->render->camera.x >= App->render->camera.w)
-	{
-		//App->render->StopCamera();
-		LOG("-OUTSIDE- %d %d", App->render->camera.w, App->render->camera.h);
-	}
-
-	else
-		LOG("-INSIDE- %d %d", App->render->camera.w, App->render->camera.h);
-
-
 
 	//App->render->Blit(img, 0, 0);
 	App->map->Draw();
