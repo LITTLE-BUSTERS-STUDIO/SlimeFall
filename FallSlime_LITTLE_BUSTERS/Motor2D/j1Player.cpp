@@ -62,7 +62,7 @@ bool j1Player::PreUpdate()
 		position.x += 1;
 	
 	if (collider != NULL)
-		collider->data->SetPos(position.x - width / 2, position.y - height / 2);
+		collider->data->SetPos(position.x - width / 2, position.y - high / 2);
 
 	return ret;
 }

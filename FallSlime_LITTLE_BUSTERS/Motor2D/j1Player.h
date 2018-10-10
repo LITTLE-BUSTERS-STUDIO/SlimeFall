@@ -47,7 +47,7 @@ public:
 	//Transform
 	iPoint position;
 	uint width;
-	uint height;
+	uint high;
 
 	//Collision
 	bool onCollisionLeft;
