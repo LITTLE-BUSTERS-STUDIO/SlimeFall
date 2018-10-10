@@ -73,12 +73,12 @@ bool j1Render::PreUpdate()
 bool j1Render::Update(float dt)
 {
 	//Tests var
-	int speed = 3;
+	int speed = 1;
 	int level_width = 300;
 	int level_high = 300;
 
 	//Camera hit screen
-	if (App->render->camera.x <= 0)
+	if (App->render->camera.x < 0)
 	{
 		StopCameraPlayer(-speed, NULL);
 		LOG("-OUTSIDE- %d %d", App->render->camera.w, App->render->camera.h);
@@ -88,7 +88,7 @@ bool j1Render::Update(float dt)
 		StopCameraPlayer(speed, NULL);
 		LOG("-OUTSIDE- %d %d", App->render->camera.w, App->render->camera.h);
 	}
-	if (App->render->camera.y <= 0)
+	if (App->render->camera.y < 0)
 	{
 		StopCameraPlayer(NULL, -speed);
 		LOG("-OUTSIDE- %d %d", App->render->camera.w, App->render->camera.h);
