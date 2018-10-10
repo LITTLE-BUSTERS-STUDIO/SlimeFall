@@ -44,7 +44,7 @@ public:
 	void SetBackgroundColor(SDL_Color color);
 
 	//Stop Camera movement
-	bool StopCamera(int, int);
+	bool StopCameraPlayer(int, int);
 
 	//Set Camera movement
 	bool MoveCamera(int, int);

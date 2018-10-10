@@ -80,29 +80,29 @@ bool j1Render::Update(float dt)
 	//Camera hit screen
 	if (App->render->camera.x <= 0)
 	{
-		App->render->StopCamera(speed, NULL);
+		StopCameraPlayer(-speed, NULL);
 		LOG("-OUTSIDE- %d %d", App->render->camera.w, App->render->camera.h);
 	}
 	else if(App->render->camera.x >= level_width) //level width
 	{
-		App->render->StopCamera(-speed, NULL);
+		StopCameraPlayer(speed, NULL);
 		LOG("-OUTSIDE- %d %d", App->render->camera.w, App->render->camera.h);
 	}
 	if (App->render->camera.y <= 0)
 	{
-		App->render->StopCamera(NULL, speed);
+		StopCameraPlayer(NULL, -speed);
 		LOG("-OUTSIDE- %d %d", App->render->camera.w, App->render->camera.h);
 	}
 	else if (App->render->camera.y >= level_high) //level high
 	{
-		App->render->StopCamera(NULL, -speed);
+		StopCameraPlayer(NULL, speed);
 		LOG("-OUTSIDE- %d %d", App->render->camera.w, App->render->camera.h);
 	}
 
 	//Camera follow player
-	/*camera.x = App->win->GetScale() * App->player->position.x - camera.w / 2;
-	camera.y = App->win->GetScale() * App->player->position.y + camera.h / 2;
-	*/
+	camera.x = App->win->GetScale() * App->player->position.x - camera.w / 2;
+	camera.y = App->win->GetScale() * App->player->position.y - camera.h / 2;
+	
 	
 	//ZOOM
 	if (App->input->keyboard[SDL_SCANCODE_F10] == KEY_DOWN)
@@ -169,12 +169,12 @@ void j1Render::SetBackgroundColor(SDL_Color color)
 
 
 
-bool j1Render::StopCamera(int velocity_x, int velocity_y)
+bool j1Render::StopCameraPlayer(int velocity_x, int velocity_y)
 {
 	bool ret = true;
 
-	camera.x += velocity_x;
-	camera.y += velocity_y;
+	App->player->position.x -= velocity_x;
+	App->player->position.y -= velocity_y;
 
 	return ret;
 }

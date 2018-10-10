@@ -16,7 +16,8 @@
 j1Player::j1Player() 
 {
 	name.create("player");
-	position.x = position.y = 200;
+	position.x = 400;
+	position.y = 200;
 }
 
 j1Player::~j1Player()
