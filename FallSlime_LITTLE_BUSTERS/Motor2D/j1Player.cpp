@@ -16,7 +16,7 @@
 j1Player::j1Player() 
 {
 	name.create("player");
-	position.x = position.y = 0;
+	position.x = position.y = 200;
 }
 
 j1Player::~j1Player()
@@ -70,7 +70,7 @@ bool j1Player::PreUpdate()
 		position.x += 1;
 	
 	if (collider != NULL)
-		collider->data->SetPos(position.x - width / 2, position.y - height / 2);
+		collider->data->SetPos(position.x - collider_rect.w / 2, position.y - collider_rect.h / 2);
 
 	return ret;
 }

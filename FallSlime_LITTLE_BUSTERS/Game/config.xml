@@ -7,11 +7,11 @@
   </app>
 	
   <renderer>
-    <vsync value="false"/>
+    <vsync value="true"/>
   </renderer>
 
   <window>
-    <resolution width="1024" height="768" scale="2"/>
+    <resolution width="1280" height="720" scale="2"/>
     <fullscreen value="false"/>
     <borderless value="false"/>
     <resizable value="false"/>

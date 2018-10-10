@@ -42,7 +42,8 @@ public:
 	// Called by collision module
 	  bool OnCollision(Collider*, Collider*);
 
-private:
+//private:
+
 	//Transform
 	iPoint position;
 	SDL_Rect collider_rect;
@@ -52,6 +53,7 @@ private:
 	uint speed_air;
 	uint speed_ground;
 	uint speed_jump;
+
 
 	//Collision
 	bool onCollisionLeft;

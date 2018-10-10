@@ -48,34 +48,22 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	int speed = 1;
+	int speed = 3;
 
 	//if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 	//	App->SaveGame();
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		App->render->MoveCamera(NULL, speed);
-
-	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 		App->render->MoveCamera(NULL, -speed);
 
-	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		App->render->MoveCamera(speed, NULL);
+	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+		App->render->MoveCamera(NULL, speed);
 
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 		App->render->MoveCamera(-speed, NULL);
 
-	//Camera hit screen
-
-	if (App->render->camera.x >= 0 || -App->render->camera.x >= App->render->camera.w)
-	{
-		//App->render->StopCamera();
-		LOG("-OUTSIDE- %d %d", App->render->camera.w, App->render->camera.h);
-	}
-
-	else
-		LOG("-INSIDE- %d %d", App->render->camera.w, App->render->camera.h);
-
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+		App->render->MoveCamera(speed, NULL);
 
 
 	//App->render->Blit(img, 0, 0);

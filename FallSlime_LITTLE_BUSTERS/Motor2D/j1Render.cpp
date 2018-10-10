@@ -3,6 +3,9 @@
 #include "j1App.h"
 #include "j1Window.h"
 #include "j1Render.h"
+#include "j1Player.h"
+
+#include "j1Input.h"
 
 #define VSYNC true
 
@@ -69,6 +72,58 @@ bool j1Render::PreUpdate()
 
 bool j1Render::Update(float dt)
 {
+	//Tests var
+	int speed = 3;
+	int level_width = 300;
+	int level_high = 300;
+
+	//Camera hit screen
+	if (App->render->camera.x <= 0)
+	{
+		App->render->StopCamera(speed, NULL);
+		LOG("-OUTSIDE- %d %d", App->render->camera.w, App->render->camera.h);
+	}
+	else if(App->render->camera.x >= level_width) //level width
+	{
+		App->render->StopCamera(-speed, NULL);
+		LOG("-OUTSIDE- %d %d", App->render->camera.w, App->render->camera.h);
+	}
+	if (App->render->camera.y <= 0)
+	{
+		App->render->StopCamera(NULL, speed);
+		LOG("-OUTSIDE- %d %d", App->render->camera.w, App->render->camera.h);
+	}
+	else if (App->render->camera.y >= level_high) //level high
+	{
+		App->render->StopCamera(NULL, -speed);
+		LOG("-OUTSIDE- %d %d", App->render->camera.w, App->render->camera.h);
+	}
+
+	//Camera follow player
+	/*camera.x = App->win->GetScale() * App->player->position.x - camera.w / 2;
+	camera.y = App->win->GetScale() * App->player->position.y + camera.h / 2;
+	*/
+	
+	//ZOOM
+	if (App->input->keyboard[SDL_SCANCODE_F10] == KEY_DOWN)
+	{
+		if (zoomedOutSize < max_zoom)
+		{
+			zoomedOutSize++;
+			SDL_RenderSetLogicalSize(renderer, camera.w * zoomedOutSize, camera.h * zoomedOutSize);
+		}
+	}
+	else if (App->input->keyboard[SDL_SCANCODE_F11] == KEY_DOWN)
+	{
+		if (zoomedOutSize > 1)
+		{
+			zoomedOutSize--;
+			SDL_RenderSetLogicalSize(renderer, camera.w  * zoomedOutSize, camera.h * zoomedOutSize);
+		}
+	}
+	
+
+
 	return true;
 }
 
@@ -114,22 +169,24 @@ void j1Render::SetBackgroundColor(SDL_Color color)
 
 
 
-bool j1Render::StopCamera()
+bool j1Render::StopCamera(int velocity_x, int velocity_y)
 {
-	bool ret = false;
+	bool ret = true;
+
+	camera.x += velocity_x;
+	camera.y += velocity_y;
 
 	return ret;
 }
 
 bool j1Render::MoveCamera(int velocity_x, int velocity_y)
 {
-	if (!StopCamera()) {
-		camera.x += velocity_x;
-		camera.y += velocity_y;
-	}
-	
+	bool ret = true;
 
-	return true;
+	camera.x += velocity_x;
+	camera.y += velocity_y;
+
+	return ret;
 }
 
 void j1Render::SetViewPort(const SDL_Rect& rect)
@@ -149,8 +206,8 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 	uint scale = App->win->GetScale();
 
 	SDL_Rect rect;
-	rect.x = (int)(camera.x * speed) + x * scale;
-	rect.y = (int)(camera.y * speed) + y * scale;
+	rect.x = (int)(-camera.x * speed) + x * scale;
+	rect.y = (int)(-camera.y * speed) + y * scale;
 
 	if(section != NULL)
 	{
@@ -195,8 +252,8 @@ bool j1Render::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a
 	SDL_Rect rec(rect);
 	if(use_camera)
 	{
-		rec.x = (int)(camera.x + rect.x * scale);
-		rec.y = (int)(camera.y + rect.y * scale);
+		rec.x = (int)(-camera.x + rect.x * scale);
+		rec.y = (int)(-camera.y + rect.y * scale);
 		rec.w *= scale;
 		rec.h *= scale;
 	}
@@ -223,7 +280,7 @@ bool j1Render::DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 
 	int result = -1;
 
 	if(use_camera)
-		result = SDL_RenderDrawLine(renderer, camera.x + x1 * scale, camera.y + y1 * scale, camera.x + x2 * scale, camera.y + y2 * scale);
+		result = SDL_RenderDrawLine(renderer, -camera.x + x1 * scale, -camera.y + y1 * scale, -camera.x + x2 * scale, -camera.y + y2 * scale);
 	else
 		result = SDL_RenderDrawLine(renderer, x1 * scale, y1 * scale, x2 * scale, y2 * scale);
 
