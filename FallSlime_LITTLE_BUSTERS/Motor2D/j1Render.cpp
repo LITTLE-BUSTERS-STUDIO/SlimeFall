@@ -100,8 +100,8 @@ bool j1Render::Update(float dt)
 	}
 
 	//Camera follow player
-	camera.x = -2 *App->player->position.x ;
-	camera.y = -2 *App->player->position.y ;
+	camera.x = -2 *App->player->position.x + camera.w / 2;
+	camera.y = -2 *App->player->position.y + camera.h / 2;
 	/*if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 		camera.x -= 2;*/
 	return true;
