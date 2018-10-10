@@ -45,6 +45,8 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
+	int speed = 3; 
+
 	if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 		App->LoadGame();
 
@@ -52,16 +54,31 @@ bool j1Scene::Update(float dt)
 		App->SaveGame();
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		App->render->camera.y += 1;
+		App->render->MoveCamera(NULL, speed);
 
 	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		App->render->camera.y -= 1;
+		App->render->MoveCamera(NULL, -speed);
 
 	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		App->render->camera.x += 1;
+		App->render->MoveCamera(speed, NULL);
 
-	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->render->camera.x -= 1;
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+		App->render->MoveCamera(-speed, NULL);
+
+	//Camera hit screen
+	if (App->render->camera.x <= 0 && -App->render->camera.x <= App->render->camera.w)
+	{
+		App->render->StopCamera();
+		LOG("-INSIDE- %d %d", App->render->camera.w, App->render->camera.h);
+	}
+	else
+		LOG("-OUTSIDE- %d %d", App->render->camera.w, App->render->camera.h);
+
+		
+		
+	
+
+
 
 	//App->render->Blit(img, 0, 0);
 	App->map->Draw();
@@ -71,12 +88,13 @@ bool j1Scene::Update(float dt)
 	iPoint map_coordinates(x/App->map->data.tile_width, y/ App->map->data.tile_height);
 	iPoint map_coordinates_pixel(x , y);
 
-	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:%d, %d Pixel: %d, %d",
+	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:%d, %d Pixel: %d, %d Camera: %d, %d",
 					App->map->data.width, App->map->data.height,
 					App->map->data.tile_width, App->map->data.tile_height,
 					App->map->data.tilesets.count(),
 					map_coordinates.x, map_coordinates.y,
-					map_coordinates_pixel.x, map_coordinates_pixel.y);
+					map_coordinates_pixel.x, map_coordinates_pixel.y,
+					App->render->camera.x, App->render->camera.y);
 
 	App->win->SetTitle(title.GetString());
 	return true;
