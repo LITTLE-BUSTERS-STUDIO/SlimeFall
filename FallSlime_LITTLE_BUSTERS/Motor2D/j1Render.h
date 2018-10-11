@@ -44,10 +44,8 @@ public:
 	void SetBackgroundColor(SDL_Color color);
 
 	//Stop Camera movement
-	bool StopCameraPlayer(int, int);
-
-	//Set Camera movement
-	bool MoveCamera(int, int);
+	void StopCamera(int, int);
+	void MoveCamera(int, int);
 
 public:
 
@@ -60,6 +58,7 @@ public:
 	//XML vars
 	int zoomedOutSize = 1;
 	int max_zoom = 5;
+	bool free_camera = true;
 };
 
 #endif // __j1RENDER_H__

@@ -16,8 +16,8 @@
 j1Player::j1Player() 
 {
 	name.create("player");
-	position.x = 400;
-	position.y = 200;
+	position.x = 350;
+	position.y = 400;
 }
 
 j1Player::~j1Player()
@@ -116,7 +116,6 @@ bool j1Player::Save(pugi::xml_node& node) const
 bool j1Player::OnCollision(Collider* c1, Collider* c2)
 {
 	bool ret = true;
-	LOG("Collision!!!!");
 
 	if (c2->rect.y + c2->rect.h > c1->rect.y)
 	{

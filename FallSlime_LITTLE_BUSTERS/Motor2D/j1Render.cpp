@@ -74,34 +74,69 @@ bool j1Render::Update(float dt)
 {
 	//Tests var
 	int speed = 1;
-	int level_width = 300;
+	int level_width = 2000;
 	int level_high = 300;
 
 	//Camera hit screen
-	if (App->render->camera.x < 0)
+
+
+	if (free_camera) 
 	{
-		StopCameraPlayer(-speed, NULL);
-		LOG("-OUTSIDE- %d %d", App->render->camera.w, App->render->camera.h);
-	}
-	else if(App->render->camera.x >= level_width) //level width
-	{
-		StopCameraPlayer(speed, NULL);
-		LOG("-OUTSIDE- %d %d", App->render->camera.w, App->render->camera.h);
-	}
-	if (App->render->camera.y < 0)
-	{
-		StopCameraPlayer(NULL, -speed);
-		LOG("-OUTSIDE- %d %d", App->render->camera.w, App->render->camera.h);
-	}
-	else if (App->render->camera.y >= level_high) //level high
-	{
-		StopCameraPlayer(NULL, speed);
-		LOG("-OUTSIDE- %d %d", App->render->camera.w, App->render->camera.h);
+		if (App->render->camera.x <= 0)
+		{
+			camera.x = 0;
+			free_camera = false;
+			//StopCamera(-speed, NULL);
+			LOG("LLLLLLLLLLLLLLLLLLLLLLLLLLL");
+		}
+		else if (App->render->camera.x + camera.w > level_width)
+		{
+			camera.x = level_width - camera.w;
+			free_camera = false;
+			//StopCamera(-speed, NULL);
+			LOG("RRRRRRRRRRRRRRRRRRRRRRRRRRR");
+		}
 	}
 
+	else if (App->player->position.x > camera.w/2 && App->player->position.x < level_width - camera.w / 2 )
+	{
+		free_camera = true;
+	}
+
+
+
+
+	if (free_camera)
+	{
+		camera.x =  App->player->position.x - camera.w / 2;
+		camera.y =  App->player->position.y - camera.h / 2 ;
+		LOG("_________%d", camera.x);
+	}
+
+
+
+
+
+	//else if(App->render->camera.x >= level_width) //level width
+	//{
+	//	//StopCamera(speed, NULL);
+	//	LOG("-Hit screen-");
+	//}
+
+	//if (App->render->camera.y <= 0)
+	//{
+	//	//StopCamera(NULL, -speed);
+	//	LOG("-Hit screen-");
+	//}
+	//else if (App->render->camera.y >= level_high) //level high
+	//{
+	//	//StopCamera(NULL, speed);
+	//	LOG("-Hit screen-");
+	//}
+
 	//Camera follow player
-	camera.x = App->win->GetScale() * App->player->position.x - camera.w / 2;
-	camera.y = App->win->GetScale() * App->player->position.y - camera.h / 2;
+
+
 	
 	
 	//ZOOM
@@ -121,8 +156,6 @@ bool j1Render::Update(float dt)
 			SDL_RenderSetLogicalSize(renderer, camera.w  * zoomedOutSize, camera.h * zoomedOutSize);
 		}
 	}
-	
-
 
 	return true;
 }
@@ -168,25 +201,21 @@ void j1Render::SetBackgroundColor(SDL_Color color)
 }
 
 
-
-bool j1Render::StopCameraPlayer(int velocity_x, int velocity_y)
+void j1Render::StopCamera(int velocity_x, int velocity_y)
 {
-	bool ret = true;
 
-	App->player->position.x -= velocity_x;
-	App->player->position.y -= velocity_y;
+	/*camera.x = -100;
+	camera.y += velocity_y;
+	LOG("_________  %d", camera.x);*/
 
-	return ret;
+	/*App->player->position.x -= velocity_x;
+	App->player->position.y -= velocity_y;	*/
 }
 
-bool j1Render::MoveCamera(int velocity_x, int velocity_y)
+void j1Render::MoveCamera(int velocity_x, int velocity_y)
 {
-	bool ret = true;
-
 	camera.x += velocity_x;
 	camera.y += velocity_y;
-
-	return ret;
 }
 
 void j1Render::SetViewPort(const SDL_Rect& rect)
