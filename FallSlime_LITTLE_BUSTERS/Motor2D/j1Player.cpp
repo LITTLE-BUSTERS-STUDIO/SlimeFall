@@ -97,7 +97,7 @@ bool j1Player::Update(float dt)
 
 	velocity += acceleration;
 	position += velocity;
-	collider->SetPos(position.x - collider_rect.w/2 , position.y);
+	collider->SetPos(position.x - collider_rect.w/2 , position.y - collider_rect.h / 2);
 
 	return true;
 }
@@ -137,6 +137,9 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 	{
 	case COLLIDER_WALL:
 
+		SDL_Rect player = c1->rect;
+		SDL_Rect coll = c2->rect;
+
 		bool directions[(uint)Direction::max];
 		directions[(uint)Direction::left] = velocity.x < 0;
 		directions[(uint)Direction::right] = velocity.x > 0;
@@ -144,10 +147,10 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 		directions[(uint)Direction::down] = velocity.y > 0;
 
 		uint distances[(uint)Direction::max];
-		distances[(uint)Direction::left] = abs(  c2->rect.x + c2->rect.w - (position.x + c1->rect.w / 2)  );
-		distances[(uint)Direction::right] = abs(   position.x + c1->rect.w / 2 - c2->rect.x   );
-		distances[(uint)Direction::up] = (c2->rect.y + c2->rect.h) - (position.y - c1->rect.h);
-		distances[(uint)Direction::down] = position.y - c2->rect.y;
+		distances[(uint)Direction::left] =   abs(  coll.x + coll.w - (player.x + player.w)  );
+		distances[(uint)Direction::right] =  abs(  player.x - coll.x   );
+		distances[(uint)Direction::up] =     abs(  player.y - coll.y   );
+		distances[(uint)Direction::down] =   abs(  player.y + player.h - (coll.y + coll.h)  );
 
 		int offset_direction = -1;
 
@@ -165,22 +168,23 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 		switch ((Direction)offset_direction) {
 
 		case Direction::down:
-			position.y = c2->rect.y - collider->rect.h /2;
+			position.y = coll.y - player.h / 2;
 			velocity.y = 0;
 			acceleration.y = 0;
 			on_ground = true;
 			break;
 		case Direction::up:
-			position.y = c2->rect.y + c2->rect.h + collider->rect.h / 2;
+			position.y = coll.y + coll.h + player.h / 2;
 			velocity.y = 0;
 			acceleration.y = 0;
-			break;
-		case Direction::left:
-			position.x = c2->rect.y - collider->rect.w / 2;
-			velocity.x = 0;
+			on_ground = false;
 			break;
 		case Direction::right:
-			position.x = c2->rect.x - collider->rect.w / 2;
+			position.x = coll.x - player.w / 2;
+			velocity.x = 0;
+			break;
+		case Direction::left:
+			position.x = coll.x + coll.w + player.w / 2;
 			velocity.x = 0;
 			break;
 		}

@@ -24,7 +24,7 @@
   <player>
     <texture path =""/>
     <collider width="20" height="20"/>
-    <physics gravity ="1" speed_air ="1"  speed_ground ="2" speed_jump ="15"/>
+    <physics gravity ="0.5" speed_air ="1.5"  speed_ground ="2" speed_jump ="15"/>
   </player>
   <scene>
     <music path="audio/music/Level1.ogg"/>
