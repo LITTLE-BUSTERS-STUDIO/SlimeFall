@@ -107,7 +107,7 @@ bool j1Collision::PostUpdate()
 	if (debug == false)
 		return true;
 
-	Uint8 alpha = 150;
+	Uint8 alpha = 90;
 	p2List_item<Collider*>* item;
 	item = colliders.start;
 

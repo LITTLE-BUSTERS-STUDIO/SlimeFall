@@ -35,21 +35,22 @@ void j1Player::Init()
 // Called before render is available
 bool  j1Player::Awake(pugi::xml_node& node )
 {
-	player_rect.x = 0;
-	player_rect.y = 0;
-	player_rect.w = 34;
-		player_rect.h = 34;
 
-	collider_rect.x = position.x;
-	collider_rect.y = position.y;
-	collider_rect.w = node.child("collider").attribute("width").as_uint(0);
-	collider_rect.h = node.child("collider").attribute("height").as_uint(0);
+	rect_collider.x = position.x;
+	rect_collider.y = position.y;
+	rect_texture.x = rect_texture.y = 0;
+	rect_texture.w = rect_texture.h = 34;
+
+	//Values
+	rect_collider.w = node.child("collider").attribute("width").as_uint(0);
+	rect_collider.h = node.child("collider").attribute("height").as_uint(0);
 	gravity = node.child("physics").attribute("gravity").as_float(0);
 	speed_ground = node.child("physics").attribute("speed_ground").as_float(0);
 	speed_air = node.child("physics").attribute("speed_air").as_float(0);
 	speed_jump = node.child("physics").attribute("speed_jump").as_float(0);
 
-	
+	//Assets
+	path_tex_player.create(node.child("texture").attribute("path").as_string(""));
 
 	return true;
 }
@@ -58,9 +59,9 @@ bool  j1Player::Awake(pugi::xml_node& node )
 bool j1Player::Start()
 {
 	// Add all components 
-	collider = App->collision->AddCollider( collider_rect, COLLIDER_PLAYER, this);
-	LOG("Loading player textures");
-	player_texture = App->tex->Load("textures/player_texture.png");/*App->tex->Load(node.child("texture").attribute("path").GetString());*/
+
+	collider = App->collision->AddCollider( rect_collider, COLLIDER_PLAYER, this);
+	tex_player = App->tex->Load(path_tex_player.GetString());
 
 	return true;
 }
@@ -86,7 +87,7 @@ bool j1Player::PreUpdate()
 		velocity.x = 0;
 
 	// Only if player is on ground 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && on_ground)
+	if ( (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) && on_ground)
 	{
 		velocity.y = -speed_jump;
 		on_ground = false;
@@ -107,11 +108,9 @@ bool j1Player::Update(float dt)
 	else
 		acceleration.y = 0;
 		
-
 	velocity += acceleration;
 	position += velocity;
-	collider->SetPos(position.x - collider_rect.w/2 , position.y - collider_rect.h / 2);
-
+	collider->SetPos(position.x - rect_collider.w / 2, position.y - rect_collider.h / 2);
 	on_ground = false;
 	return true;
 }
@@ -119,17 +118,15 @@ bool j1Player::Update(float dt)
 // Called each loop iteration
 bool j1Player::PostUpdate()
 {
-	//Blit
-	App->render->Blit(player_texture, position.x, position.y, &player_rect);
+	App->render->Blit(tex_player, position.x - rect_texture.w/2 , position.y - rect_texture.h / 2,  &rect_texture );
 	return true;
 }
 
 // Called before quitting
 bool j1Player::CleanUp()
 {
-	App->tex->UnLoad(player_texture);
-	player_texture = nullptr;
-
+	App->tex->UnLoad(tex_player);
+	tex_player = nullptr;
 	return true;
 }
 

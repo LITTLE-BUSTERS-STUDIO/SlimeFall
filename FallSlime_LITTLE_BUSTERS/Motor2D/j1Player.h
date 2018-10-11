@@ -6,6 +6,8 @@
 #include "p2Point.h"
 #include "Animation.h"
 
+struct SDL_Texture;
+
 enum class State
 {
 	idle
@@ -57,11 +59,6 @@ public:
 
 	//Transform
 	fPoint position;
-	SDL_Rect collider_rect;
-	SDL_Rect player_rect;
-	SDL_Texture* player_texture = nullptr;
-	State current_state;
-	
 
 	//Physics
 	fPoint velocity;
@@ -72,12 +69,16 @@ public:
 	float speed_jump;
 
 	//Collision
-	bool on_ground = false;
+	Collider      *collider = nullptr;
+	bool          on_ground = false;
+	SDL_Rect      rect_collider;
 	
 	//Assets
-	p2SString idle_path;
-	Animation idle;
-	Collider  *collider = nullptr;
+	SDL_Texture   *tex_player = nullptr;
+	p2SString     path_tex_player;
+	Animation     idle;
+	SDL_Rect      rect_texture;
+	State         current_state;
 	
 };
 
