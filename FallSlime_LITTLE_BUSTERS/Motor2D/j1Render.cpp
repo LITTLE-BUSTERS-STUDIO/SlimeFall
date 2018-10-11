@@ -79,8 +79,11 @@ bool j1Render::PreUpdate()
 		if (App->render->camera.x <= 0)
 		{
 			camera.x = 0;
+
 			free_camera_x = false;
 			LOG(" HIT LEFT");
+
+
 		}
 		else if (App->render->camera.x + camera.w > level_width)
 		{
@@ -100,7 +103,7 @@ bool j1Render::PreUpdate()
 	if (free_camera_x)
 	{
 		camera.x = App->player->position.x - camera.w / 2;
-		LOG("_________%d", camera.x);
+		//LOG("_________%d", camera.x);
 	}
 
 
