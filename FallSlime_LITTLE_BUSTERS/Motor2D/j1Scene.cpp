@@ -79,7 +79,7 @@ bool j1Scene::Update(float dt)
 					App->map->data.tile_width, App->map->data.tile_height,
 					App->map->data.tilesets.count(),
 					map_coordinates.x, map_coordinates.y,
-					map_coordinates_pixel.x, map_coordinates_pixel.y,
+					map_coordinates_pixel.x + App->render->camera.x, map_coordinates_pixel.y + App->render->camera.y,
 					App->render->camera.x, App->render->camera.y);
 
 	App->win->SetTitle(title.GetString());

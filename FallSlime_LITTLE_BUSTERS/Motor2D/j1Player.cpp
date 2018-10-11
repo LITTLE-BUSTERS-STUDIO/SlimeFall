@@ -12,9 +12,8 @@
 j1Player::j1Player() 
 {
 	name.create("player");
-
-	position.x = 140;
-	position.y = 60;
+	position.x = 350;
+	position.y = 400;
 	velocity.x = 0;
 	velocity.y = 0;
 	acceleration.x = 0;
@@ -130,7 +129,6 @@ bool j1Player::Save(pugi::xml_node& node) const
 bool j1Player::OnCollision(Collider* c1, Collider* c2)
 {
 	bool ret = true;
-	LOG("Collision!!!!");
 
 	// Switch all collider types
 	switch (c2->type)
