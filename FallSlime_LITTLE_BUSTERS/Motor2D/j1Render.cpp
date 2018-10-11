@@ -67,18 +67,14 @@ bool j1Render::Start()
 bool j1Render::PreUpdate()
 {
 	SDL_RenderClear(renderer);
-	return true;
-}
 
-bool j1Render::Update(float dt)
-{
 	//Tests var
 	int speed = 1;
 	int level_width = 2000;
 	int level_high = 300;
 
 	//Camera hit screen
-	if (free_camera) 
+	if (free_camera)
 	{
 		if (App->render->camera.x <= 0)
 		{
@@ -96,7 +92,7 @@ bool j1Render::Update(float dt)
 		}
 	}
 
-	else if (App->player->position.x > camera.w/2 && App->player->position.x < level_width - camera.w / 2 )
+	else if (App->player->position.x > camera.w / 2 && App->player->position.x < level_width - camera.w / 2)
 	{
 		free_camera = true;
 	}
@@ -104,11 +100,11 @@ bool j1Render::Update(float dt)
 
 	if (free_camera)
 	{
-		camera.x =  App->player->position.x - camera.w / 2;
-		camera.y =  App->player->position.y - camera.h / 2 ;
+		camera.x = App->player->position.x - camera.w / 2;
+		camera.y = App->player->position.y - camera.h / 2;
 		LOG("_________%d", camera.x);
 	}
-	
+
 	//ZOOM
 	if (App->input->keyboard[SDL_SCANCODE_F10] == KEY_DOWN)
 	{
@@ -126,6 +122,12 @@ bool j1Render::Update(float dt)
 			SDL_RenderSetLogicalSize(renderer, camera.w  * zoomedOutSize, camera.h * zoomedOutSize);
 		}
 	}
+
+	return true;
+}
+
+bool j1Render::Update(float dt)
+{
 
 	return true;
 }

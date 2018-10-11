@@ -94,6 +94,8 @@ bool j1Player::Update(float dt)
 	{
 		acceleration.y = gravity;
 	}
+	else
+		acceleration.y = 0;
 
 	velocity += acceleration;
 	position += velocity;
@@ -149,8 +151,8 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 		uint distances[(uint)Direction::max];
 		distances[(uint)Direction::left] =   abs(  coll.x + coll.w - (player.x + player.w)  );
 		distances[(uint)Direction::right] =  abs(  player.x - coll.x   );
-		distances[(uint)Direction::up] =     abs(  player.y - coll.y   );
-		distances[(uint)Direction::down] =   abs(  player.y + player.h - (coll.y + coll.h)  );
+		distances[(uint)Direction::up] =     abs(player.y + player.h - (coll.y + coll.h));
+		distances[(uint)Direction::down] =   abs(player.y - coll.y);
 
 		int offset_direction = -1;
 
@@ -177,7 +179,6 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 			position.y = coll.y + coll.h + player.h / 2;
 			velocity.y = 0;
 			acceleration.y = 0;
-			on_ground = false;
 			break;
 		case Direction::right:
 			position.x = coll.x - player.w / 2;
