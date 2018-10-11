@@ -60,6 +60,7 @@ bool j1Render::Start()
 	LOG("render start");
 	// back background
 	SDL_RenderGetViewport(renderer, &viewport);
+	SetViewPort(camera);
 	return true;
 }
 
@@ -250,12 +251,12 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 	if (flip_x)
 		flip = SDL_FLIP_HORIZONTAL;
 
-	if(pivot_x != INT_MAX && pivot_y != INT_MAX)
-	{
-		pivot.x = pivot_x;
-		pivot.y = pivot_y;
-		p = &pivot;
-	}
+	//if(pivot_x != INT_MAX && pivot_y != INT_MAX)
+	//{
+	//	pivot.x = pivot_x;
+	//	pivot.y = pivot_y;
+	//	p = &pivot;
+	//}
 
 	if(SDL_RenderCopyEx(renderer, texture, section, &rect, angle, p, flip) != 0)
 	{
