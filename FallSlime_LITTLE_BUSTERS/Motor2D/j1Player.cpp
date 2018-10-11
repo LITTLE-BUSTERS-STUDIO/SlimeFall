@@ -13,7 +13,7 @@
 j1Player::j1Player() 
 {
 	name.create("player");
-	position.x = 700/*130*/ ;
+	position.x = 400/*130*/ ;
 	position.y = 60;
 	velocity.x = 0;
 	velocity.y = 0;
@@ -37,8 +37,8 @@ bool  j1Player::Awake(pugi::xml_node& node )
 {
 	player_rect.x = 0;
 	player_rect.y = 0;
-	player_rect.w = node.child("collider").attribute("width").as_uint(0);
-	player_rect.h = node.child("collider").attribute("height").as_uint(0);
+	player_rect.w = 34;
+		player_rect.h = 34;
 
 	collider_rect.x = position.x;
 	collider_rect.y = position.y;

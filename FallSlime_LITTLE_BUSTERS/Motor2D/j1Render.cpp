@@ -82,8 +82,6 @@ bool j1Render::PreUpdate()
 
 			free_camera_x = false;
 			LOG(" HIT LEFT");
-
-
 		}
 		else if (App->render->camera.x + camera.w > level_width)
 		{
@@ -116,13 +114,20 @@ bool j1Render::PreUpdate()
 			free_camera_y = false;
 			LOG(" HIT UP");
 		}
-
+		/*else if (App->render->camera.y + camera.h > level_high)
+		{
+			camera.y = level_high - camera.h;
+			free_camera_y = false;
+			LOG(" HIT Down");
+		}*/
 	}
 
-	else if (App->player->position.y > camera.h / 2)
+	else if (App->player->position.y > camera.h / 2/* && App->player->position.y < level_high - camera.h / 2*/)
 	{
 		free_camera_y = true;
 	}
+
+	
 
 	//Camera_y Follow Player
 	if (free_camera_y)
