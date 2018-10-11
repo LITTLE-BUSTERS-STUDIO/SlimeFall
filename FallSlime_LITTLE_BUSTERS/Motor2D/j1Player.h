@@ -58,6 +58,8 @@ public:
 	//Transform
 	fPoint position;
 	SDL_Rect collider_rect;
+	SDL_Rect player_rect;
+	SDL_Texture* player_texture = nullptr;
 	State current_state;
 	
 

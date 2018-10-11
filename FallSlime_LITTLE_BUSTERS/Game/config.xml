@@ -12,7 +12,7 @@
   <audio>
       <volume_music default="20"/>
       <volume_sfx default ="20"/>
-      <mute value="false"/>
+      <mute value="true"/>
   </audio>
   
   <window>
@@ -29,7 +29,7 @@
     <folder>maps/</folder>
   </map>
   <player>
-    <texture path =""/>
+    <texture path ="textures/player_texture.png"/>
     <collider width="20" height="20"/>
     <physics gravity ="0.5" speed_air ="1.7"  speed_ground ="2" speed_jump ="10"/>
   </player>
