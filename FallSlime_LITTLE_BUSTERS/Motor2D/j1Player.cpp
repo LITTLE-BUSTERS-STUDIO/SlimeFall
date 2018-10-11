@@ -12,8 +12,8 @@
 j1Player::j1Player() 
 {
 	name.create("player");
-	position.x = 350;
-	position.y = 400;
+	position.x = 130 ;
+	position.y = 60;
 	velocity.x = 0;
 	velocity.y = 0;
 	acceleration.x = 0;
@@ -58,21 +58,14 @@ bool j1Player::Start()
 // Called each loop iteration
 bool j1Player::PreUpdate()
 {
-	// Only if player is on ground 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && on_ground)
-	{
-		velocity.y = -speed_jump;
-		on_ground = false;
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE)
 	{
 		if (on_ground)
 			velocity.x = -speed_ground;
 		else
 			velocity.x = -speed_air;
 	}
-	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE)
 	{
 		if (on_ground)
 			velocity.x = +speed_ground;
@@ -82,12 +75,20 @@ bool j1Player::PreUpdate()
 	else
 		velocity.x = 0;
 
+	// Only if player is on ground 
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && on_ground)
+	{
+		velocity.y = -speed_jump;
+		on_ground = false;
+	}
+
 	return true;
 }
 
 // Called each loop iteration
 bool j1Player::Update(float dt)
 {
+
 	if (on_ground == false)
 	{
 		acceleration.y = gravity;
@@ -95,7 +96,7 @@ bool j1Player::Update(float dt)
 
 	velocity += acceleration;
 	position += velocity;
-	collider->SetPos(position.x - collider_rect.w/2, position.y);
+	collider->SetPos(position.x - collider_rect.w/2 , position.y);
 
 	return true;
 }
@@ -152,6 +153,7 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 		for (uint i = 0; i < (uint)Direction::max; ++i)
 		{
 			if (directions[i]) {
+
 				if (offset_direction == -1)
 					offset_direction = i;
 				else if (distances[i] < distances[(uint)offset_direction])
@@ -168,7 +170,7 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 			on_ground = true;
 			break;
 		case Direction::up:
-			position.y = c2->rect.y + c2->rect.h + collider->rect.h;
+			position.y = c2->rect.y - collider->rect.h;
 			velocity.y = 0;
 			acceleration.y = 0;
 			break;
@@ -182,7 +184,9 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 			break;
 		}
 
-		collider->SetPos(position.x - collider->rect.w / 2, position.y - collider->rect.h);
+		collider->SetPos(position.x - collider->rect.w / 2, position.y - collider->rect.h/2);
+
+		break;
 	}
 	return ret;
 }

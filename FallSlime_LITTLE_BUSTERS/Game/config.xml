@@ -28,7 +28,7 @@
   <player>
     <texture path =""/>
     <collider width="20" height="20"/>
-    <physics gravity ="2" speed_air ="1"  speed_ground ="2" speed_jump ="20"/>
+    <physics gravity ="1" speed_air ="1"  speed_ground ="2" speed_jump ="15"/>
     
 
   </player>
