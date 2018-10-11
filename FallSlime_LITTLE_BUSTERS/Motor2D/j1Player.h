@@ -70,7 +70,9 @@ public:
 
 	//Collision
 	Collider      *collider = nullptr;
+	Collider      *ground_detector = nullptr;
 	bool          on_ground = false;
+	bool          check_fall = false;
 	SDL_Rect      rect_collider;
 	
 	//Assets

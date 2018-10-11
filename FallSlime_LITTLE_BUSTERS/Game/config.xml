@@ -31,7 +31,7 @@
   <player>
     <texture path ="textures/Slime_Test.png"/>
     <collider width="20" height="20"/>
-    <physics gravity ="0.3" speed_air ="3" speed_ground ="1" speed_jump ="10"/>
+    <physics gravity ="0.3" speed_air ="3" speed_ground ="3" speed_jump ="10"/>
   </player>
   <scene>
     <music path="audio/music/Level1.ogg"/>

@@ -60,6 +60,7 @@ bool j1Player::Start()
 	// Add all components 
 
 	collider = App->collision->AddCollider( rect_collider, COLLIDER_PLAYER, this);
+	ground_detector = App->collision->AddCollider(rect_collider, COLLIDER_PLAYER, this);
 	tex_player = App->tex->Load(path_tex_player.GetString());
 
 	return true;
@@ -90,6 +91,7 @@ bool j1Player::PreUpdate()
 	{
 		velocity.y = -speed_jump;
 		on_ground = false;
+		check_fall = false;
 	}
 
 	return true;
@@ -103,13 +105,17 @@ bool j1Player::Update(float dt)
 	{
 		LOG("GRAVITY =========");
 		acceleration.y = gravity;
+		check_fall = false;
 	}
 	else
+	{
 		acceleration.y = 0;
+	}
 		
 	velocity += acceleration;
 	position += velocity;
 	collider->SetPos(position.x - rect_collider.w / 2, position.y - rect_collider.h / 2);
+	ground_detector->SetPos(position.x - rect_collider.w / 2, position.y);
 	on_ground = false;
 	return true;
 }
@@ -148,61 +154,70 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 	bool ret = true;
 
 	// Switch all collider types
-	switch (c2->type)
+	if (c1 == collider)
 	{
-	case COLLIDER_WALL:
-
-		SDL_Rect player = c1->rect;
-		SDL_Rect coll = c2->rect;
-
-		bool directions[(uint)Direction::max];
-		directions[(uint)Direction::left] = velocity.x < 0;
-		directions[(uint)Direction::right] = velocity.x > 0;
-		directions[(uint)Direction::up] = velocity.y < 0;
-		directions[(uint)Direction::down] = velocity.y > 0;
-
-		uint distances[(uint)Direction::max];
-		distances[(uint)Direction::right] = player.x + player.w - coll.x ;
-		distances[(uint)Direction::left] = coll.x + coll.w - player.x;
-		distances[(uint)Direction::up] = coll.y + coll.h - player.y ;
-		distances[(uint)Direction::down] = player.y + player.h - coll.y ;
-
-		int offset_direction = -1;
-
-		for (uint i = 0; i < (uint)Direction::max; ++i)
+		switch (c2->type)
 		{
-			if (directions[i]) {
+		case COLLIDER_WALL:
 
-				if (offset_direction == -1)
-					offset_direction = i;
-				else if (distances[i] < distances[(uint)offset_direction])
-					offset_direction = i;
+			SDL_Rect player = c1->rect;
+			SDL_Rect coll = c2->rect;
+
+			bool directions[(uint)Direction::max];
+			directions[(uint)Direction::left] = velocity.x < 0;
+			directions[(uint)Direction::right] = velocity.x > 0;
+			directions[(uint)Direction::up] = velocity.y < 0;
+			directions[(uint)Direction::down] = velocity.y > 0;
+
+			uint distances[(uint)Direction::max];
+			distances[(uint)Direction::right] = player.x + player.w - coll.x;
+			distances[(uint)Direction::left] = coll.x + coll.w - player.x;
+			distances[(uint)Direction::up] = coll.y + coll.h - player.y;
+			distances[(uint)Direction::down] = player.y + player.h - coll.y;
+
+			int offset_direction = -1;
+
+			for (uint i = 0; i < (uint)Direction::max; ++i)
+			{
+				if (directions[i]) {
+
+					if (offset_direction == -1)
+						offset_direction = i;
+					else if (distances[i] < distances[(uint)offset_direction])
+						offset_direction = i;
+				}
 			}
+
+			switch ((Direction)offset_direction) {
+
+			case Direction::right:
+				position.x = coll.x - player.w / 2;
+				velocity.x = 0;
+				break;
+			case Direction::left:
+				position.x = coll.x + coll.w + player.w / 2;
+				velocity.x = 0;
+				break;
+			case Direction::up:
+				position.y = coll.y + coll.h + player.h / 2;
+				velocity.y = 0;
+				break;
+			case Direction::down:
+				position.y = coll.y - player.h / 2;
+				velocity.y = 0;
+				check_fall = true;
+				on_ground = true;
+				break;
+			}
+			collider->SetPos(position.x - collider->rect.w / 2, position.y - collider->rect.h / 2);
+			ground_detector->SetPos(position.x - collider->rect.w / 2, position.y );
+			break;
 		}
-
-		switch ((Direction)offset_direction) {
-
-		case Direction::right:
-			position.x = coll.x - player.w / 2;
-			velocity.x = 0;
-			break;
-		case Direction::left:
-			position.x = coll.x + coll.w + player.w / 2;
-			velocity.x = 0;
-			break;
-		case Direction::up:
-			position.y = coll.y + coll.h + player.h / 2;
-			velocity.y = 0;
-			break;
-		case Direction::down:
-			position.y = coll.y - player.h / 2;
-			velocity.y = 0;
-    		on_ground = true;
-			break;
-		}
-
-		collider->SetPos(position.x - collider->rect.w / 2, position.y - collider->rect.h/2);
-		break;
 	}
+	
+	if (c1 == ground_detector && check_fall) {
+		on_ground = true;
+	}
+
 	return ret;
 }
