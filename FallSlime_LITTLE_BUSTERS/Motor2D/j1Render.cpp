@@ -80,15 +80,11 @@ bool j1Render::PreUpdate()
 		{
 			camera.x = 0;
 			free_camera = false;
-			//StopCamera(-speed, NULL);
-			LOG("LLLLLLLLLLLLLLLLLLLLLLLLLLL");
 		}
 		else if (App->render->camera.x + camera.w > level_width)
 		{
 			camera.x = level_width - camera.w;
 			free_camera = false;
-			//StopCamera(-speed, NULL);
-			LOG("RRRRRRRRRRRRRRRRRRRRRRRRRRR");
 		}
 	}
 
@@ -102,7 +98,6 @@ bool j1Render::PreUpdate()
 	{
 		camera.x = App->player->position.x - camera.w / 2;
 		camera.y = App->player->position.y - camera.h / 2;
-		LOG("_________%d", camera.x);
 	}
 
 	//ZOOM

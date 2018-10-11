@@ -77,7 +77,7 @@ bool j1Player::PreUpdate()
 		velocity.x = 0;
 
 	// Only if player is on ground 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && on_ground)
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && on_ground)
 	{
 		velocity.y = -speed_jump;
 		on_ground = false;
@@ -92,21 +92,24 @@ bool j1Player::Update(float dt)
 
 	if (on_ground == false)
 	{
+		LOG("GRAVITY =========");
 		acceleration.y = gravity;
 	}
 	else
 		acceleration.y = 0;
+		
 
 	velocity += acceleration;
 	position += velocity;
 	collider->SetPos(position.x - collider_rect.w/2 , position.y - collider_rect.h / 2);
-
+	on_ground = false;
 	return true;
 }
 
 // Called each loop iteration
 bool j1Player::PostUpdate()
 {
+	
 	return true;
 }
 
@@ -149,10 +152,10 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 		directions[(uint)Direction::down] = velocity.y > 0;
 
 		uint distances[(uint)Direction::max];
-		distances[(uint)Direction::left] =   abs(  coll.x + coll.w - (player.x + player.w)  );
-		distances[(uint)Direction::right] =  abs(  player.x - coll.x   );
-		distances[(uint)Direction::up] =     abs(player.y + player.h - (coll.y + coll.h));
-		distances[(uint)Direction::down] =   abs(player.y - coll.y);
+		distances[(uint)Direction::right] = player.x + player.w - coll.x ;
+		distances[(uint)Direction::left] = coll.x + coll.w - player.x;
+		distances[(uint)Direction::up] = coll.y + coll.h - player.y ;
+		distances[(uint)Direction::down] = player.y + player.h - coll.y ;
 
 		int offset_direction = -1;
 
@@ -169,17 +172,6 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 
 		switch ((Direction)offset_direction) {
 
-		case Direction::down:
-			position.y = coll.y - player.h / 2;
-			velocity.y = 0;
-			acceleration.y = 0;
-			on_ground = true;
-			break;
-		case Direction::up:
-			position.y = coll.y + coll.h + player.h / 2;
-			velocity.y = 0;
-			acceleration.y = 0;
-			break;
 		case Direction::right:
 			position.x = coll.x - player.w / 2;
 			velocity.x = 0;
@@ -188,10 +180,18 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 			position.x = coll.x + coll.w + player.w / 2;
 			velocity.x = 0;
 			break;
+		case Direction::up:
+			position.y = coll.y + coll.h + player.h / 2;
+			velocity.y = 0;
+			break;
+		case Direction::down:
+			position.y = coll.y - player.h / 2;
+			velocity.y = 0;
+    		on_ground = true;
+			break;
 		}
 
 		collider->SetPos(position.x - collider->rect.w / 2, position.y - collider->rect.h/2);
-
 		break;
 	}
 	return ret;

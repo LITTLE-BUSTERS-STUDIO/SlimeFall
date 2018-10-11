@@ -70,7 +70,7 @@ public:
 	float speed_jump;
 
 	//Collision
-	bool on_ground;
+	bool on_ground = false;
 	
 	//Assets
 	p2SString idle_path;
