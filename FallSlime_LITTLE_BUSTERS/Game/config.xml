@@ -2,14 +2,12 @@
 
 <config>
   <app>
-    <title>Game Development Testbed</title>
+    <title>Slime Fall</title>
     <organization>UPC</organization>
   </app>
-	
   <renderer>
     <vsync value="true"/>
   </renderer>
-
   <window>
     <resolution width="1280" height="720" scale="1"/>
     <fullscreen value="false"/>
@@ -17,11 +15,9 @@
     <resizable value="false"/>
     <fullscreen_window value="false"/>
   </window>
-
   <file_system>
     <path>data.zip</path>
   </file_system>
-
   <map>
     <folder>maps/</folder>
   </map>
@@ -29,7 +25,8 @@
     <texture path =""/>
     <collider width="20" height="20"/>
     <physics gravity ="1" speed_air ="1"  speed_ground ="2" speed_jump ="15"/>
-    
-
   </player>
+  <scene>
+    <music path="audio/music/Level1.ogg"/>
+  </scene>
 </config>

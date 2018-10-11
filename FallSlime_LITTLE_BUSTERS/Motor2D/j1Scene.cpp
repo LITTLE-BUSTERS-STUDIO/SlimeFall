@@ -20,10 +20,11 @@ j1Scene::~j1Scene()
 {}
 
 // Called before render is available
-bool j1Scene::Awake()
+bool j1Scene:: Awake(pugi::xml_node& node )
 {
 	LOG("Loading Scene");
 	bool ret = true;
+	music_path = node.child("music").attribute("path").as_string("");
 
 	return ret;
 }
@@ -31,9 +32,8 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-
 	App->map->Load("map_test.tmx");
-	App->audio->PlayMusic("audio/music/Level1.ogg");
+	App->audio->PlayMusic(music_path.GetString());
 
 	return true;
 }

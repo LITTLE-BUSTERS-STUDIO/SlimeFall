@@ -8,6 +8,7 @@
 #include "j1Window.h"
 #include "j1Collision.h"
 #include "j1Player.h"
+#include <math.h>
 
 j1Player::j1Player() 
 {
@@ -143,8 +144,8 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 		directions[(uint)Direction::down] = velocity.y > 0;
 
 		uint distances[(uint)Direction::max];
-		distances[(uint)Direction::left] = (c2->rect.x + c2->rect.w) - (position.x - c1->rect.w / 2);
-		distances[(uint)Direction::right] = (position.x + c1->rect.w / 2) - c2->rect.x;
+		distances[(uint)Direction::left] = abs(  c2->rect.x + c2->rect.w - (position.x + c1->rect.w / 2)  );
+		distances[(uint)Direction::right] = abs(   position.x + c1->rect.w / 2 - c2->rect.x   );
 		distances[(uint)Direction::up] = (c2->rect.y + c2->rect.h) - (position.y - c1->rect.h);
 		distances[(uint)Direction::down] = position.y - c2->rect.y;
 
@@ -164,18 +165,18 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 		switch ((Direction)offset_direction) {
 
 		case Direction::down:
-			position.y = c2->rect.y;
+			position.y = c2->rect.y - collider->rect.h /2;
 			velocity.y = 0;
 			acceleration.y = 0;
 			on_ground = true;
 			break;
 		case Direction::up:
-			position.y = c2->rect.y - collider->rect.h;
+			position.y = c2->rect.y + c2->rect.h + collider->rect.h / 2;
 			velocity.y = 0;
 			acceleration.y = 0;
 			break;
 		case Direction::left:
-			position.x = c2->rect.x + c2->rect.w + collider->rect.w / 2;
+			position.x = c2->rect.y - collider->rect.w / 2;
 			velocity.x = 0;
 			break;
 		case Direction::right:
