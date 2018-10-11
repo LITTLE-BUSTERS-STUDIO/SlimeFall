@@ -106118,7 +106118,7 @@
   <object id="310" x="2154.03" y="239" width="41.278" height="31.3333"/>
   <object id="311" x="2228.69" y="172.333" width="41.278" height="31.3333"/>
   <object id="312" x="2303.36" y="93.6667" width="41.278" height="31.3333"/>
-  <object id="313" x="2386.03" y="29.6667" width="41.278" height="31.3333"/>
+  <object id="313" x="2320.7" y="589.667" width="41.278" height="31.3333"/>
   <object id="314" x="2394.03" y="851" width="41.278" height="31.3333"/>
   <object id="315" x="2478.03" y="768.333" width="41.278" height="31.3333"/>
   <object id="316" x="2546.03" y="683" width="41.278" height="31.3333"/>
@@ -106126,7 +106126,7 @@
   <object id="318" x="2706.03" y="521.667" width="41.278" height="7.3333"/>
  </objectgroup>
  <objectgroup color="#ffff00" id="20" name="CollisionNextLevel">
-  <object id="260" x="576.25" y="159.5" width="14.25" height="131.5"/>
+  <object id="260" x="576.25" y="206.25" width="14.25" height="84.75"/>
   <object id="262" x="1344.88" y="14.5" width="14.25" height="131.5"/>
  </objectgroup>
  <objectgroup color="#000000" id="3" name="InitialPosition" offsetx="0.545455" offsety="0.181818">

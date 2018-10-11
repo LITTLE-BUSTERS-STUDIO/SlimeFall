@@ -13,7 +13,7 @@
 j1Player::j1Player() 
 {
 	name.create("player");
-	position.x = 1800/*130*/ ;
+	position.x = 130 ;
 	position.y = 60;
 	velocity.x = 0;
 	velocity.y = 0;
