@@ -41,7 +41,11 @@ bool j1Scene::Start()
 // Called each loop iteration
 bool j1Scene::PreUpdate()
 {
-	return true;
+	bool ret = true;
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) //Close Window
+		ret = false;
+
+	return ret;
 }
 
 
@@ -74,26 +78,6 @@ bool j1Scene::Update(float dt)
 bool j1Scene::PostUpdate()
 {
 	bool ret = true;
-
-	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) //Close Window
-		ret = false;
-
-	
-	if (App->input->keyboard[SDL_SCANCODE_F8] == KEY_REPEAT) //Set DOWN Volume Music
-	{
-		if(App->audio->volume_music >0)
-			App->audio->volume_music--;
-		Mix_VolumeMusic(App->audio->volume_music);
-		LOG("Volume_Music = %d", Mix_VolumeMusic(App->audio->volume_music));
-	}
-	if (App->input->keyboard[SDL_SCANCODE_F9] == KEY_REPEAT) //Set UP Volume Music
-	{
-		if (App->audio->volume_music < 100)
-			App->audio->volume_music++;
-		Mix_VolumeMusic(App->audio->volume_music);
-		LOG("Volume_Music = %d", Mix_VolumeMusic(App->audio->volume_music));
-	}
-
 	return ret;
 }
 
