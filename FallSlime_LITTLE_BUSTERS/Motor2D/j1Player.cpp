@@ -13,7 +13,7 @@
 j1Player::j1Player() 
 {
 	name.create("player");
-	position.x = 700/*130*/ ;
+	position.x = 400/*130*/ ;
 	position.y = 60;
 	velocity.x = 0;
 	velocity.y = 0;
@@ -35,6 +35,7 @@ void j1Player::Init()
 // Called before render is available
 bool  j1Player::Awake(pugi::xml_node& node )
 {
+
 	rect_collider.x = position.x;
 	rect_collider.y = position.y;
 	rect_texture.x = rect_texture.y = 0;
@@ -73,8 +74,11 @@ bool j1Player::PreUpdate()
 	{
 		if (on_ground)
 			velocity.x = -speed_ground;
+	
 		else
 			velocity.x = -speed_air;
+		
+		flip_x = true;
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE)
 	{
@@ -82,6 +86,7 @@ bool j1Player::PreUpdate()
 			velocity.x = +speed_ground;
 		else
 			velocity.x = +speed_air;
+		flip_x = false;
 	}
 	else
 		velocity.x = 0;
@@ -103,7 +108,7 @@ bool j1Player::Update(float dt)
 
 	if (on_ground == false)
 	{
-		LOG("GRAVITY =========");
+		
 		acceleration.y = gravity;
 		check_fall = false;
 	}
@@ -123,7 +128,7 @@ bool j1Player::Update(float dt)
 // Called each loop iteration
 bool j1Player::PostUpdate()
 {
-	App->render->Blit(tex_player, position.x - rect_texture.w/2 , position.y - rect_texture.h / 2,  &rect_texture );
+	App->render->Blit(tex_player, position.x - rect_texture.w/2 , position.y - rect_texture.h / 2,  &rect_texture, flip_x );
 	return true;
 }
 

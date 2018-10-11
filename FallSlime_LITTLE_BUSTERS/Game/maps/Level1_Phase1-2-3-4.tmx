@@ -106042,7 +106042,7 @@
    <tile/>
   </data>
  </layer>
- <objectgroup color="#5500ff" id="16" name="Floor">
+ <objectgroup color="#5500ff" id="16" name="CollisionGround">
   <object id="80" x="26.9391" y="275.062" width="109.242" height="12.5436"/>
   <object id="83" x="167.92" y="323.082" width="48.045" height="11.2102"/>
   <object id="84" x="279.11" y="291.145" width="15.8621" height="44.4602"/>
@@ -106101,18 +106101,18 @@
   <object id="298" x="1975.81" y="211.955" width="14.9177" height="26.9981"/>
   <object id="299" x="1963" y="188.433" width="12.7188" height="27.2481"/>
  </objectgroup>
- <objectgroup color="#ff0000" id="19" name="Death">
+ <objectgroup color="#ff0000" id="19" name="CollisionDeath">
   <object id="256" x="27.06" y="464.062" width="520.551" height="34.5"/>
   <object id="257" x="450.043" y="338.682" width="12.2328" height="16.4545"/>
   <object id="258" x="656.793" y="418.5" width="45.6873" height="16.4545"/>
   <object id="259" x="832.391" y="464.292" width="500.278" height="31.3333"/>
   <object id="301" x="1367.19" y="465" width="615.278" height="31.3333"/>
  </objectgroup>
- <objectgroup color="#ffff00" id="20" name="Next Level">
+ <objectgroup color="#ffff00" id="20" name="CollisionNextLevel">
   <object id="260" x="576.25" y="159.5" width="14.25" height="131.5"/>
   <object id="262" x="1344.88" y="14.5" width="14.25" height="131.5"/>
  </objectgroup>
- <objectgroup color="#000000" id="3" name="Initial Position" offsetx="0.545455" offsety="0.181818">
+ <objectgroup color="#000000" id="3" name="InitialPosition" offsetx="0.545455" offsety="0.181818">
   <object id="4" x="46.33" y="263.667">
    <point/>
   </object>
