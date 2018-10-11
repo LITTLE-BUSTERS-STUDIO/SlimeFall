@@ -13,7 +13,7 @@
 j1Player::j1Player() 
 {
 	name.create("player");
-	position.x = 130 ;
+	position.x = 700/*130*/ ;
 	position.y = 60;
 	velocity.x = 0;
 	velocity.y = 0;
@@ -58,8 +58,10 @@ bool  j1Player::Awake(pugi::xml_node& node )
 bool j1Player::Start()
 {
 	// Add all components 
+
 	collider = App->collision->AddCollider( rect_collider, COLLIDER_PLAYER, this);
 	tex_player = App->tex->Load(path_tex_player.GetString());
+
 	return true;
 }
 
@@ -105,10 +107,9 @@ bool j1Player::Update(float dt)
 	else
 		acceleration.y = 0;
 		
-
 	velocity += acceleration;
 	position += velocity;
-	collider->SetPos(position.x - rect_collider.w/2 , position.y - rect_collider.h / 2);
+	collider->SetPos(position.x - rect_collider.w / 2, position.y - rect_collider.h / 2);
 	on_ground = false;
 	return true;
 }
@@ -123,6 +124,8 @@ bool j1Player::PostUpdate()
 // Called before quitting
 bool j1Player::CleanUp()
 {
+	App->tex->UnLoad(tex_player);
+	tex_player = nullptr;
 	return true;
 }
 

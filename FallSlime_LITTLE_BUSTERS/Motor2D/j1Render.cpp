@@ -73,32 +73,67 @@ bool j1Render::PreUpdate()
 	int level_width = 2000;
 	int level_high = 300;
 
-	//Camera hit screen
-	if (free_camera)
+	//Camera_x hit screen---------------------------------------
+	if (free_camera_x)
 	{
 		if (App->render->camera.x <= 0)
 		{
 			camera.x = 0;
-			free_camera = false;
+
+			free_camera_x = false;
+			LOG(" HIT LEFT");
+
+
 		}
 		else if (App->render->camera.x + camera.w > level_width)
 		{
 			camera.x = level_width - camera.w;
-			free_camera = false;
+			free_camera_x = false;
+			LOG(" HIT RIGHT");
 		}
+		
 	}
 
 	else if (App->player->position.x > camera.w / 2 && App->player->position.x < level_width - camera.w / 2)
 	{
-		free_camera = true;
+		free_camera_x = true;
 	}
 
-
-	if (free_camera)
+	//Camera_x Follow Player
+	if (free_camera_x)
 	{
 		camera.x = App->player->position.x - camera.w / 2;
-		camera.y = App->player->position.y - camera.h / 2;
+		//LOG("_________%d", camera.x);
 	}
+
+
+	//Camera_y hit screen---------------------------------------
+	if (free_camera_y)
+	{
+		if (App->render->camera.y <= 0)
+		{
+			camera.y = 0;
+			free_camera_y = false;
+			LOG(" HIT UP");
+		}
+
+	}
+
+	else if (App->player->position.y > camera.h / 2)
+	{
+		free_camera_y = true;
+	}
+
+	//Camera_y Follow Player
+	if (free_camera_y)
+	{
+		camera.y = App->player->position.y - camera.h / 2;
+		LOG("_________%d", camera.y);
+	}
+
+
+
+
 
 	//ZOOM
 	if (App->input->keyboard[SDL_SCANCODE_F10] == KEY_DOWN)
@@ -179,7 +214,8 @@ void j1Render::ResetViewPort()
 }
 
 // Blit to screen
-bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, float speed, double angle, int pivot_x, int pivot_y) const
+
+bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, float speed, double angle, int pivot_x, int pivot_y/*, int flip*/) const
 {
 	bool ret = true;
 	uint scale = App->win->GetScale();
@@ -203,6 +239,10 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 
 	SDL_Point* p = NULL;
 	SDL_Point pivot;
+
+	//SDL_RendererFlip flip = SDL_FLIP_NONE; // SDL Render Function Flip
+	/*if (flip)
+		SDL_FLIP_HORIZONTAL;*/
 
 	if(pivot_x != INT_MAX && pivot_y != INT_MAX)
 	{

@@ -73,11 +73,13 @@ bool j1Audio::PreUpdate()
 	{
 		mute = true;
 		Mix_VolumeMusic(0);
+		LOG("Mute ON!");
 	}
 	else if (App->input->keyboard[SDL_SCANCODE_F7] == KEY_DOWN && mute == true)
 	{
 		mute = false;
 		Mix_VolumeMusic(App->audio->volume_music);
+		LOG("Mute OFF!");
 	}
 
 	if (!mute)
@@ -87,14 +89,14 @@ bool j1Audio::PreUpdate()
 			if (App->audio->volume_music >0)
 				App->audio->volume_music--;
 			Mix_VolumeMusic(App->audio->volume_music);
-			LOG("Volume_Music = %d", Mix_VolumeMusic(App->audio->volume_music));
+			LOG("Volume_Music = %d", Mix_VolumeMusic(volume_music));
 		}
 		if (App->input->keyboard[SDL_SCANCODE_F9] == KEY_REPEAT) //Set UP Volume Music
 		{
 			if (App->audio->volume_music < 100)
 				App->audio->volume_music++;
 			Mix_VolumeMusic(App->audio->volume_music);
-			LOG("Volume_Music = %d", Mix_VolumeMusic(App->audio->volume_music));
+			LOG("Volume_Music = %d", Mix_VolumeMusic(volume_music));
 		}
 	}
 

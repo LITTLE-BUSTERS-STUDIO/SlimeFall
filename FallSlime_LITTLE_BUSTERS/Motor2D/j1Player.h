@@ -59,10 +59,6 @@ public:
 
 	//Transform
 	fPoint position;
-	SDL_Rect rect_texture;
-	SDL_Rect rect_collider;
-	State current_state;
-	
 
 	//Physics
 	fPoint velocity;
@@ -73,13 +69,16 @@ public:
 	float speed_jump;
 
 	//Collision
-	bool on_ground = false;
+	Collider      *collider = nullptr;
+	bool          on_ground = false;
+	SDL_Rect      rect_collider;
 	
 	//Assets
 	SDL_Texture   *tex_player = nullptr;
 	p2SString     path_tex_player;
 	Animation     idle;
-	Collider      *collider = nullptr;
+	SDL_Rect      rect_texture;
+	State         current_state;
 	
 };
 
