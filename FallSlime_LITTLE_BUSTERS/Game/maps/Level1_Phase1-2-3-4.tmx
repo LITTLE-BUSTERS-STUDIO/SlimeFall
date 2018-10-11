@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="180" height="98" tilewidth="16" tileheight="16" infinite="0" nextlayerid="38" nextobjectid="302">
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="180" height="98" tilewidth="16" tileheight="16" infinite="0" nextlayerid="38" nextobjectid="320">
  <tileset firstgid="1" name="Basic_tileset" tilewidth="16" tileheight="16" tilecount="60" columns="10">
   <image source="Basic_tileset.png" width="160" height="96"/>
   <terraintypes>
@@ -106107,6 +106107,23 @@
   <object id="258" x="656.793" y="418.5" width="45.6873" height="16.4545"/>
   <object id="259" x="832.391" y="464.292" width="500.278" height="31.3333"/>
   <object id="301" x="1367.19" y="465" width="615.278" height="31.3333"/>
+  <object id="302" x="1982.36" y="533.833" width="41.278" height="31.3333"/>
+  <object id="303" x="2036.86" y="601.333" width="41.278" height="31.3333"/>
+  <object id="304" x="2112.36" y="652.333" width="41.278" height="31.3333"/>
+  <object id="305" x="2171.86" y="602.833" width="41.278" height="31.3333"/>
+  <object id="306" x="2238.86" y="540.333" width="41.278" height="31.3333"/>
+  <object id="307" x="2312.69" y="915" width="41.278" height="31.3333"/>
+  <object id="308" x="2003.36" y="373.667" width="41.278" height="31.3333"/>
+  <object id="309" x="2080.69" y="304.333" width="41.278" height="31.3333"/>
+  <object id="310" x="2154.03" y="239" width="41.278" height="31.3333"/>
+  <object id="311" x="2228.69" y="172.333" width="41.278" height="31.3333"/>
+  <object id="312" x="2303.36" y="93.6667" width="41.278" height="31.3333"/>
+  <object id="313" x="2386.03" y="29.6667" width="41.278" height="31.3333"/>
+  <object id="314" x="2394.03" y="851" width="41.278" height="31.3333"/>
+  <object id="315" x="2478.03" y="768.333" width="41.278" height="31.3333"/>
+  <object id="316" x="2546.03" y="683" width="41.278" height="31.3333"/>
+  <object id="317" x="2620.69" y="583" width="41.278" height="31.3333"/>
+  <object id="318" x="2706.03" y="521.667" width="41.278" height="7.3333"/>
  </objectgroup>
  <objectgroup color="#ffff00" id="20" name="CollisionNextLevel">
   <object id="260" x="576.25" y="159.5" width="14.25" height="131.5"/>
