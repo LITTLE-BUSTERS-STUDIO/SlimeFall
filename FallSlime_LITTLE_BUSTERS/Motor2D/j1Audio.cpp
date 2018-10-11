@@ -2,6 +2,7 @@
 #include "p2Log.h"
 #include "j1Audio.h"
 #include "p2List.h"
+#include "j1App.h"
 
 #include "SDL/include/SDL.h"
 #include "SDL_mixer\include\SDL_mixer.h"
@@ -49,7 +50,7 @@ bool j1Audio::Awake(pugi::xml_node& config)
 		active = false;
 		ret = true;
 	}
-
+	Mix_VolumeMusic(volume_music);
 	return ret;
 }
 
@@ -128,6 +129,7 @@ bool j1Audio::PlayMusic(const char* path, float fade_time)
 			}
 		}
 	}
+	
 
 	LOG("Successfully playing %s", path);
 	return ret;
