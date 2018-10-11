@@ -32,7 +32,7 @@ bool j1Scene:: Awake(pugi::xml_node& node )
 // Called before the first frame
 bool j1Scene::Start()
 {
-	App->map->Load("map_test.tmx");
+	App->map->Load("Level1_Phase1-2-3-4.tmx");
 	App->audio->PlayMusic(music_path.GetString());
 
 	return true;

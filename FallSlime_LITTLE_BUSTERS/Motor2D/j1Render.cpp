@@ -68,7 +68,7 @@ bool j1Render::PreUpdate()
 {
 	SDL_RenderClear(renderer);
 
-	//Tests var
+	//Tests var 
 	int speed = 1;
 	int level_width = 2000;
 	int level_high = 300;
