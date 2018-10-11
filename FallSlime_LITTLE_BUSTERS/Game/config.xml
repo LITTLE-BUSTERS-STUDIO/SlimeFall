@@ -8,6 +8,13 @@
   <renderer>
     <vsync value="true"/>
   </renderer>
+  
+  <audio>
+      <volume_music default="20"/>
+      <volume_sfx default ="20"/>
+      <mute value="false"/>
+  </audio>
+  
   <window>
     <resolution width="1280" height="720" scale="1"/>
     <fullscreen value="false"/>

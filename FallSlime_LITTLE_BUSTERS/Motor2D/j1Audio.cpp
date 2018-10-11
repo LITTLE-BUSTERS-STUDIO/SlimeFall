@@ -3,6 +3,7 @@
 #include "j1Audio.h"
 #include "p2List.h"
 #include "j1App.h"
+#include "j1Input.h"
 
 #include "SDL/include/SDL.h"
 #include "SDL_mixer\include\SDL_mixer.h"
@@ -50,8 +51,55 @@ bool j1Audio::Awake(pugi::xml_node& config)
 		active = false;
 		ret = true;
 	}
-	Mix_VolumeMusic(volume_music);
+	volume_music = config.child("volume_music").attribute("default").as_uint(0);
+	volume_sfx = config.child("volume_sfx").attribute("default").as_uint(0);
+	mute = config.child("mute").attribute("value").as_bool(true);
+
+	if (mute)
+	{
+		Mix_VolumeMusic(0);
+	}
+	else
+	{
+		Mix_VolumeMusic(volume_music);
+	}
+
 	return ret;
+}
+
+bool j1Audio::PreUpdate()
+{
+	if (App->input->keyboard[SDL_SCANCODE_F7] == KEY_DOWN && mute == false) //Mute
+	{
+		mute = true;
+		Mix_VolumeMusic(0);
+	}
+	else if (App->input->keyboard[SDL_SCANCODE_F7] == KEY_DOWN && mute == true)
+	{
+		mute = false;
+		Mix_VolumeMusic(App->audio->volume_music);
+	}
+
+	if (!mute)
+	{
+		if (App->input->keyboard[SDL_SCANCODE_F8] == KEY_REPEAT) //Set DOWN Volume Music
+		{
+			if (App->audio->volume_music >0)
+				App->audio->volume_music--;
+			Mix_VolumeMusic(App->audio->volume_music);
+			LOG("Volume_Music = %d", Mix_VolumeMusic(App->audio->volume_music));
+		}
+		if (App->input->keyboard[SDL_SCANCODE_F9] == KEY_REPEAT) //Set UP Volume Music
+		{
+			if (App->audio->volume_music < 100)
+				App->audio->volume_music++;
+			Mix_VolumeMusic(App->audio->volume_music);
+			LOG("Volume_Music = %d", Mix_VolumeMusic(App->audio->volume_music));
+		}
+	}
+
+
+	return true;
 }
 
 // Called before quitting
