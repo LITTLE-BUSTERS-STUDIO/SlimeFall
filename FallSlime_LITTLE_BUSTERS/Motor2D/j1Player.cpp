@@ -12,12 +12,14 @@
 j1Player::j1Player() 
 {
 	name.create("player");
+
 	position.x = 140;
 	position.y = 60;
 	velocity.x = 0;
 	velocity.y = 0;
 	acceleration.x = 0;
 	acceleration.y = 0;
+
 }
 
 j1Player::~j1Player()

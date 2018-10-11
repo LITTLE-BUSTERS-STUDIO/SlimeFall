@@ -55,8 +55,6 @@ public:
 	// Called by collision module
 	  bool OnCollision(Collider*, Collider*);
 
-private:
-
 	//Transform
 	fPoint position;
 	SDL_Rect collider_rect;
