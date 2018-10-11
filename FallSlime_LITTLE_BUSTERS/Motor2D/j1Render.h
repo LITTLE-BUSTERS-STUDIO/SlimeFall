@@ -43,10 +43,6 @@ public:
 	// Set background color
 	void SetBackgroundColor(SDL_Color color);
 
-	//Stop Camera movement
-	void StopCamera(int, int);
-	void MoveCamera(int, int);
-
 public:
 
 	SDL_Renderer*	renderer;
