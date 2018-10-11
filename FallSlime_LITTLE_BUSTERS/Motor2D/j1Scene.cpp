@@ -8,6 +8,7 @@
 #include "j1Window.h"
 #include "j1Map.h"
 #include "j1Scene.h"
+#include "j1Audio.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -32,6 +33,7 @@ bool j1Scene::Start()
 {
 
 	App->map->Load("map_test.tmx");
+	App->audio->PlayMusic("audio/music/Level1.ogg");
 
 	return true;
 }
@@ -73,8 +75,24 @@ bool j1Scene::PostUpdate()
 {
 	bool ret = true;
 
-	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) //Close Window
 		ret = false;
+
+	
+	if (App->input->keyboard[SDL_SCANCODE_F8] == KEY_REPEAT) //Set DOWN Volume Music
+	{
+		if(App->audio->volume_music >0)
+			App->audio->volume_music--;
+		Mix_VolumeMusic(App->audio->volume_music);
+		LOG("Volume_Music = %d", Mix_VolumeMusic(App->audio->volume_music));
+	}
+	if (App->input->keyboard[SDL_SCANCODE_F9] == KEY_REPEAT) //Set UP Volume Music
+	{
+		if (App->audio->volume_music < 100)
+			App->audio->volume_music++;
+		Mix_VolumeMusic(App->audio->volume_music);
+		LOG("Volume_Music = %d", Mix_VolumeMusic(App->audio->volume_music));
+	}
 
 	return ret;
 }
