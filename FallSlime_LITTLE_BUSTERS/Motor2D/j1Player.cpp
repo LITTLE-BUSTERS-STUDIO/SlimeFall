@@ -73,8 +73,11 @@ bool j1Player::PreUpdate()
 	{
 		if (on_ground)
 			velocity.x = -speed_ground;
+	
 		else
 			velocity.x = -speed_air;
+		
+		flip_x = true;
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE)
 	{
@@ -82,6 +85,7 @@ bool j1Player::PreUpdate()
 			velocity.x = +speed_ground;
 		else
 			velocity.x = +speed_air;
+		flip_x = false;
 	}
 	else
 		velocity.x = 0;
@@ -102,7 +106,7 @@ bool j1Player::Update(float dt)
 
 	if (on_ground == false)
 	{
-		LOG("GRAVITY =========");
+		
 		acceleration.y = gravity;
 	}
 	else
@@ -118,7 +122,7 @@ bool j1Player::Update(float dt)
 // Called each loop iteration
 bool j1Player::PostUpdate()
 {
-	App->render->Blit(tex_player, position.x - rect_texture.w/2 , position.y - rect_texture.h / 2,  &rect_texture );
+	App->render->Blit(tex_player, position.x - rect_texture.w/2 , position.y - rect_texture.h / 2,  &rect_texture, flip_x );
 	return true;
 }
 
@@ -198,6 +202,7 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 		case Direction::down:
 			position.y = coll.y - player.h / 2;
 			velocity.y = 0;
+			acceleration.y = 0;
     		on_ground = true;
 			break;
 		}

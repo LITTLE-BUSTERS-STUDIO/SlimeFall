@@ -72,6 +72,7 @@ public:
 	Collider      *collider = nullptr;
 	bool          on_ground = false;
 	SDL_Rect      rect_collider;
+	bool flip_x = false;
 	
 	//Assets
 	SDL_Texture   *tex_player = nullptr;
