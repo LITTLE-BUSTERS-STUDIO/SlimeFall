@@ -132,8 +132,6 @@ bool j1Collision::PostUpdate()
 			break;
 		case COLLIDER_PLAYER: // green
 			App->render->DrawQuad(item->data->rect, 0, 255, 0, alpha);
-			App->render->DrawCircle(640, 360, 1, 50, 255, 50, alpha); // Circle middle of the screen
-
 			break;
 		case COLLIDER_ENEMY: // red
 			App->render->DrawQuad(item->data->rect, 255, 0, 0, alpha);

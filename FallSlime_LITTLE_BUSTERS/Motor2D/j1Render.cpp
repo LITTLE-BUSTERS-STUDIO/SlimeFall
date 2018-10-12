@@ -45,6 +45,7 @@ bool j1Render::Awake(pugi::xml_node& config)
 	}
 	else
 	{
+		//
 		camera.w = App->win->screen_surface->w / App->win->GetScale();
 		camera.h = App->win->screen_surface->h/ App->win->GetScale();
 		camera.x = 0;
@@ -162,17 +163,16 @@ bool j1Render::Update(float dt)
 bool j1Render::PostUpdate()
 {
 	int borderWidth = 3;
-	int SCREEN_WIDTH = camera.w;
-	int SCREEN_HEIGHT = camera.h;
 
-	App->render->DrawQuad({ -borderWidth, -borderWidth, SCREEN_WIDTH + borderWidth * 2, borderWidth }, 255, 255, 255, 255);
+	App->render->DrawQuad({ camera.x -borderWidth, camera.y -borderWidth, camera.w + borderWidth * 2, borderWidth }, 255, 255, 255, 255);
 	//Down border
-	App->render->DrawQuad({ -borderWidth, SCREEN_HEIGHT, SCREEN_WIDTH + borderWidth * 2, borderWidth }, 255, 255, 255, 255);
+	App->render->DrawQuad({ camera.x -borderWidth, camera.y + camera.h, camera.w + borderWidth * 2, borderWidth }, 255, 255, 255, 255);
 	//Left border
-	App->render->DrawQuad({ -borderWidth, 0, borderWidth, SCREEN_HEIGHT }, 255, 255, 255, 255);
+	App->render->DrawQuad({ camera.x -borderWidth, camera.y, borderWidth, camera.h }, 255, 255, 255, 255);
 	//Right border
-	App->render->DrawQuad({ SCREEN_WIDTH, 0, borderWidth, SCREEN_HEIGHT }, 255, 255, 255, 255);
+	App->render->DrawQuad({ camera.x + camera.w, camera.y, borderWidth, camera.h }, 255, 255, 255, 255);
 
+	App->render->DrawCircle(camera.x + camera.w, camera.y + camera.h , 1, 50, 255, 50, 255); // Circle middle of the screen
 
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
