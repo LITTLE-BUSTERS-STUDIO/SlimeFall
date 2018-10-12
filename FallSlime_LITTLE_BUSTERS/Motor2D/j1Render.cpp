@@ -45,8 +45,10 @@ bool j1Render::Awake(pugi::xml_node& config)
 	}
 	else
 	{
+
 		camera.w = App->win->screen_surface->w /*/ App->win->GetScale()*/;
 		camera.h = App->win->screen_surface->h /*/ App->win->GetScale()*/;
+
 		camera.x = 0;
 		camera.y = 0;
 	}
@@ -164,17 +166,18 @@ bool j1Render::Update(float dt)
 bool j1Render::PostUpdate()
 {
 	int borderWidth = 3;
-	int SCREEN_WIDTH = camera.w;
-	int SCREEN_HEIGHT = camera.h;
+	int scale = App->win->GetScale();
 
-	App->render->DrawQuad({ -borderWidth, -borderWidth, SCREEN_WIDTH + borderWidth * 2, borderWidth }, 255, 255, 255, 255);
-	//Down border
-	App->render->DrawQuad({ -borderWidth, SCREEN_HEIGHT, SCREEN_WIDTH + borderWidth * 2, borderWidth }, 255, 255, 255, 255);
-	//Left border
-	App->render->DrawQuad({ -borderWidth, 0, borderWidth, SCREEN_HEIGHT }, 255, 255, 255, 255);
-	//Right border
-	App->render->DrawQuad({ SCREEN_WIDTH, 0, borderWidth, SCREEN_HEIGHT }, 255, 255, 255, 255);
-
+	// Up border
+	App->render->DrawQuad({ camera.x/ scale -borderWidth, camera.y/ scale -borderWidth, camera.w / scale + borderWidth * 2, borderWidth }, 255, 255, 255, 255);
+	// Down border
+	App->render->DrawQuad({ camera.x / scale -borderWidth, (camera.y + camera.h) / scale, camera.w / scale + borderWidth * 2, borderWidth }, 255, 255, 255, 255);
+	// Left border
+	App->render->DrawQuad({ camera.x / scale -borderWidth, camera.y / scale, borderWidth, camera.h / scale }, 255, 255, 255, 255);
+	// Right border
+	App->render->DrawQuad({ (camera.x + camera.w) / scale, camera.y / scale, borderWidth, camera.h / scale }, 255, 255, 255, 255);
+	// Centered point 
+	App->render->DrawCircle( camera.x+ camera.w/2 , camera.y + camera.h/2, 1, 50, 255, 50, 255); 
 
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
@@ -340,8 +343,8 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 
 	for(uint i = 0; i < 360; ++i)
 	{
-		points[i].x = (int)(x + radius * cos(i * factor));
-		points[i].y = (int)(y + radius * sin(i * factor));
+		points[i].x = (int)(x -camera.x* use_camera + radius * cos(i * factor));
+		points[i].y = (int)(y - camera.y* use_camera + radius * sin(i * factor));
 	}
 
 	result = SDL_RenderDrawPoints(renderer, points, 360);
