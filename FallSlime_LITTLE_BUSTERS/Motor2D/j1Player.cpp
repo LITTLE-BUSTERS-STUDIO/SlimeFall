@@ -69,7 +69,11 @@ bool j1Player::Start()
 	collider = App->collision->AddCollider( rect_collider, COLLIDER_PLAYER, this);
 	ground_detector = App->collision->AddCollider(rect_collider, COLLIDER_PLAYER, this);
 	tex_player = App->tex->Load(path_tex_player.GetString());
-	test_fx = App->audio->LoadFx("audio/fx/big3.wav");
+	
+	fx_jump1 = App->audio->LoadFx("audio/fx/big1.wav");
+	fx_jump2 = App->audio->LoadFx("audio/fx/big2.wav");
+	fx_jump3 = App->audio->LoadFx("audio/fx/big3.wav");
+	fx_jump4 = App->audio->LoadFx("audio/fx/big4.wav");
 
 	return true;
 }
@@ -178,6 +182,37 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 			SDL_Rect player = c1->rect;
 			SDL_Rect coll = c2->rect;
 
+			//Types of jumps
+			/*uint fx_jumps[(uint)JumpFx::MAXJUMP];
+			fx_jumps[(uint)JumpFx::JUMP_1] = 1;
+			fx_jumps[(uint)JumpFx::JUMP_2] = 2;
+			fx_jumps[(uint)JumpFx::JUMP_3] = 3;
+			fx_jumps[(uint)JumpFx::JUMP_4] = 4;*/
+
+			
+		/*	switch ((JumpFx)random_jump)
+			{
+			case JumpFx::JUMP_1:
+				App->audio->PlayFx(test_fx);
+				break;
+			case JumpFx::JUMP_2:
+				App->audio->PlayFx(test_fx);
+				break;
+			case JumpFx::JUMP_3:
+				App->audio->PlayFx(test_fx);
+				break;
+			case JumpFx::JUMP_4:
+				App->audio->PlayFx(test_fx);
+				break;
+				
+			default:
+				App->audio->PlayFx(test_fx);
+				break;
+			}*/
+
+			
+
+
 			bool directions[(uint)Direction::max];
 			directions[(uint)Direction::left] = velocity.x < 0;
 			directions[(uint)Direction::right] = velocity.x > 0;
@@ -232,7 +267,28 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 	
 	if (c1 == ground_detector && check_fall) {
 		on_ground = true;
-		App->audio->PlayFx(test_fx);
+
+		uint random_jump = rand() % 4 + 1;
+		LOG("__________%d", random_jump);
+		switch (random_jump)
+		{
+		case 1:
+			App->audio->PlayFx(fx_jump1);
+			break;
+		case 2:
+			App->audio->PlayFx(fx_jump2);
+			break;
+		case 3:
+			App->audio->PlayFx(fx_jump3);
+			break;
+		case 4:
+			App->audio->PlayFx(fx_jump4);
+			break;
+
+		default:
+			App->audio->PlayFx(fx_jump1);
+			break;
+		}
 	}
 
 	return ret;

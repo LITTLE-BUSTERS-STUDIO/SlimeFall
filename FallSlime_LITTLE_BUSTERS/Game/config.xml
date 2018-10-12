@@ -10,9 +10,9 @@
   </renderer>
   
   <audio>
-      <volume_music default="20"/>
-      <volume_sfx default ="20"/>
-      <mute value="true"/>
+      <volume_music default="2"/>
+      <volume_sfx default ="2"/>
+      <mute value="false"/>
   </audio>
   
   <window>

@@ -76,8 +76,11 @@ public:
 	float speed_air;
 	float speed_ground;
 	float speed_jump;
-	uint test_fx;
-
+	uint fx_jump1;
+	uint fx_jump2;
+	uint fx_jump3;
+	uint fx_jump4;
+	
 	//Collision
 	Collider      *collider = nullptr;
 	Collider      *ground_detector = nullptr;
