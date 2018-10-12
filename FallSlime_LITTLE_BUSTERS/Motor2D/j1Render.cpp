@@ -72,7 +72,7 @@ bool j1Render::PreUpdate()
 	int speed = 1;
 	int level_width = 2000;
 	int level_high = 1000;
-	fPoint player_position(App->player->position.x / App->win->GetScale() , App->player->position.y / App->win->GetScale());
+	fPoint player_position(App->player->position.x , App->player->position.y );
 
 	//Camera_x hit screen---------------------------------------
 	if (free_camera_x)
@@ -92,13 +92,13 @@ bool j1Render::PreUpdate()
 		}
 	}
 
-	else if (App->player->position.x > camera.w / 2 && App->player->position.x < level_width - camera.w / 2)
+	else if (player_position.x > camera.w && player_position.x < level_width - camera.w)
 		free_camera_x = true;
 	
 
 	//Camera_x Follow Player
 	if (free_camera_x)
-		camera.x = App->player->position.x - camera.w / 2;
+		camera.x = player_position.x - camera.w ;
 	
 
 
@@ -111,6 +111,7 @@ bool j1Render::PreUpdate()
 			free_camera_y = false;
 			LOG(" HIT UP");
 		}
+
 		else if (camera.y + camera.h > level_high)
 		{
 			camera.y = level_high - camera.h ;
@@ -119,14 +120,14 @@ bool j1Render::PreUpdate()
 		}
 	}
 
-	else if (App->player->position.y > camera.h / 2 && App->player->position.y < level_high - camera.h/2)
+	else if (player_position.y > camera.h  && player_position.y < level_high - camera.h)
 		free_camera_y = true;
 
 	
 
 	//Camera_y Follow Player
 	if (free_camera_y)
-		camera.y = App->player->position.y - camera.h / 2;
+		camera.y = player_position.y - camera.h ;
 
 
 
@@ -148,6 +149,8 @@ bool j1Render::PreUpdate()
 		}
 	}
 
+
+
 	return true;
 }
 
@@ -158,6 +161,19 @@ bool j1Render::Update(float dt)
 
 bool j1Render::PostUpdate()
 {
+	int borderWidth = 3;
+	int SCREEN_WIDTH = camera.w;
+	int SCREEN_HEIGHT = camera.h;
+
+	App->render->DrawQuad({ -borderWidth, -borderWidth, SCREEN_WIDTH + borderWidth * 2, borderWidth }, 255, 255, 255, 255);
+	//Down border
+	App->render->DrawQuad({ -borderWidth, SCREEN_HEIGHT, SCREEN_WIDTH + borderWidth * 2, borderWidth }, 255, 255, 255, 255);
+	//Left border
+	App->render->DrawQuad({ -borderWidth, 0, borderWidth, SCREEN_HEIGHT }, 255, 255, 255, 255);
+	//Right border
+	App->render->DrawQuad({ SCREEN_WIDTH, 0, borderWidth, SCREEN_HEIGHT }, 255, 255, 255, 255);
+
+
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
 	return true;
