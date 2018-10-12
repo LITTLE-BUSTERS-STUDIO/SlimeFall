@@ -40,6 +40,7 @@ private:
 
 	_Mix_Music*			music;
 	p2List<Mix_Chunk*>	fx;
+
 public:
 	uint volume_music;
 	uint volume_sfx;

@@ -10,7 +10,8 @@ struct SDL_Texture;
 
 enum class State
 {
-	idle
+	jumping,
+	boucing
 };
 
 enum class Direction: uint
@@ -59,14 +60,15 @@ public:
 
 	//Transform
 	fPoint position;
-
-	//Physics
 	fPoint velocity;
 	fPoint acceleration;
+
+	//Physics
 	float gravity;
 	float speed_air;
 	float speed_ground;
 	float speed_jump;
+	bool  apply_jump_speed = false;
 
 	//Collision
 	Collider      *collider = nullptr;
@@ -80,8 +82,7 @@ public:
 	SDL_Texture   *tex_player = nullptr;
 	p2SString     path_tex_player;
 	Animation     idle;
-	SDL_Rect      rect_texture;
-	State         current_state;
+	State         current_state = State::jumping;
 	
 };
 

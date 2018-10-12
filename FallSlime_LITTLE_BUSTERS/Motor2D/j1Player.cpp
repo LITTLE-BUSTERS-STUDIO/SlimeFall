@@ -36,10 +36,6 @@ void j1Player::Init()
 bool  j1Player::Awake(pugi::xml_node& node )
 {
 
-	rect_collider.x = position.x;
-	rect_collider.y = position.y;
-	rect_texture.x = rect_texture.y = 0;
-	rect_texture.w = rect_texture.h = 34;
 
 	//Values
 	rect_collider.w = node.child("collider").attribute("width").as_uint(0);
@@ -98,12 +94,20 @@ bool j1Player::PreUpdate()
 		velocity.x = 0;
 
 	// Only if player is on ground 
-	if (on_ground)
+	if (apply_jump_speed == true)
 	{
 		velocity.y = -speed_jump;
 		on_ground = false;
 		check_fall = false;
+		apply_jump_speed = false;
 	}
+
+
+	if (on_ground && current_state == State::jumping)
+	{
+		current_state = State::boucing;
+	}
+
 
 	return true;
 }
@@ -111,6 +115,8 @@ bool j1Player::PreUpdate()
 // Called each loop iteration
 bool j1Player::Update(float dt)
 {
+	if (current_state == State::boucing) //================================================================
+		return true;
 
 	if (on_ground == false)
 	{
@@ -134,8 +140,27 @@ bool j1Player::Update(float dt)
 // Called each loop iteration
 bool j1Player::PostUpdate()
 {
-	idle.speed = 0.15;
-	App->render->Blit(tex_player, position.x - rect_texture.w/2 , position.y - rect_texture.h / 2,  &idle.GetCurrentFrame(), flip_x );
+	SDL_Rect frame; 
+	idle.speed = 0.5f;
+
+	switch ((State)current_state)
+	{
+	case State::jumping:
+		frame = idle.GetLastFrame();
+		break;
+	case State::boucing:
+		if (idle.GetFrameNumber() > 9)
+		{
+			current_state = State::jumping;
+			apply_jump_speed = true;
+			idle.Reset();
+			frame = idle.GetCurrentFrame();
+			break;
+		}
+		frame = idle.GetCurrentFrame();
+		break;
+	}
+	App->render->Blit(tex_player, position.x - frame.w/2 , position.y - frame.h / 2, &frame  , flip_x );
 	return true;
 }
 

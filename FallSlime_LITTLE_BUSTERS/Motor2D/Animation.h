@@ -33,6 +33,11 @@ public:
 		frames[last_frame++] = rect;
 	}
 
+	float GetFrameNumber()
+	{
+		return current_frame;
+	}
+
 	SDL_Rect& GetCurrentFrame()
 	{
 		current_frame += speed;
@@ -42,6 +47,11 @@ public:
 			loops++;
 		}
 
+		return frames[(int)current_frame];
+	}
+
+	SDL_Rect& GetLastFrame()
+	{
 		return frames[(int)current_frame];
 	}
 

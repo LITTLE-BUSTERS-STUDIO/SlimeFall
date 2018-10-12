@@ -109,7 +109,7 @@ bool j1Render::PreUpdate()
 	//Camera_y hit screen---------------------------------------
 	if (free_camera_y)
 	{
-		if (camera.y <= 0) //250 TEST es donde la camara.y va a dejar de seguir
+		if (camera.y < 0) //250 TEST es donde la camara.y va a dejar de seguir
 		{
 			camera.y = 0;
 			free_camera_y = false;
@@ -165,7 +165,7 @@ bool j1Render::Update(float dt)
 
 bool j1Render::PostUpdate()
 {
-	int borderWidth = 3;
+	int borderWidth = 2 * zoomedOutSize;
 	int scale = App->win->GetScale();
 
 	// Up border
@@ -177,7 +177,7 @@ bool j1Render::PostUpdate()
 	// Right border
 	App->render->DrawQuad({ (camera.x + camera.w) / scale, camera.y / scale, borderWidth, camera.h / scale }, 255, 255, 255, 255);
 	// Centered point 
-	App->render->DrawCircle( camera.x+ camera.w/2 , camera.y + camera.h/2, 1, 50, 255, 50, 255); 
+	App->render->DrawCircle( camera.x + camera.w/2 , camera.y + camera.h/2, 1, 50, 255, 50, 255); 
 
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
@@ -235,9 +235,10 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 	bool ret = true;
 	uint scale = App->win->GetScale();
 
+
 	SDL_Rect rect;
-	rect.x = (int)(-camera.x * speed) + x * scale;
-	rect.y = (int)(-camera.y * speed) + y * scale;
+	rect.x = (int) ((camera.w * ( zoomedOutSize - 1) ) /2 )  + (-camera.x * speed) + x * scale;
+	rect.y = (int) ((camera.h * (  zoomedOutSize - 1)) / 2 ) + (-camera.y * speed) + y * scale;
 
 	if(section != NULL)
 	{
@@ -249,8 +250,18 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
 	}
 
+	if (x + rect.w < camera.x/ scale || x > (camera.x + camera.w) / scale)
+	{
+		return ret;
+	}
+	else if (y + rect.h > camera.y / scale &&  y > (camera.y + camera.h) / scale)
+	{
+		return ret;
+	}
 	rect.w *= scale;
 	rect.h *= scale;
+	
+
 
 	SDL_Point* p = NULL;
 	SDL_Point pivot;
@@ -287,8 +298,8 @@ bool j1Render::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a
 	SDL_Rect rec(rect);
 	if(use_camera)
 	{
-		rec.x = (int)(-camera.x + rect.x * scale);
-		rec.y = (int)(-camera.y + rect.y * scale);
+		rec.x = (int)((camera.w * (zoomedOutSize - 1)) / 2) + (-camera.x + rect.x * scale);
+		rec.y = (int)((camera.h * (zoomedOutSize - 1)) / 2) + (-camera.y + rect.y * scale);
 		rec.w *= scale;
 		rec.h *= scale;
 	}
@@ -315,7 +326,7 @@ bool j1Render::DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 
 	int result = -1;
 
 	if(use_camera)
-		result = SDL_RenderDrawLine(renderer, -camera.x + x1 * scale, -camera.y + y1 * scale, -camera.x + x2 * scale, -camera.y + y2 * scale);
+		result = SDL_RenderDrawLine(renderer, ((camera.w * (zoomedOutSize - 1)) / 2) -camera.x + x1 * scale, ((camera.h * (zoomedOutSize - 1)) / 2) -camera.y + y1 * scale, -camera.x + x2 * scale, -camera.y + y2 * scale);
 	else
 		result = SDL_RenderDrawLine(renderer, x1 * scale, y1 * scale, x2 * scale, y2 * scale);
 
