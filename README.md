@@ -91,11 +91,11 @@ This software is based on pugixml library (http://pugixml.org/).
 pugixml is Copyright (C) 2006-2018 Arseny Kapoulkine.
 
 ##Art Sources
--Slime (Not defined)
--Ground tileset (Not defined)
--Black Forest Background (Not defined)
--Tree tileset (Not defined)
--First level music (Not defined)
+-Slime (https://www.reddit.com/r/PixelArt/comments/3crdjh/oc_animation_practice_bouncy_slime/)
+-Ground tileset (https://aamatniekss.itch.io/free-pixelart-platformer-tileset)
+-Black Forest Background (https://edermunizz.itch.io/free-pixel-art-forest)
+-Tree tileset (https://genchevblog.wordpress.com/)
+-First level music (https://www.youtube.com/watch?v=u94lVZa9xXU)
 
 ## Acknowledgments
 * Thanks to all the people in the class for supporting this project.
