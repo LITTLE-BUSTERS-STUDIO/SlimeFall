@@ -1,82 +1,48 @@
-# Fall Slime
+# Tittle
+Fall Slime 
 
+## Version of the game
+v0.1
 
-## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-### Prerequisites
-
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
+## Description
+This is a Platform Game about a jumping slime. Reach the end if you can!
 
 ### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
+Go to our github release page and download the las version .zip : 
 
 ```
-Give the example
+https://github.com/LITTLE-BUSTERS-STUDIO/FallSlime/releases
 ```
+Extract .zip files inside a folder and open the .exe file.
 
-And repeat
+#### Controls:
+**A** - Move player to the left.
+**D** - Move player to the right.
+**SPACE** - Jump.
 
-```
-until finished
-```
+##### Debug functionality:
+**F1** - View colliders.
+**F7** - Mute.
+**F8** - Set down music.
+**F9** - Set up music.
+**F10** - Zoom out camera.
+**F11** - Zoom in camera.
 
-End with an example of getting some data out of the system or using it for a little demo
+### Innovation features:
+-Zoom Debug Mode
+-Set Volume Music Up/Down1
+-Mute Volume/SFx
 
-## Running the tests
+## Authors & Links
+* **Alejandro Gamarra (alejandro61299)** - *As a Lead Programer & QA* - [https://github.com/alejandro61299]
+* **Marc Galvez(optus23)** - *As a Lead Designer & Manager* - [https://github.com/optus23]
 
-Explain how to run the automated tests for this system
+Github repository: https://github.com/LITTLE-BUSTERS-STUDIO/FallSlime
+See also our organization, Little Busters[https://github.com/LITTLE-BUSTERS-STUDIO) 
 
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+And finnaly take a look at Ric's(as teacher) github - [https://github.com/d0n3val]
 
 ## MIT License
-
  Copyright (c) 2018 @alejandro61299 and @optus23
  Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -95,7 +61,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ## Pugixml License
-
 The pugixml library is distributed under the MIT license:
 
 Copyright (c) 2006-2018 Arseny Kapoulkine
@@ -125,8 +90,16 @@ This means that you can freely use pugixml in your applications, both open-sourc
 This software is based on pugixml library (http://pugixml.org/).
 pugixml is Copyright (C) 2006-2018 Arseny Kapoulkine.
 
-## Acknowledgments
+##Art Sources
+-Slime (https://www.reddit.com/r/PixelArt/comments/3crdjh/oc_animation_practice_bouncy_slime/)
+-Ground tileset (https://aamatniekss.itch.io/free-pixelart-platformer-tileset)
+-Black Forest Background (https://edermunizz.itch.io/free-pixel-art-forest)
+-Tree tileset (https://genchevblog.wordpress.com/)
+-First level music (https://www.youtube.com/watch?v=u94lVZa9xXU)
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+## Acknowledgments
+* Thanks to all the people in the class for supporting this project.
+* All extern QA people.
+
+
+We hope you Enjoy! Thanks for playing.

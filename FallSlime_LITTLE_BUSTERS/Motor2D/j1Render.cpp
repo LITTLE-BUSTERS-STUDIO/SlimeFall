@@ -72,72 +72,61 @@ bool j1Render::PreUpdate()
 	//Tests var 
 	int speed = 1;
 	int level_width = 2000;
-	int level_high = 300;
+	int level_high = 1000;
 
 	//Camera_x hit screen---------------------------------------
 	if (free_camera_x)
 	{
-		if (App->render->camera.x <= 0)
+		if (camera.x <= 0)
 		{
 			camera.x = 0;
 
 			free_camera_x = false;
 			LOG(" HIT LEFT");
 		}
-		else if (App->render->camera.x + camera.w > level_width)
+		else if (camera.x + camera.w > level_width)
 		{
 			camera.x = level_width - camera.w;
 			free_camera_x = false;
 			LOG(" HIT RIGHT");
 		}
-		
 	}
 
 	else if (App->player->position.x > camera.w / 2 && App->player->position.x < level_width - camera.w / 2)
-	{
 		free_camera_x = true;
-	}
+	
 
 	//Camera_x Follow Player
 	if (free_camera_x)
-	{
 		camera.x = App->player->position.x - camera.w / 2;
-		//LOG("_________%d", camera.x);
-	}
+	
 
 
 	//Camera_y hit screen---------------------------------------
 	if (free_camera_y)
 	{
-		if (App->render->camera.y <= 0)
+		if (camera.y <= 0) //250 TEST es donde la camara.y va a dejar de seguir
 		{
 			camera.y = 0;
 			free_camera_y = false;
 			LOG(" HIT UP");
 		}
-		/*else if (App->render->camera.y + camera.h > level_high)
+		else if (camera.y + camera.h > level_high)
 		{
-			camera.y = level_high - camera.h;
+			camera.y = level_high - camera.h ;
 			free_camera_y = false;
 			LOG(" HIT Down");
-		}*/
+		}
 	}
 
-	else if (App->player->position.y > camera.h / 2/* && App->player->position.y < level_high - camera.h / 2*/)
-	{
+	else if (App->player->position.y > camera.h / 2 && App->player->position.y < level_high - camera.h/2)
 		free_camera_y = true;
-	}
 
 	
 
 	//Camera_y Follow Player
 	if (free_camera_y)
-	{
 		camera.y = App->player->position.y - camera.h / 2;
-		/*LOG("_________%d", camera.y);*/
-	}
-
-
 
 
 
@@ -164,7 +153,6 @@ bool j1Render::PreUpdate()
 
 bool j1Render::Update(float dt)
 {
-
 	return true;
 }
 
