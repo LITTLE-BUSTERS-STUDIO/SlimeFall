@@ -98,7 +98,7 @@ bool j1Player::PreUpdate()
 		velocity.x = 0;
 
 	// Only if player is on ground 
-	if (  on_ground)
+	if (on_ground)
 	{
 		velocity.y = -speed_jump;
 		on_ground = false;

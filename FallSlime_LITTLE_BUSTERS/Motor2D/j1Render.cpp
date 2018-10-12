@@ -45,8 +45,8 @@ bool j1Render::Awake(pugi::xml_node& config)
 	}
 	else
 	{
-		camera.w = App->win->screen_surface->w;
-		camera.h = App->win->screen_surface->h;
+		camera.w = App->win->screen_surface->w / App->win->GetScale();
+		camera.h = App->win->screen_surface->h/ App->win->GetScale();
 		camera.x = 0;
 		camera.y = 0;
 	}
@@ -60,7 +60,6 @@ bool j1Render::Start()
 	LOG("render start");
 	// back background
 	SDL_RenderGetViewport(renderer, &viewport);
-	SetViewPort(camera);
 	return true;
 }
 
@@ -73,6 +72,7 @@ bool j1Render::PreUpdate()
 	int speed = 1;
 	int level_width = 2000;
 	int level_high = 1000;
+	fPoint player_position(App->player->position.x / App->win->GetScale() , App->player->position.y / App->win->GetScale());
 
 	//Camera_x hit screen---------------------------------------
 	if (free_camera_x)

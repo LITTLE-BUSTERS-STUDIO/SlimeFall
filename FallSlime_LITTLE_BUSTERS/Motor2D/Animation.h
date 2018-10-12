@@ -93,7 +93,6 @@ public:
 			rect.y = rect.h * (id / num_tiles_width);
 			this->PushBack(rect);
 		}
-
 		return true;
 	}
 };
