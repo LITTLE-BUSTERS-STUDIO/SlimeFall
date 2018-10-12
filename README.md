@@ -34,13 +34,13 @@ Extract .zip files inside a folder and open the .exe file.
 -Mute Volume/SFx
 
 ## Authors & Links
-* **Alejandro Gamarra (alejandro61299)** - *As a Lead Programer & QA* - [https://github.com/alejandro61299)
-* **Marc Galvez(optus23)** - *As a Lead Designer & Manager* - [https://github.com/optus23)
+* **Alejandro Gamarra (alejandro61299)** - *As a Lead Programer & QA* - [https://github.com/alejandro61299]
+* **Marc Galvez(optus23)** - *As a Lead Designer & Manager* - [https://github.com/optus23]
 
 Github repository: https://github.com/LITTLE-BUSTERS-STUDIO/FallSlime
 See also our organization, Little Busters[https://github.com/LITTLE-BUSTERS-STUDIO) 
 
-And finnaly take a look at Ric's(as teacher) github [https://github.com/d0n3val]
+And finnaly take a look at Ric's(as teacher) github - [https://github.com/d0n3val]
 
 ## MIT License
  Copyright (c) 2018 @alejandro61299 and @optus23
