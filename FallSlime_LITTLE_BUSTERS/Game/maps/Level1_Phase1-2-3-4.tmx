@@ -60,7 +60,7 @@
   <tile id="56" terrain="3,3,,"/>
   <tile id="57" terrain="3,,,"/>
  </tileset>
- <tileset firstgid="109" name="Water_fall" tilewidth="90" tileheight="173" tilecount="4" columns="4">
+ <tileset firstgid="61" name="Water_fall" tilewidth="90" tileheight="173" tilecount="4" columns="4">
   <image source="Water_fall.png" width="382" height="173"/>
   <tile id="0">
    <animation>
@@ -71,7 +71,7 @@
    </animation>
   </tile>
  </tileset>
- <tileset firstgid="113" name="Water_fall2" tilewidth="90" tileheight="314" tilecount="4" columns="4">
+ <tileset firstgid="65" name="Water_fall2" tilewidth="90" tileheight="314" tilecount="4" columns="4">
   <image source="Water_fall2.png" width="382" height="314"/>
   <tile id="0">
    <animation>
@@ -82,7 +82,7 @@
    </animation>
   </tile>
  </tileset>
- <tileset firstgid="117" name="Water_fall3" tilewidth="90" tileheight="261" tilecount="4" columns="4">
+ <tileset firstgid="69" name="Water_fall3" tilewidth="90" tileheight="261" tilecount="4" columns="4">
   <image source="Water_fall3.png" width="382" height="261"/>
   <tile id="0">
    <animation>
@@ -54009,6 +54009,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="60"/>
+   <tile gid="59"/>
    <tile/>
    <tile/>
    <tile/>
@@ -54187,6 +54189,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="60"/>
+   <tile gid="59"/>
    <tile/>
    <tile/>
    <tile/>
@@ -54365,6 +54369,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="60"/>
+   <tile gid="59"/>
    <tile/>
    <tile/>
    <tile/>
@@ -54543,14 +54549,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="60"/>
+   <tile gid="59"/>
    <tile gid="56"/>
    <tile gid="58"/>
    <tile gid="56"/>
@@ -55602,7 +55602,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="59"/>
    <tile/>
    <tile/>
    <tile/>
@@ -105960,7 +105960,7 @@
    <tile/>
   </data>
  </layer>
- <objectgroup color="#5500ff" id="16" name="CollisionGround">
+ <objectgroup color="#5500ff" id="16" name="CollisionGround" visible="0">
   <object id="80" x="26.9391" y="275.062" width="109.242" height="12.5436"/>
   <object id="83" x="167.92" y="323.082" width="48.045" height="11.2102"/>
   <object id="84" x="279.11" y="291.145" width="15.8621" height="44.4602"/>
@@ -129295,7 +129295,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="109"/>
+   <tile gid="61"/>
    <tile/>
    <tile/>
    <tile/>
@@ -129334,7 +129334,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="117"/>
+   <tile gid="69"/>
    <tile/>
    <tile/>
    <tile/>
@@ -129355,7 +129355,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="113"/>
+   <tile gid="65"/>
    <tile/>
    <tile/>
    <tile/>
