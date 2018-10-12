@@ -22,6 +22,15 @@ enum class Direction: uint
 	max
 };
 
+enum class JumpFx : uint
+{
+	JUMP_1,
+	JUMP_2,
+	JUMP_3,
+	JUMP_4,
+	MAXJUMP
+};
+
 class j1Player : public j1Module
 {
 public:
@@ -67,6 +76,7 @@ public:
 	float speed_air;
 	float speed_ground;
 	float speed_jump;
+	uint test_fx;
 
 	//Collision
 	Collider      *collider = nullptr;

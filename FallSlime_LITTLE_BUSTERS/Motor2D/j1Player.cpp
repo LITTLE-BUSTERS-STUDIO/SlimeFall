@@ -69,6 +69,7 @@ bool j1Player::Start()
 	collider = App->collision->AddCollider( rect_collider, COLLIDER_PLAYER, this);
 	ground_detector = App->collision->AddCollider(rect_collider, COLLIDER_PLAYER, this);
 	tex_player = App->tex->Load(path_tex_player.GetString());
+	test_fx = App->audio->LoadFx("audio/fx/big3.wav");
 
 	return true;
 }
@@ -144,6 +145,8 @@ bool j1Player::CleanUp()
 {
 	App->tex->UnLoad(tex_player);
 	tex_player = nullptr;
+	//App->audio->UnLoadFx(test_fx);
+
 	return true;
 }
 
@@ -229,6 +232,7 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 	
 	if (c1 == ground_detector && check_fall) {
 		on_ground = true;
+		App->audio->PlayFx(test_fx);
 	}
 
 	return ret;

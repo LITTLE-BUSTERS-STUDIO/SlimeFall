@@ -10,6 +10,8 @@
 struct _Mix_Music;
 struct Mix_Chunk;
 
+
+
 class j1Audio : public j1Module
 {
 public:
@@ -35,6 +37,10 @@ public:
 
 	// Play a previously loaded WAV
 	bool PlayFx(unsigned int fx, int repeat = 0);
+	
+	//Unload a Wav in memory
+	//bool UnLoadFx(unsigned int id);
+
 
 private:
 
