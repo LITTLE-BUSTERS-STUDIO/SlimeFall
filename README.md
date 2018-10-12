@@ -1,7 +1,6 @@
-# Tittle
-Fall Slime 
+# Game Tittle: Slime Fall
 
-## Version of the game
+## Current Version
 v0.1
 
 ## Description
@@ -16,31 +15,31 @@ https://github.com/LITTLE-BUSTERS-STUDIO/FallSlime/releases
 Extract .zip files inside a folder and open the .exe file.
 
 #### Controls:
-**A** - Move player to the left.
-**D** - Move player to the right.
-**SPACE** - Jump.
+* **A** - Move player to the left.
+* **D** - Move player to the right.
+* **SPACE** - Jump.
 
 ##### Debug functionality:
-**F1** - View colliders.
-**F7** - Mute.
-**F8** - Set down music.
-**F9** - Set up music.
-**F10** - Zoom out camera.
-**F11** - Zoom in camera.
+* **F1** - View colliders.
+* **F7** - Mute.
+* **F8** - Set down music.
+* **F9** - Set up music.
+* **F10** - Zoom out camera.
+* **F11** - Zoom in camera.
 
 ### Innovation features:
--Zoom Debug Mode
--Set Volume Music Up/Down1
--Mute Volume/SFx
+* Zoom Debug Mode
+* Set Volume Music Up/Down1
+* Mute Volume/SFx
 
 ## Authors & Links
-* **Alejandro Gamarra (alejandro61299)** - *As a Lead Programer & QA* - [https://github.com/alejandro61299]
-* **Marc Galvez(optus23)** - *As a Lead Designer & Manager* - [https://github.com/optus23]
+* **Alejandro Gamarra (alejandro61299)** - *As a Lead Programer & QA* https://github.com/alejandro61299
+* **Marc Galvez(optus23)** - *As a Lead Designer & Manager*  https://github.com/optus23
 
 Github repository: https://github.com/LITTLE-BUSTERS-STUDIO/FallSlime
 See also our organization, Little Busters[https://github.com/LITTLE-BUSTERS-STUDIO) 
 
-And finnaly take a look at Ric's(as teacher) github - [https://github.com/d0n3val]
+And finnaly take a look at, Ric's github  https://github.com/d0n3val
 
 ## MIT License
  Copyright (c) 2018 @alejandro61299 and @optus23
@@ -90,16 +89,16 @@ This means that you can freely use pugixml in your applications, both open-sourc
 This software is based on pugixml library (http://pugixml.org/).
 pugixml is Copyright (C) 2006-2018 Arseny Kapoulkine.
 
-##Art Sources
--Slime (https://www.reddit.com/r/PixelArt/comments/3crdjh/oc_animation_practice_bouncy_slime/)
--Ground tileset (https://aamatniekss.itch.io/free-pixelart-platformer-tileset)
--Black Forest Background (https://edermunizz.itch.io/free-pixel-art-forest)
--Tree tileset (https://genchevblog.wordpress.com/)
--First level music (https://www.youtube.com/watch?v=u94lVZa9xXU)
+## Art Sources
+* Slime (https://www.reddit.com/r/PixelArt/comments/3crdjh/oc_animation_practice_bouncy_slime/)
+* Ground tileset (https://aamatniekss.itch.io/free-pixelart-platformer-tileset)
+* Black Forest Background (https://edermunizz.itch.io/free-pixel-art-forest)
+* Tree tileset (https://genchevblog.wordpress.com/)
+* First level music (https://www.youtube.com/watch?v=u94lVZa9xXU)
 
 ## Acknowledgments
 * Thanks to all the people in the class for supporting this project.
 * All extern QA people.
 
 
-We hope you Enjoy! Thanks for playing.
+# We hope you Enjoy! Thanks for playing.
