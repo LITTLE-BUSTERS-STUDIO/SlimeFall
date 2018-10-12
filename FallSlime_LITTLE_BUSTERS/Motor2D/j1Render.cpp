@@ -48,10 +48,12 @@ bool j1Render::Awake(pugi::xml_node& config)
 
 		camera.w = App->win->screen_surface->w /*/ App->win->GetScale()*/;
 		camera.h = App->win->screen_surface->h /*/ App->win->GetScale()*/;
-
 		camera.x = 0;
 		camera.y = 0;
 	}
+
+	zoom = config.child("debug").attribute("zoom").as_uint(1u);
+	max_zoom = config.child("debug").attribute("max_zoom").as_uint(1u);
 
 	return ret;
 }
@@ -73,7 +75,6 @@ bool j1Render::PreUpdate()
 	SDL_RenderClear(renderer);
 
 	//Tests var 
-	int speed = 1;
 	int level_width = 2000;
 	int level_high = 1000;
 	fPoint player_position(App->player->position.x , App->player->position.y );
@@ -138,18 +139,18 @@ bool j1Render::PreUpdate()
 	//ZOOM
 	if (App->input->keyboard[SDL_SCANCODE_F10] == KEY_DOWN)
 	{
-		if (zoomedOutSize < max_zoom)
+		if (zoom < max_zoom)
 		{
-			zoomedOutSize++;
-			SDL_RenderSetLogicalSize(renderer, camera.w * zoomedOutSize, camera.h * zoomedOutSize);
+			zoom++;
+			SDL_RenderSetLogicalSize(renderer, camera.w * zoom, camera.h * zoom);
 		}
 	}
 	else if (App->input->keyboard[SDL_SCANCODE_F11] == KEY_DOWN)
 	{
-		if (zoomedOutSize > 1)
+		if (zoom > 1)
 		{
-			zoomedOutSize--;
-			SDL_RenderSetLogicalSize(renderer, camera.w  * zoomedOutSize, camera.h * zoomedOutSize);
+			zoom--;
+			SDL_RenderSetLogicalSize(renderer, camera.w  * zoom, camera.h * zoom);
 		}
 	}
 
@@ -165,7 +166,7 @@ bool j1Render::Update(float dt)
 
 bool j1Render::PostUpdate()
 {
-	int borderWidth = 2 * zoomedOutSize;
+	int borderWidth = 2 * zoom;
 	int scale = App->win->GetScale();
 
 	// Up border
@@ -237,8 +238,8 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 
 
 	SDL_Rect rect;
-	rect.x = (int) ((camera.w * ( zoomedOutSize - 1) ) /2 )  + (-camera.x * speed) + x * scale;
-	rect.y = (int) ((camera.h * (  zoomedOutSize - 1)) / 2 ) + (-camera.y * speed) + y * scale;
+	rect.x = (int) ((camera.w * ( zoom - 1) ) /2 )  + (-camera.x * speed) + x * scale;
+	rect.y = (int) ((camera.h * (  zoom - 1)) / 2 ) + (-camera.y * speed) + y * scale;
 
 	if(section != NULL)
 	{
@@ -298,8 +299,8 @@ bool j1Render::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a
 	SDL_Rect rec(rect);
 	if(use_camera)
 	{
-		rec.x = (int)((camera.w * (zoomedOutSize - 1)) / 2) + (-camera.x + rect.x * scale);
-		rec.y = (int)((camera.h * (zoomedOutSize - 1)) / 2) + (-camera.y + rect.y * scale);
+		rec.x = (int)((camera.w * (zoom - 1)) / 2) + (-camera.x + rect.x * scale);
+		rec.y = (int)((camera.h * (zoom - 1)) / 2) + (-camera.y + rect.y * scale);
 		rec.w *= scale;
 		rec.h *= scale;
 	}
@@ -326,7 +327,7 @@ bool j1Render::DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 
 	int result = -1;
 
 	if(use_camera)
-		result = SDL_RenderDrawLine(renderer, ((camera.w * (zoomedOutSize - 1)) / 2) -camera.x + x1 * scale, ((camera.h * (zoomedOutSize - 1)) / 2) -camera.y + y1 * scale, -camera.x + x2 * scale, -camera.y + y2 * scale);
+		result = SDL_RenderDrawLine(renderer, ((camera.w * (zoom - 1)) / 2) -camera.x + x1 * scale, ((camera.h * (zoom - 1)) / 2) -camera.y + y1 * scale, -camera.x + x2 * scale, -camera.y + y2 * scale);
 	else
 		result = SDL_RenderDrawLine(renderer, x1 * scale, y1 * scale, x2 * scale, y2 * scale);
 

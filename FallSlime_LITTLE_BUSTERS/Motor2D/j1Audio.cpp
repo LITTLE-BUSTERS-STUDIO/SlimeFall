@@ -223,3 +223,11 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 
 	return ret;
 }
+
+//Unload WAV
+//bool UnLoadFx(unsigned int id) 
+//{
+//	Mix_FreeChunk(fx);
+//	return true;
+//}
+

@@ -52,8 +52,8 @@ public:
 
 public:
 	//XML vars
-	int zoomedOutSize = 1;
-	int max_zoom = 5;
+	int zoom;
+	int max_zoom;
 	bool free_camera_x = true;
 	bool free_camera_y = true;
 

@@ -7,12 +7,13 @@
   </app>
   <renderer>
     <vsync value="true"/>
+    <debug zoom="1" max_zoom="4"/>
+    <blit margin="30"/>
   </renderer>
-  
   <audio>
-      <volume_music default="20"/>
-      <volume_sfx default ="20"/>
-      <mute value="true"/>
+      <volume_music default="2"/>
+      <volume_sfx default ="2"/>
+      <mute value="false"/>
   </audio>
   
   <window>
@@ -31,7 +32,7 @@
   <player>
     <texture path ="textures/player_animation.png"/>
     <collider width="20" height="20"/>
-    <physics gravity ="0.3" speed_air ="2" speed_ground ="3" speed_jump ="10"/>
+    <physics gravity ="0.4" speed_air ="2.5" speed_ground ="0" speed_jump ="8"/>
   </player>
   <scene>
     <music path="audio/music/Level1.ogg"/>
