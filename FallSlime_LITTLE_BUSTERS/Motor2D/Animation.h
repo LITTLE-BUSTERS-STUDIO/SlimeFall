@@ -56,9 +56,45 @@ public:
 		current_frame = 0.0f;
 	}
 
-	bool * LoadAnimation(pugi::xml_node anim_node)
+	bool LoadAnimation(pugi::xml_node anim_node , p2SString name)
 	{
+		pugi::xml_node node;
 
+		if (anim_node == NULL)
+		{
+			return false;
+		}
+		
+		for (node = anim_node.child("tile"); node; node = node.next_sibling("tile"))
+		{
+			if (name == node.child("properties").child("property").attribute("name").as_string(""))
+			{
+				break;
+			}
+		}
+
+		if (node == NULL)
+		{
+			return false;
+		}
+
+		uint tile_width = anim_node.attribute("tilewidth").as_uint(1);
+		uint tile_height = anim_node.attribute("tileheight").as_uint(1);
+		uint num_tiles_width = anim_node.attribute("columns").as_uint(1);
+		this->loop = anim_node.child("properties").child("property").attribute("value").as_bool(false);
+
+		for (pugi::xml_node frames = node.child("animation").child("frame"); frames; frames = frames.next_sibling("frame"))
+		{
+			uint  id = frames.attribute("tileid").as_uint(0);
+			SDL_Rect rect;
+			rect.w = tile_width;
+			rect.h = tile_height;
+			rect.x = rect.w * (id % num_tiles_width);
+			rect.y = rect.h * (id / num_tiles_width);
+			this->PushBack(rect);
+		}
+
+		return true;
 	}
 };
 

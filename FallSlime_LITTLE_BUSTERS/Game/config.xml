@@ -29,7 +29,7 @@
     <folder>maps/</folder>
   </map>
   <player>
-    <texture path ="textures/Slime_Test.png"/>
+    <texture path ="textures/player_animation.png"/>
     <collider width="20" height="20"/>
     <physics gravity ="0.3" speed_air ="2" speed_ground ="3" speed_jump ="7"/>
   </player>

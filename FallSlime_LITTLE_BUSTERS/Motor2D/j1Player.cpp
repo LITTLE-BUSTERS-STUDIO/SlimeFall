@@ -49,8 +49,14 @@ bool  j1Player::Awake(pugi::xml_node& node )
 	speed_air = node.child("physics").attribute("speed_air").as_float(0);
 	speed_jump = node.child("physics").attribute("speed_jump").as_float(0);
 
+
 	//Assets
+	pugi::xml_document animation_doc;
+	pugi::xml_node anim_node;
+	animation_doc.load_file("player_animation.xml");
+	anim_node = animation_doc.child("tileset");
 	path_tex_player.create(node.child("texture").attribute("path").as_string(""));
+	idle.LoadAnimation(anim_node, "blue_slime");
 
 	return true;
 }
@@ -92,7 +98,7 @@ bool j1Player::PreUpdate()
 		velocity.x = 0;
 
 	// Only if player is on ground 
-	if ( (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) && on_ground)
+	if (  on_ground)
 	{
 		velocity.y = -speed_jump;
 		on_ground = false;
@@ -128,7 +134,8 @@ bool j1Player::Update(float dt)
 // Called each loop iteration
 bool j1Player::PostUpdate()
 {
-	App->render->Blit(tex_player, position.x - rect_texture.w/2 , position.y - rect_texture.h / 2,  &rect_texture, flip_x );
+	idle.speed = 0.15;
+	App->render->Blit(tex_player, position.x - rect_texture.w/2 , position.y - rect_texture.h / 2,  &idle.GetCurrentFrame(), flip_x );
 	return true;
 }
 
