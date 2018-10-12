@@ -94,13 +94,13 @@ bool j1Render::PreUpdate()
 		}
 	}
 
-	else if (player_position.x > camera.w/2 && player_position.x < level_width - camera.w /2)
+	else if (App->win->GetScale() * player_position.x > camera.w/2 && App->win->GetScale() *player_position.x < level_width - camera.w /2)
 		free_camera_x = true;
 	
 
 	//Camera_x Follow Player
 	if (free_camera_x)
-		camera.x = player_position.x - camera.w/2 ;
+		camera.x = App->win->GetScale() * player_position.x - camera.w/2 ;
 	
 
 
@@ -129,7 +129,7 @@ bool j1Render::PreUpdate()
 
 	//Camera_y Follow Player
 	if (free_camera_y)
-		camera.y = player_position.y - camera.h/2 ;
+		camera.y =  player_position.y - camera.h/2 ;
 
 
 
