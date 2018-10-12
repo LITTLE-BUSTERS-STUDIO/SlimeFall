@@ -122,14 +122,14 @@ bool j1Render::PreUpdate()
 		}
 	}
 
-	else if (player_position.y > camera.h/2  && player_position.y < level_high - camera.h/2)
+	else if (App->win->GetScale() * player_position.y > camera.h/2  && App->win->GetScale() * player_position.y < level_high - camera.h/2)
 		free_camera_y = true;
 
 	
 
 	//Camera_y Follow Player
 	if (free_camera_y)
-		camera.y =  player_position.y - camera.h/2 ;
+		camera.y = App->win->GetScale() * player_position.y - camera.h/2 ;
 
 
 
