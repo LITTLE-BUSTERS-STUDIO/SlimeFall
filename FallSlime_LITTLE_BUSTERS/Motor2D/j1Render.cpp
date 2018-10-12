@@ -45,9 +45,10 @@ bool j1Render::Awake(pugi::xml_node& config)
 	}
 	else
 	{
-		//
-		camera.w = App->win->screen_surface->w / App->win->GetScale();
-		camera.h = App->win->screen_surface->h/ App->win->GetScale();
+
+		camera.w = App->win->screen_surface->w /*/ App->win->GetScale()*/;
+		camera.h = App->win->screen_surface->h /*/ App->win->GetScale()*/;
+
 		camera.x = 0;
 		camera.y = 0;
 	}
@@ -60,6 +61,8 @@ bool j1Render::Start()
 {
 	LOG("render start");
 	// back background
+	SetViewPort(camera);
+
 	SDL_RenderGetViewport(renderer, &viewport);
 	return true;
 }
@@ -93,13 +96,13 @@ bool j1Render::PreUpdate()
 		}
 	}
 
-	else if (player_position.x > camera.w && player_position.x < level_width - camera.w)
+	else if (App->win->GetScale() * player_position.x > camera.w/2 && App->win->GetScale() *player_position.x < level_width - camera.w /2)
 		free_camera_x = true;
 	
 
 	//Camera_x Follow Player
 	if (free_camera_x)
-		camera.x = player_position.x - camera.w ;
+		camera.x = App->win->GetScale() * player_position.x - camera.w/2 ;
 	
 
 
@@ -115,20 +118,20 @@ bool j1Render::PreUpdate()
 
 		else if (camera.y + camera.h > level_high)
 		{
-			camera.y = level_high - camera.h ;
+			camera.y = level_high - camera.h;
 			free_camera_y = false;
 			LOG(" HIT Down");
 		}
 	}
 
-	else if (player_position.y > camera.h  && player_position.y < level_high - camera.h)
+	else if (App->win->GetScale() * player_position.y > camera.h/2  && App->win->GetScale() * player_position.y < level_high - camera.h/2)
 		free_camera_y = true;
 
 	
 
 	//Camera_y Follow Player
 	if (free_camera_y)
-		camera.y = player_position.y - camera.h ;
+		camera.y = App->win->GetScale() * player_position.y - camera.h/2 ;
 
 
 
@@ -163,16 +166,18 @@ bool j1Render::Update(float dt)
 bool j1Render::PostUpdate()
 {
 	int borderWidth = 3;
+	int scale = App->win->GetScale();
 
-	App->render->DrawQuad({ camera.x -borderWidth, camera.y -borderWidth, camera.w + borderWidth * 2, borderWidth }, 255, 255, 255, 255);
-	//Down border
-	App->render->DrawQuad({ camera.x -borderWidth, camera.y + camera.h, camera.w + borderWidth * 2, borderWidth }, 255, 255, 255, 255);
-	//Left border
-	App->render->DrawQuad({ camera.x -borderWidth, camera.y, borderWidth, camera.h }, 255, 255, 255, 255);
-	//Right border
-	App->render->DrawQuad({ camera.x + camera.w, camera.y, borderWidth, camera.h }, 255, 255, 255, 255);
-
-	App->render->DrawCircle(camera.x + camera.w, camera.y + camera.h , 1, 50, 255, 50, 255); // Circle middle of the screen
+	// Up border
+	App->render->DrawQuad({ camera.x/ scale -borderWidth, camera.y/ scale -borderWidth, camera.w / scale + borderWidth * 2, borderWidth }, 255, 255, 255, 255);
+	// Down border
+	App->render->DrawQuad({ camera.x / scale -borderWidth, (camera.y + camera.h) / scale, camera.w / scale + borderWidth * 2, borderWidth }, 255, 255, 255, 255);
+	// Left border
+	App->render->DrawQuad({ camera.x / scale -borderWidth, camera.y / scale, borderWidth, camera.h / scale }, 255, 255, 255, 255);
+	// Right border
+	App->render->DrawQuad({ (camera.x + camera.w) / scale, camera.y / scale, borderWidth, camera.h / scale }, 255, 255, 255, 255);
+	// Centered point 
+	App->render->DrawCircle( camera.x+ camera.w/2 , camera.y + camera.h/2, 1, 50, 255, 50, 255); 
 
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
@@ -338,8 +343,8 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 
 	for(uint i = 0; i < 360; ++i)
 	{
-		points[i].x = (int)(x + radius * cos(i * factor));
-		points[i].y = (int)(y + radius * sin(i * factor));
+		points[i].x = (int)(x -camera.x* use_camera + radius * cos(i * factor));
+		points[i].y = (int)(y - camera.y* use_camera + radius * sin(i * factor));
 	}
 
 	result = SDL_RenderDrawPoints(renderer, points, 360);
