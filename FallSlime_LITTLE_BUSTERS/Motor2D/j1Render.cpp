@@ -45,8 +45,8 @@ bool j1Render::Awake(pugi::xml_node& config)
 	}
 	else
 	{
-		camera.w = App->win->screen_surface->w / App->win->GetScale();
-		camera.h = App->win->screen_surface->h/ App->win->GetScale();
+		camera.w = App->win->screen_surface->w /*/ App->win->GetScale()*/;
+		camera.h = App->win->screen_surface->h /*/ App->win->GetScale()*/;
 		camera.x = 0;
 		camera.y = 0;
 	}
@@ -59,6 +59,8 @@ bool j1Render::Start()
 {
 	LOG("render start");
 	// back background
+	SetViewPort(camera);
+
 	SDL_RenderGetViewport(renderer, &viewport);
 	return true;
 }
@@ -92,13 +94,13 @@ bool j1Render::PreUpdate()
 		}
 	}
 
-	else if (player_position.x > camera.w && player_position.x < level_width - camera.w)
+	else if (player_position.x > camera.w/2 && player_position.x < level_width - camera.w /2)
 		free_camera_x = true;
 	
 
 	//Camera_x Follow Player
 	if (free_camera_x)
-		camera.x = player_position.x - camera.w ;
+		camera.x = player_position.x - camera.w/2 ;
 	
 
 
@@ -114,20 +116,20 @@ bool j1Render::PreUpdate()
 
 		else if (camera.y + camera.h > level_high)
 		{
-			camera.y = level_high - camera.h ;
+			camera.y = level_high - camera.h;
 			free_camera_y = false;
 			LOG(" HIT Down");
 		}
 	}
 
-	else if (player_position.y > camera.h  && player_position.y < level_high - camera.h)
+	else if (player_position.y > camera.h/2  && player_position.y < level_high - camera.h/2)
 		free_camera_y = true;
 
 	
 
 	//Camera_y Follow Player
 	if (free_camera_y)
-		camera.y = player_position.y - camera.h ;
+		camera.y = player_position.y - camera.h/2 ;
 
 
 
