@@ -1,9 +1,19 @@
-<!-- Save game for the game -->
-
+<?xml version="1.0"?>
 <game_state>
-
-  <renderer>
-    <camera x="100" y="0"/>
-  </renderer>
-
+	<input />
+	<window />
+	<textures />
+	<audio />
+	<map />
+	<scene />
+	<player>
+		<position x="307.5" y="413.399994" />
+		<velocity x="2.5" y="-4.89999866" />
+		<conditions apply_jump_speed="false" on_ground="false" check_fall="false" flip_x="false" gummy_jump="false" />
+		<state state="jumping" />
+	</player>
+	<:anonymous />
+	<renderer>
+		<camera x="0" y="280" />
+	</renderer>
 </game_state>
