@@ -16124,6 +16124,6 @@
   <object id="430" x="805.5" y="64.25" width="20.5" height="63"/>
  </objectgroup>
  <objectgroup color="#ffff00" id="20" name="CollisionNextLevel">
-  <object id="411" x="1290" y="366.167" width="10.5" height="52"/>
+  <object id="411" x="1290" y="351.667" width="10.5" height="66.5"/>
  </objectgroup>
 </map>

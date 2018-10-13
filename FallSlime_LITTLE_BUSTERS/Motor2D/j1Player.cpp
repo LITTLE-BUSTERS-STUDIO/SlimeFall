@@ -64,10 +64,11 @@ bool j1Player::Start()
 	ground_detector = App->collision->AddCollider(rect_collider, COLLIDER_PLAYER, this);
 	tex_player = App->tex->Load(path_tex_player.GetString());
 	
-	fx_jump1 = App->audio->LoadFx("audio/fx/big1.wav");
-	fx_jump2 = App->audio->LoadFx("audio/fx/big2.wav");
-	fx_jump3 = App->audio->LoadFx("audio/fx/big3.wav");
-	fx_jump4 = App->audio->LoadFx("audio/fx/big4.wav");
+	fx_jump1 = App->audio->LoadFx("audio/fx/jump1.wav");
+	fx_jump2 = App->audio->LoadFx("audio/fx/jump2.wav");
+	fx_jump3 = App->audio->LoadFx("audio/fx/jump3.wav");
+	fx_jump4 = App->audio->LoadFx("audio/fx/jump4.wav");
+	fx_jump5 = App->audio->LoadFx("audio/fx/jump5.wav");
 
 	return true;
 }
@@ -119,6 +120,7 @@ bool j1Player::PreUpdate()
 	{
 		current_state = State::boucing;
 		uint random_jump = rand() % 4 + 1;
+		uint random_secret = rand() % 99;
 		switch (random_jump)
 		{
 		case 1:
@@ -136,6 +138,13 @@ bool j1Player::PreUpdate()
 
 		default:
 			App->audio->PlayFx(fx_jump1);
+			break;
+		}
+		switch (random_secret)
+		{
+		case 0://Sorprise
+			App->audio->PlayFx(fx_jump5);
+		default:
 			break;
 		}
 	}

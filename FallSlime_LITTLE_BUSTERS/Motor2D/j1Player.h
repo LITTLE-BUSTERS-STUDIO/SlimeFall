@@ -101,6 +101,7 @@ public:
 	uint fx_jump2;
 	uint fx_jump3;
 	uint fx_jump4;
+	uint fx_jump5;
 };
 
 
