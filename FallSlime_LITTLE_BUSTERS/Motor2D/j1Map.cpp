@@ -50,6 +50,11 @@ void j1Map::Draw()
 				iPoint map_pos = MapToWorld(i, j);
 				SDL_Rect rect = tileset->GetTileRect(id);
 
+
+				if (id == 0)
+				{
+					continue;
+				}
 				
 				if (!((cam.x / scale < map_pos.x + rect.w) && (map_pos.x < (cam.x + cam.w) / scale)
 					&& (cam.y / scale < map_pos.y + rect.h) && (map_pos.y < (cam.y + cam.h) / scale)))
@@ -57,8 +62,7 @@ void j1Map::Draw()
 					continue;
 				}
 
-				if (id != 0)
-					App->render->Blit(tileset->texture, map_pos.x, map_pos.y, &rect);
+				App->render->Blit(tileset->texture, map_pos.x, map_pos.y, &rect);
 			}
 		}
 	}

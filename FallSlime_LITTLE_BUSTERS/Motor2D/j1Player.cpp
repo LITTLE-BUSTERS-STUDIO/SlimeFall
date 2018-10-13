@@ -44,7 +44,7 @@ bool  j1Player::Awake(pugi::xml_node& node )
 	speed_ground = node.child("physics").attribute("speed_ground").as_float(0);
 	speed_air = node.child("physics").attribute("speed_air").as_float(0);
 	speed_jump = node.child("physics").attribute("speed_jump").as_float(0);
-
+	speed_gummy_jump = node.child("physics").attribute("speed_gummy_jump").as_float(0);
 
 	//Assets
 	pugi::xml_document animation_doc;
@@ -52,7 +52,7 @@ bool  j1Player::Awake(pugi::xml_node& node )
 	animation_doc.load_file("player_animation.xml");
 	anim_node = animation_doc.child("tileset");
 	path_tex_player.create(node.child("texture").attribute("path").as_string(""));
-	idle.LoadAnimation(anim_node, "blue_slime");
+	player_anim.LoadAnimation(anim_node, "blue_slime");
 
 	return true;
 }
@@ -99,12 +99,21 @@ bool j1Player::PreUpdate()
 		velocity.x = 0;
 
 	// Only if player is on ground 
+
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && current_state == State::boucing && gummy_jump ==false)
+	{
+		gummy_jump = true;
+	}
+
+
+
 	if (apply_jump_speed == true)
 	{
-		velocity.y = -speed_jump;
+		velocity.y = -speed_jump - gummy_jump* speed_gummy_jump;
 		on_ground = false;
 		check_fall = false;
 		apply_jump_speed = false;
+		gummy_jump = false;
 	}
 
 
@@ -167,25 +176,26 @@ bool j1Player::Update(float dt)
 bool j1Player::PostUpdate()
 {
 	SDL_Rect frame; 
-	idle.speed = 0.7f;
+	player_anim.speed = 0.7f;
 
 	switch ((State)current_state)
 	{
 	case State::jumping:
-		frame = idle.GetLastFrame();
+		frame = player_anim.GetLastFrame();
 		break;
 	case State::boucing:
-		if (idle.GetFrameNumber() > 9)
+		if (player_anim.GetFrameNumber() > 9)
 		{
 			current_state = State::jumping;
 			apply_jump_speed = true;
-			idle.Reset();
-			frame = idle.GetCurrentFrame();
+			player_anim.Reset();
+			frame = player_anim.GetCurrentFrame();
 			break;
 		}
-		frame = idle.GetCurrentFrame();
+		frame = player_anim.GetCurrentFrame();
 		break;
 	}
+
 	App->render->Blit(tex_player, position.x - frame.w/2 , position.y - frame.h / 2, &frame  , flip_x );
 	return true;
 }

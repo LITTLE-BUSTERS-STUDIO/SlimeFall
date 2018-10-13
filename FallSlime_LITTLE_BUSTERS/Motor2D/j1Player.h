@@ -77,6 +77,7 @@ public:
 	float speed_air;
 	float speed_ground;
 	float speed_jump;
+	float speed_gummy_jump;
 	bool  apply_jump_speed = false;
 
 	//Collision
@@ -87,10 +88,13 @@ public:
 	SDL_Rect      rect_collider;
 	bool flip_x = false;
 	
+	//Abilities
+	bool gummy_jump = false;
+
 	//Assets
 	SDL_Texture   *tex_player = nullptr;
 	p2SString     path_tex_player;
-	Animation     idle;
+	Animation     player_anim;
 	State         current_state = State::jumping;
 
 	uint fx_jump1;
