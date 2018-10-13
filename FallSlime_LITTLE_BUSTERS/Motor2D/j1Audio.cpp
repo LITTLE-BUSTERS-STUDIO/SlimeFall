@@ -52,10 +52,10 @@ bool j1Audio::Awake(pugi::xml_node& config)
 		ret = true;
 	}
 
-	fade_time = config.child("fade_time").attribute("default").as_uint(0);
-	volume_music = config.child("volume_music").attribute("default").as_uint(0);
-	volume_sfx = config.child("volume_sfx").attribute("default").as_uint(0);
-	mute = config.child("mute").attribute("value").as_bool(true);
+	fade_time = config.child("fade_time").attribute("default").as_uint(0u);
+	volume_music = config.child("volume_music").attribute("default").as_uint(0u);
+	volume_sfx = config.child("volume_sfx").attribute("default").as_uint(0u);
+	mute = config.child("mute").attribute("value").as_bool(false);
 
 	if (mute)
 	{
@@ -228,6 +228,7 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 
 bool j1Audio::Load(pugi::xml_node& node)
 {
+	mute = node.child("volumes").attribute("mute").as_bool(false);
 	volume_music = node.child("volumes").attribute("music").as_uint(0u);
 	volume_sfx = node.child("volumes").attribute("sfx").as_uint(0u);
 	return true;
@@ -238,6 +239,7 @@ bool j1Audio::Save(pugi::xml_node& node ) const
 
 	volumes.append_attribute("music") = volume_music;
 	volumes.append_attribute("sfx") = volume_sfx;
+	volumes.append_attribute("mute") = mute;
 
 	return true;
 }
