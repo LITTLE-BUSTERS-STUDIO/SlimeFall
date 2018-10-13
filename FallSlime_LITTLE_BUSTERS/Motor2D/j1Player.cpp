@@ -35,8 +35,6 @@ void j1Player::Init()
 // Called before render is available
 bool  j1Player::Awake(pugi::xml_node& node )
 {
-
-
 	//Values
 	rect_collider.w = node.child("collider").attribute("width").as_uint(0);
 	rect_collider.h = node.child("collider").attribute("height").as_uint(0);
@@ -121,7 +119,6 @@ bool j1Player::PreUpdate()
 	{
 		current_state = State::boucing;
 		uint random_jump = rand() % 4 + 1;
-		LOG("__________%d", random_jump);
 		switch (random_jump)
 		{
 		case 1:
@@ -214,12 +211,70 @@ bool j1Player::CleanUp()
 bool j1Player::Load(pugi::xml_node& node)
 {
 	bool ret = true;
+	position.x = node.child("position").attribute("x").as_float(0);
+	position.y = node.child("position").attribute("y").as_float(0);
+	velocity.x = node.child("velocity").attribute("x").as_float(0);
+	velocity.y = node.child("velocity").attribute("y").as_float(0);
+	acceleration.x = node.child("acceleration").attribute("x").as_float(0);
+	acceleration.y = node.child("acceleration").attribute("y").as_float(0);
+
+	apply_jump_speed = node.child("conditions").attribute("apply_jump_speed").as_bool(false);
+	on_ground = node.child("conditions").attribute("on_ground").as_bool(false);
+	check_fall = node.child("conditions").attribute("check_fall").as_bool(false);
+	flip_x = node.child("conditions").attribute("flip_x").as_bool(false);
+	gummy_jump = node.child("conditions").attribute("gummy_jump").as_bool(false);
+
+	p2SString state_string(node.child("state").attribute("current_state").as_string(""));
+
+	if (state_string == "jumping")
+	{
+		current_state = State::jumping;
+	}
+	else if  (state_string == "boucing")
+	{
+		current_state = State::boucing;
+	}
 	return ret;
 }
 
 bool j1Player::Save(pugi::xml_node& node) const
 {
 	bool ret = true;
+
+	pugi::xml_node pos = node.append_child("position");
+
+	pos.append_attribute("x") = position.x;
+	pos.append_attribute("y") = position.y;
+
+	pugi::xml_node vel = node.append_child("velocity");
+
+	vel.append_attribute("x") = velocity.x;
+	vel.append_attribute("y") = velocity.y;
+
+	pugi::xml_node conditions = node.append_child("conditions");
+
+	conditions.append_attribute("apply_jump_speed") = apply_jump_speed;
+	conditions.append_attribute("on_ground") = on_ground;
+	conditions.append_attribute("check_fall") = check_fall;
+	conditions.append_attribute("flip_x") = flip_x;
+	conditions.append_attribute("gummy_jump") = gummy_jump;
+
+	pugi::xml_node state_node = node.append_child("state");
+
+	p2SString state_string;
+
+	switch ((State)current_state)
+	{
+	case State::jumping:
+		state_string.create("jumping");
+		break;
+	case State::boucing:
+		state_string.create("jumping");
+		break;
+	}
+	state_node.append_attribute("state") = state_string.GetString();
+
+
 	return ret;
 }
 

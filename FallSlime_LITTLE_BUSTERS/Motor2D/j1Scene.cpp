@@ -108,6 +108,13 @@ bool j1Scene::PreUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) //Close Window
 		ret = false;
 
+	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+		App->LoadGame();
+
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+		App->SaveGame();
+
+
 	return ret;
 }
 
