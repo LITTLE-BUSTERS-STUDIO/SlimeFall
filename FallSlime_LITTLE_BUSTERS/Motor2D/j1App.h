@@ -87,6 +87,8 @@ public:
 	j1Map*				map;
 	j1Player*           player;
 	j1Collision*        collision;
+	j1Scene*            level_1;
+	j1Scene*            level_2;
 
 private:
 

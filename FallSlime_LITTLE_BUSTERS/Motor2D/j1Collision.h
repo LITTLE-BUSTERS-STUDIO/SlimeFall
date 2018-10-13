@@ -46,7 +46,7 @@ class j1Collision : public j1Module
 public:
 
 	j1Collision();
-	~j1Collision();
+	virtual ~j1Collision();
 
 	bool Update(float dt);
 	bool PostUpdate();

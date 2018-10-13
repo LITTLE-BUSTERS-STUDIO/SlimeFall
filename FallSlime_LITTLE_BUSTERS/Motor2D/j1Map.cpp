@@ -413,8 +413,9 @@ bool j1Map::LoadColliders(pugi::xml_node& object_node, CollidersGroup* group)
 {
 	bool ret = true;
 	
-	COLLIDER_TYPE collyder_type;
-	group->name.create(object_node.attribute("name").as_string());
+	COLLIDER_TYPE collyder_type = COLLIDER_NONE;
+
+	group->name.create(object_node.attribute("name").as_string(""));
 
 	if (group->name.GetString() == "colliders_static")
 		collyder_type = COLLIDER_WALL;
@@ -438,7 +439,7 @@ bool j1Map::LoadColliders(pugi::xml_node& object_node, CollidersGroup* group)
 		rect.y = object_data.attribute("y").as_int(0);
 		rect.w = object_data.attribute("width").as_int(0);
 		rect.h = object_data.attribute("height").as_int(0);
-		group->colls[counter] = App->collision->AddCollider(rect, COLLIDER_WALL, this);
+		group->colls[counter] = App->collision->AddCollider(rect, collyder_type, this);
 		++counter;
 	}
 
@@ -450,12 +451,12 @@ bool j1Map::LoadColliders(pugi::xml_node& object_node, CollidersGroup* group)
 
 TileSet* j1Map::GetTileset(int id) const
 {
-	// Tileset based on a tile id
-
 	p2List_item<TileSet*>* tileset = data.tilesets.start;
 	while (tileset != NULL)
 	{
-		if (tileset->next && id < tileset->next->data->firstgid) return tileset->data;
+		if (tileset->next && id < tileset->next->data->firstgid)
+			return tileset->data;
+
 		tileset = tileset->next;
 	}
 	return data.tilesets.end->data;

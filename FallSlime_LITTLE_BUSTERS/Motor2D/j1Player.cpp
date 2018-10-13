@@ -50,7 +50,7 @@ bool  j1Player::Awake(pugi::xml_node& node )
 	animation_doc.load_file("player_animation.xml");
 	anim_node = animation_doc.child("tileset");
 	path_tex_player.create(node.child("texture").attribute("path").as_string(""));
-	player_anim.LoadAnimation(anim_node, "blue_slime");
+	player_anim.LoadAnimation(anim_node, "pink_slime");
 
 	return true;
 }

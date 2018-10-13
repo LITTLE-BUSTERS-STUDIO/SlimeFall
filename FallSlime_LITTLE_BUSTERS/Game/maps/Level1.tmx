@@ -70638,7 +70638,7 @@
    <tile/>
   </data>
  </layer>
- <objectgroup color="#5500ff" id="16" name="CollisionGround">
+ <objectgroup color="#5500ff" id="16" name="colliders_static">
   <object id="331" x="6.93939" y="246.093" width="130.208" height="21.3333"/>
   <object id="332" x="209.349" y="288.239" width="31.0678" height="18.4462"/>
   <object id="333" x="272.324" y="222.868" width="56.5224" height="18.4848"/>
@@ -70656,10 +70656,10 @@
   <object id="360" x="1424.1" y="291.968" width="15.8958" height="11.8977"/>
   <object id="363" x="1536" y="288" width="127.432" height="11.8977"/>
  </objectgroup>
- <objectgroup color="#ff0000" id="19" name="CollisionDeath" visible="0" locked="1">
+ <objectgroup color="#ff0000" id="19" name="colliders_death" visible="0" locked="1">
   <object id="354" x="27" y="438" width="1000" height="69.5"/>
  </objectgroup>
- <objectgroup color="#ffff00" id="20" name="CollisionNextLevel">
+ <objectgroup color="#ffff00" id="20" name="colliders_next_level">
   <object id="350" x="1025.65" y="180.738" width="15.8182" height="111.303"/>
  </objectgroup>
 </map>

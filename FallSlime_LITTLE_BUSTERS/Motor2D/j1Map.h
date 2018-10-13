@@ -22,10 +22,6 @@ struct MapLayer
 		delete[]  tiles;
 	}
 };
-
-
-
-
 // ----------------------------------------------------
 struct TileSet
 {
