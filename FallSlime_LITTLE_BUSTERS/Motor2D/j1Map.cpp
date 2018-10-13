@@ -25,6 +25,7 @@ bool j1Map::Awake(pugi::xml_node& config)
 
 	folder.create(config.child("folder").child_value());
 	
+
 	return ret;
 }
 
@@ -80,8 +81,6 @@ iPoint j1Map::MapToWorld(int x, int y) const
 
 	ret.x = x * data.tile_width;
 	ret.y = y * data.tile_height;
-
-
 
 	return ret;
 }

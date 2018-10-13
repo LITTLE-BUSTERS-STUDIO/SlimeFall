@@ -22,14 +22,13 @@ j1Scene::~j1Scene()
 {}
 
 
-
-
 // Called before render is available
 bool j1Scene:: Awake(pugi::xml_node& node )
 {
 	LOG("Loading Scene");
 	bool ret = true;
 	music_path = node.child("music").attribute("path").as_string("");
+	background_path = node.child("background").attribute("path").as_string("");
 
 	return ret;
 }
@@ -39,7 +38,7 @@ bool j1Scene::Start()
 {
 	App->map->Load("Level1.tmx");
 	App->audio->PlayMusic(music_path.GetString());
-	background_parallax = App->tex->Load("textures/Parallax.png");
+	background_parallax = App->tex->Load(background_path.GetString());
 
 	//Parallax
 	for (uint i = 0; i < 11; i++)
@@ -89,10 +88,10 @@ bool j1Scene::Update(float dt)
 
 	App->win->SetTitle(title.GetString());
 
-
+	// Blit background
 	for (uint i = 0; i < 11; i++)
 	{
-		App->render->Blit(background_parallax, 0, -400, &parallax[i].rect_parallax, true, 1);
+		App->render->Blit(background_parallax, 0, -300, &parallax[i].rect_parallax, true, 0.7f);
 	}
 
 	return true;

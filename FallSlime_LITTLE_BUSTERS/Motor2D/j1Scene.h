@@ -38,6 +38,8 @@ public:
 private:
 
 	p2SString music_path;
+	p2SString background_path;
+
 public:
 
 	SDL_Texture * background_parallax = nullptr;

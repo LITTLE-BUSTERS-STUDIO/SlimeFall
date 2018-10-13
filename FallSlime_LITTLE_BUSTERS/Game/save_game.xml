@@ -7,13 +7,13 @@
 	<map />
 	<scene />
 	<player>
-		<position x="297.5" y="428" />
-		<velocity x="2.5" y="0" />
-		<conditions apply_jump_speed="false" on_ground="true" check_fall="true" flip_x="false" gummy_jump="false" />
+		<position x="115" y="187.900024" />
+		<velocity x="0" y="4.10000086" />
+		<conditions apply_jump_speed="false" on_ground="false" check_fall="false" flip_x="false" gummy_jump="false" />
 		<state state="jumping" />
 	</player>
 	<:anonymous />
 	<renderer>
-		<camera x="0" y="280" />
+		<camera x="0" y="15" />
 	</renderer>
 </game_state>
