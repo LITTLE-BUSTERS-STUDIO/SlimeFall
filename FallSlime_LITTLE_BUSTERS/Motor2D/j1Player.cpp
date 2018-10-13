@@ -51,6 +51,17 @@ bool  j1Player::Awake(pugi::xml_node& node )
 	anim_node = animation_doc.child("tileset");
 	path_tex_player.create(node.child("texture").attribute("path").as_string(""));
 	player_anim.LoadAnimation(anim_node, "blue_slime");
+	path_jump_fx1.create(node.child("jump_fx").child("jump1").attribute("path").as_string(""));
+	path_jump_fx2.create(node.child("jump_fx").child("jump2").attribute("path").as_string(""));
+	path_jump_fx3.create(node.child("jump_fx").child("jump3").attribute("path").as_string(""));
+	path_jump_fx4.create(node.child("jump_fx").child("jump4").attribute("path").as_string(""));
+	path_jump_fx5.create(node.child("jump_fx").child("jump5").attribute("path").as_string(""));
+
+	/*for (uint i = 0; i > 5; i++)
+	{
+		fx_jump[i].path_jumpfx.create(node.child("jump").attribute("path").as_string(""));
+	}*/
+
 
 	return true;
 }
@@ -63,12 +74,11 @@ bool j1Player::Start()
 	collider = App->collision->AddCollider( rect_collider, COLLIDER_PLAYER, this);
 	ground_detector = App->collision->AddCollider(rect_collider, COLLIDER_PLAYER, this);
 	tex_player = App->tex->Load(path_tex_player.GetString());
-	
-	fx_jump1 = App->audio->LoadFx("audio/fx/jump1.wav");
-	fx_jump2 = App->audio->LoadFx("audio/fx/jump2.wav");
-	fx_jump3 = App->audio->LoadFx("audio/fx/jump3.wav");
-	fx_jump4 = App->audio->LoadFx("audio/fx/jump4.wav");
-	fx_jump5 = App->audio->LoadFx("audio/fx/jump5.wav");
+	fx_jump1 = App->audio->LoadFx(path_jump_fx1.GetString());
+	fx_jump2 = App->audio->LoadFx(path_jump_fx2.GetString());
+	fx_jump3 = App->audio->LoadFx(path_jump_fx3.GetString());
+	fx_jump4 = App->audio->LoadFx(path_jump_fx4.GetString());
+	fx_jump5 = App->audio->LoadFx(path_jump_fx5.GetString());
 
 	return true;
 }
@@ -119,8 +129,10 @@ bool j1Player::PreUpdate()
 	if (on_ground && current_state == State::jumping)
 	{
 		current_state = State::boucing;
+
 		uint random_jump = rand() % 4 + 1;
 		uint random_secret = rand() % 99;
+		
 		switch (random_jump)
 		{
 		case 1:
@@ -145,6 +157,7 @@ bool j1Player::PreUpdate()
 		case 0://Sorprise
 			App->audio->PlayFx(fx_jump5);
 		default:
+
 			break;
 		}
 	}

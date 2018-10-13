@@ -31,6 +31,13 @@
   </map>
   <player>
     <texture path ="textures/player_animation.png"/>
+    <jump_fx>
+      <jump1 path ="audio/fx/jump1.wav"/>
+      <jump2 path ="audio/fx/jump2.wav"/>
+      <jump3 path ="audio/fx/jump3.wav"/>
+      <jump4 path ="audio/fx/jump4.wav"/>
+      <jump5 path ="audio/fx/jump5.wav"/>
+    </jump_fx> 
     <collider width="20" height="20"/>
     <physics gravity ="0.3" speed_air ="2.5" speed_ground ="0" speed_jump ="7" speed_gummy_jump ="3" />
   </player>
