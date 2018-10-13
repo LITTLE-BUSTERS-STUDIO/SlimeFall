@@ -220,7 +220,7 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 
 	if(id > 0 && id <= fx.count())
 	{
-		Mix_PlayChannel(-1, fx[id - 1], repeat);
+		Mix_PlayChannel(-1, fx[id - 1], repeat, volume_sfx);
 	}
 
 	return ret;

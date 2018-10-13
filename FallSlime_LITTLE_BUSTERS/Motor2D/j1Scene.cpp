@@ -6,7 +6,9 @@
 
 bool j1Scene::LoadPhase(uint phase_number) 
 {
+
 	p2List_item<Phase*>* item = nullptr;
+
 
 	if (phase_number <= 0)
 	{
@@ -20,7 +22,6 @@ bool j1Scene::LoadPhase(uint phase_number)
 			break;
 		}
 	}
-
 	App->map->Load(item->data->map_path.GetString());
 
 	return true;

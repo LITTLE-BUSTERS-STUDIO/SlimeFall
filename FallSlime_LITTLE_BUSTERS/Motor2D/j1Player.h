@@ -8,6 +8,9 @@
 
 struct SDL_Texture;
 
+struct JumpFx {
+	p2SString     path_jumpfx;
+};
 enum class State
 {
 	jumping,
@@ -21,15 +24,6 @@ enum class Direction: uint
 	up,
 	down,
 	max
-};
-
-enum class JumpFx : uint
-{
-	JUMP_1,
-	JUMP_2,
-	JUMP_3,
-	JUMP_4,
-	MAXJUMP
 };
 
 class j1Player : public j1Module
@@ -94,13 +88,22 @@ public:
 	//Assets
 	SDL_Texture   *tex_player = nullptr;
 	p2SString     path_tex_player;
+	
 	Animation     player_anim;
 	State         current_state = State::jumping;
+
+	p2SString     path_jump_fx1;
+	p2SString     path_jump_fx2;
+	p2SString     path_jump_fx3;
+	p2SString     path_jump_fx4;
+	p2SString     path_jump_fx5;
 
 	uint fx_jump1;
 	uint fx_jump2;
 	uint fx_jump3;
 	uint fx_jump4;
+	uint fx_jump5;
+
 };
 
 

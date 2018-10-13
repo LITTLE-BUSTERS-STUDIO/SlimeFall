@@ -413,16 +413,16 @@ bool j1Map::LoadColliders(pugi::xml_node& object_node, CollidersGroup* group)
 {
 	bool ret = true;
 	
-	COLLIDER_TYPE collyder_type = COLLIDER_NONE;
+	COLLIDER_TYPE collider_type = COLLIDER_NONE;
 
 	group->name.create(object_node.attribute("name").as_string(""));
 
-	if (group->name.GetString() == "colliders_static")
-		collyder_type = COLLIDER_WALL;
-	else if (group->name.GetString() == "colliders_death")
-		collyder_type = COLLIDER_DEATH;
-	else if (group->name.GetString() == "colliders_next_level")
-		collyder_type = COLLIDER_NEXT_LEVEL;
+	if (group->name== "colliders_ground")
+		collider_type = COLLIDER_WALL;
+	else if (group->name == "colliders_death")
+		collider_type = COLLIDER_DEATH;
+	else if (group->name == "colliders_next_level")
+		collider_type = COLLIDER_NEXT_LEVEL;
 
 	for (pugi::xml_node object_data = object_node.child("object"); object_data; object_data = object_data.next_sibling("object"))
 	{
@@ -430,7 +430,7 @@ bool j1Map::LoadColliders(pugi::xml_node& object_node, CollidersGroup* group)
 	}
 
 	group->colls = new Collider*[group->num_colliders];
-	uint counter = 0;
+	uint counter = 0u;
 
 	for (pugi::xml_node object_data = object_node.child("object"); object_data; object_data = object_data.next_sibling("object"))
 	{
@@ -439,7 +439,7 @@ bool j1Map::LoadColliders(pugi::xml_node& object_node, CollidersGroup* group)
 		rect.y = object_data.attribute("y").as_int(0);
 		rect.w = object_data.attribute("width").as_int(0);
 		rect.h = object_data.attribute("height").as_int(0);
-		group->colls[counter] = App->collision->AddCollider(rect, collyder_type, this);
+		group->colls[counter] = App->collision->AddCollider(rect, collider_type, this);
 		++counter;
 	}
 

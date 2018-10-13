@@ -44,9 +44,10 @@ bool Level_1::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Level_1::Start()
 {
-	App->map->Load("Level1.tmx");
+	App->map->Load("Level1_2.tmx");
 	App->audio->PlayMusic(music_path.GetString());
 	background_parallax = App->tex->Load(background_path.GetString());
+
 
 	//Parallax
 	for (uint i = 0; i < 11; i++)
@@ -82,6 +83,7 @@ bool Level_1::PreUpdate()
 bool Level_1::Update(float dt)
 {
 	int x, y;
+	
 	App->input->GetMousePosition(x, y);
 	iPoint map_coordinates(x / App->map->data.tile_width, y / App->map->data.tile_height);
 	iPoint map_coordinates_pixel(x, y);
@@ -100,6 +102,7 @@ bool Level_1::Update(float dt)
 	for (uint i = 0; i < 11; i++)
 	{
 		App->render->Blit(background_parallax, 0, -300, &parallax[i].rect_parallax, true, 0.7f); // -300 equals to start position.y
+		//App->render->Blit(background_parallax, 0, -300, &parallax[i].rect_parallax, true, 0.4f); // -300 equals to start position.y
 	}
 
 	return true;
@@ -109,6 +112,7 @@ bool Level_1::Update(float dt)
 bool Level_1::PostUpdate()
 {
 	bool ret = true;
+
 	App->map->Draw();
 	return ret;
 }
