@@ -32,7 +32,7 @@
   <player>
     <texture path ="textures/player_animation.png"/>
     <collider width="20" height="20"/>
-    <physics gravity ="0.3" speed_air ="2.5" speed_ground ="0" speed_jump ="7" speed_gummy_jump ="7" />
+    <physics gravity ="0.3" speed_air ="2.5" speed_ground ="0" speed_jump ="7" speed_gummy_jump ="4" />
   </player>
   <scene>
     <music path="audio/music/Level1.ogg"/>
