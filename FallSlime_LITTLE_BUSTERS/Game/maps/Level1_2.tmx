@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="100" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="68" nextobjectid="433">
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="100" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="68" nextobjectid="435">
  <tileset firstgid="1" name="Basic_tileset" tilewidth="16" tileheight="16" tilecount="60" columns="10">
   <image source="Basic_tileset.png" width="160" height="96"/>
   <terraintypes>
@@ -6143,8 +6143,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
    <tile gid="1"/>
+   <tile gid="2"/>
    <tile gid="2"/>
    <tile gid="2"/>
    <tile gid="2"/>
@@ -6243,8 +6243,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
    <tile gid="21"/>
+   <tile gid="22"/>
    <tile gid="22"/>
    <tile gid="22"/>
    <tile gid="22"/>
@@ -16108,11 +16108,13 @@
   <object id="415" x="12.6852" y="196.129" width="12.9449" height="226.235"/>
   <object id="431" x="871.258" y="262.318" width="27.2347" height="9.1136"/>
   <object id="432" x="887.644" y="242.378" width="10.8869" height="20.1088"/>
+  <object id="433" x="0.179724" y="0.134085" width="12.9449" height="180.23"/>
+  <object id="434" x="13.091" y="0.12123" width="43.6665" height="16.3636"/>
  </objectgroup>
  <objectgroup color="#ff0000" id="19" name="CollisionDeath">
   <object id="416" x="46" y="336" width="1027.33" height="68"/>
-  <object id="417" x="242.345" y="130.125" width="11.9973" height="14"/>
-  <object id="419" x="386.768" y="65.8967" width="11.9973" height="14"/>
+  <object id="417" x="243.095" y="130.125" width="11.2473" height="14"/>
+  <object id="419" x="387.495" y="65.8967" width="10.27" height="14"/>
   <object id="420" x="1150.67" y="287" width="12.6667" height="80.6667"/>
   <object id="421" x="1203.64" y="404.727" width="25.7273" height="11.9091"/>
   <object id="422" x="947.875" y="212" width="10.25" height="12.0625"/>
