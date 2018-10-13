@@ -4,6 +4,7 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Collision.h"
+#include "j1Window.h"
 #include "j1Map.h"
 #include <math.h>
 
@@ -31,8 +32,10 @@ void j1Map::Draw()
 {
 	if (map_loaded == false)
 		return;
+	int scale = App->win->GetScale(); 
+	SDL_Rect cam(App->render->camera);
 
-	p2List_item <TileSet*> *tileset = nullptr;
+	TileSet *tileset = nullptr;
 
 	for(p2List_item <MapLayer*>*layer = data.layers.start; layer; layer = layer->next)
 	{
@@ -42,13 +45,20 @@ void j1Map::Draw()
 			{
 				uint id = layer->data->tiles [layer->data->Get(i, j)];
 
-				tileset = data.tilesets.start;
-
+				tileset = GetTileset(id);
 
 				iPoint map_pos = MapToWorld(i, j);
-				SDL_Rect rect = tileset->data->GetTileRect(id);
+				SDL_Rect rect = tileset->GetTileRect(id);
+
+				
+				if (!((cam.x / scale < map_pos.x + rect.w) && (map_pos.x < (cam.x + cam.w) / scale)
+					&& (cam.y / scale < map_pos.y + rect.h) && (map_pos.y < (cam.y + cam.h) / scale)))
+				{
+					continue;
+				}
+
 				if (id != 0)
-					App->render->Blit(tileset->data->texture, map_pos.x, map_pos.y, &rect);
+					App->render->Blit(tileset->texture, map_pos.x, map_pos.y, &rect);
 			}
 		}
 	}
@@ -433,4 +443,18 @@ bool j1Map::LoadColliders(pugi::xml_node& object_node, CollidersGroup* group)
 
 
 	return ret;
+}
+
+TileSet* j1Map::GetTileset(int id) const
+{
+	// Tileset based on a tile id
+
+	p2List_item<TileSet*>* tileset = data.tilesets.start;
+	while (tileset != NULL)
+	{
+		if (tileset->next && id < tileset->next->data->firstgid) return tileset->data;
+		tileset = tileset->next;
+	}
+	return data.tilesets.end->data;
+
 }

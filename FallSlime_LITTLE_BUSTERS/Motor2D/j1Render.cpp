@@ -214,8 +214,12 @@ void j1Render::ResetViewPort()
 	SDL_RenderSetViewport(renderer, &viewport);
 }
 
-// Blit to screen
+//bool j1Render::CheckCameraBound (SDL_Rect r)
+//{
+//
+//}
 
+// Blit to screen
 bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, bool flip_x, float speed, double angle, int pivot_x, int pivot_y) const
 {
 	bool ret = true;

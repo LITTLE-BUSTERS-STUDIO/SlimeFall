@@ -105,6 +105,7 @@ public:
 	// Load new map
 	bool Load(const char* path);
 	iPoint MapToWorld(int x, int y) const;
+	TileSet* GetTileset(int id) const;
 
 private:
 
