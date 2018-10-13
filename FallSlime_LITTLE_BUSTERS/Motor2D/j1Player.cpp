@@ -57,11 +57,6 @@ bool  j1Player::Awake(pugi::xml_node& node )
 	path_jump_fx4.create(node.child("jump_fx").child("jump4").attribute("path").as_string(""));
 	path_jump_fx5.create(node.child("jump_fx").child("jump5").attribute("path").as_string(""));
 
-	/*for (uint i = 0; i > 5; i++)
-	{
-		fx_jump[i].path_jumpfx.create(node.child("jump").attribute("path").as_string(""));
-	}*/
-
 
 	return true;
 }
