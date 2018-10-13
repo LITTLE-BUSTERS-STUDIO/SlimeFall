@@ -57,7 +57,6 @@ bool  j1Player::Awake(pugi::xml_node& node )
 	path_jump_fx4.create(node.child("jump_fx").child("jump4").attribute("path").as_string(""));
 	path_jump_fx5.create(node.child("jump_fx").child("jump5").attribute("path").as_string(""));
 
-	//path_chargedjump_fx.create(node.child("jump_fx").child("chargedjump").attribute("path").as_string(""));
 
 
 	return true;
@@ -109,6 +108,7 @@ bool j1Player::PreUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && current_state == State::boucing && gummy_jump ==false)
 	{
 		gummy_jump = true;
+		App->audio->PlayFx(fx_jump5);
 	}
 
 
@@ -149,14 +149,14 @@ bool j1Player::PreUpdate()
 			App->audio->PlayFx(fx_jump1);
 			break;
 		}
-		switch (random_secret)
-		{
-		case 0://Sorprise
-			App->audio->PlayFx(fx_jump5);
-		default:
+		//switch (random_secret)
+		//{
+		//case 0://Sorprise
+		//	App->audio->PlayFx(fx_jump5);
+		//default:
 
-			break;
-		}
+		//	break;
+		//}
 	}
 
 

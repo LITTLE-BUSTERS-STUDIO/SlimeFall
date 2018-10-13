@@ -8,9 +8,7 @@
 
 struct SDL_Texture;
 
-struct JumpFx {
-	p2SString     path_jumpfx;
-};
+
 enum class State
 {
 	jumping,
@@ -97,6 +95,7 @@ public:
 	p2SString     path_jump_fx3;
 	p2SString     path_jump_fx4;
 	p2SString     path_jump_fx5;
+
 
 	uint fx_jump1;
 	uint fx_jump2;
