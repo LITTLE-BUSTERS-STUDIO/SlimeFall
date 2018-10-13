@@ -5,12 +5,8 @@
 #include "SDL_mixer\include\SDL_mixer.h"
 #include "p2List.h"
 
-#define DEFAULT_MUSIC_FADE_TIME 2.0f
-
 struct _Mix_Music;
 struct Mix_Chunk;
-
-
 
 class j1Audio : public j1Module
 {
@@ -30,7 +26,7 @@ public:
 	bool CleanUp();
 
 	// Play a music file
-	bool PlayMusic(const char* path, float fade_time = DEFAULT_MUSIC_FADE_TIME);
+	bool PlayMusic(const char* path);
 
 	// Load a WAV in memory
 	unsigned int LoadFx(const char* path);
@@ -38,9 +34,9 @@ public:
 	// Play a previously loaded WAV
 	bool PlayFx(unsigned int fx, int repeat = 0);
 	
-	//Unload a Wav in memory
-	//bool UnLoadFx(unsigned int id);
+	bool Load(pugi::xml_node&);
 
+	bool Save(pugi::xml_node&) const;
 
 private:
 
@@ -48,6 +44,7 @@ private:
 	p2List<Mix_Chunk*>	fx;
 
 public:
+	uint fade_time;
 	uint volume_music;
 	uint volume_sfx;
 	bool mute;

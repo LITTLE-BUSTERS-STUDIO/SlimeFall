@@ -42,7 +42,6 @@ public:
 
 	// Set background color
 	void SetBackgroundColor(SDL_Color color);
-	bool CheckCameraBound(SDL_Rect r);
 
 public:
 

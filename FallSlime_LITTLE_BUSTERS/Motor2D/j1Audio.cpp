@@ -51,6 +51,8 @@ bool j1Audio::Awake(pugi::xml_node& config)
 		active = false;
 		ret = true;
 	}
+
+	fade_time = config.child("fade_time").attribute("default").as_uint(0);
 	volume_music = config.child("volume_music").attribute("default").as_uint(0);
 	volume_sfx = config.child("volume_sfx").attribute("default").as_uint(0);
 	mute = config.child("mute").attribute("value").as_bool(true);
@@ -131,7 +133,7 @@ bool j1Audio::CleanUp()
 }
 
 // Play a music file
-bool j1Audio::PlayMusic(const char* path, float fade_time)
+bool j1Audio::PlayMusic(const char* path)
 {
 	bool ret = true;
 
@@ -224,10 +226,31 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 	return ret;
 }
 
+bool j1Audio::Load(pugi::xml_node& node)
+{
+	volume_music = node.child("volumes").attribute("music").as_uint(0u);
+	volume_sfx = node.child("volumes").attribute("sfx").as_uint(0u);
+	return true;
+}
+bool j1Audio::Save(pugi::xml_node& node ) const
+{
+	pugi::xml_node volumes = node.append_child("volumes");
+
+	volumes.append_attribute("music") = volume_music;
+	volumes.append_attribute("sfx") = volume_sfx;
+
+	return true;
+}
+
+
 //Unload WAV
 //bool UnLoadFx(unsigned int id) 
 //{
 //	Mix_FreeChunk(fx);
 //	return true;
 //}
+
+
+
+
 

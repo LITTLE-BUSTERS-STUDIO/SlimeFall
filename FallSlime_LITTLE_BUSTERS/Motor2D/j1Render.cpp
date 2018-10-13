@@ -181,8 +181,11 @@ bool j1Render::CleanUp()
 // Load Game State
 bool j1Render::Load(pugi::xml_node& data)
 {
-	camera.x = data.child("camera").attribute("x").as_int();
-	camera.y = data.child("camera").attribute("y").as_int();
+	camera.x = data.child("camera").attribute("x").as_int(0);
+	camera.y = data.child("camera").attribute("y").as_int(0);
+	zoom = data.child("debug").attribute("zoom").as_int(0);
+	free_camera_x = data.child("conditions").attribute("free_camera_x").as_bool(false);
+	free_camera_y = data.child("conditions").attribute("free_camera_y").as_bool(false);
 
 	return true;
 }
@@ -194,6 +197,15 @@ bool j1Render::Save(pugi::xml_node& data) const
 
 	cam.append_attribute("x") = camera.x;
 	cam.append_attribute("y") = camera.y;
+
+	pugi::xml_node debug = data.append_child("debug");
+
+	debug.append_attribute("zoom") = zoom;
+
+	pugi::xml_node conditions = data.append_child("conditions");
+
+	conditions.append_attribute("free_camera_x") = free_camera_x;
+	conditions.append_attribute("free_camera_y") = free_camera_y;
 
 	return true;
 }

@@ -91,7 +91,7 @@ bool j1Scene::Update(float dt)
 	// Blit background
 	for (uint i = 0; i < 11; i++)
 	{
-		App->render->Blit(background_parallax, 0, -300, &parallax[i].rect_parallax, true, 0.7f);
+		App->render->Blit(background_parallax, 0, -300, &parallax[i].rect_parallax, true, 0.7f); // -300 equals to start position.y
 	}
 
 	return true;
