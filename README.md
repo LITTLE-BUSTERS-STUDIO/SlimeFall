@@ -42,17 +42,17 @@ See also our organization, Little Busters[https://github.com/LITTLE-BUSTERS-STUD
 And finnaly take a look at, Ric's github  https://github.com/d0n3val
 
 ##Program used
-* Microsoft Visual Studio 2017
-* Pugi
-* SDL
-* Tiled
+* [Microsoft Visual Studio 2017](https://visualstudio.microsoft.com/es/vs/)
+* [Tiled v1.2.0](https://www.mapeditor.org/)
+* [SDL v2.0](https://www.libsdl.org/license.php)
+* [PugiXml v1.9 ](https://pugixml.org/license.html)
 
 ## Art Sources
-* Slime (https://www.reddit.com/r/PixelArt/comments/3crdjh/oc_animation_practice_bouncy_slime/)
-* Ground tileset (https://aamatniekss.itch.io/free-pixelart-platformer-tileset)
-* Black Forest Background (https://edermunizz.itch.io/free-pixel-art-forest)
-* Tree tileset (https://genchevblog.wordpress.com/)
-* First level music (https://www.youtube.com/watch?v=u94lVZa9xXU)
+* [Slime](https://www.reddit.com/r/PixelArt/comments/3crdjh/oc_animation_practice_bouncy_slime/)
+* [Ground tileset](https://aamatniekss.itch.io/free-pixelart-platformer-tileset)
+* [Black Forest Background](https://edermunizz.itch.io/free-pixel-art-forest)
+* [Tree tileset](https://genchevblog.wordpress.com/)
+* [First level music](https://www.youtube.com/watch?v=u94lVZa9xXU)
 
 ## Acknowledgments
 * Thanks to all the people in the class for supporting this project.
