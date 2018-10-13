@@ -33,7 +33,7 @@ public:
 	virtual bool Start() {return true; }
 
 	// Called before all Updates
-	virtual bool PreUpdate() { return true; }
+	virtual bool PreUpdate();
 
 	// Called each loop iteration
 	virtual bool Update(float dt) { return true; }
@@ -50,6 +50,7 @@ public:
 
 protected:
 	p2List<Phase *> phases;
+	uint current_phase;
 };
 
 #endif // __j1SCENE_H__

@@ -130,6 +130,18 @@ bool j1Map::CleanUp()
 
 	while (item_3 != NULL)
 	{
+
+
+		for (int i = 0; i < item_3->data->num_colliders; ++i)
+		{
+			if (item_3->data->colls[i] != nullptr)
+			{ 
+				item_3->data->colls[i]->to_delete = true;
+				item_3->data->colls[i] = nullptr;
+			}
+		}
+
+
 		RELEASE(item_3->data);
 		item_3 = item_3->next;
 	}

@@ -41,11 +41,11 @@
     <collider width="20" height="20"/>
     <physics gravity ="0.3" speed_air ="2.5" speed_ground ="0" speed_jump ="7" speed_gummy_jump ="3" />
   </player>
-  <level_1 phases ="3">
+  <level_1 phases ="3" current_phase="2">
     <music path="audio/music/Level1.ogg"/>
     <background path="textures/Parallax.png"/>
-    <phase id ="1" map_path ="Level1.tmx"/>
-    <phase id= "2" map_path =""/>
-    <phase id ="3" map_path =""/>
+    <phase id ="1" map_path ="Level1_1.tmx"/>
+    <phase id= "2" map_path ="Level1_2.tmx"/>
+    <phase id ="3" map_path ="Level1_3.tmx"/>
   </level_1>
 </config>
