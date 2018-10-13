@@ -41,6 +41,12 @@ See also our organization, Little Busters[https://github.com/LITTLE-BUSTERS-STUD
 
 And finnaly take a look at, Ric's github  https://github.com/d0n3val
 
+##Program used
+* Microsoft Visual Studio 2017
+* Pugi
+* SDL
+* Tiled
+
 ## Art Sources
 * Slime (https://www.reddit.com/r/PixelArt/comments/3crdjh/oc_animation_practice_bouncy_slime/)
 * Ground tileset (https://aamatniekss.itch.io/free-pixelart-platformer-tileset)
