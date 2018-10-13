@@ -97,7 +97,7 @@ bool j1Render::PreUpdate()
 bool j1Render::Update(float dt)
 {
 	//Tests var 
-	int level_width = 2100;
+	int level_width = 2600;
 	int level_high = 1000;
 	fPoint player_position(App->player->position.x, App->player->position.y);
 
