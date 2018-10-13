@@ -32,8 +32,10 @@ bool j1Scene:: Awake(pugi::xml_node& node )
 // Called before the first frame
 bool j1Scene::Start()
 {
-	App->map->Load("Level1_Phase1-2-3-4.tmx");
+	App->map->Load("Level1.tmx");
 	App->audio->PlayMusic(music_path.GetString());
+	background_parallax = App->tex->Load("assets/Sprites/Background.png");
+
 
 	return true;
 }
