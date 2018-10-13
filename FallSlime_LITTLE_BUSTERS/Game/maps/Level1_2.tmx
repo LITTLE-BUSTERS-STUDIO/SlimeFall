@@ -16077,13 +16077,13 @@
    <tile/>
   </data>
  </layer>
- <objectgroup color="#5500ff" id="16" name="CollisionGround">
+ <objectgroup color="#5500ff" id="16" name="colliders_ground">
   <object id="382" x="-0.0909091" y="180.182" width="143.515" height="16.3636"/>
   <object id="386" x="25.4092" y="405.902" width="1063.85" height="16.3636"/>
   <object id="387" x="227.826" y="148.902" width="40.8483" height="16.3636"/>
   <object id="389" x="372.826" y="84.3182" width="66.1816" height="16.3636"/>
   <object id="390" x="310.576" y="115.818" width="18.8483" height="12.8636"/>
-  <object id="391" x="420.457" y="100.523" width="18.8483" height="32.6136"/>
+  <object id="391" x="420.457" y="100.523" width="18.5005" height="32.6136"/>
   <object id="392" x="420.619" y="132.97" width="35.0301" height="47.3636"/>
   <object id="393" x="420.672" y="180.256" width="50.4051" height="64.9469"/>
   <object id="394" x="471.055" y="227.943" width="64.7233" height="17.1136"/>
@@ -16093,13 +16093,13 @@
   <object id="398" x="741.121" y="229.75" width="20.4847" height="12.8636"/>
   <object id="399" x="887.64" y="229.714" width="241.54" height="12.8636"/>
   <object id="400" x="966.455" y="-0.189376" width="37.9089" height="129.841"/>
-  <object id="401" x="104.826" y="10.5682" width="972.848" height="16.3636"/>
+  <object id="401" x="103.87" y="10.5682" width="973.804" height="16.3636"/>
   <object id="402" x="56.9092" y="0.484867" width="47.1817" height="86.3636"/>
   <object id="403" x="1114.71" y="-0.587167" width="44.5756" height="139.174"/>
   <object id="404" x="1077.38" y="-0.587" width="36.5756" height="85.174"/>
   <object id="405" x="1129.51" y="196.818" width="30.2347" height="45.6136"/>
   <object id="406" x="1159.8" y="229.027" width="16.1722" height="13.3636"/>
-  <object id="407" x="1237" y="327.131" width="68.9222" height="13.3636"/>
+  <object id="407" x="1221.09" y="327.131" width="84.8313" height="13.3636"/>
   <object id="408" x="1162.74" y="420.955" width="139.422" height="18.8181"/>
   <object id="409" x="1150.14" y="368.028" width="12.9449" height="72.0681"/>
   <object id="410" x="1150.78" y="242.216" width="12.9449" height="43.6931"/>
@@ -16112,7 +16112,7 @@
   <object id="434" x="13.091" y="0.12123" width="43.6665" height="16.3636"/>
   <object id="435" x="1160.08" y="0.0682" width="127.681" height="16.3636"/>
  </objectgroup>
- <objectgroup color="#ff0000" id="19" name="CollisionDeath">
+ <objectgroup color="#ff0000" id="19" name="colliders_death">
   <object id="416" x="46" y="336" width="1027.33" height="68"/>
   <object id="417" x="243.095" y="130.125" width="11.2473" height="14"/>
   <object id="419" x="387.495" y="65.8967" width="10.27" height="14"/>
@@ -16128,7 +16128,7 @@
   <object id="429" x="804" y="178.375" width="23.875" height="59"/>
   <object id="430" x="805.5" y="64.25" width="20.5" height="63"/>
  </objectgroup>
- <objectgroup color="#ffff00" id="20" name="CollisionNextLevel">
+ <objectgroup color="#ffff00" id="20" name="collision_next_level">
   <object id="411" x="1290" y="351.667" width="10.5" height="66.5"/>
  </objectgroup>
 </map>
