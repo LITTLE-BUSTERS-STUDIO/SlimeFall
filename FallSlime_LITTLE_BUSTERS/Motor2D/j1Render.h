@@ -52,7 +52,7 @@ public:
 
 public:
 	//XML vars
-	int zoom;
+	int zoom ;
 	int max_zoom;
 	bool free_camera_x = true;
 	bool free_camera_y = true;

@@ -64,8 +64,8 @@ bool j1Render::Start()
 	LOG("render start");
 	// back background
 	SetViewPort(camera);
-
 	SDL_RenderGetViewport(renderer, &viewport);
+
 	return true;
 }
 
@@ -73,68 +73,6 @@ bool j1Render::Start()
 bool j1Render::PreUpdate()
 {
 	SDL_RenderClear(renderer);
-
-	//Tests var 
-	int level_width = 2000;
-	int level_high = 1000;
-	fPoint player_position(App->player->position.x , App->player->position.y );
-
-	//Camera_x hit screen---------------------------------------
-	if (free_camera_x)
-	{
-		if (camera.x <= 0)
-		{
-			camera.x = 0;
-
-			free_camera_x = false;
-			LOG(" HIT LEFT");
-		}
-		else if (camera.x + camera.w > level_width)
-		{
-			camera.x = level_width - camera.w;
-			free_camera_x = false;
-			LOG(" HIT RIGHT");
-		}
-	}
-
-	else if (App->win->GetScale() * player_position.x > camera.w/2 && App->win->GetScale() *player_position.x < level_width - camera.w /2)
-		free_camera_x = true;
-	
-
-	//Camera_x Follow Player
-	if (free_camera_x)
-		camera.x = App->win->GetScale() * player_position.x - camera.w/2 ;
-	
-
-
-	//Camera_y hit screen---------------------------------------
-	if (free_camera_y)
-	{
-		if (camera.y < 0) //250 TEST es donde la camara.y va a dejar de seguir
-		{
-			camera.y = 0;
-			free_camera_y = false;
-			LOG(" HIT UP");
-		}
-
-		else if (camera.y + camera.h > level_high)
-		{
-			camera.y = level_high - camera.h;
-			free_camera_y = false;
-			LOG(" HIT Down");
-		}
-	}
-
-	else if (App->win->GetScale() * player_position.y > camera.h/2  && App->win->GetScale() * player_position.y < level_high - camera.h/2)
-		free_camera_y = true;
-
-	
-
-	//Camera_y Follow Player
-	if (free_camera_y)
-		camera.y = App->win->GetScale() * player_position.y - camera.h/2 ;
-
-
 
 	//ZOOM
 	if (App->input->keyboard[SDL_SCANCODE_F10] == KEY_DOWN)
@@ -153,32 +91,79 @@ bool j1Render::PreUpdate()
 			SDL_RenderSetLogicalSize(renderer, camera.w  * zoom, camera.h * zoom);
 		}
 	}
-
-
-
 	return true;
 }
 
 bool j1Render::Update(float dt)
 {
+	//Tests var 
+	int level_width = 2000;
+	int level_high = 1000;
+	fPoint player_position(App->player->position.x, App->player->position.y);
+
+	//Camera_x hit screen---------------------------------------
+	if (free_camera_x)
+	{
+	    if (camera.x <= 0)
+		{
+			camera.x = 0;
+
+			free_camera_x = false;
+		}
+		else if (camera.x + camera.w > level_width)
+		{
+			camera.x = level_width - camera.w;
+			free_camera_x = false;
+		}
+	}
+	else if (App->win->GetScale() * player_position.x > camera.w / 2 && App->win->GetScale() *player_position.x < level_width - camera.w / 2)
+		free_camera_x = true;
+
+	//Camera_x Follow Player
+	if (free_camera_x)
+		camera.x = App->win->GetScale() * player_position.x - camera.w / 2;
+
+	//Camera_y hit screen---------------------------------------
+	if (free_camera_y)
+	{
+		if (camera.y < 0) //250 TEST es donde la camara.y va a dejar de seguir
+		{
+			camera.y = 0;
+			free_camera_y = false;
+		}
+
+		else if (camera.y + camera.h > level_high)
+		{
+			camera.y = level_high - camera.h;
+			free_camera_y = false;
+		}
+	}
+	else if (App->win->GetScale() * player_position.y > camera.h / 2 && App->win->GetScale() * player_position.y < level_high - camera.h / 2)
+		free_camera_y = true;
+
+	//Camera_y Follow Player
+	if (free_camera_y)
+		camera.y = App->win->GetScale() * player_position.y - camera.h / 2;
+
 	return true;
 }
 
 bool j1Render::PostUpdate()
 {
-	int borderWidth = 2 * zoom;
+	int margin = 4;
+	int borderWidth = 4 * zoom;
 	int scale = App->win->GetScale();
 
 	// Up border
-	App->render->DrawQuad({ camera.x/ scale -borderWidth, camera.y/ scale -borderWidth, camera.w / scale + borderWidth * 2, borderWidth }, 255, 255, 255, 255);
+	App->render->DrawQuad({ camera.x / scale - borderWidth - margin , camera.y / scale - borderWidth - margin, camera.w / scale + borderWidth * 2 + margin * 2, borderWidth }, 255, 255, 255, 255);
 	// Down border
-	App->render->DrawQuad({ camera.x / scale -borderWidth, (camera.y + camera.h) / scale, camera.w / scale + borderWidth * 2, borderWidth }, 255, 255, 255, 255);
+	App->render->DrawQuad({ camera.x / scale - borderWidth - margin , (camera.y + camera.h) / scale + margin, camera.w / scale + borderWidth * 2 + margin * 2, borderWidth }, 255, 255, 255, 255);
 	// Left border
-	App->render->DrawQuad({ camera.x / scale -borderWidth, camera.y / scale, borderWidth, camera.h / scale }, 255, 255, 255, 255);
+	App->render->DrawQuad({ camera.x / scale - borderWidth - margin, camera.y / scale - margin , borderWidth, camera.h / scale + margin * 2 }, 255, 255, 255, 255);
 	// Right border
-	App->render->DrawQuad({ (camera.x + camera.w) / scale, camera.y / scale, borderWidth, camera.h / scale }, 255, 255, 255, 255);
+	App->render->DrawQuad({ (camera.x + camera.w)  / scale + margin, camera.y / scale - margin , borderWidth , camera.h / scale + margin * 2 }, 255, 255, 255, 255);
 	// Centered point 
-	App->render->DrawCircle( camera.x + camera.w/2 , camera.y + camera.h/2, 1, 50, 255, 50, 255); 
+	App->render->DrawCircle(camera.x + camera.w / 2, camera.y + camera.h / 2, 1, 50, 255, 50, 255);
 
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
@@ -231,17 +216,16 @@ void j1Render::ResetViewPort()
 
 // Blit to screen
 
-bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, bool flip_x, float speed, double angle, int pivot_x, int pivot_y ) const
+bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, bool flip_x, float speed, double angle, int pivot_x, int pivot_y) const
 {
 	bool ret = true;
 	uint scale = App->win->GetScale();
 
-
 	SDL_Rect rect;
-	rect.x = (int) ((camera.w * ( zoom - 1) ) /2 )  + (-camera.x * speed) + x * scale;
-	rect.y = (int) ((camera.h * (  zoom - 1)) / 2 ) + (-camera.y * speed) + y * scale;
+	rect.x = (int)((camera.w * (zoom - 1)) / 2) + (-camera.x * speed) + x * scale;
+	rect.y = (int)((camera.h * (zoom - 1)) / 2) + (-camera.y * speed) + y * scale;
 
-	if(section != NULL)
+	if (section != NULL)
 	{
 		rect.w = section->w;
 		rect.h = section->h;
@@ -250,19 +234,9 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 	{
 		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
 	}
-
-	if (x + rect.w < camera.x/ scale || x > (camera.x + camera.w) / scale)
-	{
-		return ret;
-	}
-	else if (y + rect.h > camera.y / scale &&  y > (camera.y + camera.h) / scale)
-	{
-		return ret;
-	}
+	
 	rect.w *= scale;
 	rect.h *= scale;
-	
-
 
 	SDL_Point* p = NULL;
 	SDL_Point pivot;

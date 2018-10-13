@@ -48,15 +48,9 @@ bool j1Scene::PreUpdate()
 	return ret;
 }
 
-
-
-
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	//App->render->Blit(img, 0, 0);
-	App->map->Draw();
-
 	int x, y;
 	App->input->GetMousePosition(x, y);
 	iPoint map_coordinates(x/App->map->data.tile_width, y/ App->map->data.tile_height);
@@ -67,7 +61,7 @@ bool j1Scene::Update(float dt)
 					App->map->data.tile_width, App->map->data.tile_height,
 					App->map->data.tilesets.count(),
 					map_coordinates.x, map_coordinates.y,
-					/*map_coordinates_pixel.x + */App->render->camera.x, /*map_coordinates_pixel.y*/ + App->render->camera.y,
+					map_coordinates_pixel.x + App->render->camera.x, map_coordinates_pixel.y + App->render->camera.y,
 					App->render->camera.x, App->render->camera.y);
 
 	App->win->SetTitle(title.GetString());
@@ -78,6 +72,7 @@ bool j1Scene::Update(float dt)
 bool j1Scene::PostUpdate()
 {
 	bool ret = true;
+	App->map->Draw();
 	return ret;
 }
 

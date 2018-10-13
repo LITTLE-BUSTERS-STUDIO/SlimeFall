@@ -400,7 +400,15 @@ bool j1Map::LoadColliders(pugi::xml_node& object_node, CollidersGroup* group)
 {
 	bool ret = true;
 	
+	COLLIDER_TYPE collyder_type;
 	group->name.create(object_node.attribute("name").as_string());
+
+	if (group->name.GetString() == "colliders_static")
+		collyder_type = COLLIDER_WALL;
+	else if (group->name.GetString() == "colliders_death")
+		collyder_type = COLLIDER_DEATH;
+	else if (group->name.GetString() == "colliders_next_level")
+		collyder_type = COLLIDER_NEXT_LEVEL;
 
 	for (pugi::xml_node object_data = object_node.child("object"); object_data; object_data = object_data.next_sibling("object"))
 	{
