@@ -46,8 +46,8 @@ bool j1Render::Awake(pugi::xml_node& config)
 	else
 	{
 
-		camera.w = App->win->screen_surface->w /*/ App->win->GetScale()*/;
-		camera.h = App->win->screen_surface->h /*/ App->win->GetScale()*/;
+		camera.w = App->win->screen_surface->w;
+		camera.h = App->win->screen_surface->h;
 		camera.x = 0;
 		camera.y = 0;
 	}
@@ -97,7 +97,7 @@ bool j1Render::PreUpdate()
 bool j1Render::Update(float dt)
 {
 	//Tests var 
-	int level_width = 2000;
+	int level_width = 2100;
 	int level_high = 1000;
 	fPoint player_position(App->player->position.x, App->player->position.y);
 
