@@ -17,7 +17,9 @@ Extract .zip files inside a folder and open the .exe file.
 #### Controls:
 * **A** - Move player to the left.
 * **D** - Move player to the right.
-* **SPACE** - Jump.
+* **SPACE** - Charged Jump (gummy jump).
+* **L** - Load Game.
+* **S** - Save Game.
 
 ##### Debug functionality:
 * **F1** - View colliders.
@@ -29,8 +31,11 @@ Extract .zip files inside a folder and open the .exe file.
 
 ### Innovation features:
 * Zoom Debug Mode
-* Set Volume Music Up/Down1
-* Mute Volume/SFx
+* Set Volume Music Up/Down/Mute
+* Slime constant mechanic jummping
+* Charged jump mechanic (gummy jump)
+* Animations with Tiled v1.2.0
+* Random SFx Jump (4 slime sounds)
 
 ## Authors & Links
 * **Alejandro Gamarra (alejandro61299)** - *As a Lead Programer & QA* https://github.com/alejandro61299
