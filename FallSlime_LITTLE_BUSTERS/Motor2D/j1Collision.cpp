@@ -43,14 +43,24 @@ bool j1Collision::Update(float dt)
 	Collider* c2;
 	item = colliders.start;
 
+	bool destroy_item;
+
 	while (item != NULL)
 	{
+		destroy_item = false;
+
 		if (item->data != nullptr && item->data->to_delete == true)
 		{
+			destroy_item = true;
 			RELEASE(item->data);
-			item->data = nullptr;
 		}
+
 		item = item->next;
+
+		if (destroy_item)
+		{
+			colliders.del(item->prev);
+		}
 	}
 	
 	// Collision detection and callbacks 

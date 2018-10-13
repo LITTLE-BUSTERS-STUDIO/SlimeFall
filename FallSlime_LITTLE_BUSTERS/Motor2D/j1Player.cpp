@@ -50,6 +50,8 @@ bool  j1Player::Awake(pugi::xml_node& node )
 	animation_doc.load_file("player_animation.xml");
 	anim_node = animation_doc.child("tileset");
 	path_tex_player.create(node.child("texture").attribute("path").as_string(""));
+	player_anim.LoadAnimation(anim_node, "pink_slime");
+
 	player_anim.LoadAnimation(anim_node, "blue_slime");
 	path_jump_fx1.create(node.child("jump_fx").child("jump1").attribute("path").as_string(""));
 	path_jump_fx2.create(node.child("jump_fx").child("jump2").attribute("path").as_string(""));
@@ -152,7 +154,6 @@ bool j1Player::PreUpdate()
 		case 0://Sorprise
 			App->audio->PlayFx(fx_jump5);
 		default:
-
 			break;
 		}
 	}
@@ -267,6 +268,11 @@ bool j1Player::Save(pugi::xml_node& node) const
 
 	vel.append_attribute("x") = velocity.x;
 	vel.append_attribute("y") = velocity.y;
+
+	pugi::xml_node acc = node.append_child("acceleration");
+
+	acc.append_attribute("x") = acceleration.x;
+	acc.append_attribute("y") = acceleration.y;
 
 	pugi::xml_node conditions = node.append_child("conditions");
 

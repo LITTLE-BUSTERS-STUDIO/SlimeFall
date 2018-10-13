@@ -8,6 +8,9 @@
 
 struct SDL_Texture;
 
+struct JumpFx {
+	p2SString     path_jumpfx;
+};
 enum class State
 {
 	jumping,
@@ -23,15 +26,12 @@ enum class Direction: uint
 	max
 };
 
-
-
-
 class j1Player : public j1Module
 {
 public:
 
 	j1Player();
-	~j1Player();
+	virtual ~j1Player();
 
 	void Init();
 

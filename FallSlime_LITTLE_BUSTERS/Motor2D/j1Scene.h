@@ -2,50 +2,54 @@
 #define __j1SCENE_H__
 
 #include "j1Module.h"
+#include "p2List.h"
+#include "SDL/include/SDL.h"
 
 struct SDL_Texture;
 
 struct Parallax {
-	SDL_Rect rect_parallax;
+
+	SDL_Rect rect_parallax = {0,0,0,0};
 };
+
+struct Phase {
+	uint id;
+	p2SString map_path;
+};
+
 class j1Scene : public j1Module
 {
 public:
 
-	j1Scene();
+	j1Scene() {}
 
 	// Destructor
-	virtual ~j1Scene();
+	virtual ~j1Scene() {}
 
 	// Called before render is available
-	bool Awake(pugi::xml_node&);
+	virtual bool Awake(pugi::xml_node&) { return true; }
 
 	// Called before the first frame
-	bool Start();
+	virtual bool Start() {return true; }
 
 	// Called before all Updates
-	bool PreUpdate();
+	virtual bool PreUpdate() { return true; }
 
 	// Called each loop iteration
-	bool Update(float dt);
+	virtual bool Update(float dt) { return true; }
 
 	// Called before all Updates
-	bool PostUpdate();
+	virtual bool PostUpdate() { return true; }
 
 	// Called before quitting
-	bool CleanUp();
+	virtual bool CleanUp() { return true; }
 
-private:
+	// Load/ Unload phases and its map 
+	bool LoadPhase(uint phase_number);
+	bool UnloadPhase(uint phase_number);
 
-	p2SString music_path;
-	p2SString background_path;
-
-public:
-
-	SDL_Texture * background_parallax = nullptr;
-	Parallax parallax[11];
-
-
+protected:
+	p2List<Phase *> phases;
 };
 
 #endif // __j1SCENE_H__

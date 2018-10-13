@@ -2,7 +2,6 @@
 
 #include "p2Defs.h"
 #include "p2Log.h"
-
 #include "j1Window.h"
 #include "j1Input.h"
 #include "j1Render.h"
@@ -13,6 +12,8 @@
 #include "j1Scene.h"
 #include "j1Map.h"
 #include "j1App.h"
+#include "Level_1.h"
+
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -26,9 +27,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	tex = new j1Textures();
 	collision = new j1Collision();
 	audio = new j1Audio();
-	scene = new j1Scene();
 	map = new j1Map();
 	player = new j1Player();
+	level_1 = new Level_1();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -37,12 +38,14 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(map);
-	AddModule(scene);
+
+	// Levels ===========================
+	AddModule(level_1);
+	// ==================================
 	AddModule(player);
 
 	// Colission needs to be always before render
 	AddModule(collision);
-
 	// Render last to swap buffer
 	AddModule(render);
 }
