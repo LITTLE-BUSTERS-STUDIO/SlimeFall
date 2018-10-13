@@ -154,8 +154,6 @@ bool j1Player::PreUpdate()
 		case 0://Sorprise
 			App->audio->PlayFx(fx_jump5);
 		default:
-		
-
 			break;
 		}
 	}
@@ -270,6 +268,11 @@ bool j1Player::Save(pugi::xml_node& node) const
 
 	vel.append_attribute("x") = velocity.x;
 	vel.append_attribute("y") = velocity.y;
+
+	pugi::xml_node acc = node.append_child("acceleration");
+
+	acc.append_attribute("x") = acceleration.x;
+	acc.append_attribute("y") = acceleration.y;
 
 	pugi::xml_node conditions = node.append_child("conditions");
 
