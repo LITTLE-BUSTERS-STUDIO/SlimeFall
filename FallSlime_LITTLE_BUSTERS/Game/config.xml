@@ -11,11 +11,11 @@
     <blit margin="30"/>
   </renderer>
   <audio>
+      <fade_time default="1.0"/>
       <volume_music default="2"/>
       <volume_sfx default ="2"/>
       <mute value="false"/>
   </audio>
-  
   <window>
     <resolution width="1280" height="720" scale="2"/>
     <fullscreen value="false"/>

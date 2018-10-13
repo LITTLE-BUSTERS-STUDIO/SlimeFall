@@ -3,17 +3,21 @@
 	<input />
 	<window />
 	<textures />
-	<audio />
+	<audio>
+		<volumes music="22" sfx="2" />
+	</audio>
 	<map />
 	<scene />
 	<player>
-		<position x="307.5" y="413.399994" />
-		<velocity x="2.5" y="-4.89999866" />
+		<position x="844.5" y="392.299988" />
+		<velocity x="2.5" y="-5.19999886" />
 		<conditions apply_jump_speed="false" on_ground="false" check_fall="false" flip_x="false" gummy_jump="false" />
 		<state state="jumping" />
 	</player>
 	<:anonymous />
 	<renderer>
-		<camera x="0" y="280" />
+		<camera x="720" y="280" />
+		<debug zoom="1" />
+		<conditions free_camera_x="false" free_camera_y="false" />
 	</renderer>
 </game_state>
