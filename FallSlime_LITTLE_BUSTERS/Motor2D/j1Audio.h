@@ -38,6 +38,10 @@ public:
 
 	bool Save(pugi::xml_node&) const;
 
+	//Unload fx
+	bool UnloadSFX(unsigned int *chunk);
+
+
 private:
 
 	_Mix_Music*			music;

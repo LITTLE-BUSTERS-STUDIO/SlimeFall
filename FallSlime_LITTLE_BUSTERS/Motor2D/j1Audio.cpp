@@ -245,13 +245,6 @@ bool j1Audio::Save(pugi::xml_node& node ) const
 }
 
 
-//Unload WAV
-//bool UnLoadFx(unsigned int id) 
-//{
-//	Mix_FreeChunk(fx);
-//	return true;
-//}
-
 
 
 
