@@ -42,61 +42,14 @@ bool j1Scene::Start()
 	background_parallax = App->tex->Load("textures/Parallax.png");
 
 	//Parallax
-	parallax_1.x = 0;
-	parallax_1.y = 0;
-	parallax_1.w = 928;
-	parallax_1.h = 793;
-
-	parallax_2.x = 928;
-	parallax_2.y = 0;
-	parallax_2.w = 928;
-	parallax_2.h = 793;
-
-	parallax_3.x = 928*2;
-	parallax_3.y = 0;
-	parallax_3.w = 928;
-	parallax_3.h = 793;
-
-	parallax_4.x = 928*3;
-	parallax_4.y = 0;
-	parallax_4.w = 928;
-	parallax_4.h = 793;
-
-	parallax_5.x = 928*4;
-	parallax_5.y = 0;
-	parallax_5.w = 928;
-	parallax_5.h = 793;
-
-	parallax_6.x = 928*5;
-	parallax_6.y = 0;
-	parallax_6.w = 928;
-	parallax_6.h = 793;
-
-	parallax_7.x = 928*6;
-	parallax_7.y = 0;
-	parallax_7.w = 928;
-	parallax_7.h = 793;
-
-	parallax_8.x = 928*7;
-	parallax_8.y = 0;
-	parallax_8.w = 928;
-	parallax_8.h = 793;
-
-	parallax_9.x = 928*8;
-	parallax_9.y = 0;
-	parallax_9.w = 928;
-	parallax_9.h = 793;
-
-	parallax_10.x = 928 * 9;
-	parallax_10.y = 0;
-	parallax_10.w = 928;
-	parallax_10.h = 793;
-
-	parallax_11.x = 928 * 10;
-	parallax_11.y = 0;
-	parallax_11.w = 928;
-	parallax_11.h = 793;
-
+	for (uint i = 0; i < 11; i++)
+	{
+		parallax[i].rect_parallax.x = 928*i;
+		parallax[i].rect_parallax.y = 0;
+		parallax[i].rect_parallax.w = 928;
+		parallax[i].rect_parallax.h = 793;
+	}
+	
 
 	return true;
 }
@@ -137,18 +90,10 @@ bool j1Scene::Update(float dt)
 	App->win->SetTitle(title.GetString());
 
 
-	App->render->Blit(background_parallax, 0, -400, &parallax_1);	
-	App->render->Blit(background_parallax, 0, -400, &parallax_2);
-	App->render->Blit(background_parallax, 0, -400, &parallax_3);
-	App->render->Blit(background_parallax, 0, -400, &parallax_4);
-	App->render->Blit(background_parallax, 0, -400, &parallax_5);
-	App->render->Blit(background_parallax, 0, -400, &parallax_6);
-	App->render->Blit(background_parallax, 0, -400, &parallax_7);
-	App->render->Blit(background_parallax, 0, -400, &parallax_8);
-	App->render->Blit(background_parallax, 0, -400, &parallax_9);
-	App->render->Blit(background_parallax, 0, -400, &parallax_10);
-	App->render->Blit(background_parallax, 0, -400, &parallax_11);
-
+	for (uint i = 0; i < 11; i++)
+	{
+		App->render->Blit(background_parallax, 0, -400, &parallax[i].rect_parallax, true, 1);
+	}
 
 	return true;
 }

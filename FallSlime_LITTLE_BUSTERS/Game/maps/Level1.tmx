@@ -61,6 +61,7 @@
   <tile id="56" terrain="3,3,,"/>
   <tile id="57" terrain="3,,,"/>
  </tileset>
+ 
  <layer id="31" name="Spikes" width="180" height="98">
   <data>
    <tile/>
@@ -55625,11 +55626,11 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="17"/>
+   <tile gid="19"/>
+   <tile gid="18"/>
+   <tile gid="18"/>
+   <tile gid="20"/>
    <tile/>
    <tile/>
    <tile/>
@@ -55803,13 +55804,13 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="17"/>
+   <tile gid="20"/>
+   <tile gid="27"/>
+   <tile gid="28"/>
+   <tile gid="28"/>
+   <tile gid="29"/>
+   <tile gid="30"/>
    <tile/>
    <tile/>
    <tile/>
@@ -55979,12 +55980,12 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="17"/>
+   <tile gid="18"/>
+   <tile gid="20"/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="27"/>
+   <tile gid="30"/>
    <tile/>
    <tile/>
    <tile/>
@@ -56115,20 +56116,20 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="17"/>
+   <tile gid="18"/>
+   <tile gid="19"/>
+   <tile gid="19"/>
+   <tile gid="19"/>
+   <tile gid="20"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="17"/>
+   <tile gid="19"/>
+   <tile gid="19"/>
+   <tile gid="20"/>
    <tile gid="49"/>
    <tile/>
    <tile/>
@@ -56156,12 +56157,12 @@
    <tile/>
    <tile/>
    <tile gid="47"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="17"/>
+   <tile gid="19"/>
+   <tile gid="20"/>
+   <tile gid="27"/>
+   <tile gid="28"/>
+   <tile gid="30"/>
    <tile/>
    <tile/>
    <tile/>
@@ -56296,20 +56297,20 @@
    <tile/>
    <tile/>
    <tile gid="27"/>
+   <tile gid="29"/>
    <tile gid="28"/>
    <tile gid="28"/>
+   <tile gid="28"/>
+   <tile gid="30"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="27"/>
    <tile gid="29"/>
    <tile gid="28"/>
    <tile gid="30"/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
    <tile gid="48"/>
    <tile gid="48"/>
    <tile gid="48"/>
@@ -56336,9 +56337,9 @@
    <tile gid="48"/>
    <tile gid="48"/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="27"/>
+   <tile gid="28"/>
+   <tile gid="30"/>
    <tile/>
    <tile/>
    <tile/>
@@ -57362,6 +57363,11 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="17"/>
+   <tile gid="18"/>
+   <tile gid="20"/>
+   <tile gid="17"/>
+   <tile gid="20"/>
    <tile/>
    <tile/>
    <tile/>
@@ -57537,16 +57543,11 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="27"/>
+   <tile gid="29"/>
+   <tile gid="30"/>
+   <tile gid="27"/>
+   <tile gid="30"/>
    <tile/>
    <tile/>
    <tile/>
@@ -70655,7 +70656,7 @@
   <object id="360" x="1424.1" y="291.968" width="15.8958" height="11.8977"/>
   <object id="363" x="1536" y="288" width="127.432" height="11.8977"/>
  </objectgroup>
- <objectgroup color="#ff0000" id="19" name="CollisionDeath" locked="1">
+ <objectgroup color="#ff0000" id="19" name="CollisionDeath" visible="0" locked="1">
   <object id="354" x="27" y="438" width="1000" height="69.5"/>
  </objectgroup>
  <objectgroup color="#ffff00" id="20" name="CollisionNextLevel">

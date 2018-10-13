@@ -5,6 +5,9 @@
 
 struct SDL_Texture;
 
+struct Parallax {
+	SDL_Rect rect_parallax;
+};
 class j1Scene : public j1Module
 {
 public:
@@ -36,21 +39,9 @@ private:
 
 	p2SString music_path;
 public:
+
 	SDL_Texture * background_parallax = nullptr;
-
-	
-
-	SDL_Rect parallax_1;
-	SDL_Rect parallax_2;
-	SDL_Rect parallax_3;
-	SDL_Rect parallax_4;
-	SDL_Rect parallax_5;
-	SDL_Rect parallax_6;
-	SDL_Rect parallax_7;
-	SDL_Rect parallax_8;
-	SDL_Rect parallax_9;
-	SDL_Rect parallax_10;
-	SDL_Rect parallax_11;
+	Parallax parallax[11];
 
 
 };
