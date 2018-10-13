@@ -125,7 +125,7 @@ bool j1Collision::PostUpdate()
 			item = item->next;
 			continue;
 		}
-
+		
 		// Draw quads
 		switch (item->data->type)
 		{

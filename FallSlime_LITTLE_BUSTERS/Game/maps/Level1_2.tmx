@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="100" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="68" nextobjectid="435">
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="100" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="68" nextobjectid="436">
  <tileset firstgid="1" name="Basic_tileset" tilewidth="16" tileheight="16" tilecount="60" columns="10">
   <image source="Basic_tileset.png" width="160" height="96"/>
   <terraintypes>
@@ -16110,6 +16110,7 @@
   <object id="432" x="887.644" y="242.378" width="10.8869" height="20.1088"/>
   <object id="433" x="0.179724" y="0.134085" width="12.9449" height="180.23"/>
   <object id="434" x="13.091" y="0.12123" width="43.6665" height="16.3636"/>
+  <object id="435" x="1160.08" y="0.0682" width="127.681" height="16.3636"/>
  </objectgroup>
  <objectgroup color="#ff0000" id="19" name="CollisionDeath">
   <object id="416" x="46" y="336" width="1027.33" height="68"/>
