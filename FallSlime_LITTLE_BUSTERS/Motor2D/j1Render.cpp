@@ -80,7 +80,7 @@ bool j1Render::PreUpdate()
 	SDL_RenderClear(renderer);
 
 	//ZOOM
-	if (App->input->keyboard[SDL_SCANCODE_F10] == KEY_DOWN)
+	if (App->input->keyboard[SDL_SCANCODE_F3] == KEY_DOWN)
 	{
 		debug_border = true;
 
@@ -90,7 +90,7 @@ bool j1Render::PreUpdate()
 			SDL_RenderSetLogicalSize(renderer, camera.w * zoom, camera.h * zoom);
 		}
 	}
-	else if (App->input->keyboard[SDL_SCANCODE_F11] == KEY_DOWN)
+	else if (App->input->keyboard[SDL_SCANCODE_F4] == KEY_DOWN)
 	{
 		if (zoom > 1)
 		{
@@ -104,7 +104,7 @@ bool j1Render::PreUpdate()
 	}
 
 	//Debug Middle pointer
-	if (App->input->keyboard[SDL_SCANCODE_F1] == KEY_DOWN) {
+	if (App->input->keyboard[SDL_SCANCODE_F9] == KEY_DOWN) {
 		if(!debug_middle)
 			debug_middle = true;
 		else

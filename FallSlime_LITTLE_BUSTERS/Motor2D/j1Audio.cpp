@@ -88,7 +88,7 @@ bool j1Audio::PreUpdate()
 
 	if (!mute)
 	{
-		if (App->input->keyboard[SDL_SCANCODE_F8] == KEY_REPEAT) //Set DOWN Volume Music
+		if (App->input->keyboard[SDL_SCANCODE_KP_MINUS] == KEY_REPEAT) //Set DOWN Volume Music
 		{
 			if (App->audio->volume_music > 0)
 				App->audio->volume_music--;
@@ -96,7 +96,7 @@ bool j1Audio::PreUpdate()
 			setdown_volume_fx = true;
 			LOG("Volume = %d", Mix_VolumeMusic(volume_music));
 		}
-		if (App->input->keyboard[SDL_SCANCODE_F9] == KEY_REPEAT) //Set UP Volume Music
+		if (App->input->keyboard[SDL_SCANCODE_KP_PLUS] == KEY_REPEAT) //Set UP Volume Music
 		{
 			if (App->audio->volume_music < max_volume)
 				App->audio->volume_music++;

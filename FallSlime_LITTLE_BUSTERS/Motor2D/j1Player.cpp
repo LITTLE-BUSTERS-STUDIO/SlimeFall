@@ -93,6 +93,8 @@ bool j1Player::Start()
 // Called each loop iteration
 bool j1Player::PreUpdate()
 {
+	
+
 	if (current_state != State::dead)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE)
@@ -175,11 +177,13 @@ bool j1Player::PreUpdate()
 // Called each loop iteration
 bool j1Player::Update(float dt)
 {
+
 	if (reset) 
 	{
 		App->player->Reset(App->map->data.initial_position);
 		reset = false;
 	}
+
 	if (current_state != State::jumping)
 		return true;
 

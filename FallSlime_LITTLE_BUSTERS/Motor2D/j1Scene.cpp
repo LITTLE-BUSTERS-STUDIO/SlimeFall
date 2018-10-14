@@ -57,18 +57,19 @@ bool j1Scene::PreUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) //Close Window
 		ret = false;
 
-	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->LoadGame();
 
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		App->SaveGame();
 
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		LoadPhase(1);
 
 	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
 		LoadPhase(2);
-
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+		App->player->Reset(App->map->data.initial_position);
 	return ret;
 }
 
