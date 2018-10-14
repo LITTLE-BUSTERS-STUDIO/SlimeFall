@@ -44,6 +44,9 @@ public:
 	uint		background_high;
 	uint		max_background_layers;
 	uint		backgorund_startpos;
+	float		parallax_speed_1;
+	float		parallax_speed_2;
+	float		parallax_speed_3;
 
 
 };
