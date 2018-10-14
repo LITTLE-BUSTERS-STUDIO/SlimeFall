@@ -1,3 +1,15 @@
+# *CHANGELOG* [1.1]  2018-10-14
+
+### Summarized
+
+* Set new icon and improve map colliders
+
+### Added
+
+* New icon
+* Level 2 colliders
+
+
 # *CHANGELOG* [1.0]  2018-10-14
 
 ### Summarized
