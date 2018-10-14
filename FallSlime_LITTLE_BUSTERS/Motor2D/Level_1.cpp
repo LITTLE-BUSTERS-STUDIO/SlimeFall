@@ -40,7 +40,9 @@ bool Level_1::Awake(pugi::xml_node& config)
 	background_high = config.child("background_dimension").attribute("high").as_uint(0u);
 	max_background_layers = config.child("max_background_layers").attribute("value").as_uint(0u);
 	backgorund_startpos = config.child("backgorund_startpos").attribute("value").as_uint(0u);
-		 
+	parallax_speed_1 = config.child("parallax_speed").attribute("low").as_float(0.0f);
+	parallax_speed_2 = config.child("parallax_speed").attribute("medium").as_float(0.0f);
+	parallax_speed_3 = config.child("parallax_speed").attribute("high").as_float(0.0f);
 	return ret;
 }
 
@@ -93,7 +95,9 @@ bool Level_1::PostUpdate()
 	// Blit background
 	for (uint i = 0; i < max_background_layers; i++)
 	{
-		App->render->Blit(background_parallax, 0, backgorund_startpos, &parallax[i].rect_parallax, true, 0.4f); // -300 equals to start position.y
+		if (i < 4) App->render->Blit(background_parallax, 0, backgorund_startpos, &parallax[i].rect_parallax, false, parallax_speed_1);
+		else if (i > 4) App->render->Blit(background_parallax, 0, backgorund_startpos, &parallax[i].rect_parallax, false, parallax_speed_2);
+		else if (i == 4) App->render->Blit(background_parallax, 0, backgorund_startpos, &parallax[i].rect_parallax, false, parallax_speed_3);
 	}
 
 	App->map->Draw();
