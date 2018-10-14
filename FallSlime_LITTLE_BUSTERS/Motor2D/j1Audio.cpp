@@ -92,14 +92,17 @@ bool j1Audio::PreUpdate()
 			if (App->audio->volume_music >0)
 				App->audio->volume_music--;
 			Mix_VolumeMusic(App->audio->volume_music);
-			LOG("Volume_Music = %d", Mix_VolumeMusic(volume_music));
+			setdown_volume_fx = true;
+			LOG("Volume = %d", Mix_VolumeMusic(volume_music));
 		}
 		if (App->input->keyboard[SDL_SCANCODE_F9] == KEY_REPEAT) //Set UP Volume Music
 		{
 			if (App->audio->volume_music < 100)
 				App->audio->volume_music++;
+			setup_volume_fx = true;
 			Mix_VolumeMusic(App->audio->volume_music);
-			LOG("Volume_Music = %d", Mix_VolumeMusic(volume_music));
+			LOG("Volume = %d", Mix_VolumeMusic(volume_music));
+
 		}
 	}
 
@@ -232,6 +235,26 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 			Mix_PlayChannel(-1, fx[id - 1], repeat, 0);
 		
 	}
+
+	if (setdown_volume_fx) //Set DOWN Volume Music
+	{
+		if (App->audio->volume_sfx > 0)
+			App->audio->volume_sfx = volume_music;
+		Mix_VolumeChunk(fx[id - 1], volume_sfx);
+		Mix_PlayChannel(-1, fx[id - 1], repeat, 0);
+		LOG("Valume SFX %d", volume_sfx);
+	setdown_volume_fx = false;
+	}
+	if (setup_volume_fx) //Set UP Volume Music
+	{
+		if (App->audio->volume_sfx < 100)
+			App->audio->volume_sfx = volume_music;
+		Mix_VolumeChunk(fx[id - 1], volume_sfx);
+		Mix_PlayChannel(-1, fx[id - 1], repeat, 0);
+		LOG("Valume SFX %d", volume_sfx);
+		setup_volume_fx = false;
+	}
+
 
 	return ret;
 }

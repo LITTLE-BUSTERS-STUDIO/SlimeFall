@@ -48,9 +48,12 @@ private:
 	p2List<Mix_Chunk*>	fx;
 
 public:
-	uint fade_time;
-	uint volume_music;
-	uint volume_sfx;
+	uint		fade_time;
+	uint		volume_music;
+	uint		volume_sfx;
+	uint 		setdown_volume_fx = false;
+	uint 		setup_volume_fx = false;
+
 	bool mute;
 };
 
