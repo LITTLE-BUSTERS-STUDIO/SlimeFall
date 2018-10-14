@@ -6,7 +6,7 @@
 #include "j1Render.h"
 #include "p2Log.h"
 
-bool j1Scene::LoadPhase(uint phase_number) 
+bool j1Scene::LoadPhase(uint phase_number, bool spawn) 
 {
 	p2List_item<Phase*>* item = nullptr;
 	bool ret = true;
@@ -36,8 +36,12 @@ bool j1Scene::LoadPhase(uint phase_number)
 	if (ret)
 	{
 		current_phase = phase_number;
-		App->player->reset = true;
-		App->render->reset = true;
+
+		if (spawn)
+		{
+			App->player->reset = true;
+			App->render->reset = true;
+		}
 	}
 
 	return ret;
@@ -84,4 +88,18 @@ bool j1Scene::NextPhase()
 
 
 	return ret;
+}
+
+bool  j1Scene::Load(pugi::xml_node& node)
+{
+
+	current_phase =  node.child("phase").attribute("current_phase").as_uint(1u);
+	LoadPhase(current_phase, false);
+	return true;
+}
+bool  j1Scene::Save(pugi::xml_node& node) const
+{
+	pugi::xml_node phase_node = node.append_child("phase");
+	phase_node.append_attribute("current_phase") = current_phase;
+	return true;
 }

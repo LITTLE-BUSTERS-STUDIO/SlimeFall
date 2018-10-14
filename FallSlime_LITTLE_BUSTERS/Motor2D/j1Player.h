@@ -35,33 +35,36 @@ public:
 	void Init();
 
 	// Called before render is available
-	 bool Awake(pugi::xml_node&);
+	bool Awake(pugi::xml_node&);
 
 	// Called before the first frame
-	 bool Start();
+	bool Start();
 
 	// Called each loop iteration
-	 bool PreUpdate();
+	bool PreUpdate();
 
 	// Called each loop iteration
-	  bool Update(float dt);
+	bool Update(float dt);
 
 	// Called each loop iteration
-	  bool PostUpdate();
+	bool PostUpdate();
 
 	// Called before quitting
-	  bool CleanUp();
+	bool CleanUp();
 
 	// Save & Load
-	  bool Load(pugi::xml_node&);
+	bool Load(pugi::xml_node&);
 
-	  bool Save(pugi::xml_node&) const;
+	bool Save(pugi::xml_node&) const;
 
 	// Reset player values default
-	  bool Reset(fPoint pos);
+	bool Reset(fPoint pos);
 
 	// Called by collision module
-	  bool OnCollision(Collider*, Collider*);
+	bool OnCollision(Collider*, Collider*);
+
+	//Debug====================================
+	bool   god_mode = false;
 
 	//Transform================================
 	fPoint position;
@@ -85,7 +88,7 @@ public:
 	bool              check_fall = false;
 	SDL_Rect          rect_collider;
 	bool              flip_x = false;
-	
+
 	//Abilities================================
 	bool              gummy_jump = false;
 

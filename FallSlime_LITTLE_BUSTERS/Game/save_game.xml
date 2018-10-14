@@ -7,17 +7,19 @@
 		<volumes music="40" sfx="40" mute="false" />
 	</audio>
 	<map />
-	<level_1 />
+	<level_1>
+		<phase current_phase="1" />
+	</level_1>
 	<player>
-		<position x="44" y="87.8001251" />
-		<velocity x="0" y="2.90000296" />
-		<conditions apply_jump_speed="false" on_ground="false" check_fall="false" flip_x="true" gummy_jump="false" />
+		<position x="766.5" y="262.400208" />
+		<velocity x="0" y="10.1000061" />
+		<conditions apply_jump_speed="false" on_ground="false" check_fall="false" flip_x="false" gummy_jump="false" />
 		<state current_state="jumping" collider_type="collider_player" />
 	</player>
 	<:anonymous />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="893" y="164" />
 		<debug zoom="1" />
-		<conditions free_camera_x="false" free_camera_y="false" />
+		<conditions free_camera_x="true" free_camera_y="true" />
 	</renderer>
 </game_state>

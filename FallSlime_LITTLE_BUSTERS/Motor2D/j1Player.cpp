@@ -39,6 +39,7 @@ bool  j1Player::Awake(pugi::xml_node& node )
 	speed_air = node.child("physics").attribute("speed_air").as_float(0);
 	speed_jump = node.child("physics").attribute("speed_jump").as_float(0);
 	speed_gummy_jump = node.child("physics").attribute("speed_gummy_jump").as_float(0);
+	god_mode = node.child("debug").attribute("god_mode").as_bool(false);
 
 	//Assets=======================================
 	//----------Textures---------------------------
@@ -73,9 +74,12 @@ bool  j1Player::Awake(pugi::xml_node& node )
 bool j1Player::Start()
 {
 	// Add all components 
-
-	collider = App->collision->AddCollider( rect_collider, COLLIDER_GOD, this);
 	ground_detector = App->collision->AddCollider(rect_collider, COLLIDER_PLAYER, this);
+
+	if (god_mode)
+		collider = App->collision->AddCollider(rect_collider, COLLIDER_GOD, this);
+	else
+		collider = App->collision->AddCollider(rect_collider, COLLIDER_PLAYER, this);
 	
 	tex_player = App->tex->Load(path_tex_player.GetString());
 	death_splash = App->tex->Load(path_death_splash.GetString());
@@ -95,14 +99,25 @@ bool j1Player::PreUpdate()
 {
 	if (current_state != State::dead)
 	{
+		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+		{
+			if (god_mode)
+			{
+				god_mode = false;
+				collider->type = COLLIDER_PLAYER;
+			}
+			else
+			{
+				god_mode = true;
+				collider->type = COLLIDER_GOD;
+			}
+		}
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE)
 		{
 			if (on_ground)
 				velocity.x = -speed_ground;
-
 			else
 				velocity.x = -speed_air;
-
 			flip_x = true;
 		}
 		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE)

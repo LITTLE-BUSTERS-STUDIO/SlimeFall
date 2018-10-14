@@ -51,6 +51,7 @@
     </sfx> 
     <collider width="20" height="20"/>
     <physics gravity ="0.3" speed_air ="2.5" speed_ground ="0" speed_jump ="7" speed_gummy_jump ="3" />
+    <debug god_mode="false"/>
   </player>
   
   <level_1 phases ="3" current_phase="2">

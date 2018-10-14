@@ -44,8 +44,13 @@ public:
 	// Called before quitting
 	virtual bool CleanUp() { return true; }
 
+	// Load & Save Game
+
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&) const;
+
 	// Load/ Unload phases and its map 
-	bool LoadPhase(uint phase_number);
+	bool LoadPhase(uint phase_number, bool spawn = true);
 	bool UnloadPhase(uint phase_number);
 	bool NextPhase();
 
