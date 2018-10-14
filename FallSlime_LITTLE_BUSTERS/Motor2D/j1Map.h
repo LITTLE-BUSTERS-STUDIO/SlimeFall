@@ -76,7 +76,7 @@ struct MapData
 	p2List<MapLayer*>	          layers;
 	p2List<CollidersGroup*>       coll_groups;           
 
-	fPoint                        init_position = {0.0f,0.0f};
+	fPoint                        initial_position = {0.0f,0.0f};
 };
 
 // ----------------------------------------------------

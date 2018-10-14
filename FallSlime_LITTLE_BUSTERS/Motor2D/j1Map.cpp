@@ -416,7 +416,6 @@ bool j1Map::LoadLayer(pugi::xml_node& layer_node, MapLayer* layer)
 	return ret;
 }
 
-
 bool j1Map::LoadColliders(pugi::xml_node& object_node, CollidersGroup* group)
 {
 	bool ret = true;
@@ -433,11 +432,10 @@ bool j1Map::LoadColliders(pugi::xml_node& object_node, CollidersGroup* group)
 		collider_type = COLLIDER_NEXT_LEVEL;
 	else if (group->name == "initial_position")
 	{
-		data.init_position = { 0, 0 };
+		data.initial_position = { object_node.child("object").attribute("x").as_float(0.0f),  object_node.child("object").attribute("y").as_float(0.0f) };
 		return true;
 	}
 		
-
 	for (pugi::xml_node object_data = object_node.child("object"); object_data; object_data = object_data.next_sibling("object"))
 	{
 		++group->num_colliders;
@@ -460,8 +458,6 @@ bool j1Map::LoadColliders(pugi::xml_node& object_node, CollidersGroup* group)
 	}
 
 	LOG("Added colliders %s----", object_node.attribute("name").as_string());
-
-
 	return ret;
 }
 
