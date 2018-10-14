@@ -47,6 +47,7 @@ public:
 	// Load/ Unload phases and its map 
 	bool LoadPhase(uint phase_number);
 	bool UnloadPhase(uint phase_number);
+	bool NextPhase();
 
 protected:
 	p2List<Phase *> phases;

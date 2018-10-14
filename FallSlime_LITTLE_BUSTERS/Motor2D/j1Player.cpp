@@ -5,6 +5,7 @@
 #include "j1Textures.h"
 #include "j1Audio.h"
 #include "j1Render.h"
+#include "j1Scene.h"
 #include "j1Window.h"
 #include "j1Collision.h"
 #include "j1Player.h"
@@ -443,12 +444,14 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 			collider->SetPos(position.x - collider->rect.w / 2, position.y - collider->rect.h / 2);
 			ground_detector->SetPos(position.x - collider->rect.w / 2, position.y );
 			break;
-
 		case COLLIDER_DEATH:
 			App->audio->PlayFx(id_death_sfx);
 			current_state = State::dead;
 			collider->type = COLLIDER_NONE;
 			//Death Sfx
+			break;
+		case COLLIDER_NEXT_LEVEL:
+			App->current_level->NextPhase();
 			break;
 		}
 	}
