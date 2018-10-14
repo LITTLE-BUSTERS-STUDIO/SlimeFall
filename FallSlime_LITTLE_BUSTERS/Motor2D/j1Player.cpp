@@ -47,10 +47,10 @@ bool  j1Player::Awake(pugi::xml_node& node )
 	//Assets
 	pugi::xml_document animation_doc;
 	pugi::xml_node anim_node;
-	animation_doc.load_file("player_animation.xml");
+	animation_doc.load_file("animations/player_animation.xml");
 	anim_node = animation_doc.child("tileset");
 	path_tex_player.create(node.child("texture").attribute("path").as_string(""));
-	player_anim.LoadAnimation(anim_node, "blue_slime");
+	jumping_anim.LoadAnimation(anim_node, "blue_slime");
 	path_jump_fx1.create(node.child("jump_fx").child("jump1").attribute("path").as_string(""));
 	path_jump_fx2.create(node.child("jump_fx").child("jump2").attribute("path").as_string(""));
 	path_jump_fx3.create(node.child("jump_fx").child("jump3").attribute("path").as_string(""));
@@ -192,23 +192,26 @@ bool j1Player::Update(float dt)
 bool j1Player::PostUpdate()
 {
 	SDL_Rect frame; 
-	player_anim.speed = 0.7f;
+	jumping_anim.speed = 0.7f;
 
 	switch ((State)current_state)
 	{
 	case State::jumping:
-		frame = player_anim.GetLastFrame();
+		frame = jumping_anim.GetLastFrame();
 		break;
 	case State::boucing:
-		if (player_anim.GetFrameNumber() > 9)
+		if (jumping_anim.GetFrameNumber() > 9)
 		{
 			current_state = State::jumping;
 			apply_jump_speed = true;
-			player_anim.Reset();
-			frame = player_anim.GetCurrentFrame();
+			jumping_anim.Reset();
+			frame = jumping_anim.GetCurrentFrame();
 			break;
 		}
-		frame = player_anim.GetCurrentFrame();
+		frame = jumping_anim.GetCurrentFrame();
+		break;
+	case State::dying:
+		
 		break;
 	}
 
@@ -350,6 +353,7 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 
 		switch (c2->type)
 		{
+		case COLLIDER_GOD:
 		case COLLIDER_WALL:
 
 			SDL_Rect player = c1->rect;
@@ -408,7 +412,7 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 		case COLLIDER_DEATH:
 			current_state = State::dying;
 			collider->type = COLLIDER_NONE;
-
+			//Death Sfx
 			break;
 		}
 	}
