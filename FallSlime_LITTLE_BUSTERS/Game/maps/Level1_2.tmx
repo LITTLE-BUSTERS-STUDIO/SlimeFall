@@ -16115,15 +16115,15 @@
   <object id="433" x="0.179724" y="0.134085" width="12.9449" height="180.23"/>
   <object id="435" x="1160.08" y="0.0682" width="127.681" height="16.3636"/>
   <object id="437" x="1162.94" y="408.33" width="14.2631" height="12.6439"/>
-  <object id="440" x="24.788" y="412.636" width="1065.33" height="16.3636"/>
+  <object id="440" x="24.788" y="403.897" width="1065.33" height="25.1027"/>
   <object id="441" x="1136.86" y="285.82" width="12.9449" height="83.6931"/>
  </objectgroup>
  <objectgroup color="#ff0000" id="19" name="colliders_death">
-  <object id="416" x="25.6364" y="386.313" width="1047.7" height="26.3239"/>
+  <object id="416" x="25.6364" y="386.313" width="1047.7" height="17.5413"/>
   <object id="417" x="243.095" y="130.125" width="11.2473" height="14"/>
   <object id="419" x="387.495" y="65.8967" width="10.27" height="14"/>
   <object id="420" x="1150.67" y="287" width="12.6667" height="80.6667"/>
-  <object id="421" x="1203.64" y="404.727" width="25.7273" height="11.9091"/>
+  <object id="421" x="1204.58" y="405.553" width="24.3638" height="11.083"/>
   <object id="422" x="947.875" y="212" width="10.25" height="12.0625"/>
   <object id="423" x="1010.91" y="211.043" width="12.1739" height="13.0435"/>
   <object id="424" x="1138.88" y="179.438" width="11.25" height="12.5625"/>
