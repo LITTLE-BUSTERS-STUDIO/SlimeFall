@@ -127,8 +127,10 @@ bool j1Collision::Update(float dt)
 // Called before render is available
 bool j1Collision::PostUpdate()
 {
-	if (App->input->keyboard[SDL_SCANCODE_F1] == KEY_DOWN)
+	if (App->input->keyboard[SDL_SCANCODE_F1] == KEY_DOWN) {
 		debug = !debug;
+	}
+		
 
 	if (debug == false)
 		return true;
@@ -164,6 +166,7 @@ bool j1Collision::PostUpdate()
 			break;
 		}
 		item = item->next;
+
 	}
 	return true;
 }

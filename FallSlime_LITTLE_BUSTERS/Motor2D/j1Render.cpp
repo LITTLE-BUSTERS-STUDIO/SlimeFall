@@ -97,6 +97,14 @@ bool j1Render::PreUpdate()
 			debug_border = false;
 		}
 	}
+
+	//Debug Middle pointer
+	if (App->input->keyboard[SDL_SCANCODE_F1] == KEY_DOWN) {
+		if(!debug_middle)
+			debug_middle = true;
+		else
+			debug_middle = false;
+	}
 	return true;
 }
 
@@ -163,7 +171,7 @@ bool j1Render::PostUpdate()
 	if (debug_border)
 	{
 		// Up border
-		App->render->DrawQuad({ camera.x / scale - borderWidth - margin , 100 +camera.y / scale - borderWidth - margin, camera.w / scale + borderWidth * 2 + margin * 2, borderWidth }, 255, 255, 255, 255);
+		App->render->DrawQuad({ camera.x / scale - borderWidth - margin , camera.y / scale - borderWidth - margin, camera.w / scale + borderWidth * 2 + margin * 2, borderWidth }, 255, 255, 255, 255);
 		// Down border
 		App->render->DrawQuad({ camera.x / scale - borderWidth - margin , (camera.y + camera.h) / scale + margin, camera.w / scale + borderWidth * 2 + margin * 2, borderWidth }, 255, 255, 255, 255);
 		// Left border
@@ -172,8 +180,12 @@ bool j1Render::PostUpdate()
 		App->render->DrawQuad({ (camera.x + camera.w) / scale + margin, camera.y / scale - margin , borderWidth , camera.h / scale + margin * 2 }, 255, 255, 255, 255);
 	}
 	
-	// Centered point 
-	App->render->DrawCircle(camera.x + camera.w / 2, camera.y + camera.h / 2, 1, 50, 255, 50, 255);
+	if (debug_middle)
+	{
+		// Centered point 
+		App->render->DrawCircle(camera.x + camera.w / 2, camera.y + camera.h / 2, 1, 50, 255, 50, 255);
+	}
+	
 
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
