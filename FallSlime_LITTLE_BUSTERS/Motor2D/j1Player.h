@@ -60,12 +60,13 @@ public:
 	// Called by collision module
 	  bool OnCollision(Collider*, Collider*);
 
-	//Transform
+	//Transform================================
 	fPoint position;
 	fPoint velocity;
 	fPoint acceleration;
+	State  current_state = State::jumping;
 
-	//Physics
+	//Physics==================================
 	float gravity;
 	float speed_air;
 	float speed_ground;
@@ -73,7 +74,7 @@ public:
 	float speed_gummy_jump;
 	bool  apply_jump_speed = false;
 
-	//Collision
+	//Collision================================
 	Collider         *collider = nullptr;
 	Collider         *ground_detector = nullptr;
 	bool              on_ground = false;
@@ -81,28 +82,30 @@ public:
 	SDL_Rect          rect_collider;
 	bool              flip_x = false;
 	
-	//Abilities
+	//Abilities================================
 	bool              gummy_jump = false;
 
-	//Assets
-	SDL_Texture      *tex_player = nullptr;
+	//Assets===================================
+	//-----------Textures-------------------
 	p2SString         path_tex_player;
-	
-	Animation         player_anim;
-	State             current_state = State::jumping;
-
+	p2SString         path_death_splash;
+	SDL_Texture      *tex_player = nullptr;
+	SDL_Texture      *death_splash = nullptr;
+	//----------Animations-----------------
+	Animation         jumping_anim;
+	Animation         death_anim;
+	//------------Sfx----------------------
 	p2SString         path_jump_fx1;
 	p2SString         path_jump_fx2;
 	p2SString         path_jump_fx3;
 	p2SString         path_jump_fx4;
 	p2SString         path_jump_fx5;
-
-
 	uint fx_jump1;
 	uint fx_jump2;
 	uint fx_jump3;
 	uint fx_jump4;
 	uint fx_jump5;
+	//=========================================
 };
 
 
