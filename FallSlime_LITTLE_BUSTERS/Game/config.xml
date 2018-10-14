@@ -31,6 +31,7 @@
   </map>
   <player>
     <texture path ="textures/player_animation.png"/>
+    <texture_death path ="textures/player_death_animation.png"/>
     <jump_fx>
       <jump1 path ="audio/fx/jump1.wav"/>
       <jump2 path ="audio/fx/jump2.wav"/>

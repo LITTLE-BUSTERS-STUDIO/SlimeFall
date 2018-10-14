@@ -35,7 +35,7 @@ void j1Player::Init()
 // Called before render is available
 bool  j1Player::Awake(pugi::xml_node& node )
 {
-	//Values
+	//Values=======================================
 	rect_collider.w = node.child("collider").attribute("width").as_uint(0);
 	rect_collider.h = node.child("collider").attribute("height").as_uint(0);
 	gravity = node.child("physics").attribute("gravity").as_float(0);
@@ -44,20 +44,30 @@ bool  j1Player::Awake(pugi::xml_node& node )
 	speed_jump = node.child("physics").attribute("speed_jump").as_float(0);
 	speed_gummy_jump = node.child("physics").attribute("speed_gummy_jump").as_float(0);
 
-	//Assets
-	pugi::xml_document animation_doc;
-	pugi::xml_node anim_node;
-	animation_doc.load_file("animations/player_animation.xml");
-	anim_node = animation_doc.child("tileset");
+	//Assets=======================================
+	//----------Textures---------------------------
 	path_tex_player.create(node.child("texture").attribute("path").as_string(""));
-	jumping_anim.LoadAnimation(anim_node, "blue_slime");
+	path_death_splash.create(node.child("texture_death").attribute("path").as_string(""));
+	//----------Animations-------------------------
+	pugi::xml_document jumping_an_doc;
+	pugi::xml_node jumping_an_node;
+	jumping_an_doc.load_file("animations/player_animation.xml");
+	jumping_an_node = jumping_an_doc.child("tileset");
+	jumping_anim.LoadAnimation(jumping_an_node, "pink_slime");
+
+	pugi::xml_document death_an_doc;
+	pugi::xml_node death_an_node;
+	death_an_doc.load_file("animations/player_death_animation.xml");
+	death_an_node = death_an_doc.child("tileset");
+	death_anim.LoadAnimation(death_an_node, "pink_splash");
+
+	//----------SFX--------------------------------
 	path_jump_fx1.create(node.child("jump_fx").child("jump1").attribute("path").as_string(""));
 	path_jump_fx2.create(node.child("jump_fx").child("jump2").attribute("path").as_string(""));
 	path_jump_fx3.create(node.child("jump_fx").child("jump3").attribute("path").as_string(""));
 	path_jump_fx4.create(node.child("jump_fx").child("jump4").attribute("path").as_string(""));
 	path_jump_fx5.create(node.child("jump_fx").child("jump5").attribute("path").as_string(""));
-
-
+	//=============================================
 
 	return true;
 }
@@ -69,7 +79,10 @@ bool j1Player::Start()
 
 	collider = App->collision->AddCollider( rect_collider, COLLIDER_PLAYER, this);
 	ground_detector = App->collision->AddCollider(rect_collider, COLLIDER_PLAYER, this);
+	
 	tex_player = App->tex->Load(path_tex_player.GetString());
+	death_splash = App->tex->Load(path_death_splash.GetString());
+
 	fx_jump1 = App->audio->LoadFx(path_jump_fx1.GetString());
 	fx_jump2 = App->audio->LoadFx(path_jump_fx2.GetString());
 	fx_jump3 = App->audio->LoadFx(path_jump_fx3.GetString());
@@ -192,12 +205,14 @@ bool j1Player::Update(float dt)
 bool j1Player::PostUpdate()
 {
 	SDL_Rect frame; 
+	SDL_Texture* texture;
 	jumping_anim.speed = 0.7f;
 
 	switch ((State)current_state)
 	{
 	case State::jumping:
 		frame = jumping_anim.GetLastFrame();
+		texture = tex_player;
 		break;
 	case State::boucing:
 		if (jumping_anim.GetFrameNumber() > 9)
@@ -209,13 +224,15 @@ bool j1Player::PostUpdate()
 			break;
 		}
 		frame = jumping_anim.GetCurrentFrame();
+		texture = tex_player;
 		break;
 	case State::dying:
-		
+		frame = death_anim.GetLastFrame();
+		texture = death_splash;
 		break;
 	}
 
-	App->render->Blit(tex_player, position.x - frame.w/2 , position.y - frame.h / 2, &frame  , flip_x );
+	App->render->Blit(texture, position.x - frame.w/2 , position.y - frame.h / 2, &frame  , flip_x );
 	return true;
 }
 
