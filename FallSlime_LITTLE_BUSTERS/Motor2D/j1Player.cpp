@@ -205,7 +205,7 @@ bool j1Player::Update(float dt)
 bool j1Player::PostUpdate()
 {
 	SDL_Rect frame; 
-	SDL_Texture* texture;
+	SDL_Texture* texture = nullptr;
 	jumping_anim.speed = 0.7f;
 
 	switch ((State)current_state)
@@ -221,6 +221,7 @@ bool j1Player::PostUpdate()
 			apply_jump_speed = true;
 			jumping_anim.Reset();
 			frame = jumping_anim.GetCurrentFrame();
+			texture = tex_player;
 			break;
 		}
 		frame = jumping_anim.GetCurrentFrame();

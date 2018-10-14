@@ -2,6 +2,7 @@
 #include "j1Map.h"
 #include "j1App.h"
 #include "j1Input.h"
+#include "j1Player.h"
 #include "p2Log.h"
 
 
@@ -15,6 +16,7 @@ bool j1Scene::LoadPhase(uint phase_number)
 		return true;
 	}
 
+
 	for (item = phases.start; item; item = item->next)
 	{
 		if (item->data->id == phase_number )
@@ -23,12 +25,14 @@ bool j1Scene::LoadPhase(uint phase_number)
 		}
 
 	}
+
 	App->map->CleanUp();
 	ret = App->map->Load(item->data->map_path.GetString());
 
 	if (ret)
 	{
 		current_phase = phase_number;
+		App->player->position = App->map->data.initial_position;
 	}
 
 	return ret;
@@ -58,9 +62,6 @@ bool j1Scene::PreUpdate()
 
 	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
 		LoadPhase(2);
-
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-		LoadPhase(1);
 
 	return ret;
 }

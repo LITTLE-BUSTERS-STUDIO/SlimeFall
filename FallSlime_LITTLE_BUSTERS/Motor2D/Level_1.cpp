@@ -42,7 +42,7 @@ bool Level_1::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Level_1::Start()
 {
-	LoadPhase(current_phase); //As default charge config 
+	LoadPhase(1);
 	App->audio->PlayMusic(music_path.GetString());
 	background_parallax = App->tex->Load(background_path.GetString());
 
@@ -63,7 +63,7 @@ bool Level_1::Start()
 bool Level_1::Update(float dt)
 {
 	int x, y;
-	
+
 	App->input->GetMousePosition(x, y);
 	iPoint map_coordinates(x / App->map->data.tile_width, y / App->map->data.tile_height);
 	iPoint map_coordinates_pixel(x, y);
