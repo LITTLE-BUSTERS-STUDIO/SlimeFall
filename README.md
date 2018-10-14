@@ -18,17 +18,19 @@ Extract .zip files inside a folder and open the .exe file.
 * **A** - Move player to the left.
 * **D** - Move player to the right.
 * **SPACE** - Charged Jump (gummy jump).
-* **L** - Load Game.
-* **S** - Save Game.
 
 ##### Debug functionality:
-* **F1** - View colliders.
+* **F1** - Start from the very first level.
+* **F2** - Start from the beggining of the current level.
+* **F3** - Zoom out camera.
+* **F4** - Zoom in camera.
+* **F5** - Save Game.
+* **F6** - Load Game.
 * **F7** - Mute.
-* **F8** - Set down music.
-* **F9** - Set up music.
-* **F10** - Zoom out camera.
-* **F11** - Zoom in camera.
-* **1** - Change to level 1
+* **F9** - View colliders.
+* **F10** - God Mode.
+* **PLUS** - Set up music.
+* **MINUS** - Set down music.
 * **2** - Change to level 2
 
 ### Innovation features:
