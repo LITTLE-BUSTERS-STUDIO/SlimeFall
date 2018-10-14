@@ -72,8 +72,15 @@ bool j1Scene::PreUpdate()
 
 	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
 		LoadPhase(2);
-	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-		App->player->Reset(App->map->data.initial_position);
+
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) 
+	{
+		App->player->reset = true;
+		App->render->reset = true;
+	}
+		
+
+
 	return ret;
 }
 

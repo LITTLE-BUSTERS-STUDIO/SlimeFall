@@ -11,15 +11,15 @@
 		<phase current_phase="1" />
 	</level_1>
 	<player>
-		<position x="766.5" y="262.400208" />
-		<velocity x="0" y="10.1000061" />
+		<position x="219" y="72.800087" />
+		<velocity x="2.5" y="-0.699996829" />
 		<conditions apply_jump_speed="false" on_ground="false" check_fall="false" flip_x="false" gummy_jump="false" />
 		<state current_state="jumping" collider_type="collider_player" />
 	</player>
 	<:anonymous />
 	<renderer>
-		<camera x="893" y="164" />
+		<camera x="0" y="0" />
 		<debug zoom="1" />
-		<conditions free_camera_x="true" free_camera_y="true" />
+		<conditions free_camera_x="false" free_camera_y="false" />
 	</renderer>
 </game_state>
