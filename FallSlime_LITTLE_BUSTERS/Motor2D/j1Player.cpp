@@ -74,7 +74,7 @@ bool j1Player::Start()
 {
 	// Add all components 
 
-	collider = App->collision->AddCollider( rect_collider, COLLIDER_PLAYER, this);
+	collider = App->collision->AddCollider( rect_collider, COLLIDER_GOD, this);
 	ground_detector = App->collision->AddCollider(rect_collider, COLLIDER_PLAYER, this);
 	
 	tex_player = App->tex->Load(path_tex_player.GetString());
@@ -370,10 +370,6 @@ bool j1Player::Save(pugi::xml_node& node) const
 	}
 
 	state_node.append_attribute("collider_type") = collider_string.GetString();
-
-
-
-
 
 	return ret;
 }
