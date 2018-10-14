@@ -17,6 +17,7 @@
 -Background Parallax but same speed in all layers
 -Level 1 re-designed
 -Level 2 designed
+-Change level
 
 ## [0.1.0] - 2018-10-12
 

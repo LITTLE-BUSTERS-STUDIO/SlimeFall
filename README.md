@@ -58,6 +58,7 @@ And finnaly take a look at, Ric's github  https://github.com/d0n3val
 * [Black Forest Background](https://edermunizz.itch.io/free-pixel-art-forest)
 * [Tree tileset](https://genchevblog.wordpress.com/)
 * [First level music](https://www.youtube.com/watch?v=u94lVZa9xXU)
+* [Slime sounds](http://soundbible.com/tags-mine.html)
 
 ## Acknowledgments
 * Thanks to all the people in the class for supporting this project.
