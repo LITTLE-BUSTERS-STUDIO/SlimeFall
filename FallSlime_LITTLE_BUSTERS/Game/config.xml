@@ -25,7 +25,7 @@
   </input>
   <window>
     <resolution width="1280" height="720" scale="2"/>
-    <fullscreen value="false"/>
+    <fullscreen value="true"/>
     <borderless value="false"/>
     <resizable value="false"/>
     <fullscreen_window value="false"/>
