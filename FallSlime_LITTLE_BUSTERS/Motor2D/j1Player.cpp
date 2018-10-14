@@ -166,7 +166,7 @@ bool j1Player::PreUpdate()
 // Called each loop iteration
 bool j1Player::Update(float dt)
 {
-	if (current_state == State::boucing) //================================================================
+	if (current_state == State::boucing || current_state == State::dying) //================================================================
 		return true;
 
 	if (on_ground == false)
@@ -253,6 +253,26 @@ bool j1Player::Load(pugi::xml_node& node)
 	{
 		current_state = State::boucing;
 	}
+	else if (state_string == "dying")
+	{
+		current_state = State::dying;
+	}
+
+	p2SString collider_string(node.child("state").attribute("collider_type").as_string(""));
+
+	if (collider_string == "collider_player")
+	{
+		collider->type = COLLIDER_TYPE::COLLIDER_PLAYER;
+	}
+	else if (collider_string == "collider_none")
+	{
+		collider->type = COLLIDER_TYPE::COLLIDER_NONE;
+	}
+	else if (collider_string == "collider_god")
+	{
+		collider->type = COLLIDER_TYPE::COLLIDER_GOD;
+	}
+
 	return ret;
 }
 
@@ -281,17 +301,38 @@ bool j1Player::Save(pugi::xml_node& node) const
 	pugi::xml_node state_node = node.append_child("state");
 
 	p2SString state_string;
-
 	switch ((State)current_state)
 	{
 	case State::jumping:
 		state_string.create("jumping");
 		break;
 	case State::boucing:
-		state_string.create("jumping");
+		state_string.create("boucing");
+		break;
+	case State::dying:
+		state_string.create("dying");
 		break;
 	}
-	state_node.append_attribute("state") = state_string.GetString();
+	state_node.append_attribute("current_state") = state_string.GetString();
+
+	p2SString collider_string;
+	switch (collider->type)
+	{
+	case COLLIDER_TYPE::COLLIDER_PLAYER:
+		collider_string.create("collider_player");
+		break;
+	case COLLIDER_TYPE::COLLIDER_NONE:
+		collider_string.create("collider_none");
+		break;
+	case COLLIDER_TYPE::COLLIDER_GOD:
+		collider_string.create("collider_god");
+		break;
+	}
+
+	state_node.append_attribute("collider_type") = collider_string.GetString();
+
+
+
 
 
 	return ret;
@@ -305,6 +346,8 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 	// Switch all collider types
 	if (c1 == collider)
 	{
+		int offset_direction;
+
 		switch (c2->type)
 		{
 		case COLLIDER_WALL:
@@ -324,7 +367,7 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 			distances[(uint)Direction::up] = coll.y + coll.h - player.y;
 			distances[(uint)Direction::down] = player.y + player.h - coll.y;
 
-			int offset_direction = -1;
+			offset_direction = -1;
 
 			for (uint i = 0; i < (uint)Direction::max; ++i)
 			{
@@ -337,8 +380,8 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 				}
 			}
 
-			switch ((Direction)offset_direction) {
-
+			switch ((Direction)offset_direction)
+			{
 			case Direction::right:
 				position.x = coll.x - player.w / 2;
 				velocity.x = 0;
@@ -360,6 +403,12 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 			}
 			collider->SetPos(position.x - collider->rect.w / 2, position.y - collider->rect.h / 2);
 			ground_detector->SetPos(position.x - collider->rect.w / 2, position.y );
+			break;
+
+		case COLLIDER_DEATH:
+			current_state = State::dying;
+			collider->type = COLLIDER_NONE;
+
 			break;
 		}
 	}
