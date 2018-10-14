@@ -119,8 +119,6 @@ bool j1Render::Update(float dt)
 {	
 	fPoint player_position(App->player->position.x, App->player->position.y);
 
-	/*App->level_1.*/
-
 	//Camera_x hit screen---------------------------------------
 	if (free_camera_x)
 	{
