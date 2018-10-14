@@ -40,7 +40,7 @@ Extract .zip files inside a folder and open the .exe file.
 * Charged jump mechanic (gummy jump)
 * Animations with Tiled v1.2.0
 * Random SFx Jump (4 slime sounds)
-* All that proved of slime has a less aura to simulate a real Slime.
+* Camera pulling, all tilesets out of camera despawn 
 
 
 ## Authors & Links
@@ -48,6 +48,7 @@ Extract .zip files inside a folder and open the .exe file.
 * **Marc Galvez(optus23)** - *As a Lead Designer & Manager*  https://github.com/optus23
 
 Github repository: https://github.com/LITTLE-BUSTERS-STUDIO/FallSlime
+Trello: https://trello.com/b/ZRKRIdPU/little-busters
 See also our organization, Little Busters[https://github.com/LITTLE-BUSTERS-STUDIO) 
 
 And finnaly take a look at, Ric's github  https://github.com/d0n3val
