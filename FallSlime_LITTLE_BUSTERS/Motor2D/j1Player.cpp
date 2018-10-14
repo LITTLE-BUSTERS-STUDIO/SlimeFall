@@ -166,7 +166,7 @@ bool j1Player::PreUpdate()
 // Called each loop iteration
 bool j1Player::Update(float dt)
 {
-	if (current_state == State::boucing) //================================================================
+	if (current_state == State::boucing || current_state == State::dying) //================================================================
 		return true;
 
 	if (on_ground == false)
@@ -253,6 +253,10 @@ bool j1Player::Load(pugi::xml_node& node)
 	{
 		current_state = State::boucing;
 	}
+	else if (state_string == "dying")
+	{
+		current_state = State::dying;
+	}
 	return ret;
 }
 
@@ -281,17 +285,35 @@ bool j1Player::Save(pugi::xml_node& node) const
 	pugi::xml_node state_node = node.append_child("state");
 
 	p2SString state_string;
-
 	switch ((State)current_state)
 	{
 	case State::jumping:
 		state_string.create("jumping");
 		break;
 	case State::boucing:
-		state_string.create("jumping");
+		state_string.create("boucing");
+		break;
+	case State::dying:
+		state_string.create("dying");
 		break;
 	}
-	state_node.append_attribute("state") = state_string.GetString();
+	state_node.append_attribute("current_state") = state_string.GetString();
+
+	p2SString collider_string;
+	switch (collider_type)
+	{
+	case COLLIDER_TYPE::COLLIDER_PLAYER:
+		break;
+	case COLLIDER_TYPE::COLLIDER_NONE:
+		break;
+	case COLLIDER_TYPE::COLLIDER_NONE:
+		break;
+	}
+
+	state_node.append_attribute("current_state") = state_string.GetString();
+
+
+
 
 
 	return ret;
@@ -361,6 +383,10 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 			collider->SetPos(position.x - collider->rect.w / 2, position.y - collider->rect.h / 2);
 			ground_detector->SetPos(position.x - collider->rect.w / 2, position.y );
 			break;
+
+		case COLLIDER_DEATH:
+			current_state = State::dying;
+			collider_type = COLLIDER_NONE;
 		}
 	}
 	

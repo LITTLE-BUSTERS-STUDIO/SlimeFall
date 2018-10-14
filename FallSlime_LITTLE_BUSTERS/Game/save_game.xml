@@ -4,13 +4,13 @@
 	<window />
 	<textures />
 	<audio>
-		<volumes music="2" sfx="0" mute="false" />
+		<volumes music="40" sfx="0" mute="false" />
 	</audio>
 	<map />
 	<level_1 />
 	<player>
-		<position x="130" y="92.0000381" />
-		<velocity x="0" y="0.200001299" />
+		<position x="15" y="-127.499878" />
+		<velocity x="0" y="5.00000334" />
 		<conditions apply_jump_speed="false" on_ground="false" check_fall="false" flip_x="false" gummy_jump="false" />
 		<state state="jumping" />
 	</player>

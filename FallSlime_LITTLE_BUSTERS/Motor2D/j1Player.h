@@ -12,7 +12,9 @@ struct SDL_Texture;
 enum class State
 {
 	jumping,
-	boucing
+	boucing,
+	dying
+
 };
 
 enum class Direction: uint
@@ -73,28 +75,29 @@ public:
 	bool  apply_jump_speed = false;
 
 	//Collision
-	Collider      *collider = nullptr;
-	Collider      *ground_detector = nullptr;
-	bool          on_ground = false;
-	bool          check_fall = false;
-	SDL_Rect      rect_collider;
-	bool flip_x = false;
+	Collider         *collider = nullptr;
+	Collider         *ground_detector = nullptr;
+	COLLIDER_TYPE     collider_type;
+	bool              on_ground = false;
+	bool              check_fall = false;
+	SDL_Rect          rect_collider;
+	bool              flip_x = false;
 	
 	//Abilities
-	bool gummy_jump = false;
+	bool              gummy_jump = false;
 
 	//Assets
-	SDL_Texture   *tex_player = nullptr;
-	p2SString     path_tex_player;
+	SDL_Texture      *tex_player = nullptr;
+	p2SString         path_tex_player;
 	
-	Animation     player_anim;
-	State         current_state = State::jumping;
+	Animation         player_anim;
+	State             current_state = State::jumping;
 
-	p2SString     path_jump_fx1;
-	p2SString     path_jump_fx2;
-	p2SString     path_jump_fx3;
-	p2SString     path_jump_fx4;
-	p2SString     path_jump_fx5;
+	p2SString         path_jump_fx1;
+	p2SString         path_jump_fx2;
+	p2SString         path_jump_fx3;
+	p2SString         path_jump_fx4;
+	p2SString         path_jump_fx5;
 
 
 	uint fx_jump1;
