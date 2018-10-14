@@ -5,15 +5,9 @@
 #include "j1Window.h"
 #include "SDL/include/SDL.h"
 
-#define MAX_KEYS 300
-
 j1Input::j1Input() : j1Module()
 {
 	name.create("input");
-
-	keyboard = new j1KeyState[MAX_KEYS];
-	memset(keyboard, KEY_IDLE, sizeof(j1KeyState) * MAX_KEYS);
-	memset(mouse_buttons, KEY_IDLE, sizeof(j1KeyState) * NUM_MOUSE_BUTTONS);
 }
 
 // Destructor
@@ -43,6 +37,10 @@ bool j1Input::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1Input::Start()
 {
+	keyboard = new j1KeyState[max_keys];
+	memset(keyboard, KEY_IDLE, sizeof(j1KeyState) * max_keys);
+	memset(mouse_buttons, KEY_IDLE, sizeof(j1KeyState) * NUM_MOUSE_BUTTONS);
+
 	SDL_StopTextInput();
 	return true;
 }
@@ -54,7 +52,7 @@ bool j1Input::PreUpdate()
 	
 	const Uint8* keys = SDL_GetKeyboardState(NULL);
 
-	for(int i = 0; i < MAX_KEYS; ++i)
+	for(int i = 0; i < max_keys; ++i)
 	{
 		if(keys[i] == 1)
 		{

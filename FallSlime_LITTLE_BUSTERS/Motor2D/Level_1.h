@@ -35,6 +35,17 @@ private:
 	p2SString background_path;
 	SDL_Texture * background_parallax = nullptr;
 	Parallax parallax[11];
+public:
+	uint		phase1_width;
+	uint		phase1_high;
+	uint		phase2_width;
+	uint		phase2_high;
+	uint		background_width;
+	uint		background_high;
+	uint		max_background_layers;
+	uint		backgorund_startpos;
+
+
 };
 
 #endif // __LEVEL_1_H__
