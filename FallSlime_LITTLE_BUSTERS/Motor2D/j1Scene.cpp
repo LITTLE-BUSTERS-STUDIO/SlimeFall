@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "j1Input.h"
 #include "j1Player.h"
+#include "j1Render.h"
 #include "p2Log.h"
 
 bool j1Scene::LoadPhase(uint phase_number) 
@@ -29,7 +30,8 @@ bool j1Scene::LoadPhase(uint phase_number)
 	if (ret)
 	{
 		current_phase = phase_number;
-		App->player->Reset(App->map->data.initial_position);
+		App->player->reset = true;
+		App->render->reset = true;
 	}
 
 	return ret;

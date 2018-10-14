@@ -161,6 +161,12 @@ bool j1Render::Update(float dt)
 	if (free_camera_y)
 		camera.y = App->win->GetScale() * player_position.y - camera.h / 2;
 
+	if (reset)
+	{
+		CameraReset();
+		reset = false;
+	}
+
 	return true;
 }
 
@@ -383,5 +389,5 @@ bool j1Render::CameraReset() {
 	camera.y = 0;
 	free_camera_x = false;
 	free_camera_y = false;
-	return true;
+    return true;
 }

@@ -52,6 +52,7 @@ public:
 	SDL_Color		background;
 
 public:
+	bool    reset = false;
 	bool	free_camera_x = true;
 	bool	free_camera_y = true;
 	bool	debug_border = false;
@@ -60,7 +61,6 @@ public:
 	//XML vars
 	int		zoom ;
 	int		max_zoom;
-
 	int		phase1_width;
 	int		phase1_high;
 	int		phase2_width;
