@@ -13,7 +13,7 @@
   <audio>
       <fade_time default="1.0"/>
       <volume_music default="40"/>
-      <volume_sfx default ="0"/>
+      <volume_sfx default ="40"/>
       <mute value="false"/>
   </audio>
   <window>

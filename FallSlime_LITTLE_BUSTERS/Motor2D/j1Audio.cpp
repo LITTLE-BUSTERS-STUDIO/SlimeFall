@@ -64,6 +64,7 @@ bool j1Audio::Awake(pugi::xml_node& config)
 	else
 	{
 		Mix_VolumeMusic(volume_music);
+		
 	}
 
 	return ret;
@@ -220,7 +221,16 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 
 	if(id > 0 && id <= fx.count())
 	{
-		Mix_PlayChannel(-1, fx[id - 1], repeat, volume_sfx);
+		if (mute)
+		{
+			Mix_VolumeChunk(fx[id - 1], 0);
+			Mix_PlayChannel(-1, fx[id - 1], repeat, 0);
+		}
+			
+		else
+			Mix_VolumeChunk(fx[id - 1], volume_sfx);
+			Mix_PlayChannel(-1, fx[id - 1], repeat, 0);
+		
 	}
 
 	return ret;
