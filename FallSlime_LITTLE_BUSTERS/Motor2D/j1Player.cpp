@@ -371,10 +371,6 @@ bool j1Player::Save(pugi::xml_node& node) const
 
 	state_node.append_attribute("collider_type") = collider_string.GetString();
 
-
-
-
-
 	return ret;
 }
 
