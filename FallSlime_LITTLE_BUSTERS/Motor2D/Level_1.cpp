@@ -36,6 +36,9 @@ bool Level_1::Awake(pugi::xml_node& config)
 	}
 	current_phase = config.attribute("current_phase").as_uint(0u);
 
+	background_width = config.child("background_dimension").attribute("width").as_uint(0u);
+	background_high = config.child("background_dimension").attribute("high").as_uint(0u);
+
 	return ret;
 }
 
@@ -49,10 +52,10 @@ bool Level_1::Start()
 	//Parallax
 	for (uint i = 0; i < 11; i++)
 	{
-		parallax[i].rect_parallax.x = 928 * i;
+		parallax[i].rect_parallax.x = background_width * i;
 		parallax[i].rect_parallax.y = 0;
-		parallax[i].rect_parallax.w = 928;
-		parallax[i].rect_parallax.h = 793;
+		parallax[i].rect_parallax.w = background_width;
+		parallax[i].rect_parallax.h = background_high;
 	}
 
 

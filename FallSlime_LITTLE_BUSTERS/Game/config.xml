@@ -9,6 +9,9 @@
     <vsync value="true"/>
     <debug zoom="1" max_zoom="4"/>
     <blit margin="30"/>
+    <level1_1 width="2600" high ="1000"/>
+    <level1_2 width="2600" high ="1000"/>
+    <debug_border_margin value="4"/>
   </renderer>
   <audio>
     <fade_time default="1.0"/>
@@ -52,5 +55,6 @@
     <phase id ="1" map_path ="Level1_1.tmx"/>
     <phase id= "2" map_path ="Level1_2.tmx"/>
     <phase id ="3" map_path ="Level1_3.tmx"/>
+    <background_dimension width="928" high="793"/>
   </level_1>
 </config>

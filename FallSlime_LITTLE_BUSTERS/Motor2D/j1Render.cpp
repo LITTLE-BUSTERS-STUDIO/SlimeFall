@@ -4,7 +4,7 @@
 #include "j1Window.h"
 #include "j1Render.h"
 #include "j1Player.h"
-
+#include "Level_1.h"
 #include "j1Input.h"
 
 #define VSYNC true
@@ -54,6 +54,13 @@ bool j1Render::Awake(pugi::xml_node& config)
 
 	zoom = config.child("debug").attribute("zoom").as_uint(1u);
 	max_zoom = config.child("debug").attribute("max_zoom").as_uint(1u);
+
+	phase1_width = config.child("level1_1").attribute("width").as_int(0);
+	phase1_high = config.child("level1_1").attribute("high").as_int(0);
+	phase2_width = config.child("level1_2").attribute("width").as_int(0);
+	phase2_high = config.child("level1_2").attribute("high").as_int(0);
+
+	margin = config.child("debug_border_margin").attribute("value").as_int(0);
 
 	return ret;
 }
@@ -111,8 +118,9 @@ bool j1Render::PreUpdate()
 bool j1Render::Update(float dt)
 {
 	//Tests var 
-	int level_width = 2600;
-	int level_high = 1000;
+	
+
+	
 	fPoint player_position(App->player->position.x, App->player->position.y);
 
 	//Camera_x hit screen---------------------------------------
@@ -124,13 +132,13 @@ bool j1Render::Update(float dt)
 
 			free_camera_x = false;
 		}
-		else if (camera.x + camera.w > level_width)
+		else if (camera.x + camera.w > phase1_width)
 		{
-			camera.x = level_width - camera.w;
+			camera.x = phase1_width - camera.w;
 			free_camera_x = false;
 		}
 	}
-	else if (App->win->GetScale() * player_position.x > camera.w / 2 && App->win->GetScale() *player_position.x < level_width - camera.w / 2)
+	else if (App->win->GetScale() * player_position.x > camera.w / 2 && App->win->GetScale() *player_position.x < phase1_width - camera.w / 2)
 		free_camera_x = true;
 
 	//Camera_x Follow Player
@@ -140,19 +148,19 @@ bool j1Render::Update(float dt)
 	//Camera_y hit screen---------------------------------------
 	if (free_camera_y)
 	{
-		if (camera.y < 0) //250 TEST es donde la camara.y va a dejar de seguir
+		if (camera.y < 0) 
 		{
 			camera.y = 0;
 			free_camera_y = false;
 		}
 
-		else if (camera.y + camera.h > level_high)
+		else if (camera.y + camera.h > phase1_high)
 		{
-			camera.y = level_high - camera.h;
+			camera.y = phase1_high - camera.h;
 			free_camera_y = false;
 		}
 	}
-	else if (App->win->GetScale() * player_position.y > camera.h / 2 && App->win->GetScale() * player_position.y < level_high - camera.h / 2)
+	else if (App->win->GetScale() * player_position.y > camera.h / 2 && App->win->GetScale() * player_position.y < phase1_high - camera.h / 2)
 		free_camera_y = true;
 
 	//Camera_y Follow Player
@@ -164,8 +172,8 @@ bool j1Render::Update(float dt)
 
 bool j1Render::PostUpdate()
 {
-	int margin = 4;
-	int borderWidth = 4 * zoom;
+	//Quad borders DEBUG
+	int borderWidth = margin * zoom;
 	int scale = App->win->GetScale();
 
 	if (debug_border)
@@ -182,10 +190,9 @@ bool j1Render::PostUpdate()
 	
 	if (debug_middle)
 	{
-		// Centered point 
+		// Centered point DEBUG
 		App->render->DrawCircle(camera.x + camera.w / 2, camera.y + camera.h / 2, 1, 50, 255, 50, 255);
 	}
-	
 
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
@@ -247,11 +254,6 @@ void j1Render::ResetViewPort()
 {
 	SDL_RenderSetViewport(renderer, &viewport);
 }
-
-//bool j1Render::CheckCameraBound (SDL_Rect r)
-//{
-//
-//}
 
 // Blit to screen
 bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, bool flip_x, float speed, double angle, int pivot_x, int pivot_y) const
