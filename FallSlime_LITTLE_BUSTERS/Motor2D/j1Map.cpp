@@ -107,6 +107,7 @@ bool j1Map::CleanUp()
 
 	while(item != NULL)
 	{
+		App->tex->UnLoad(item->data->texture);
 		RELEASE(item->data);
 		item = item->next;
 	}
@@ -130,8 +131,6 @@ bool j1Map::CleanUp()
 
 	while (item_3 != NULL)
 	{
-
-
 		for (int i = 0; i < item_3->data->num_colliders; ++i)
 		{
 			if (item_3->data->colls[i] != nullptr)
@@ -140,9 +139,6 @@ bool j1Map::CleanUp()
 				item_3->data->colls[i] = nullptr;
 			}
 		}
-
-
-		RELEASE(item_3->data);
 		item_3 = item_3->next;
 	}
 
@@ -429,12 +425,18 @@ bool j1Map::LoadColliders(pugi::xml_node& object_node, CollidersGroup* group)
 
 	group->name.create(object_node.attribute("name").as_string(""));
 
-	if (group->name== "colliders_ground")
+	if (group->name == "colliders_ground")
 		collider_type = COLLIDER_WALL;
 	else if (group->name == "colliders_death")
 		collider_type = COLLIDER_DEATH;
 	else if (group->name == "colliders_next_level")
 		collider_type = COLLIDER_NEXT_LEVEL;
+	else if (group->name == "initial_position")
+	{
+		data.init_position = { 0, 0 };
+		return true;
+	}
+		
 
 	for (pugi::xml_node object_data = object_node.child("object"); object_data; object_data = object_data.next_sibling("object"))
 	{
@@ -443,6 +445,8 @@ bool j1Map::LoadColliders(pugi::xml_node& object_node, CollidersGroup* group)
 
 	group->colls = new Collider*[group->num_colliders];
 	uint counter = 0u;
+
+	LOG("Added %i colliders", group->num_colliders);
 
 	for (pugi::xml_node object_data = object_node.child("object"); object_data; object_data = object_data.next_sibling("object"))
 	{

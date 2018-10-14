@@ -51,10 +51,8 @@ struct CollidersGroup
 
 	~CollidersGroup()
 	{
-		if (colls != nullptr)
-			delete[] colls;
+		colls = nullptr;
 	}
-
 };
 
 enum MapTypes
@@ -71,12 +69,14 @@ struct MapData
 	uint					      height;
 	uint					      tile_width;
 	uint					      tile_height;
-	SDL_Color			          background_color;
 	MapTypes			          type;
+	SDL_Color			          background_color;
+	
 	p2List<TileSet*>	          tilesets;
 	p2List<MapLayer*>	          layers;
 	p2List<CollidersGroup*>       coll_groups;           
 
+	fPoint                        init_position = {0.0f,0.0f};
 };
 
 // ----------------------------------------------------
