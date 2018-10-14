@@ -46,8 +46,8 @@ bool  j1Player::Awake(pugi::xml_node& node )
 
 	//Assets=======================================
 	//----------Textures---------------------------
-	path_tex_player.create(node.child("texture").attribute("path").as_string(""));
-	path_death_splash.create(node.child("texture_death").attribute("path").as_string(""));
+	path_tex_player.create(node.child("textures").child("jumping").attribute("path").as_string(""));
+	path_death_splash.create(node.child("textures").child("death").attribute("path").as_string(""));
 	//----------Animations-------------------------
 	pugi::xml_document jumping_an_doc;
 	pugi::xml_node jumping_an_node;
@@ -62,11 +62,12 @@ bool  j1Player::Awake(pugi::xml_node& node )
 	death_anim.LoadAnimation(death_an_node, "pink_splash");
 
 	//----------SFX--------------------------------
-	path_jump_fx1.create(node.child("jump_fx").child("jump1").attribute("path").as_string(""));
-	path_jump_fx2.create(node.child("jump_fx").child("jump2").attribute("path").as_string(""));
-	path_jump_fx3.create(node.child("jump_fx").child("jump3").attribute("path").as_string(""));
-	path_jump_fx4.create(node.child("jump_fx").child("jump4").attribute("path").as_string(""));
-	path_jump_fx5.create(node.child("jump_fx").child("jump5").attribute("path").as_string(""));
+	path_jump_fx1.create(node.child("sfx").child("jump1").attribute("path").as_string(""));
+	path_jump_fx2.create(node.child("sfx").child("jump2").attribute("path").as_string(""));
+	path_jump_fx3.create(node.child("sfx").child("jump3").attribute("path").as_string(""));
+	path_jump_fx4.create(node.child("sfx").child("jump4").attribute("path").as_string(""));
+	path_jump_fx5.create(node.child("sfx").child("jump5").attribute("path").as_string(""));
+	path_death_sfx.create(node.child("sfx").child("death").attribute("path").as_string(""));
 	//=============================================
 
 	return true;
@@ -83,6 +84,7 @@ bool j1Player::Start()
 	tex_player = App->tex->Load(path_tex_player.GetString());
 	death_splash = App->tex->Load(path_death_splash.GetString());
 
+	id_death_sfx = App->audio->LoadFx(path_death_sfx.GetString());
 	fx_jump1 = App->audio->LoadFx(path_jump_fx1.GetString());
 	fx_jump2 = App->audio->LoadFx(path_jump_fx2.GetString());
 	fx_jump3 = App->audio->LoadFx(path_jump_fx3.GetString());
@@ -157,19 +159,10 @@ bool j1Player::PreUpdate()
 		case 4:
 			App->audio->PlayFx(fx_jump4);
 			break;
-
 		default:
 			App->audio->PlayFx(fx_jump1);
 			break;
 		}
-		//switch (random_secret)
-		//{
-		//case 0://Sorprise
-		//	App->audio->PlayFx(fx_jump5);
-		//default:
-
-		//	break;
-		//}
 	}
 
 
@@ -428,6 +421,7 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 			break;
 
 		case COLLIDER_DEATH:
+			App->audio->PlayFx(id_death_sfx);
 			current_state = State::dying;
 			collider->type = COLLIDER_NONE;
 			//Death Sfx
