@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="100" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="69" nextobjectid="393">
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="100" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="69" nextobjectid="395">
  <tileset firstgid="1" name="Basic_tileset" tilewidth="16" tileheight="16" tilecount="60" columns="10">
   <image source="Basic_tileset.png" width="160" height="96"/>
   <terraintypes>
@@ -16096,7 +16096,7 @@
   <object id="349" x="967.932" y="291.204" width="174.568" height="15.9917"/>
   <object id="352" x="327.239" y="211.008" width="18.3974" height="28.9848"/>
   <object id="365" x="2.47933" y="3.33335" width="17.958" height="505.666"/>
-  <object id="374" x="1027.14" y="308.046" width="17.3859" height="129.992"/>
+  <object id="374" x="1027.14" y="308.046" width="17.3859" height="197.992"/>
   <object id="375" x="1142.58" y="276.087" width="17.3859" height="23.4917"/>
   <object id="377" x="1083.84" y="306.481" width="43.3859" height="55.3099"/>
   <object id="378" x="1083.97" y="362.254" width="29.3859" height="186.492"/>
@@ -16112,6 +16112,8 @@
   <object id="388" x="1196.97" y="41.3905" width="28.7192" height="33.5523"/>
   <object id="390" x="1095.23" y="0.212486" width="36.7192" height="25.9273"/>
   <object id="391" x="1271.34" y="391.224" width="17.3859" height="15.4917"/>
+  <object id="393" x="16.1063" y="508.758" width="1016.24" height="18.4848"/>
+  <object id="394" x="20.88" y="-3.2424" width="1074.74" height="18.4848"/>
  </objectgroup>
  <objectgroup color="#ff0000" id="19" name="colliders_death">
   <object id="354" x="21" y="484" width="1006" height="23.5"/>
