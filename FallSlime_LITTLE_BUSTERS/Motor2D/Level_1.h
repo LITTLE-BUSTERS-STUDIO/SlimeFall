@@ -42,6 +42,9 @@ public:
 	uint		phase2_high;
 	uint		background_width;
 	uint		background_high;
+	uint		max_background_layers;
+	uint		backgorund_startpos;
+
 
 };
 

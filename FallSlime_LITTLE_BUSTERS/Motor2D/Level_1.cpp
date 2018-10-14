@@ -38,7 +38,9 @@ bool Level_1::Awake(pugi::xml_node& config)
 
 	background_width = config.child("background_dimension").attribute("width").as_uint(0u);
 	background_high = config.child("background_dimension").attribute("high").as_uint(0u);
-
+	max_background_layers = config.child("max_background_layers").attribute("value").as_uint(0u);
+	backgorund_startpos = config.child("backgorund_startpos").attribute("value").as_uint(0u);
+		 
 	return ret;
 }
 
@@ -48,9 +50,8 @@ bool Level_1::Start()
 	LoadPhase(1);
 	App->audio->PlayMusic(music_path.GetString());
 	background_parallax = App->tex->Load(background_path.GetString());
-
 	//Parallax
-	for (uint i = 0; i < 11; i++)
+	for (uint i = 0; i < max_background_layers; i++)
 	{
 		parallax[i].rect_parallax.x = background_width * i;
 		parallax[i].rect_parallax.y = 0;
@@ -90,10 +91,9 @@ bool Level_1::PostUpdate()
 	bool ret = true;
 
 	// Blit background
-	for (uint i = 0; i < 11; i++)
+	for (uint i = 0; i < max_background_layers; i++)
 	{
-		//App->render->Blit(background_parallax, 0, -300, &parallax[i].rect_parallax, true, 0.7f); // -300 equals to start position.y
-		App->render->Blit(background_parallax, 0, -300, &parallax[i].rect_parallax, true, 0.4f); // -300 equals to start position.y
+		App->render->Blit(background_parallax, 0, backgorund_startpos, &parallax[i].rect_parallax, true, 0.4f); // -300 equals to start position.y
 	}
 
 	App->map->Draw();
