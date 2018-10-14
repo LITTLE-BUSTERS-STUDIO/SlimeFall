@@ -4,19 +4,19 @@
 	<window />
 	<textures />
 	<audio>
-		<volumes music="49" sfx="49" mute="false" />
+		<volumes music="40" sfx="40" mute="false" />
 	</audio>
 	<map />
 	<level_1 />
 	<player>
-		<position x="166.5" y="267.000122" />
-		<velocity x="-2.5" y="11.0000048" />
-		<conditions apply_jump_speed="false" on_ground="false" check_fall="false" flip_x="true" gummy_jump="false" />
-		<state current_state="jumping" collider_type="collider_player" />
+		<position x="311.5" y="203.900131" />
+		<velocity x="0" y="7.10000467" />
+		<conditions apply_jump_speed="false" on_ground="false" check_fall="false" flip_x="false" gummy_jump="false" />
+		<state current_state="dying" collider_type="collider_none" />
 	</player>
 	<:anonymous />
 	<renderer>
-		<camera x="0" y="174" />
+		<camera x="0" y="47" />
 		<debug zoom="1" />
 		<conditions free_camera_x="false" free_camera_y="true" />
 	</renderer>

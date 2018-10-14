@@ -5,8 +5,6 @@
 #include "j1Player.h"
 #include "p2Log.h"
 
-
-
 bool j1Scene::LoadPhase(uint phase_number) 
 {
 	p2List_item<Phase*>* item = nullptr;
@@ -15,7 +13,6 @@ bool j1Scene::LoadPhase(uint phase_number)
 	{
 		return true;
 	}
-
 
 	for (item = phases.start; item; item = item->next)
 	{
@@ -32,7 +29,7 @@ bool j1Scene::LoadPhase(uint phase_number)
 	if (ret)
 	{
 		current_phase = phase_number;
-		App->player->position = App->map->data.initial_position;
+		App->player->Reset(App->map->data.initial_position);
 	}
 
 	return ret;
@@ -48,6 +45,7 @@ bool  j1Scene::UnloadPhase(uint phase_number)
 bool j1Scene::PreUpdate()
 {
 	bool ret = true;
+
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) //Close Window
 		ret = false;
 

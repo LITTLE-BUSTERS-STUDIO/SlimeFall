@@ -12,7 +12,7 @@ enum class State
 {
 	jumping,
 	boucing,
-	dying
+	dead
 
 };
 
@@ -58,7 +58,7 @@ public:
 	  bool Save(pugi::xml_node&) const;
 
 	// Reset player values default
-	  bool Reset();
+	  bool Reset(fPoint pos);
 
 	// Called by collision module
 	  bool OnCollision(Collider*, Collider*);
@@ -68,6 +68,7 @@ public:
 	fPoint velocity;
 	fPoint acceleration;
 	State  current_state = State::jumping;
+	bool   reset = false;
 
 	//Physics==================================
 	float gravity;

@@ -8,19 +8,14 @@
 #include "j1Window.h"
 #include "j1Collision.h"
 #include "j1Player.h"
+#include "j1Map.h"
 #include <math.h>
 
 j1Player::j1Player() 
 {
 	name.create("player");
-	position.x = 130 ;
-	position.y = 60;
-	velocity.x = 0;
-	velocity.y = 0;
-	acceleration.x = 0;
-	acceleration.y = 0;
-
 }
+
 
 j1Player::~j1Player()
 {
@@ -97,26 +92,36 @@ bool j1Player::Start()
 // Called each loop iteration
 bool j1Player::PreUpdate()
 {
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE)
+	if (current_state != State::dead)
 	{
-		if (on_ground)
-			velocity.x = -speed_ground;
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE)
+		{
+			if (on_ground)
+				velocity.x = -speed_ground;
+
+			else
+				velocity.x = -speed_air;
+
+			flip_x = true;
+		}
+		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE)
+		{
+			if (on_ground)
+				velocity.x = +speed_ground;
+			else
+				velocity.x = +speed_air;
+			flip_x = false;
+		}
+		else
+			velocity.x = 0;
+	}
 	
-		else
-			velocity.x = -speed_air;
-		
-		flip_x = true;
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE)
+	//Only if player is dead
+
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && current_state == State::dead)
 	{
-		if (on_ground)
-			velocity.x = +speed_ground;
-		else
-			velocity.x = +speed_air;
-		flip_x = false;
+		reset = true;
 	}
-	else
-		velocity.x = 0;
 
 	// Only if player is on ground 
 
@@ -125,8 +130,6 @@ bool j1Player::PreUpdate()
 		gummy_jump = true;
 		App->audio->PlayFx(fx_jump5);
 	}
-
-
 
 	if (apply_jump_speed == true)
 	{
@@ -143,7 +146,6 @@ bool j1Player::PreUpdate()
 		current_state = State::boucing;
 
 		uint random_jump = rand() % 4 + 1;
-		uint random_secret = rand() % 99;
 		
 		switch (random_jump)
 		{
@@ -165,14 +167,18 @@ bool j1Player::PreUpdate()
 		}
 	}
 
-
 	return true;
 }
 
 // Called each loop iteration
 bool j1Player::Update(float dt)
 {
-	if (current_state == State::boucing || current_state == State::dying) //================================================================
+	if (reset) 
+	{
+		App->player->Reset(App->map->data.initial_position);
+		reset = false;
+	}
+	if (current_state != State::jumping)
 		return true;
 
 	if (on_ground == false)
@@ -220,9 +226,10 @@ bool j1Player::PostUpdate()
 		frame = jumping_anim.GetCurrentFrame();
 		texture = tex_player;
 		break;
-	case State::dying:
+	case State::dead:
 		frame = death_anim.GetLastFrame();
 		texture = death_splash;
+		flip_x = false;
 		break;
 	}
 
@@ -239,6 +246,23 @@ bool j1Player::CleanUp()
 
 	return true;
 }
+
+bool j1Player::Reset( fPoint pos)
+{
+	position = pos;
+	velocity.x = 0;
+	velocity.y = 0;
+	acceleration.x = 0;
+	acceleration.y = 0;
+	current_state = State::jumping;
+
+	if (collider != nullptr && collider->type != COLLIDER_GOD)
+	{
+		collider->type = COLLIDER_PLAYER;
+	}
+	return true;
+}
+
 
 //Save and Load
 bool j1Player::Load(pugi::xml_node& node)
@@ -269,7 +293,7 @@ bool j1Player::Load(pugi::xml_node& node)
 	}
 	else if (state_string == "dying")
 	{
-		current_state = State::dying;
+		current_state = State::dead;
 	}
 
 	p2SString collider_string(node.child("state").attribute("collider_type").as_string(""));
@@ -323,7 +347,7 @@ bool j1Player::Save(pugi::xml_node& node) const
 	case State::boucing:
 		state_string.create("boucing");
 		break;
-	case State::dying:
+	case State::dead:
 		state_string.create("dying");
 		break;
 	}
@@ -364,7 +388,6 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 
 		switch (c2->type)
 		{
-		case COLLIDER_GOD:
 		case COLLIDER_WALL:
 
 			SDL_Rect player = c1->rect;
@@ -422,14 +445,14 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 
 		case COLLIDER_DEATH:
 			App->audio->PlayFx(id_death_sfx);
-			current_state = State::dying;
+			current_state = State::dead;
 			collider->type = COLLIDER_NONE;
 			//Death Sfx
 			break;
 		}
 	}
 	
-	if (c1 == ground_detector && check_fall) {
+	if (c1 == ground_detector && check_fall && collider->type != COLLIDER_NONE) {
 		on_ground = true;
 	}
 
