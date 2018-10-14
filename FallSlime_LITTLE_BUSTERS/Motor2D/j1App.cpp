@@ -48,6 +48,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(collision);
 	// Render last to swap buffer
 	AddModule(render);
+
+
+	current_level = level_1;
 }
 
 // Destructor

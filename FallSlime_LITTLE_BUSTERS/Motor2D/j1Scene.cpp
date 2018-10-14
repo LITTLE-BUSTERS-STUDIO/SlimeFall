@@ -24,6 +24,12 @@ bool j1Scene::LoadPhase(uint phase_number)
 
 	}
 
+	if (item == NULL)
+	{
+		LOG("Couldn't load phase %i", phase_number);
+		return false;
+	}
+
 	App->map->CleanUp();
 	ret = App->map->Load(item->data->map_path.GetString());
 
@@ -62,6 +68,20 @@ bool j1Scene::PreUpdate()
 
 	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
 		LoadPhase(2);
+
+	return ret;
+}
+
+bool j1Scene::NextPhase()
+{
+	bool ret = true;
+	ret = LoadPhase(++current_phase);
+	if (!ret)
+	{
+		current_phase = 1;
+		LoadPhase(current_phase);
+	}
+
 
 	return ret;
 }
