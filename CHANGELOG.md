@@ -1,10 +1,24 @@
-##[0.2.0] - 2018-10-14
-
-
-
+## [0.3.0] - 2018-10-14
 
 ### Summarized
 
+-Improve all the levels and death logic, also we set up and down SFx volume
+
+####Added
+
+-Phases logic
+-Gummy Jump SFx
+-Set Up/Down and mute SFx added
+-Death animation and SFx
+-All vars to XML config
+-Level 1 and 2 improvements
+-Background Parallax 
+-Death logic added
+
+
+##[0.2.0] - 2018-10-13
+
+### Summarized
 
 -In this version we've implemented animation from player and improved the camera following. Also we've created a new mechanic named "gummy jump".
 
@@ -22,9 +36,6 @@
 ## [0.1.0] - 2018-10-12
 
 ### Summarized
-
-
-
 
 -In this version we've created all base logic from colliders, camera following, player basic movement and some stuff.
 

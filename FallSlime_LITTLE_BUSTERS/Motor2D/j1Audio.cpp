@@ -234,7 +234,6 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 		else
 			Mix_VolumeChunk(fx[id - 1], volume_sfx);
 			Mix_PlayChannel(-1, fx[id - 1], repeat, 0);
-		
 	}
 
 	if (setdown_volume_fx) //Set DOWN Volume Music
@@ -243,19 +242,17 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 			App->audio->volume_sfx = volume_music;
 		Mix_VolumeChunk(fx[id - 1], volume_sfx);
 		Mix_PlayChannel(-1, fx[id - 1], repeat, 0);
-		LOG("Valume SFX %d", volume_sfx);
 	setdown_volume_fx = false;
 	}
+
 	if (setup_volume_fx) //Set UP Volume Music
 	{
 		if (App->audio->volume_sfx < max_volume)
 			App->audio->volume_sfx = volume_music;
 		Mix_VolumeChunk(fx[id - 1], volume_sfx);
 		Mix_PlayChannel(-1, fx[id - 1], repeat, 0);
-		LOG("Valume SFX %d", volume_sfx);
 		setup_volume_fx = false;
 	}
-
 
 	return ret;
 }

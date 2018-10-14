@@ -28,6 +28,8 @@ Extract .zip files inside a folder and open the .exe file.
 * **F9** - Set up music.
 * **F10** - Zoom out camera.
 * **F11** - Zoom in camera.
+* **1** - Change to level 1
+* **2** - Change to level 2
 
 ### Innovation features:
 * Zoom Debug Mode
@@ -36,6 +38,8 @@ Extract .zip files inside a folder and open the .exe file.
 * Charged jump mechanic (gummy jump)
 * Animations with Tiled v1.2.0
 * Random SFx Jump (4 slime sounds)
+* All that proved of slime has a less aura to simulate a real Slime.
+
 
 ## Authors & Links
 * **Alejandro Gamarra (alejandro61299)** - *As a Lead Programer & QA* https://github.com/alejandro61299
