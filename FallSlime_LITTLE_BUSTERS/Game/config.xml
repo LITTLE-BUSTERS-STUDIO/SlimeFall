@@ -39,7 +39,7 @@
       <jump4 path ="audio/fx/jump4.wav"/>
       <jump5 path ="audio/fx/jump5.wav"/>
     </jump_fx> 
-    <collider width="15" height="15"/>
+    <collider width="20" height="20"/>
     <physics gravity ="0.3" speed_air ="2.5" speed_ground ="0" speed_jump ="7" speed_gummy_jump ="3" />
   </player>
   <level_1 phases ="3" current_phase="2">

@@ -56,6 +56,7 @@ public:
 	int max_zoom;
 	bool free_camera_x = true;
 	bool free_camera_y = true;
+	bool debug_border = false;
 
 };
 
