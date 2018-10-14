@@ -75,6 +75,7 @@ private:
 	int			mouse_motion_y;
 	int			mouse_x;
 	int			mouse_y;
+	uint		max_keys;
 
 public:
 	j1KeyState * keyboard;

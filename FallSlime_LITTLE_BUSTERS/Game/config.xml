@@ -11,11 +11,15 @@
     <blit margin="30"/>
   </renderer>
   <audio>
-      <fade_time default="1.0"/>
-      <volume_music default="40"/>
-      <volume_sfx default ="40"/>
-      <mute value="false"/>
+    <fade_time default="1.0"/>
+    <volume_music default="40"/>
+    <volume_sfx default ="40"/>
+    <max_volume value="100"/>
+    <mute value="false"/>
   </audio>
+  <input>
+    <max_keys value="300"/>
+  </input>
   <window>
     <resolution width="1280" height="720" scale="2"/>
     <fullscreen value="false"/>

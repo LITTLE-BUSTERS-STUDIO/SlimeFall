@@ -55,6 +55,7 @@ bool j1Audio::Awake(pugi::xml_node& config)
 	fade_time = config.child("fade_time").attribute("default").as_uint(0u);
 	volume_music = config.child("volume_music").attribute("default").as_uint(0u);
 	volume_sfx = config.child("volume_sfx").attribute("default").as_uint(0u);
+	max_volume = config.child("max_volume").attribute("value").as_uint(0u);
 	mute = config.child("mute").attribute("value").as_bool(false);
 
 	if (mute)
@@ -89,7 +90,7 @@ bool j1Audio::PreUpdate()
 	{
 		if (App->input->keyboard[SDL_SCANCODE_F8] == KEY_REPEAT) //Set DOWN Volume Music
 		{
-			if (App->audio->volume_music >0)
+			if (App->audio->volume_music > 0)
 				App->audio->volume_music--;
 			Mix_VolumeMusic(App->audio->volume_music);
 			setdown_volume_fx = true;
@@ -97,7 +98,7 @@ bool j1Audio::PreUpdate()
 		}
 		if (App->input->keyboard[SDL_SCANCODE_F9] == KEY_REPEAT) //Set UP Volume Music
 		{
-			if (App->audio->volume_music < 100)
+			if (App->audio->volume_music < max_volume)
 				App->audio->volume_music++;
 			setup_volume_fx = true;
 			Mix_VolumeMusic(App->audio->volume_music);
@@ -247,7 +248,7 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 	}
 	if (setup_volume_fx) //Set UP Volume Music
 	{
-		if (App->audio->volume_sfx < 100)
+		if (App->audio->volume_sfx < max_volume)
 			App->audio->volume_sfx = volume_music;
 		Mix_VolumeChunk(fx[id - 1], volume_sfx);
 		Mix_PlayChannel(-1, fx[id - 1], repeat, 0);

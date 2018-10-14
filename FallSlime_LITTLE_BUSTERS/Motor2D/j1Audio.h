@@ -38,9 +38,6 @@ public:
 
 	bool Save(pugi::xml_node&) const;
 
-	//Unload fx
-	bool UnloadSFX(unsigned int *chunk);
-
 
 private:
 
@@ -50,6 +47,7 @@ private:
 public:
 	uint		fade_time;
 	uint		volume_music;
+	uint		max_volume;
 	uint		volume_sfx;
 	uint 		setdown_volume_fx = false;
 	uint 		setup_volume_fx = false;

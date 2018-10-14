@@ -35,6 +35,8 @@ bool j1Input::Awake(pugi::xml_node& config)
 		ret = false;
 	}
 
+	max_keys = config.child("max_keys").attribute("value").as_uint(0u);
+
 	return ret;
 }
 
