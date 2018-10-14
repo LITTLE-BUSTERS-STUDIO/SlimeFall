@@ -38,6 +38,7 @@ Extract .zip files inside a folder and open the .exe file.
 * Charged jump mechanic (gummy jump)
 * Animations with Tiled v1.2.0
 * Random SFx Jump (4 slime sounds)
+* All that proved of slime has a less aura to simulate a real Slime.
 
 
 ## Authors & Links
