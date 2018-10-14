@@ -131,7 +131,7 @@ bool j1Map::CleanUp()
 
 	while (item_3 != NULL)
 	{
-		for (int i = 0; i < item_3->data->num_colliders; ++i)
+		for (uint i = 0; i < item_3->data->num_colliders; ++i)
 		{
 			if (item_3->data->colls[i] != nullptr)
 			{ 
