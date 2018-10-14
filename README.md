@@ -1,7 +1,7 @@
 # Game Tittle: Slime Fall
 
 ## Current Version
-v0.1
+v1.1
 
 ## Description
 This is a Platform Game about a jumping slime. Reach the end if you can!
@@ -75,7 +75,7 @@ And finnaly take a look at, Ric's github  https://github.com/d0n3val
 
 MIT License
 
-Copyright (c) 2018 @alejandro61299 (Alejandro Gamarra Niño) and @optus23 (Marc Gálvez Llorens)
+Copyright (c) 2018 @alejandro61299 (Alejandro Gamarra NiÃ±o) and @optus23 (Marc GÃ¡lvez Llorens)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
