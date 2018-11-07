@@ -1,9 +1,10 @@
 <!-- Config file for the game -->
 
 <config>
-  <app>
+  <app framerate_cap="30">
     <title>Slime Fall</title>
     <organization>UPC</organization>
+  
   </app>
   <renderer>
     <vsync value="true"/>
