@@ -13,6 +13,7 @@
 #include "j1Map.h"
 #include "j1App.h"
 #include "Level_1.h"
+#include "j1FadeToBlack.h"
 
 
 
@@ -31,6 +32,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	map = new j1Map();
 	player = new j1Player();
 	level_1 = new Level_1();
+	fade_to_black = new j1FadeToBlack();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -39,6 +41,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(map);
+	AddModule(fade_to_black);
 
 	// Levels ===========================
 	AddModule(level_1);

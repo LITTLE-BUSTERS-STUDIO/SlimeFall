@@ -17,6 +17,7 @@ class j1Audio;
 class j1Scene;
 class j1Map;
 class j1Player;
+class j1FadeToBlack;
 
 class j1App
 {
@@ -89,6 +90,8 @@ public:
 	j1Map*				map;
 	j1Player*           player;
 	j1Collision*        collision;
+	j1FadeToBlack*		fade_to_black;
+
 	// Levels
 	j1Scene*            level_1;
 	j1Scene*            level_2;
@@ -120,6 +123,6 @@ private:
 	uint					framerate_cap = 0;
 };
 
-extern j1App* App; // No student is asking me about that ... odd :-S
+extern j1App* App;
 
 #endif

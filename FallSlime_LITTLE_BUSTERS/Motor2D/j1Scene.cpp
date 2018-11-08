@@ -6,6 +6,7 @@
 #include "j1Render.h"
 #include "p2Log.h"
 
+
 bool j1Scene::LoadPhase(uint phase_number, bool spawn) 
 {
 	p2List_item<Phase*>* item = nullptr;
@@ -49,7 +50,6 @@ bool j1Scene::LoadPhase(uint phase_number, bool spawn)
 
 bool  j1Scene::UnloadPhase(uint phase_number)
 {
-
 	return true;
 }
 
@@ -68,7 +68,11 @@ bool j1Scene::PreUpdate()
 		App->SaveGame();
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	{
 		LoadPhase(1);
+
+	}
+
 
 	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
 		LoadPhase(2);

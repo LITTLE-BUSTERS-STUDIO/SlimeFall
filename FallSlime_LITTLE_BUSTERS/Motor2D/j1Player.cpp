@@ -11,6 +11,7 @@
 #include "j1Player.h"
 #include "j1Map.h"
 #include <math.h>
+#include "j1FadeToBlack.h"
 
 j1Player::j1Player() 
 {
@@ -463,10 +464,11 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 			App->audio->PlayFx(id_death_sfx);
 			current_state = State::dead;
 			collider->type = COLLIDER_NONE;
-			//Death Sfx
 			break;
 		case COLLIDER_NEXT_LEVEL:
 			App->current_level->NextPhase();
+			App->fade_to_black->FadeToBlack(0.5f);
+		
 			break;
 		}
 	}

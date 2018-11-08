@@ -7,12 +7,13 @@
 		<volumes music="40" sfx="40" mute="false" />
 	</audio>
 	<map />
+	<FadeToBlack />
 	<level_1>
 		<phase current_phase="1" />
 	</level_1>
 	<player>
-		<position x="219" y="72.800087" />
-		<velocity x="2.5" y="-0.699996829" />
+		<position x="109" y="159.300018" />
+		<velocity x="0" y="-1.59999871" />
 		<conditions apply_jump_speed="false" on_ground="false" check_fall="false" flip_x="false" gummy_jump="false" />
 		<state current_state="jumping" collider_type="collider_player" />
 	</player>
