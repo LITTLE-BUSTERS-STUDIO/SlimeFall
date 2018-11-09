@@ -32,7 +32,6 @@ private:
 	j1Module* fade_out = nullptr;
 	j1Module* fade_in = nullptr;
 
-	const char* lvl_to_load = nullptr;
 };
 
 #endif //__MODULEFADETOBLACK_H__

@@ -45,7 +45,7 @@ bool j1FadeToBlack::PostUpdate()
 	{
 	case fade_step::fade_to_black:
 	{
-		if (now >= total_time)
+		if (now <= total_time)
 		{
 
 			total_time += total_time;
