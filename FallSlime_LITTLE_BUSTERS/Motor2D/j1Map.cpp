@@ -20,7 +20,7 @@ j1Map::~j1Map()
 // Called before render is available
 bool j1Map::Awake(pugi::xml_node& config)
 {
-	LOG("Loading Map Parser");
+	LOG("Loading Map");
 	bool ret = true;
 
 	folder.create(config.child("folder").child_value());
