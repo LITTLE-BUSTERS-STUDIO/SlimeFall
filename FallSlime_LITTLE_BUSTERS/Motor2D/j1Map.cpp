@@ -6,6 +6,7 @@
 #include "j1Collision.h"
 #include "j1Window.h"
 #include "j1Map.h"
+#include "Enemies.h"
 #include <math.h>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -20,7 +21,7 @@ j1Map::~j1Map()
 // Called before render is available
 bool j1Map::Awake(pugi::xml_node& config)
 {
-	LOG("Loading Map Parser");
+	LOG("Loading Map");
 	bool ret = true;
 
 	folder.create(config.child("folder").child_value());
@@ -157,6 +158,7 @@ bool j1Map::Load(const char* file_name)
 	p2SString tmp("%s%s", folder.GetString(), file_name);
 
 	pugi::xml_parse_result result = map_file.load_file(tmp.GetString());
+	pugi::xml_node map_node = map_file.child("map");
 
 	if(result == NULL)
 	{
@@ -171,8 +173,7 @@ bool j1Map::Load(const char* file_name)
 	}
 
 	// Load all tilesets info ----------------------------------------------
-	pugi::xml_node tileset;
-	for(tileset = map_file.child("map").child("tileset"); tileset && ret; tileset = tileset.next_sibling("tileset"))
+	for(pugi::xml_node tileset = map_node.child("tileset"); tileset && ret; tileset = tileset.next_sibling("tileset"))
 	{
 		TileSet* set = new TileSet();
 
@@ -189,10 +190,8 @@ bool j1Map::Load(const char* file_name)
 		data.tilesets.add(set);
 	}
 
-	// Load layer info ----------------------------------------------
-
-	pugi::xml_node layer;
-	for (layer = map_file.child("map").child("layer"); layer && ret; layer = layer.next_sibling("layer"))
+	// Load layer info ------------------------------------------------------
+	for (pugi::xml_node layer = map_node.child("layer"); layer && ret; layer = layer.next_sibling("layer"))
 	{
 		MapLayer* set = new MapLayer();
 
@@ -203,20 +202,46 @@ bool j1Map::Load(const char* file_name)
 		data.layers.add(set);
 	}
 
-	// Load colliders info ----------------------------------------------
-
-	pugi::xml_node objectgroup;
-
-	for (objectgroup = map_file.child("map").child("objectgroup"); objectgroup && ret; objectgroup = objectgroup.next_sibling("objectgroup"))
+	// Load object groups info ----------------------------------------------
+	for (pugi::xml_node object_group = map_node.child("objectgroup"); object_group && ret; object_group = object_group.next_sibling("objectgroup"))
 	{
-		CollidersGroup* group = new CollidersGroup();
-
-		if (ret == true)
+		// Read type --------------------------------------------
+		p2SString type;
+		for (pugi::xml_node property = object_group.child("properties").child("property"); property ; property = property.next_sibling("property"))
 		{
-			ret = LoadColliders(objectgroup, group);
+			if ( p2SString (property.attribute("name").as_string()) == "type")
+			{
+				type.create(property.attribute("value").as_string());
+				break;
+			}
 		}
+		// Colliders --------------------------------------------
+		if (type == "colliders")
+		{
+			CollidersGroup* group = new CollidersGroup();
 
-		data.coll_groups.add(group);
+			if (ret == true)
+			{
+				ret = LoadColliders(object_group, group);
+			}
+
+			data.coll_groups.add(group);
+		}
+		// Enemies ----------------------------------------------
+		else if (type == "enemies")
+		{
+			App->enemies->LoadEnemiesInfo(object_group);
+		}
+		// Initial position -------------------------------------
+		else if (type == "initial_position")
+		{
+			data.initial_position = { object_group.child("object").attribute("x").as_float(0.0f),  object_group.child("object").attribute("y").as_float(0.0f) };
+		}
+		// Static images ----------------------------------------
+		else if (type == "images")
+		{
+
+		}
 	}
 
 
@@ -430,11 +455,7 @@ bool j1Map::LoadColliders(pugi::xml_node& object_node, CollidersGroup* group)
 		collider_type = COLLIDER_DEATH;
 	else if (group->name == "colliders_next_level")
 		collider_type = COLLIDER_NEXT_LEVEL;
-	else if (group->name == "initial_position")
-	{
-		data.initial_position = { object_node.child("object").attribute("x").as_float(0.0f),  object_node.child("object").attribute("y").as_float(0.0f) };
-		return true;
-	}
+
 		
 	for (pugi::xml_node object_data = object_node.child("object"); object_data; object_data = object_data.next_sibling("object"))
 	{
@@ -472,5 +493,4 @@ TileSet* j1Map::GetTileset(int id) const
 		tileset = tileset->next;
 	}
 	return data.tilesets.end->data;
-
 }

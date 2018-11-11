@@ -13,30 +13,48 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_WALL][COLLIDER_NEXT_LEVEL] = false;
 	matrix[COLLIDER_WALL][COLLIDER_GOD] = true;
 	matrix[COLLIDER_WALL][COLLIDER_DEATH] = false;
+	matrix[COLLIDER_WALL][COLLIDER_ENEMY] = true;
+
+
+	matrix[COLLIDER_ENEMY][COLLIDER_WALL] = true;
+	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_ENEMY][COLLIDER_DEATH] = false;
+	matrix[COLLIDER_ENEMY][COLLIDER_NEXT_LEVEL] = false;
+	matrix[COLLIDER_ENEMY][COLLIDER_GOD] = false;
+	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY] = false;
+
 
 	matrix[COLLIDER_PLAYER][COLLIDER_WALL] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_NEXT_LEVEL] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_GOD] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_DEATH] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = false;
+
 
 	matrix[COLLIDER_DEATH][COLLIDER_WALL] = false;
 	matrix[COLLIDER_DEATH][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_DEATH][COLLIDER_NEXT_LEVEL] = false;
 	matrix[COLLIDER_DEATH][COLLIDER_GOD] = false;
 	matrix[COLLIDER_DEATH][COLLIDER_DEATH] = false;
+	matrix[COLLIDER_DEATH][COLLIDER_ENEMY] = false;
+
  
 	matrix[COLLIDER_NEXT_LEVEL][COLLIDER_WALL] = false;
 	matrix[COLLIDER_NEXT_LEVEL][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_NEXT_LEVEL][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_NEXT_LEVEL][COLLIDER_GOD] = true;
 	matrix[COLLIDER_NEXT_LEVEL][COLLIDER_NEXT_LEVEL] = false;
+	matrix[COLLIDER_NEXT_LEVEL][COLLIDER_ENEMY] = false;
+
 
 	matrix[COLLIDER_GOD][COLLIDER_WALL] = true;
 	matrix[COLLIDER_GOD][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_GOD][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_GOD][COLLIDER_NEXT_LEVEL] = true;
 	matrix[COLLIDER_GOD][COLLIDER_GOD] = false;
+	matrix[COLLIDER_GOD][COLLIDER_ENEMY] = false;
+
 
 }
 
@@ -175,15 +193,17 @@ bool j1Collision::PostUpdate()
 		case COLLIDER_DEATH: // red
 			App->render->DrawQuad(item->data->rect, 255, 0, 0, alpha);
 			break;
-		case COLLIDER_NEXT_LEVEL:
+		case COLLIDER_NEXT_LEVEL:  // yellow
 			App->render->DrawQuad(item->data->rect, 255, 215, 0, alpha);
 			break;
-		case COLLIDER_GOD:
-			App->render->DrawQuad(item->data->rect, 255, 255, 255, alpha); //255, 128, 0 orange
+		case COLLIDER_GOD: // orange
+			App->render->DrawQuad(item->data->rect, 255, 128, 0, alpha);
+			break;
+		case COLLIDER_ENEMY: // violet
+			App->render->DrawQuad(item->data->rect, 132, 48, 206, alpha);
 			break;
 		}
 		item = item->next;
-
 	}
 	return true;
 }

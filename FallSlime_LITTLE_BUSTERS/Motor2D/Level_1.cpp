@@ -8,6 +8,7 @@
 #include "j1Window.h"
 #include "j1Map.h"
 #include "Level_1.h"
+#include "Enemies.h"
 
 Level_1::Level_1() : j1Scene()
 {
@@ -61,7 +62,7 @@ bool Level_1::Start()
 		parallax[i].rect_parallax.h = background_high;
 	}
 
-
+	App->enemies->SpawnEnemy(Enemy_Info(10, 10, 30, 30 , Enemy_Type ::Test)); //TODO: Delete TEST
 	return true;
 }
 

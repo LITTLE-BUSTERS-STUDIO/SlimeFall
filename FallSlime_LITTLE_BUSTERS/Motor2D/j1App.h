@@ -18,6 +18,7 @@ class j1Scene;
 class j1Map;
 class j1Player;
 class j1FadeToBlack;
+class Enemies;
 
 class j1App
 {
@@ -91,6 +92,7 @@ public:
 	j1Player*           player;
 	j1Collision*        collision;
 	j1FadeToBlack*		fade_to_black;
+	Enemies *           enemies;
 
 	// Levels
 	j1Scene*            level_1;

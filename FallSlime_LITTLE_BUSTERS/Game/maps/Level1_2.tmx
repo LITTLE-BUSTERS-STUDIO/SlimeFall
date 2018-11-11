@@ -4066,6 +4066,9 @@
   </data>
  </layer>
  <objectgroup id="68" name="initial_position">
+  <properties>
+   <property name="type" value="initial_position"/>
+  </properties>
   <object id="438" x="30" y="161.5">
    <point/>
   </object>
@@ -16083,6 +16086,9 @@
   </data>
  </layer>
  <objectgroup color="#5500ff" id="16" name="colliders_ground">
+  <properties>
+   <property name="type" value="colliders"/>
+  </properties>
   <object id="382" x="-0.0909091" y="180.182" width="143.515" height="16.3636"/>
   <object id="387" x="227.826" y="148.902" width="40.8483" height="16.3636"/>
   <object id="389" x="372.826" y="84.3182" width="66.1816" height="16.3636"/>
@@ -16119,6 +16125,9 @@
   <object id="441" x="1136.86" y="285.82" width="12.9449" height="83.6931"/>
  </objectgroup>
  <objectgroup color="#ff0000" id="19" name="colliders_death">
+  <properties>
+   <property name="type" value="colliders"/>
+  </properties>
   <object id="416" x="25.6364" y="386.313" width="1047.7" height="17.5413"/>
   <object id="417" x="243.095" y="130.125" width="11.2473" height="14"/>
   <object id="419" x="387.495" y="65.8967" width="10.27" height="14"/>
@@ -16135,6 +16144,9 @@
   <object id="430" x="805.5" y="64.25" width="20.5" height="63"/>
  </objectgroup>
  <objectgroup color="#ffff00" id="20" name="colliders_next_level">
+  <properties>
+   <property name="type" value="colliders"/>
+  </properties>
   <object id="411" x="1290" y="351.667" width="10.5" height="66.5"/>
  </objectgroup>
 </map>
