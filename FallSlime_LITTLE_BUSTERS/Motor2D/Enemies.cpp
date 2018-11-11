@@ -31,7 +31,12 @@ bool Enemies::Start()
 
 bool Enemies::PreUpdate()
 {
-	// Check camera position to decide what to spawn
+
+	for (p2List_item<Enemy*> *item = current_enemies.start; item; item = item->next)
+	{
+		// TODO: Despawn enemies 
+	}
+
 	for (p2List_item<Enemy_Info> *item = enemies_info.start ; item ; item = item->next ) 
 	{
         // TODO: Spawn enemies when collide with camera
@@ -40,7 +45,6 @@ bool Enemies::PreUpdate()
 	return true;
 }
 
-// Called before render is available
 bool Enemies::Update(float dt)
 {
 	for (p2List_item<Enemy*> *item = current_enemies.start; item; item = item->next)
@@ -58,15 +62,9 @@ bool Enemies::PostUpdate()
 		item->data->Draw(sprites);
 	}
 
-	for (p2List_item<Enemy*> *item = current_enemies.start; item; item = item->next)
-	{
-		// TODO: Despawn enemies 
-	}
-
 	return true;
 }
 
-// Called before quitting
 bool Enemies::CleanUp()
 {
 	LOG("Freeing all enemies");
@@ -122,12 +120,12 @@ bool Enemies::OnCollision(Collider* c1, Collider* c2)
 	return true;
 }
 
-bool  Enemies::Load(pugi::xml_node&)
+bool  Enemies::Load(pugi::xml_node& node)
 {
 	return true;
 }
 
-bool  Enemies::Save(pugi::xml_node&) const
+bool  Enemies::Save(pugi::xml_node& node) const
 {
 	return true;
 }
