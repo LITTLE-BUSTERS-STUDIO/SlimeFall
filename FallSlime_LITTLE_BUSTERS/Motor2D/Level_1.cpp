@@ -76,8 +76,8 @@ bool Level_1::Update(float dt)
 	iPoint map_coordinates_pixel(x, y);
 
 
-	//Title=======================================================================================DO NOT DELETE THIS
-	/*p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:%d, %d Pixel: %d, %d Camera: %d, %d",
+	//Title=======================================================================================
+	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:%d, %d Pixel: %d, %d Camera: %d, %d",
 		App->map->data.width, App->map->data.height,
 		App->map->data.tile_width, App->map->data.tile_height,
 		App->map->data.tilesets.count(),
@@ -85,7 +85,7 @@ bool Level_1::Update(float dt)
 		map_coordinates_pixel.x + App->render->camera.x, map_coordinates_pixel.y + App->render->camera.y,
 		App->render->camera.x, App->render->camera.y);
 
-	App->win->SetTitle(title.GetString());*/
+	App->win->SetTitle(title.GetString());
 
 	return true;
 }

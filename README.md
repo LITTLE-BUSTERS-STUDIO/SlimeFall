@@ -1,4 +1,4 @@
-# Game Tittle: Slime Fall
+﻿# Game Tittle: Slime Fall
 
 ## Current Version
 v1.1
@@ -17,7 +17,7 @@ Extract .zip files inside a folder and open the .exe file.
 #### Controls:
 * **A** - Move player to the left.
 * **D** - Move player to the right.
-* **SPACE** - Charged Jump (gummy jump).
+* **SPACE** - Charged Jump (gummy jump). Also, respawn if slime is dead.
 
 ##### Debug functionality:
 * **F1** - Start from the very first level.
