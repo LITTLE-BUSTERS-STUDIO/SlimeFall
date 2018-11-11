@@ -179,7 +179,7 @@ bool j1Collision::PostUpdate()
 			App->render->DrawQuad(item->data->rect, 255, 215, 0, alpha);
 			break;
 		case COLLIDER_GOD:
-			App->render->DrawQuad(item->data->rect, 255, 128, 0, alpha);
+			App->render->DrawQuad(item->data->rect, 255, 255, 255, alpha); //255, 128, 0 orange
 			break;
 		}
 		item = item->next;

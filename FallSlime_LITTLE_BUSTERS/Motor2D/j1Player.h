@@ -13,7 +13,6 @@ enum class State
 	jumping,
 	boucing,
 	dead
-
 };
 
 enum class Direction: uint

@@ -24,11 +24,6 @@ j1Player::~j1Player()
 
 }
 
-void j1Player::Init()
-{
-	
-}
-
 // Called before render is available
 bool  j1Player::Awake(pugi::xml_node& node )
 {
@@ -99,7 +94,6 @@ bool j1Player::Start()
 bool j1Player::PreUpdate()
 {
 	
-
 	if (current_state != State::dead)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
@@ -113,6 +107,7 @@ bool j1Player::PreUpdate()
 			{
 				god_mode = true;
 				collider->type = COLLIDER_GOD;
+				//reset = true;
 			}
 		}
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE)
@@ -135,6 +130,8 @@ bool j1Player::PreUpdate()
 			velocity.x = 0;
 	}
 	
+	//Only if player is on god_mode
+
 	//Only if player is dead
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && current_state == State::dead)
@@ -153,13 +150,12 @@ bool j1Player::PreUpdate()
 
 	if (apply_jump_speed == true)
 	{
-		velocity.y = -speed_jump - gummy_jump* speed_gummy_jump;
+		velocity.y = -speed_jump - gummy_jump*speed_gummy_jump;
 		on_ground = false;
 		check_fall = false;
 		apply_jump_speed = false;
 		gummy_jump = false;
 	}
-
 
 	if (on_ground && current_state == State::jumping)
 	{
@@ -193,7 +189,6 @@ bool j1Player::PreUpdate()
 // Called each loop iteration
 bool j1Player::Update(float dt)
 {
-
 	if (reset) 
 	{
 		App->player->Reset(App->map->data.initial_position);
@@ -203,9 +198,23 @@ bool j1Player::Update(float dt)
 	if (current_state != State::jumping)
 		return true;
 
+	//Basic God Mode movement 
+	if (god_mode)
+	{
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+			position.y -= speed_air;
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+			position.y += speed_air;
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+			position.x -= speed_air;
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+			position.x += speed_air;
+
+		return true;
+	}
+
 	if (on_ground == false)
 	{
-		
 		acceleration.y = gravity;
 		check_fall = false;
 	}
@@ -213,7 +222,7 @@ bool j1Player::Update(float dt)
 	{
 		acceleration.y = 0;
 	}
-		
+	
 	velocity += acceleration;
 	position += velocity;
 	collider->SetPos(position.x - rect_collider.w / 2, position.y - rect_collider.h / 2);
@@ -252,6 +261,8 @@ bool j1Player::PostUpdate()
 		frame = death_anim.GetLastFrame();
 		texture = death_splash;
 		flip_x = false;
+		break;
+	default:
 		break;
 	}
 
@@ -372,7 +383,10 @@ bool j1Player::Save(pugi::xml_node& node) const
 	case State::dead:
 		state_string.create("dying");
 		break;
+	default:
+		break;
 	}
+	
 	state_node.append_attribute("current_state") = state_string.GetString();
 
 	p2SString collider_string;
