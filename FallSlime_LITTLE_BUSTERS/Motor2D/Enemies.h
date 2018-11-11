@@ -45,7 +45,7 @@ public:
 
 	bool LoadEnemiesInfo(pugi::xml_node& node);
 
-private:
+//private:
 
 	void SpawnEnemy(const Enemy_Info& info);
 
@@ -61,11 +61,16 @@ private:
 
 struct Enemy_Info
 {
+public:
 	iPoint spawn_pos;
 	bool spawned = false;
 	Enemy_Type type = Enemy_Type::None;
 	SDL_Rect spawn_rect;
 
+	Enemy_Info()
+	{
+
+	}
 	Enemy_Info(int x, int y, int w, int h, Enemy_Type type)
 	{
 		spawn_pos = { x , y };

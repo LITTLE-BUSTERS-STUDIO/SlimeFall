@@ -1,13 +1,13 @@
 #include "Enemy_Test.h"
 
-Enemy_Test::Enemy_Test(int x, int y) :Enemy(x, y)
+Enemy_Test::Enemy_Test(int x, int y ,int width, int height) :Enemy(x, y, width, height)
 {
 
 }
-Enemy_Test::~Enemy_Test()
-{
-
-}
+//Enemy_Test::~Enemy_Test()
+//{
+//
+//}
 
 bool Enemy_Test::Move(float dt)
 {

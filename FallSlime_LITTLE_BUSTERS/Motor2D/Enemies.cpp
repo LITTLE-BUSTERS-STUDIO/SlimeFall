@@ -5,6 +5,8 @@
 #include "Enemies.h"
 #include "j1Textures.h"
 #include "Enemy.h"
+// Enemies headers ---------------------
+#include "Enemy_Test.h"
 
 Enemies::Enemies()
 {
@@ -105,7 +107,7 @@ bool Enemies::LoadEnemiesInfo(pugi::xml_node& node)
 		{
 
 		}
-
+	
 		enemies_info.add(Enemy_Info(0, 0, 30, 30, type));
 	}
 	return ret;
@@ -119,7 +121,7 @@ void Enemies::SpawnEnemy(const Enemy_Info& info)
 	switch (info.type)
 	{
 	case Enemy_Type::Test:
-		enemy = new Enemy();
+		enemy = new Enemy_Test(info.spawn_pos.x , info.spawn_pos.y, info.spawn_rect.w , info.spawn_rect.h);
 		break;
 
 	}

@@ -10,7 +10,7 @@ struct Collider;
 class Enemy
 {
 public:
-	Enemy(int x, int y);
+	Enemy(int x, int y, int width, int height);
 	virtual ~Enemy();
 
 	virtual bool Move(float dt) { return true; };

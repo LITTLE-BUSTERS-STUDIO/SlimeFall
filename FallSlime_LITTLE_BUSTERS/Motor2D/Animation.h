@@ -3,6 +3,7 @@
 
 #include "SDL/include/SDL_rect.h"
 #include "PugiXml/src/pugixml.hpp"
+#include "p2SString.h"
 
 #define MAX_FRAMES 25
 

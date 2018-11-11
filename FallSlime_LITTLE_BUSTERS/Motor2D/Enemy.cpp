@@ -1,11 +1,12 @@
 #include "j1App.h"
 #include "Enemy.h"
+#include "Enemies.h"
 #include "j1Render.h"
 #include "j1Collision.h"
 
-Enemy::Enemy(int x, int y) : position(x, y), collider(nullptr)
+Enemy::Enemy(int x, int y, int width, int height) : position(x, y), collider(nullptr)
 {
-
+	collider = App->collision->AddCollider({x - width/2 , y - height/2, width, height}, COLLIDER_ENEMY, App->enemies);
 }
 
 Enemy::~Enemy()
