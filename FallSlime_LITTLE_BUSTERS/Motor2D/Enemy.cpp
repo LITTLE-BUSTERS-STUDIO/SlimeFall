@@ -4,7 +4,9 @@
 #include "j1Collision.h"
 
 Enemy::Enemy(int x, int y) : position(x, y), collider(nullptr)
-{}
+{
+
+}
 
 Enemy::~Enemy()
 {

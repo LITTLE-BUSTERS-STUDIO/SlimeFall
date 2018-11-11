@@ -11,7 +11,8 @@ struct Enemy_Info;
 
 enum class Enemy_Type
 {
-	None
+	None,
+	Test
 };
 
 class Enemies : public j1Module
@@ -42,7 +43,7 @@ public:
 
 	bool OnCollision(Collider*, Collider*);
 
-	bool LoadEnemiesInfo(int x, int y, Enemy_Type type);
+	bool LoadEnemiesInfo(pugi::xml_node& node);
 
 private:
 

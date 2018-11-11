@@ -44,7 +44,7 @@
       <Filter>Desenvolupament  ========\Modules\Main Modules</Filter>
     </ClCompile>
     <ClCompile Include="Enemies.cpp">
-      <Filter>Desenvolupament  ========\Modules\Gameplay\Enemies</Filter>
+      <Filter>Desenvolupament  ========\Modules\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="j1App.cpp">
       <Filter>Desenvolupament  ========\Modules\Main Modules</Filter>
@@ -56,7 +56,10 @@
       <Filter>Desenvolupament  ========\Modules\Tools</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
-      <Filter>Desenvolupament  ========\Modules\Gameplay\Enemies</Filter>
+      <Filter>Desenvolupament  ========\Modules\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy_Test.cpp">
+      <Filter>Desenvolupament  ========\Modules\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -124,7 +127,7 @@
       <Filter>Desenvolupament  ========\Modules\Main Modules</Filter>
     </ClInclude>
     <ClInclude Include="Enemies.h">
-      <Filter>Desenvolupament  ========\Modules\Gameplay\Enemies</Filter>
+      <Filter>Desenvolupament  ========\Modules\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="j1App.h">
       <Filter>Desenvolupament  ========\Modules\Main Modules</Filter>
@@ -136,7 +139,10 @@
       <Filter>Desenvolupament  ========\Modules\Tools</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>Desenvolupament  ========\Modules\Gameplay\Enemies</Filter>
+      <Filter>Desenvolupament  ========\Modules\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy_Test.h">
+      <Filter>Desenvolupament  ========\Modules\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -155,9 +161,6 @@
     <Filter Include="Desenvolupament  ========\Modules\Main Modules">
       <UniqueIdentifier>{b8706406-cc0c-4f4c-9bdb-3a5c1e59a1b9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Desenvolupament  ========\Modules\Gameplay\Enemies">
-      <UniqueIdentifier>{cc56073d-3dc1-4015-942f-6847c1e02bae}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Desenvolupament  ========\Modules\Scenes">
       <UniqueIdentifier>{e07660eb-d36f-4cc9-af59-324d31c2f2f6}</UniqueIdentifier>
     </Filter>
@@ -167,10 +170,8 @@
     <Filter Include="Desenvolupament  ========\Modules\Tools\PuguiXML">
       <UniqueIdentifier>{7cb78d67-17cc-45eb-af97-e2106becce7b}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\Game\maps\Level1_Phase1-2-3-4.tmx">
-      <Filter>Programacio 2 ===========</Filter>
-    </None>
+    <Filter Include="Desenvolupament  ========\Modules\Enemies">
+      <UniqueIdentifier>{cc56073d-3dc1-4015-942f-6847c1e02bae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

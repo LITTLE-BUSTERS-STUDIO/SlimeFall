@@ -78,6 +78,7 @@
   <ItemGroup>
     <ClCompile Include="Enemies.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Enemy_Test.cpp" />
     <ClCompile Include="j1FadeToBlack.cpp" />
     <ClCompile Include="j1Main.cpp" />
     <ClCompile Include="j1App.cpp" />
@@ -100,6 +101,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Enemies.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Enemy_Test.h" />
     <ClInclude Include="j1Collision.h" />
     <ClInclude Include="j1FadeToBlack.h" />
     <ClInclude Include="j1Map.h" />
@@ -123,9 +125,6 @@
     <ClInclude Include="p2SString.h" />
     <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\Game\maps\Level1_Phase1-2-3-4.tmx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -87,21 +87,39 @@ bool Enemies::CleanUp()
 	return true;
 }
 
-bool Enemies::LoadEnemiesInfo(int x, int y, Enemy_Type type)
+bool Enemies::LoadEnemiesInfo(pugi::xml_node& node)
 {
-	bool ret = false;
-	//enemies_info.add(Enemy_Info());
+	bool ret = true;
+	
+	for (pugi::xml_node object = node.child("object"); object; object = object.next_sibling("object"))
+	{
+		// Read type -------------------------------------
+		p2SString type_str(object.attribute("name").as_string());
+		Enemy_Type type;
+
+		if (type_str == "test")
+		{
+			type = Enemy_Type::Test;
+		}
+		else if (type_str == "test")
+		{
+
+		}
+
+		enemies_info.add(Enemy_Info(0, 0, 30, 30, type));
+	}
 	return ret;
 }
 
 void Enemies::SpawnEnemy(const Enemy_Info& info)
 {
 	LOG("Enemy Spawned");
+	Enemy* enemy = nullptr;
 
 	switch (info.type)
 	{
-	case Enemy_Type::None:
-		/*enemies[i] = new Enemy_RedBird(info.x, info.y);*/
+	case Enemy_Type::Test:
+		enemy = new Enemy();
 		break;
 
 	}

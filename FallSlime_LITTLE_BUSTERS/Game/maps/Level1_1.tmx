@@ -73,7 +73,7 @@
   <properties>
    <property name="type" value="enemies"/>
   </properties>
-  <object id="395" name="flying_enemy" type="flyer" x="212" y="166">
+  <object id="395" name="test" x="212" y="166">
    <point/>
   </object>
  </objectgroup>

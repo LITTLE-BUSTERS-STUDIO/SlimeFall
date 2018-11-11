@@ -6,6 +6,7 @@
 #include "j1Collision.h"
 #include "j1Window.h"
 #include "j1Map.h"
+#include "Enemies.h"
 #include <math.h>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -229,7 +230,7 @@ bool j1Map::Load(const char* file_name)
 		// Enemies ----------------------------------------------
 		else if (type == "enemies")
 		{
-
+			App->enemies->LoadEnemiesInfo(object_group);
 		}
 		// Initial position -------------------------------------
 		else if (type == "initial_position")

@@ -14,6 +14,7 @@
 #include "j1App.h"
 #include "Level_1.h"
 #include "j1FadeToBlack.h"
+#include "Enemies.h"
 
 
 
@@ -33,6 +34,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	player = new j1Player();
 	level_1 = new Level_1();
 	fade_to_black = new j1FadeToBlack();
+	enemies = new Enemies();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -47,12 +49,11 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(level_1);
 	// ==================================
 	AddModule(player);
-
+	AddModule(enemies);
 	// Colission needs to be always before render
 	AddModule(collision);
 	// Render last to swap buffer
 	AddModule(render);
-
 
 	current_level = level_1;
 }
