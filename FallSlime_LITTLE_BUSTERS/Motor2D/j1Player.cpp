@@ -134,7 +134,7 @@ bool j1Player::PreUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && current_state == State::dead)
 	{
 		reset = true;
-		App->render->reset = true;
+		//App->render->reset = true;
 	}
 
 	// Only if player is on ground 
@@ -204,7 +204,7 @@ bool j1Player::Update(float dt)
 {
 	if (reset) 
 	{
-		App->player->Reset(App->map->data.initial_position);
+		Reset(App->map->data.initial_position);
 		reset = false;
 	}
 

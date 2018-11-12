@@ -64,8 +64,7 @@ bool j1FadeToBlack::PostUpdate()
 	}
 
 	// Finally render the black square with alpha on the screen
-	SDL_SetRenderDrawColor(App->render->renderer, 0, 0, 0, (Uint8)(normalized * 255.0f));
-	SDL_RenderFillRect(App->render->renderer, &screen);
+	
 
 	return true;
 }

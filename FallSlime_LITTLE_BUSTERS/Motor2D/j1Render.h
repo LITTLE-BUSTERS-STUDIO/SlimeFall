@@ -67,6 +67,9 @@ public:
 	int		phase2_high;
 	int		margin;
 
+private:
+	fPoint cameraPos = { 0,0 };
+
 };
 
 #endif // __j1RENDER_H__
