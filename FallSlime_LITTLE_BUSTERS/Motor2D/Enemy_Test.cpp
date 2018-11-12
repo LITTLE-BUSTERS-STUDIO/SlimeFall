@@ -1,16 +1,13 @@
 #include "Enemy_Test.h"
 
-Enemy_Test::Enemy_Test(int x, int y ,int width, int height) :Enemy(x, y, width, height)
+Enemy_Test::Enemy_Test(fPoint position, SDL_Rect collider_rect) :Enemy( position, collider_rect)
 {
 
 }
-//Enemy_Test::~Enemy_Test()
-//{
-//
-//}
 
 bool Enemy_Test::Move(float dt)
 {
+
 	return true;
 }
 

@@ -4,7 +4,7 @@
 	<window />
 	<textures />
 	<audio>
-		<volumes music="40" sfx="40" mute="false" />
+		<volumes music="40" sfx="40" mute="true" />
 	</audio>
 	<map />
 	<FadeToBlack />
@@ -12,15 +12,16 @@
 		<phase current_phase="1" />
 	</level_1>
 	<player>
-		<position x="109" y="159.300018" />
-		<velocity x="0" y="-1.59999871" />
+		<position x="217" y="251.299988" />
+		<velocity x="0" y="5.30000162" />
 		<conditions apply_jump_speed="false" on_ground="false" check_fall="false" flip_x="false" gummy_jump="false" />
 		<state current_state="jumping" collider_type="collider_player" />
 	</player>
+	<enemies />
 	<:anonymous />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="0" y="142" />
 		<debug zoom="1" />
-		<conditions free_camera_x="false" free_camera_y="false" />
+		<conditions free_camera_x="false" free_camera_y="true" />
 	</renderer>
 </game_state>

@@ -5,7 +5,7 @@
       <Filter>Programacio 2 ===========</Filter>
     </ClCompile>
     <ClCompile Include="j1Scene.cpp">
-      <Filter>Desenvolupament  ========\Modules\Scenes</Filter>
+      <Filter>Programacio 2 ===========\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="PugiXml\src\pugixml.cpp">
       <Filter>Desenvolupament  ========\Modules\Tools\PuguiXML</Filter>
@@ -17,7 +17,7 @@
       <Filter>Desenvolupament  ========\Modules\Gameplay</Filter>
     </ClCompile>
     <ClCompile Include="Level_1.cpp">
-      <Filter>Desenvolupament  ========\Modules\Scenes</Filter>
+      <Filter>Programacio 2 ===========\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="j1PerfTimer.cpp">
       <Filter>Desenvolupament  ========\Modules\Tools</Filter>
@@ -82,7 +82,7 @@
       <Filter>Programacio 2 ===========</Filter>
     </ClInclude>
     <ClInclude Include="j1Scene.h">
-      <Filter>Desenvolupament  ========\Modules\Scenes</Filter>
+      <Filter>Programacio 2 ===========\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="PugiXml\src\pugiconfig.hpp">
       <Filter>Desenvolupament  ========\Modules\Tools\PuguiXML</Filter>
@@ -100,7 +100,7 @@
       <Filter>Desenvolupament  ========\Modules\Tools</Filter>
     </ClInclude>
     <ClInclude Include="Level_1.h">
-      <Filter>Desenvolupament  ========\Modules\Scenes</Filter>
+      <Filter>Programacio 2 ===========\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="j1PerfTimer.h">
       <Filter>Desenvolupament  ========\Modules\Tools</Filter>
@@ -161,9 +161,6 @@
     <Filter Include="Desenvolupament  ========\Modules\Main Modules">
       <UniqueIdentifier>{b8706406-cc0c-4f4c-9bdb-3a5c1e59a1b9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Desenvolupament  ========\Modules\Scenes">
-      <UniqueIdentifier>{e07660eb-d36f-4cc9-af59-324d31c2f2f6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Desenvolupament  ========\Modules\Tools">
       <UniqueIdentifier>{42c748be-4a37-49de-970f-5be811d06b38}</UniqueIdentifier>
     </Filter>
@@ -172,6 +169,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Modules\Enemies">
       <UniqueIdentifier>{cc56073d-3dc1-4015-942f-6847c1e02bae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Programacio 2 ===========\Scenes">
+      <UniqueIdentifier>{e07660eb-d36f-4cc9-af59-324d31c2f2f6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

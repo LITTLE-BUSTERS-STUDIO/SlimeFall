@@ -62,7 +62,7 @@ bool Level_1::Start()
 		parallax[i].rect_parallax.h = background_high;
 	}
 
-	App->enemies->SpawnEnemy(Enemy_Info(10, 10, 30, 30 , Enemy_Type ::Test)); //TODO: Delete TEST
+	/*App->enemies->SpawnEnemy(iPoint(10, 10) , Enemy_Type ::Test));*/ //TODO: Delete TEST
 	return true;
 }
 

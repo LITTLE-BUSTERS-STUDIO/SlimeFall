@@ -4,9 +4,9 @@
 #include "j1Render.h"
 #include "j1Collision.h"
 
-Enemy::Enemy(int x, int y, int width, int height) : position(x, y), collider(nullptr)
+Enemy::Enemy(fPoint position, SDL_Rect collider_rect) : position( position), collider(nullptr)
 {
-	collider = App->collision->AddCollider({x - width/2 , y - height/2, width, height}, COLLIDER_ENEMY, App->enemies);
+	collider = App->collision->AddCollider(collider_rect, COLLIDER_ENEMY, App->enemies);
 }
 
 Enemy::~Enemy()
