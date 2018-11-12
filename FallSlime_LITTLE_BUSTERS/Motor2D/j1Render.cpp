@@ -425,6 +425,8 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 bool j1Render::CameraReset() {
 	camera.x = 0;
 	camera.y = 0;
+	cameraPos.x = 0;
+	cameraPos.y = 0;
 	free_camera_x = false;
 	free_camera_y = false;
     return true;
