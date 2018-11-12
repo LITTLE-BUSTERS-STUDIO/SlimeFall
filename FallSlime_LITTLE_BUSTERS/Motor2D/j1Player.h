@@ -78,7 +78,9 @@ public:
 	float speed_ground;
 	float speed_jump;
 	float speed_gummy_jump;
+	float speed_attack;
 	bool  apply_jump_speed = false;
+	bool  apply_attack = false;
 
 	//Collision================================
 	Collider         *collider = nullptr;
@@ -90,6 +92,7 @@ public:
 
 	//Abilities================================
 	bool              gummy_jump = false;
+	bool			  attack = false;
 
 	//Assets===================================
 	//-----------Textures-------------------

@@ -35,6 +35,7 @@ bool  j1Player::Awake(pugi::xml_node& node )
 	speed_air = node.child("physics").attribute("speed_air").as_float(0);
 	speed_jump = node.child("physics").attribute("speed_jump").as_float(0);
 	speed_gummy_jump = node.child("physics").attribute("speed_gummy_jump").as_float(0);
+	speed_attack = node.child("physics").attribute("speed_attack").as_float(0);
 	god_mode = node.child("debug").attribute("god_mode").as_bool(false);
 
 	//Assets=======================================
@@ -107,7 +108,6 @@ bool j1Player::PreUpdate()
 			{
 				god_mode = true;
 				collider->type = COLLIDER_GOD;
-				//reset = true;
 			}
 		}
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE)
@@ -130,10 +130,7 @@ bool j1Player::PreUpdate()
 			velocity.x = 0;
 	}
 	
-	//Only if player is on god_mode
-
 	//Only if player is dead
-
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && current_state == State::dead)
 	{
 		reset = true;
@@ -141,20 +138,33 @@ bool j1Player::PreUpdate()
 	}
 
 	// Only if player is on ground 
-
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && current_state == State::boucing && gummy_jump ==false)
 	{
 		gummy_jump = true;
 		App->audio->PlayFx(fx_jump5);
 	}
 
-	if (apply_jump_speed == true)
+	//Only if player is jumping
+	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN && current_state == State::jumping && attack == false)
 	{
-		velocity.y = -speed_jump - gummy_jump*speed_gummy_jump;
+		attack = true;
+		//Add sfx attack
+	}
+
+	if (apply_jump_speed)
+	{
+		velocity.y = -speed_jump - gummy_jump * speed_gummy_jump;
 		on_ground = false;
 		check_fall = false;
 		apply_jump_speed = false;
 		gummy_jump = false;
+		
+	}
+	if (apply_attack)
+	{
+		velocity.y += attack * speed_attack;
+		attack = false;
+		apply_attack = false;
 	}
 
 	if (on_ground && current_state == State::jumping)
@@ -243,6 +253,7 @@ bool j1Player::PostUpdate()
 	case State::jumping:
 		frame = jumping_anim.GetLastFrame();
 		texture = tex_player;
+		apply_attack = true;
 		break;
 	case State::boucing:
 		if (jumping_anim.GetFrameNumber() > 9)
