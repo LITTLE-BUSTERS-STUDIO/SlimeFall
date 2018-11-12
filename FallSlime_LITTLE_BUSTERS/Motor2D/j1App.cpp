@@ -1,5 +1,4 @@
 #include <iostream> 
-
 #include "p2Defs.h"
 #include "p2Log.h"
 #include "j1Window.h"
@@ -15,8 +14,7 @@
 #include "Level_1.h"
 #include "j1FadeToBlack.h"
 #include "Enemies.h"
-
-
+#include "j1PathFinding.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -35,6 +33,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	level_1 = new Level_1();
 	fade_to_black = new j1FadeToBlack();
 	enemies = new Enemies();
+	path_finding = new j1PathFinding();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -44,12 +43,12 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(map);
 	AddModule(fade_to_black);
-
 	// Levels ===========================
 	AddModule(level_1);
 	// ==================================
 	AddModule(player);
 	AddModule(enemies);
+	AddModule(path_finding);
 	// Colission needs to be always before render
 	AddModule(collision);
 	// Render last to swap buffer

@@ -4,6 +4,7 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Collision.h"
+#include "j1PathFinding.h"
 #include "j1Window.h"
 #include "j1Map.h"
 #include "Enemies.h"
@@ -85,6 +86,33 @@ iPoint j1Map::MapToWorld(int x, int y) const
 
 	return ret;
 }
+
+iPoint j1Map::WorldToMap(int x, int y) const
+{
+	iPoint ret(0, 0);
+
+	if (data.type == MAPTYPE_ORTHOGONAL)
+	{
+		ret.x = x / data.tile_width;
+		ret.y = y / data.tile_height;
+	}
+	else if (data.type == MAPTYPE_ISOMETRIC)
+	{
+
+		float half_width = data.tile_width * 0.5f;
+		float half_height = data.tile_height * 0.5f;
+		ret.x = int((x / half_width + y / half_height) / 2) - 1;
+		ret.y = int((y / half_height - (x / half_width)) / 2);
+	}
+	else
+	{
+		LOG("Unknown map type");
+		ret.x = x; ret.y = y;
+	}
+
+	return ret;
+}
+
 
 SDL_Rect TileSet::GetTileRect(int id) const
 {
@@ -412,10 +440,8 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 
 bool j1Map::LoadLayer(pugi::xml_node& layer_node, MapLayer* layer)
 {
-	
 	bool ret = true;
-
-	layer->name = layer_node.attribute("name").as_string();
+	layer->name.create(layer_node.attribute("name").as_string());
 	layer->width = layer_node.attribute("width").as_int();
 	layer->height = layer_node.attribute("height").as_int();
 	pugi::xml_node layer_data = layer_node.child("data");
@@ -437,11 +463,21 @@ bool j1Map::LoadLayer(pugi::xml_node& layer_node, MapLayer* layer)
 			layer->tiles[i++] = tile.attribute("gid").as_int(0);
 		}
 	}
+	
+	if (layer->name == "Ground") 
+	{
+		uchar* map = new uchar[layer->width*layer->height];
+		memset(map, 1, layer->width*layer->height);
 
+		for (int i = 0; i < layer->width*layer->height; ++i)
+		{
+			if (layer->tiles[i] > 0)
+				map[i] = 0;
+		}
 
-
-
-
+		App->path_finding->SetMap(layer->width, layer->height, map);
+		delete map;
+	}
 
 	return ret;
 }

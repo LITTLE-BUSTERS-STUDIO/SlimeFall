@@ -1,7 +1,9 @@
 #include "p2Defs.h"
 #include "p2Log.h"
 #include "j1App.h"
+#include "j1Render.h"
 #include "j1PathFinding.h"
+#include "j1Map.h"
 
 j1PathFinding::j1PathFinding() : j1Module(), map(NULL), last_path(DEFAULT_PATH_LENGTH), width(0), height(0)
 {
@@ -21,6 +23,34 @@ bool j1PathFinding::CleanUp()
 
 	last_path.Clear();
 	RELEASE_ARRAY(map);
+	return true;
+}
+
+bool j1PathFinding::PostUpdate()
+{
+
+	//  Draw Walkable map ----------------------------
+	for (int j = 0 ; j < height ; ++j)
+	{
+		for (int i = 0; i < width; ++i)
+		{
+			if (!IsWalkable(iPoint(i, j)))
+			{
+				App->render->DrawQuad({ i * 16, j * 16, 16, 16}, 255, 255 ,255, 100);
+			}
+		}
+	}
+
+	// Draw Final path ------------------------------
+
+	const p2DynArray<iPoint>* path = GetLastPath();
+
+	for (uint i = 0; i < path->Count(); ++i)
+	{
+		iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+		App->render->DrawQuad({ pos.x, pos.y ,16,16 }, 0, 0, 0, 200);
+	}
+
 	return true;
 }
 
@@ -120,25 +150,25 @@ uint PathNode::FindWalkableAdjacents(PathList& list_to_fill)
 	iPoint cell;
 	uint before = list_to_fill.list.count();
 
-	//// north
-	//cell.create(pos.x, pos.y + 1);
-	//if (App->pathfinding->IsWalkable(cell))
-	//	list_to_fill.list.add(PathNode(-1, -1, cell, this));
+	// north
+	cell.create(pos.x, pos.y + 1);
+	if (App->path_finding->IsWalkable(cell))
+		list_to_fill.list.add(PathNode(-1, -1, cell, this));
 
-	//// south
-	//cell.create(pos.x, pos.y - 1);
-	//if (App->pathfinding->IsWalkable(cell))
-	//	list_to_fill.list.add(PathNode(-1, -1, cell, this));
+	// south
+	cell.create(pos.x, pos.y - 1);
+	if (App->path_finding->IsWalkable(cell))
+		list_to_fill.list.add(PathNode(-1, -1, cell, this));
 
-	//// east
-	//cell.create(pos.x + 1, pos.y);
-	//if (App->pathfinding->IsWalkable(cell))
-	//	list_to_fill.list.add(PathNode(-1, -1, cell, this));
+	// east
+	cell.create(pos.x + 1, pos.y);
+	if (App->path_finding->IsWalkable(cell))
+		list_to_fill.list.add(PathNode(-1, -1, cell, this));
 
-	//// west
-	//cell.create(pos.x - 1, pos.y);
-	//if (App->pathfinding->IsWalkable(cell))
-	//	list_to_fill.list.add(PathNode(-1, -1, cell, this));
+	// west
+	cell.create(pos.x - 1, pos.y);
+	if (App->path_finding->IsWalkable(cell))
+		list_to_fill.list.add(PathNode(-1, -1, cell, this));
 
 	return list_to_fill.list.count();
 }
@@ -189,6 +219,7 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 		p2List_item<PathNode>* current_node = closed.list.add(iterate_node->data);
 		opened.list.del(iterate_node);
 		iterate_node = nullptr;
+
 		// If we just added the destination, we are done!
 		if (current_node->data.pos == destination)
 		{
