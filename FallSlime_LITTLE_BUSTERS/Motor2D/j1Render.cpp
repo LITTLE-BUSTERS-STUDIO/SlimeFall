@@ -176,8 +176,8 @@ bool j1Render::Update(float dt)
 	if (free_camera_x)
 	{
 		player_position.x = -(player_position.x * App->win->GetScale() - camera.w / 2);
-		cameraPos.x += (-player_position.x - App->render->camera.x) / 10;
-		camera.x = cameraPos.x;
+		camera_position.x += (-player_position.x - App->render->camera.x) / 10;
+		camera.x = camera_position.x;
 	}
 
 	//Camera_y hit screen---------------------------------------
@@ -436,8 +436,8 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 bool j1Render::CameraReset() {
 	camera.x = 0;
 	camera.y = 0;
-	cameraPos.x = 0;
-	cameraPos.y = 0;
+	camera_position.x = 0;
+	camera_position.y = 0;
 	free_camera_x = false;
 	free_camera_y = false;
     return true;

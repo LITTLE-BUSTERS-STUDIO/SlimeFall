@@ -69,7 +69,7 @@ public:
 	int		margin;
 
 private:
-	fPoint cameraPos = { 0,0 };
+	fPoint camera_position = { 0,0 };
 
 };
 
