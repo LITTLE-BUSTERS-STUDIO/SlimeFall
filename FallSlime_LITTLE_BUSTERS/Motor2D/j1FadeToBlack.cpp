@@ -63,7 +63,7 @@ bool j1FadeToBlack::PostUpdate()
 	}
 
 	// Finally render the black square with alpha on the screen
-	App->render->DrawQuad( 0, 0, 0, 0, normalized * 255);
+	App->render->DrawQuad( App->render->camera, 0, 0, 0, normalized * 255);
 	return true;
 }
 
