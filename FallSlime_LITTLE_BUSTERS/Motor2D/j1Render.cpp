@@ -110,6 +110,7 @@ bool j1Render::PreUpdate()
 		else
 			debug_middle = false;
 	}
+
 	return true;
 }
 

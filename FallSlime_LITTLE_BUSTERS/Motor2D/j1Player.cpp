@@ -149,6 +149,9 @@ bool j1Player::PreUpdate()
 	{
 		attack = true;
 		//Add sfx attack
+		//Little tremble
+		//if kill enemy, auto gummyjump
+		//Floor dust is trembled
 	}
 
 	if (apply_jump_speed)
