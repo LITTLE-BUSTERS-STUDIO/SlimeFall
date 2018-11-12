@@ -43,7 +43,7 @@ bool j1FadeToBlack::PostUpdate()
 
 	switch (current_step)
 	{
-	case fade_step::fade_to_black:
+	case fade_step::fade_to_black: //Not using
 	{
 		if (now >= total_time)
 		{
@@ -74,7 +74,7 @@ bool j1FadeToBlack::FadeToBlack(float time)
 
 	if (current_step == fade_step::none)
 	{
-		current_step = fade_step::fade_to_black;
+		current_step = fade_step::fade_from_black;
 		start_time = SDL_GetTicks();
 		total_time = (Uint32)(time * 0.5f * 1000.0f);
 		

@@ -117,7 +117,6 @@ bool j1Render::PreUpdate()
 bool j1Render::Update(float dt)
 {	
 
-
 	if (reset)
 	{
 		CameraReset();
@@ -149,7 +148,7 @@ bool j1Render::Update(float dt)
 	if (free_camera_x)
 	{
 
-		player_position.x = -((player_position.x + camera_flip.x) * App->win->GetScale() - camera.w / 2);
+		player_position.x = -(player_position.x * App->win->GetScale() - camera.w / 2);
 		camera_position.x += (-player_position.x - App->render->camera.x) / 10;
 		camera.x = camera_position.x;
 	}
@@ -175,7 +174,10 @@ bool j1Render::Update(float dt)
 	//Camera_y Follow Player
 	if (free_camera_y)
 	{
-		camera.y = player_position.y * App->win->GetScale() - camera.h / 2;
+		player_position.y = -(player_position.y * App->win->GetScale() - camera.h / 2);
+		camera_position.y += (-player_position.y - App->render->camera.y) / 10;
+		camera.y = camera_position.y;
+		//camera.y = player_position.y * App->win->GetScale() - camera.h / 2;
 	}
 		
 

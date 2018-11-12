@@ -5,10 +5,12 @@
 #include "j1Player.h"
 #include "j1Render.h"
 #include "p2Log.h"
+#include "j1FadeToBlack.h"
 
 
 bool j1Scene::LoadPhase(uint phase_number, bool spawn) 
 {
+	App->fade_to_black->FadeToBlack(0.5f);
 	p2List_item<Phase*>* item = nullptr;
 	bool ret = true;
 	if (phase_number <= 0)
@@ -43,8 +45,9 @@ bool j1Scene::LoadPhase(uint phase_number, bool spawn)
 			App->player->reset = true;
 			App->render->reset = true;
 		}
-	}
 
+	}
+	
 	return ret;
 }
 
