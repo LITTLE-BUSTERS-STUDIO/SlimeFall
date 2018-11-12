@@ -116,6 +116,15 @@ bool j1Render::PreUpdate()
 
 bool j1Render::Update(float dt)
 {	
+
+
+	if (reset)
+	{
+		CameraReset();
+		reset = false;
+	}
+
+
 	fPoint player_position(App->player->position.x, App->player->position.y);
 
 	//Camera_x hit screen---------------------------------------
@@ -139,6 +148,7 @@ bool j1Render::Update(float dt)
 	//Camera_x Follow Player
 	if (free_camera_x)
 	{
+
 		player_position.x = -((player_position.x + camera_flip.x) * App->win->GetScale() - camera.w / 2);
 		camera_position.x += (-player_position.x - App->render->camera.x) / 10;
 		camera.x = camera_position.x;
@@ -169,11 +179,6 @@ bool j1Render::Update(float dt)
 	}
 		
 
-	if (reset)
-	{
-		CameraReset();
-		reset = false;
-	}
 
 	return true;
 }

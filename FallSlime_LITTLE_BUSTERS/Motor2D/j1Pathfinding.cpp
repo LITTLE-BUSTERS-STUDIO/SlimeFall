@@ -191,52 +191,52 @@ uint PathNode::FindWalkableAdjacents(PathList& list_to_fill, iPoint destination)
 	position.create(this->pos.x + offset.x, this->pos.y + offset.y);
 	distance.create(position.x, position.y);
 	if (App->path_finding->IsWalkable(position))
-		list_to_fill.list.add(PathNode(this->g +1.4f, distance.DistanceTo(destin), position, this));
+		list_to_fill.list.add(PathNode(this->g +1.5f, distance.DistanceTo(destin), position, this));
 
 	// south-est
 	offset.create(1, 1);
 	position.create(this->pos.x + offset.x, this->pos.y + offset.y);
 	distance.create(position.x, position.y);
 	if (App->path_finding->IsWalkable(position))
-		list_to_fill.list.add(PathNode(this->g + 1.4f, distance.DistanceTo(destin), position, this));
+		list_to_fill.list.add(PathNode(this->g + 1.5f, distance.DistanceTo(destin), position, this));
 
 	// north-east
 	offset.create(1, -1);
 	position.create(this->pos.x + offset.x, this->pos.y + offset.y);
 	distance.create(position.x, position.y);
 	if (App->path_finding->IsWalkable(position))
-		list_to_fill.list.add(PathNode(this->g +1.4f, distance.DistanceTo(destin), position, this));
+		list_to_fill.list.add(PathNode(this->g +1.5f, distance.DistanceTo(destin), position, this));
 
 	// north-west
 	offset.create(-1, -1);
 	position.create(this->pos.x + offset.x, this->pos.y + offset.y);
 	distance.create(position.x, position.y);
 	if (App->path_finding->IsWalkable(position))
-		list_to_fill.list.add(PathNode(this->g + 1.4f, distance.DistanceTo(destin), position, this));
+		list_to_fill.list.add(PathNode(this->g + 1.5f, distance.DistanceTo(destin), position, this));
 	// west
 	offset.create(-1, 0);
 	position.create(this->pos.x + offset.x, this->pos.y + offset.y);
 	distance.create(position.x, position.y);
 	if (App->path_finding->IsWalkable(position))
-		list_to_fill.list.add(PathNode(this->g + 1, distance.DistanceTo(destin), position, this));
+		list_to_fill.list.add(PathNode(this->g + 1.0f, distance.DistanceTo(destin), position, this));
 	// south
 	offset.create(0, 1);
 	position.create(this->pos.x + offset.x, this->pos.y + offset.y);
 	distance.create(position.x, position.y);
 	if (App->path_finding->IsWalkable(position))
-		list_to_fill.list.add(PathNode(this->g + 1, distance.DistanceTo(destin), position, this));
+		list_to_fill.list.add(PathNode(this->g + 1.0f, distance.DistanceTo(destin), position, this));
 	// east
 	offset.create(1, 0);
 	position.create(this->pos.x + offset.x, this->pos.y + offset.y);
 	distance.create(position.x, position.y);
 	if (App->path_finding->IsWalkable(position))
-		list_to_fill.list.add(PathNode(this->g + 1, distance.DistanceTo(destin), position, this));
+		list_to_fill.list.add(PathNode(this->g + 1.0f, distance.DistanceTo(destin), position, this));
 	// north
 	offset.create(0, -1);
 	position.create(this->pos.x + offset.x, this->pos.y + offset.y);
 	distance.create(position.x, position.y);
 	if (App->path_finding->IsWalkable(position))
-		list_to_fill.list.add(PathNode(this->g + 1, distance.DistanceTo(destin), position, this));
+		list_to_fill.list.add(PathNode(this->g + 1.0f, distance.DistanceTo(destin), position, this));
 
 
 	return list_to_fill.list.count();
