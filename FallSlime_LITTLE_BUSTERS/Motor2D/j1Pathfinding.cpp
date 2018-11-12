@@ -94,6 +94,12 @@ const p2DynArray<iPoint>* j1PathFinding::GetLastPath() const
 	return &last_path;
 }
 
+void j1PathFinding::DeleteLastPath() 
+{
+	last_path.Clear();
+}
+
+
 // PathList ------------------------------------------------------------------------
 // Looks for a node in this list and returns it's list node or NULL
 // ---------------------------------------------------------------------------------

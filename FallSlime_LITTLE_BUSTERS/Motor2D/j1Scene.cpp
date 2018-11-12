@@ -93,6 +93,7 @@ bool j1Scene::PreUpdate()
 	{
 		if (origin_selected == true)
 		{
+			App->path_finding->DeleteLastPath();
 			App->path_finding->CreatePath(origin, p);
 			origin_selected = false;
 		}
