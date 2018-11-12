@@ -58,13 +58,6 @@ void j1Map::Draw()
 				{
 					continue;
 				}
-				
-				if (!((cam.x / scale < map_pos.x + rect.w) && (map_pos.x < (cam.x + cam.w) / scale)
-					&& (cam.y / scale < map_pos.y + rect.h) && (map_pos.y < (cam.y + cam.h) / scale)))
-				{
-					continue;
-				}
-
 				App->render->Blit(tileset->texture, map_pos.x, map_pos.y, &rect);
 			}
 		}

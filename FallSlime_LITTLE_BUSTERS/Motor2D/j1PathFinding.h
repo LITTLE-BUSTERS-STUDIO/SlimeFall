@@ -24,6 +24,8 @@ public:
 	// Destructor
 	~j1PathFinding();
 
+	bool PreUpdate();
+
 	bool PostUpdate();
 
 	// Called before quitting
@@ -50,7 +52,8 @@ public:
 	uchar GetTileAt(const iPoint& pos) const;
 
 private:
-
+	iPoint				  origin;
+	bool				  origin_selected = false;
 	p2DynArray<iPoint>    last_path;
 	uint                  width;
 	uint                  height;
@@ -67,19 +70,19 @@ struct PathNode
 {
 	// Convenient constructors
 	PathNode();
-	PathNode(int g, int h, const iPoint& pos, PathNode* parent);
+	PathNode(float g, float h, const iPoint& pos, PathNode* parent);
 	PathNode(const PathNode& node);
 
 	// Fills a list (PathList) of all valid adjacent pathnodes
-	uint FindWalkableAdjacents(PathList& list_to_fill);
+	uint FindWalkableAdjacents(PathList& list_to_fill, iPoint destination);
 	// Calculates this tile score
-	int Score() const;
+	float Score() const;
 	// Calculate the F for a specific destination tile
 	int CalculateF(const iPoint& destination);
 
 	// -----------
-	int			g;
-	int			h;
+	float	    g;
+	float		h;
 	iPoint		pos;
 	PathNode*	parent; // needed to reconstruct the path in the end
 };
