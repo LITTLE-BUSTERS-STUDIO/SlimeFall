@@ -70,6 +70,7 @@ public:
 
 private:
 	fPoint camera_position = { 0,0 };
+	iPoint camera_flip = { 0,0 };
 
 };
 
