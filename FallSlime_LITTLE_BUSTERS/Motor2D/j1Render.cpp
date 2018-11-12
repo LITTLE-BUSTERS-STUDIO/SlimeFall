@@ -288,7 +288,6 @@ void j1Render::SetBackgroundColor(SDL_Color color)
 	background = color;
 }
 
-
 void j1Render::SetViewPort(const SDL_Rect& rect)
 {
 	SDL_RenderSetViewport(renderer, &rect);
@@ -297,6 +296,17 @@ void j1Render::SetViewPort(const SDL_Rect& rect)
 void j1Render::ResetViewPort()
 {
 	SDL_RenderSetViewport(renderer, &viewport);
+}
+
+iPoint j1Render::ScreenToWorld(int x, int y) const
+{
+	iPoint ret;
+	int scale = App->win->GetScale();
+
+	ret.x = (x - camera.x / scale);
+	ret.y = (y - camera.y / scale);
+
+	return ret;
 }
 
 // Blit to screen
@@ -308,6 +318,7 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 	SDL_Rect rect;
 	rect.x = (int)((camera.w * (zoom - 1)) / 2) + (int)(-camera.x * speed) + x * scale;
 	rect.y = (int)((camera.h * (zoom - 1)) / 2) + (int)(-camera.y * speed) + y * scale;
+
 
 	if (section != NULL)
 	{

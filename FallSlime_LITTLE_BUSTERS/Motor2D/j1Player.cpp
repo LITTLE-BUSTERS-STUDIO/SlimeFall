@@ -129,7 +129,8 @@ bool j1Player::PreUpdate()
 		else
 			velocity.x = 0;
 	}
-	
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+		App->fade_to_black->FadeToBlack(0.5F);
 	//Only if player is dead
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && current_state == State::dead)
 	{

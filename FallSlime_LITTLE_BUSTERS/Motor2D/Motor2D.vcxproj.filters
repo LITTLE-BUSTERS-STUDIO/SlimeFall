@@ -61,6 +61,9 @@
     <ClCompile Include="Enemy_Test.cpp">
       <Filter>Desenvolupament  ========\Modules\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="j1Pathfinding.cpp">
+      <Filter>Desenvolupament  ========\Modules\Gameplay</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="p2Defs.h">
@@ -144,6 +147,9 @@
     <ClInclude Include="Enemy_Test.h">
       <Filter>Desenvolupament  ========\Modules\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="j1PathFinding.h">
+      <Filter>Desenvolupament  ========\Modules\Gameplay</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -161,9 +167,6 @@
     <Filter Include="Desenvolupament  ========\Modules\Main Modules">
       <UniqueIdentifier>{b8706406-cc0c-4f4c-9bdb-3a5c1e59a1b9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Desenvolupament  ========\Modules\Scenes">
-      <UniqueIdentifier>{e07660eb-d36f-4cc9-af59-324d31c2f2f6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Desenvolupament  ========\Modules\Tools">
       <UniqueIdentifier>{42c748be-4a37-49de-970f-5be811d06b38}</UniqueIdentifier>
     </Filter>
@@ -173,5 +176,19 @@
     <Filter Include="Desenvolupament  ========\Modules\Enemies">
       <UniqueIdentifier>{cc56073d-3dc1-4015-942f-6847c1e02bae}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Desenvolupament  ========\Maps">
+      <UniqueIdentifier>{deba1d7a-ccda-4b4f-8b41-c075be1bc9db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\Scenes">
+      <UniqueIdentifier>{e07660eb-d36f-4cc9-af59-324d31c2f2f6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Game\maps\Level1_1.tmx">
+      <Filter>Desenvolupament  ========\Maps</Filter>
+    </None>
+    <None Include="..\Game\maps\Level1_2.tmx">
+      <Filter>Desenvolupament  ========\Maps</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -47,7 +47,6 @@ bool j1FadeToBlack::PostUpdate()
 	{
 		if (now >= total_time)
 		{
-
 			total_time += total_time;
 			start_time = SDL_GetTicks();
 			current_step = fade_step::fade_from_black;
@@ -64,7 +63,7 @@ bool j1FadeToBlack::PostUpdate()
 	}
 
 	// Finally render the black square with alpha on the screen
-	
+	App->render->DrawQuad( App->render->camera, 0, 0, 0, normalized * 255);
 
 	return true;
 }

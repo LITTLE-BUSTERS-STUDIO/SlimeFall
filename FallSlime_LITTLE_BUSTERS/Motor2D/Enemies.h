@@ -8,12 +8,7 @@
 
 class Enemy;
 struct Enemy_Info;
-
-enum class Enemy_Type
-{
-	None,
-	Test
-};
+struct Enemy_Properties;
 
 class Enemies : public j1Module
 {
@@ -47,35 +42,46 @@ public:
 
 //private:
 
-	void SpawnEnemy(const Enemy_Info& info);
+	bool SpawnEnemy(const Enemy_Info& info);
+	Enemy_Properties GetProperties(const p2SString name) const;
+
 
 private:
-
-	p2List<Enemy_Info>   enemies_info;
-	p2List<Enemy*>       current_enemies;
-	SDL_Texture*         sprites = nullptr;
+	p2List<Enemy_Properties>   enemies_properties;    // Added in Awake (config.xml)
+	p2List<Enemy_Info>         enemies_info;          // Added in LoadMap (objectgroup enemies)
+	p2List<Enemy*>             current_enemies;       // Active enemies
+	SDL_Texture*               sprites = nullptr;
 	
 	int despawn_margin;
 };
-
+struct Enemy_Properties
+{
+	p2SString            name;
+	SDL_Rect             collider_rect;
+	SDL_Rect             spawn_rect;
+};
 
 struct Enemy_Info
 {
-public:
-	iPoint spawn_pos;
-	bool spawned = false;
-	Enemy_Type type = Enemy_Type::None;
-	SDL_Rect spawn_rect;
+	fPoint               position;
+	p2SString            name;
+	SDL_Rect             collider_rect;
+	SDL_Rect             spawn_rect;
+	bool                 spawned = false;
 
-	Enemy_Info()
+	Enemy_Info() {}
+	Enemy_Info(fPoint spawn_position , Enemy_Properties properties)
 	{
+		position = spawn_position;
+		name = properties.name;
 
-	}
-	Enemy_Info(int x, int y, int w, int h, Enemy_Type type)
-	{
-		spawn_pos = { x , y };
-		spawn_rect = { x - w / 2, y - h / 2 ,w ,h };
-		this->type = type;
+		spawn_rect = properties.spawn_rect;
+		spawn_rect.x = spawn_position.x - spawn_rect.w / 2;
+		spawn_rect.y = spawn_position.y - spawn_rect.h / 2;
+
+		collider_rect = properties.collider_rect;
+		collider_rect.x = spawn_position.x - collider_rect.w / 2;
+		collider_rect.y = spawn_position.y - collider_rect.h / 2;
 	}
 };
 

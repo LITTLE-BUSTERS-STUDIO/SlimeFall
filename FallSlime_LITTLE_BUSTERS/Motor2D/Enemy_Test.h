@@ -9,7 +9,7 @@ struct Collider;
 class Enemy_Test: public Enemy
 {
 public:
-	Enemy_Test(int x, int y, int width, int height);
+	Enemy_Test(fPoint position, SDL_Rect collider_rect);
 
 	bool Move(float dt) ;
 	bool Draw(SDL_Texture* sprites) ;

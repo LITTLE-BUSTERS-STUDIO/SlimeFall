@@ -10,7 +10,7 @@ struct Collider;
 class Enemy
 {
 public:
-	Enemy(int x, int y, int width, int height);
+	Enemy(fPoint position, SDL_Rect collider_rect);
 	virtual ~Enemy();
 
 	virtual bool Move(float dt) { return true; };
@@ -20,7 +20,7 @@ public:
 	const Collider* GetCollider() const;
 
 protected:
-	iPoint      position;
+	fPoint      position;
 	Animation   animation;
 	Collider*   collider = nullptr;
 

@@ -4,8 +4,8 @@
   <app framerate_cap="30">
     <title>Slime Fall</title>
     <organization>UPC</organization>
-  
   </app>
+  
   <renderer>
     <vsync value="true"/>
     <debug zoom="1" max_zoom="4"/>
@@ -14,6 +14,7 @@
     <level1_2 width="2600" high ="1000"/>
     <debug_border_margin value="4"/>
   </renderer>
+  
   <audio>
     <fade_time default="1.0"/>
     <volume_music default="40"/>
@@ -21,9 +22,11 @@
     <max_volume value="100"/>
     <mute value="false"/>
   </audio>
+  
   <input>
     <max_keys value="300"/>
   </input>
+  
   <window>
     <resolution width="1280" height="720" scale="2"/>
     <fullscreen value="false"/>
@@ -31,12 +34,15 @@
     <resizable value="false"/>
     <fullscreen_window value="false"/>
   </window>
+  
   <file_system>
     <path>data.zip</path>
   </file_system>
+  
   <map>
     <folder>maps/</folder>
   </map>
+  
   <player>
     <textures>
       <jumping path ="textures/player_animation.png"/>
@@ -66,4 +72,14 @@
     <background_dimension width="928" high="793"/>
     <parallax_speed low="0.2" medium="0.3" high="0.4"/>
   </level_1>
+  
+  <enemies>
+    <enemy name ="test">
+      <collider width ="30" height="30"/>
+      <spawn_margin width ="40" height="40"/>
+    </enemy>
+  </enemies>
+  
+  
+  
 </config>

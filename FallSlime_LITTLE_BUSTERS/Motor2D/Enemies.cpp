@@ -2,6 +2,7 @@
 #include "p2Defs.h"
 #include "p2Log.h"
 #include "j1Render.h"
+#include "j1Window.h"
 #include "Enemies.h"
 #include "j1Textures.h"
 #include "Enemy.h"
@@ -10,29 +11,43 @@
 
 Enemies::Enemies()
 {
-
+	name.create("enemies");
 }
 
-// Destructor
 Enemies::~Enemies()
 {
 
 }
 
-bool Enemies::Awake(pugi::xml_node&)
+bool Enemies::Awake(pugi::xml_node& node)
 {
+	for (pugi::xml_node enemy_node = node.child("enemy") ; enemy_node; enemy_node = enemy_node.next_sibling("enemy"))
+	{
+		Enemy_Properties properties;
+		properties.name.create(enemy_node.attribute("name").as_string(""));
+
+		pugi::xml_node collider_node = enemy_node.child("collider");
+		properties.collider_rect = { 0 , 0 , collider_node.attribute("width").as_int(0) , collider_node.attribute("height").as_int(0)};
+
+		pugi::xml_node spawn_margin = enemy_node.child("spawn_margin");
+		properties.spawn_rect = { 0 , 0 , spawn_margin.attribute("width").as_int(0) , spawn_margin.attribute("height").as_int(0)};
+
+		enemies_properties.add(properties);
+	}
 	return true;
 }
 
 bool Enemies::Start()
 {
-	LOG("Loading Map");
-	sprites = App->tex->Load("rtype/enemies.png");
+	LOG("Loading Enemies");
+	sprites = App->tex->Load("textures/enemies.png");
 	return true;
 }
 
 bool Enemies::PreUpdate()
 {
+	SDL_Rect camera = App->render->camera;
+	int scale = App->win->GetScale();
 
 	for (p2List_item<Enemy*> *item = current_enemies.start; item; item = item->next)
 	{
@@ -42,8 +57,23 @@ bool Enemies::PreUpdate()
 	for (p2List_item<Enemy_Info> *item = enemies_info.start ; item ; item = item->next ) 
 	{
         // TODO: Spawn enemies when collide with camera
+		if (item->data.spawned)
+		{
+			continue;
+		}
+
+		int x = item->data.position.x;
+		int y = item->data.position.y;
+		int w = item->data.spawn_rect.w;
+		int h = item->data.spawn_rect.h;
+
+		if (((camera.x / scale < x + w) && (x < (camera.x + camera.w) / scale)
+			&& (camera.y / scale < y + h) && (y < (camera.y + camera.h) / scale)))
+		{
+			item->data.spawned = true;
+			SpawnEnemy(item->data);
+		}
 	}
-	
 	return true;
 }
 
@@ -95,36 +125,27 @@ bool Enemies::LoadEnemiesInfo(pugi::xml_node& node)
 	
 	for (pugi::xml_node object = node.child("object"); object; object = object.next_sibling("object"))
 	{
-		// Read type -------------------------------------
-		p2SString type_str(object.attribute("name").as_string());
-		Enemy_Type type;
-
-		if (type_str == "test")
-		{
-			type = Enemy_Type::Test;
-		}
-		else if (type_str == "test")
-		{
-
-		}
-	
-		enemies_info.add(Enemy_Info(0, 0, 30, 30, type));
+		// Read information ------------------------------
+		p2SString name(object.attribute("name").as_string());
+		Enemy_Properties properties = GetProperties(name);
+		enemies_info.add(Enemy_Info( fPoint (object.attribute("x").as_int(0), object.attribute("y").as_int(0)), properties));
 	}
 	return ret;
 }
 
-void Enemies::SpawnEnemy(const Enemy_Info& info)
+bool Enemies::SpawnEnemy(const Enemy_Info& info)
 {
 	LOG("Enemy Spawned");
 	Enemy* enemy = nullptr;
 
-	switch (info.type)
+	if (info.name == "test") 
 	{
-	case Enemy_Type::Test:
-		enemy = new Enemy_Test(info.spawn_pos.x , info.spawn_pos.y, info.spawn_rect.w , info.spawn_rect.h);
-		break;
-
+		enemy = new Enemy_Test( info.position, info.collider_rect);
 	}
+	
+	current_enemies.add(enemy);
+
+	return true;
 }
 
 bool Enemies::OnCollision(Collider* c1, Collider* c2)
@@ -140,17 +161,30 @@ bool Enemies::OnCollision(Collider* c1, Collider* c2)
 	return true;
 }
 
-bool  Enemies::Load(pugi::xml_node& node)
+bool Enemies::Load(pugi::xml_node& node)
 {
 	return true;
 }
 
-bool  Enemies::Save(pugi::xml_node& node) const
+bool Enemies::Save(pugi::xml_node& node) const
 {
 	return true;
 }
 
-bool  Enemies::Reset(fPoint pos)
+bool Enemies::Reset(fPoint pos)
 {
 	return true;
+}
+
+Enemy_Properties Enemies::GetProperties(p2SString name) const 
+{
+	for (p2List_item<Enemy_Properties> *item = enemies_properties.start; item; item = item->next)
+	{
+		if (item->data.name == name)
+		{
+			return item->data;
+		}
+	}
+
+	return Enemy_Properties();
 }
