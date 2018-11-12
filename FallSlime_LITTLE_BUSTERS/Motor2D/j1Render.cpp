@@ -116,42 +116,6 @@ bool j1Render::PreUpdate()
 
 bool j1Render::Update(float dt)
 {	
-
-	//uint width, height = 0u;
-	//App->win->GetWindowSize(width, height);
-
-	//float x = 0.0f;
-	//if (App->player->flip_x == SDL_RendererFlip::SDL_FLIP_HORIZONTAL) {
-	//	x = width * 0.625F;
-	//}
-	//else {
-	//	x = width * 0.375F; // situates player on the middle of second screen partition(of 4)
-	//}
-
-	//x = width * 0.375F;
-	//float y = height / 2; 
-
-	//iPoint offset = { (int)x , (int)y };
-
-	//iPoint playerPivotPos;
-	//playerPivotPos.x = -(int)(App->player->position.x * App->win->GetScale()); // center of current player pivot
-	//playerPivotPos.y = -(int)(App->player->position.y * App->win->GetScale());
-
-	//float targetX = (playerPivotPos.x + (int)offset.x);
-	//float targetY = (playerPivotPos.y + (int)offset.y);
-
-
-	//cameraPos.x += (-targetX - App->render->camera.x) / 20;
-
-	//if (App->render->camera.y >= targetY)
-	//	cameraPos.y += (-targetY - App->render->camera.y) / 3;
-	//else
-	//	cameraPos.y += (-targetY - App->render->camera.y) / 50;
-	//	
-	//camera.x = cameraPos.x;
-	//camera.y = cameraPos.y;
-
-
 	fPoint player_position(App->player->position.x, App->player->position.y);
 
 	//Camera_x hit screen---------------------------------------
@@ -175,11 +139,6 @@ bool j1Render::Update(float dt)
 	//Camera_x Follow Player
 	if (free_camera_x)
 	{
-		if (App->player->flip_x)
-			camera_flip.x = camera.w / 4;
-		else
-			camera_flip.x = -camera.w / 4;
-
 		player_position.x = -((player_position.x + camera_flip.x) * App->win->GetScale() - camera.w / 2);
 		camera_position.x += (-player_position.x - App->render->camera.x) / 10;
 		camera.x = camera_position.x;
@@ -318,7 +277,7 @@ iPoint j1Render::ScreenToWorld(int x, int y) const
 bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, bool flip_x, float speed, double angle, int pivot_x, int pivot_y) const
 {
 	bool ret = true;
-	int scale = App->win->GetScale();
+	uint scale = App->win->GetScale();
 
 	SDL_Rect rect;
 	rect.x = (int)((camera.w * (zoom - 1)) / 2) + (int)(-camera.x * speed) + x * scale;
@@ -335,13 +294,6 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
 	}
 	
-	if (!((camera.x / scale < x + rect.w) && (x < (camera.x + camera.w) / scale)
-		&& (camera.y / scale < y + rect.h) && (y < (camera.y + camera.h) / scale)))
-	{
-		return ret;
-	}
-
-
 	rect.w *= scale;
 	rect.h *= scale;
 
@@ -366,13 +318,7 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 bool j1Render::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool filled, bool use_camera) const
 {
 	bool ret = true;
-	int scale = App->win->GetScale();
-
-	if (!((camera.x / scale < rect.x + rect.w) && (rect.x < (camera.x + camera.w) / scale)
-		&& (camera.y / scale < rect.y + rect.h) && (rect.y < (camera.y + camera.h) / scale)))
-	{
-		return ret;
-	}
+	uint scale = App->win->GetScale();
 
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 	SDL_SetRenderDrawColor(renderer, r, g, b, a);
@@ -452,7 +398,8 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 }
 
 bool j1Render::CameraReset() {
-	
+	camera.x = 0;
+	camera.y = 0;
 	camera_position.x = 0;
 	camera_position.y = 0;
 	free_camera_x = false;
