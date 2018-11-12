@@ -4,7 +4,6 @@
 #include "j1Input.h"
 #include "j1Player.h"
 #include "j1Render.h"
-#include "j1PathFinding.h"
 #include "p2Log.h"
 
 
@@ -81,31 +80,6 @@ bool j1Scene::PreUpdate()
 
 	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
 		LoadPhase(2);
-
-	// Debug pathfing =====================================
-
-	static iPoint origin;
-	static bool origin_selected = false;
-
-	int x, y;
-	App->input->GetMousePosition(x, y);
-	iPoint p = App->render->ScreenToWorld(x, y);
-	p = App->map->WorldToMap(p.x, p.y);
-
-	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
-	{
-		if (origin_selected == true)
-		{
-			App->path_finding->DeleteLastPath();
-			App->path_finding->CreatePath(origin, p);
-			origin_selected = false;
-		}
-		else
-		{
-			origin = p;
-			origin_selected = true;
-		}
-	}
 
 	return ret;
 }

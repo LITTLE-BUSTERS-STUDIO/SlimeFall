@@ -3,11 +3,13 @@
 #include "j1App.h"
 #include "j1Render.h"
 #include "j1PathFinding.h"
+#include "j1Input.h"
 #include "j1Map.h"
 
 j1PathFinding::j1PathFinding() : j1Module(), map(NULL), last_path(DEFAULT_PATH_LENGTH), width(0), height(0)
 {
 	name.create("pathfinding");
+
 }
 
 // Destructor
@@ -23,6 +25,32 @@ bool j1PathFinding::CleanUp()
 
 	last_path.Clear();
 	RELEASE_ARRAY(map);
+	return true;
+}
+bool j1PathFinding::PreUpdate()
+{
+	// Debug pathfing =====================================
+	int x, y;
+	App->input->GetMousePosition(x, y);
+	iPoint p = App->render->ScreenToWorld(x + App->render->camera.x , y + App->render->camera.y);
+	p = App->map->WorldToMap(p.x, p.y);
+
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	{
+		if (origin_selected == true && IsWalkable(p))
+		{
+			App->path_finding->DeleteLastPath();
+			App->path_finding->CreatePath(origin, p);
+			origin_selected = false;
+		}
+		else if (origin_selected == false && IsWalkable(p))
+		{
+			origin = p;
+			origin_selected = true;
+		}
+		else
+			origin_selected = false;
+	}
 	return true;
 }
 
@@ -142,7 +170,7 @@ p2List_item<PathNode>* PathList::GetNodeLowestScore() const
 PathNode::PathNode() : g(-1), h(-1), pos(-1, -1), parent(NULL)
 {}
 
-PathNode::PathNode(int g, int h, const iPoint& pos, PathNode* parent) : g(g), h(h), pos(pos), parent(parent)
+PathNode::PathNode(float g, float h, const iPoint& pos, PathNode* parent) : g(g), h(h), pos(pos), parent(parent)
 {}
 
 PathNode::PathNode(const PathNode& node) : g(node.g), h(node.h), pos(node.pos), parent(node.parent)
@@ -151,30 +179,65 @@ PathNode::PathNode(const PathNode& node) : g(node.g), h(node.h), pos(node.pos), 
 // PathNode -------------------------------------------------------------------------
 // Fills a list (PathList) of all valid adjacent pathnodes
 // ----------------------------------------------------------------------------------
-uint PathNode::FindWalkableAdjacents(PathList& list_to_fill)
+uint PathNode::FindWalkableAdjacents(PathList& list_to_fill, iPoint destination)
 {
-	iPoint cell;
-	uint before = list_to_fill.list.count();
+	iPoint position;
+	iPoint offset;
+	fPoint distance;
+	fPoint destin(destination.x, destination.y);
+	
+	// south-west 
+	offset.create(-1, 1);
+	position.create(this->pos.x + offset.x, this->pos.y + offset.y);
+	distance.create(position.x, position.y);
+	if (App->path_finding->IsWalkable(position))
+		list_to_fill.list.add(PathNode(this->g +1.4f, distance.DistanceTo(destin), position, this));
 
-	// north
-	cell.create(pos.x, pos.y + 1);
-	if (App->path_finding->IsWalkable(cell))
-		list_to_fill.list.add(PathNode(-1, -1, cell, this));
+	// south-est
+	offset.create(1, 1);
+	position.create(this->pos.x + offset.x, this->pos.y + offset.y);
+	distance.create(position.x, position.y);
+	if (App->path_finding->IsWalkable(position))
+		list_to_fill.list.add(PathNode(this->g + 1.4f, distance.DistanceTo(destin), position, this));
 
-	// south
-	cell.create(pos.x, pos.y - 1);
-	if (App->path_finding->IsWalkable(cell))
-		list_to_fill.list.add(PathNode(-1, -1, cell, this));
+	// north-east
+	offset.create(1, -1);
+	position.create(this->pos.x + offset.x, this->pos.y + offset.y);
+	distance.create(position.x, position.y);
+	if (App->path_finding->IsWalkable(position))
+		list_to_fill.list.add(PathNode(this->g +1.4f, distance.DistanceTo(destin), position, this));
 
-	// east
-	cell.create(pos.x + 1, pos.y);
-	if (App->path_finding->IsWalkable(cell))
-		list_to_fill.list.add(PathNode(-1, -1, cell, this));
-
+	// north-west
+	offset.create(-1, -1);
+	position.create(this->pos.x + offset.x, this->pos.y + offset.y);
+	distance.create(position.x, position.y);
+	if (App->path_finding->IsWalkable(position))
+		list_to_fill.list.add(PathNode(this->g + 1.4f, distance.DistanceTo(destin), position, this));
 	// west
-	cell.create(pos.x - 1, pos.y);
-	if (App->path_finding->IsWalkable(cell))
-		list_to_fill.list.add(PathNode(-1, -1, cell, this));
+	offset.create(-1, 0);
+	position.create(this->pos.x + offset.x, this->pos.y + offset.y);
+	distance.create(position.x, position.y);
+	if (App->path_finding->IsWalkable(position))
+		list_to_fill.list.add(PathNode(this->g + 1, distance.DistanceTo(destin), position, this));
+	// south
+	offset.create(0, 1);
+	position.create(this->pos.x + offset.x, this->pos.y + offset.y);
+	distance.create(position.x, position.y);
+	if (App->path_finding->IsWalkable(position))
+		list_to_fill.list.add(PathNode(this->g + 1, distance.DistanceTo(destin), position, this));
+	// east
+	offset.create(1, 0);
+	position.create(this->pos.x + offset.x, this->pos.y + offset.y);
+	distance.create(position.x, position.y);
+	if (App->path_finding->IsWalkable(position))
+		list_to_fill.list.add(PathNode(this->g + 1, distance.DistanceTo(destin), position, this));
+	// north
+	offset.create(0, -1);
+	position.create(this->pos.x + offset.x, this->pos.y + offset.y);
+	distance.create(position.x, position.y);
+	if (App->path_finding->IsWalkable(position))
+		list_to_fill.list.add(PathNode(this->g + 1, distance.DistanceTo(destin), position, this));
+
 
 	return list_to_fill.list.count();
 }
@@ -182,9 +245,9 @@ uint PathNode::FindWalkableAdjacents(PathList& list_to_fill)
 // PathNode -------------------------------------------------------------------------
 // Calculates this tile score
 // ----------------------------------------------------------------------------------
-int PathNode::Score() const
+float PathNode::Score() const
 {
-	return g + h;
+	return (float)g + h;
 }
 
 // PathNode -------------------------------------------------------------------------
@@ -213,7 +276,7 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 	PathList closed;
 
 	// Add the origin tile to open
-	PathNode origin_node(1, origin.DistanceManhattan(destination), origin, nullptr);
+	PathNode origin_node(1, origin.DistanceTo(destination), origin, nullptr);
 	opened.list.add(origin_node);
 
 	// Iterate while we have tile in the open list
@@ -231,36 +294,38 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 		{
 			// Backtrack to create the final path
 
-			for (PathNode* node = (PathNode*)closed.list.end->data.parent; node; node = (PathNode*)node->parent)
+			for (PathNode* node = (PathNode*)closed.list.end ; node ; node = (PathNode*)node->parent)
 			{
 				last_path.PushBack(node->pos);
 			}
 			last_path.Flip();
-			break;
+
+			return last_path.Count();
 		}
 
 		// Fill a list of all adjancent nodes
 		PathList adjacent_nodes;
-		current_node->data.FindWalkableAdjacents(adjacent_nodes);
+		current_node->data.FindWalkableAdjacents(adjacent_nodes, destination);
 
 		for (p2List_item<PathNode>* item = adjacent_nodes.list.start; item; item = item->next)
 		{
-			p2List_item<PathNode>*  found_node_closed = (p2List_item<PathNode>*) closed.Find(item->data.pos);
-			p2List_item<PathNode>*  found_node_opened = (p2List_item<PathNode>*) opened.Find(item->data.pos);
-			if (found_node_closed)
+			if (closed.Find(item->data.pos) != nullptr)
 			{
 				continue;
 			}
-			if (found_node_opened)
+
+			p2List_item<PathNode>*  found_node_opened = (p2List_item<PathNode>*) opened.Find(item->data.pos);
+
+			if (found_node_opened != nullptr)
 			{
-				if (found_node_opened->data.g > item->data.g)
+				if (found_node_opened->data.Score() > item->data.Score())
 				{
+					found_node_opened->data.g = item->data.g;
 					found_node_opened->data.parent = &current_node->data;
 				}
 			}
-			else
+			else  
 			{
-				item->data.g = 1 + current_node->data.g;
 				opened.list.add(item->data);
 			}
 		}
