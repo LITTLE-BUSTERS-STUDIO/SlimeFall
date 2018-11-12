@@ -57,24 +57,23 @@ bool Enemies::PreUpdate()
 	for (p2List_item<Enemy_Info> *item = enemies_info.start ; item ; item = item->next ) 
 	{
         // TODO: Spawn enemies when collide with camera
+		if (item->data.spawned)
+		{
+			continue;
+		}
+
 		int x = item->data.position.x;
 		int y = item->data.position.y;
 		int w = item->data.spawn_rect.w;
 		int h = item->data.spawn_rect.h;
 
-		if (item->data.spawned)
-		{
-			continue;
-		}
-		else if (((camera.x / scale < x + w) && (x < (camera.x + camera.w) / scale)
+		if (((camera.x / scale < x + w) && (x < (camera.x + camera.w) / scale)
 			&& (camera.y / scale < y + h) && (y < (camera.y + camera.h) / scale)))
 		{
 			item->data.spawned = true;
 			SpawnEnemy(item->data);
 		}
-
 	}
-	
 	return true;
 }
 

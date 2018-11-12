@@ -438,6 +438,11 @@ bool j1Map::LoadLayer(pugi::xml_node& layer_node, MapLayer* layer)
 		}
 	}
 
+
+
+
+
+
 	return ret;
 }
 
