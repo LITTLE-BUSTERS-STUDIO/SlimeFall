@@ -59,28 +59,31 @@ bool j1Scene::PreUpdate()
 {
 	bool ret = true;
 
-	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) //Close Window
+	// Assigment keys =======================================
+
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) 
 		ret = false;
-
-	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
-		App->LoadGame();
-
-	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
-		App->SaveGame();
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		LoadPhase(1);
 
-	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
-		LoadPhase(2);
-
-	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) 
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
 		App->player->reset = true;
 		App->render->reset = true;
 	}
-		
-	// debug pathfing ------------------
+
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+		App->SaveGame();
+
+	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+		App->LoadGame();
+
+	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+		LoadPhase(2);
+
+	// Debug pathfing =====================================
+
 	static iPoint origin;
 	static bool origin_selected = false;
 
@@ -116,14 +119,11 @@ bool j1Scene::NextPhase()
 		current_phase = 1;
 		LoadPhase(current_phase);
 	}
-
-
 	return ret;
 }
 
 bool  j1Scene::Load(pugi::xml_node& node)
 {
-
 	current_phase =  node.child("phase").attribute("current_phase").as_uint(1u);
 	LoadPhase(current_phase, false);
 	return true;

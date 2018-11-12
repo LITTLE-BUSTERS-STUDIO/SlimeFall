@@ -42,7 +42,6 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(map);
-	AddModule(fade_to_black);
 	// Levels ===========================
 	AddModule(level_1);
 	// ==================================
@@ -51,6 +50,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(path_finding);
 	// Colission needs to be always before render
 	AddModule(collision);
+
+	AddModule(fade_to_black);
+
 	// Render last to swap buffer
 	AddModule(render);
 
