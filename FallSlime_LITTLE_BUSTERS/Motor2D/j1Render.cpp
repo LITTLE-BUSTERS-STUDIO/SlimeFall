@@ -59,6 +59,7 @@ bool j1Render::Awake(pugi::xml_node& config)
 	phase2_high = config.child("level1_2").attribute("high").as_int(0);
 
 	margin = config.child("debug_border_margin").attribute("value").as_int(0);
+	smooth_speed = config.child("smooth_speed").attribute("value").as_uint(0U);
 
 	return ret;
 }
@@ -123,7 +124,6 @@ bool j1Render::Update(float dt)
 		reset = false;
 	}
 
-
 	fPoint player_position(App->player->position.x, App->player->position.y);
 
 	//Camera_x hit screen---------------------------------------
@@ -147,9 +147,8 @@ bool j1Render::Update(float dt)
 	//Camera_x Follow Player
 	if (free_camera_x)
 	{
-
 		player_position.x = -(player_position.x * App->win->GetScale() - camera.w / 2);
-		camera_position.x += (-player_position.x - App->render->camera.x) / 10;
+		camera_position.x += (-player_position.x - App->render->camera.x) / smooth_speed;
 		camera.x = camera_position.x;
 	}
 
@@ -175,9 +174,8 @@ bool j1Render::Update(float dt)
 	if (free_camera_y)
 	{
 		player_position.y = -(player_position.y * App->win->GetScale() - camera.h / 2);
-		camera_position.y += (-player_position.y - App->render->camera.y) / 10;
+		camera_position.y += (-player_position.y - App->render->camera.y) / smooth_speed;
 		camera.y = camera_position.y;
-		//camera.y = player_position.y * App->win->GetScale() - camera.h / 2;
 	}
 		
 

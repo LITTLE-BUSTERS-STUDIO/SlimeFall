@@ -13,6 +13,7 @@
     <level1_1 width="2600" high ="1000"/>
     <level1_2 width="2600" high ="1000"/>
     <debug_border_margin value="4"/>
+    <smooth_speed value="10"/>
   </renderer>
   
   <audio>

@@ -68,6 +68,8 @@ public:
 	int		phase2_high;
 	int		margin;
 
+	uint		smooth_speed;
+
 private:
 	fPoint camera_position = { 0,0 };
 	iPoint camera_flip = { 0,0 };
