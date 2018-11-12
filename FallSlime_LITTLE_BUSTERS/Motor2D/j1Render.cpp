@@ -152,10 +152,6 @@ bool j1Render::Update(float dt)
 	//camera.y = cameraPos.y;
 
 
-
-
-
-
 	fPoint player_position(App->player->position.x, App->player->position.y);
 
 	//Camera_x hit screen---------------------------------------
@@ -169,9 +165,8 @@ bool j1Render::Update(float dt)
 		}
 		else if (camera.x + camera.w > phase1_width)
 		{
-			cameraPos.x = phase1_width - camera.w;
+			camera.x = phase1_width - camera.w;
 			free_camera_x = false;
-			camera.x = cameraPos.x;
 		}
 	}
 	else if (App->win->GetScale() * player_position.x > camera.w / 2 && App->win->GetScale() *player_position.x < phase1_width - camera.w / 2)
@@ -206,9 +201,7 @@ bool j1Render::Update(float dt)
 	//Camera_y Follow Player
 	if (free_camera_y)
 	{
-		player_position.y = -(player_position.y * App->win->GetScale() - camera.h / 2);
-		cameraPos.y += (-player_position.y - App->render->camera.y) / 10;
-		camera.y = cameraPos.y;
+		camera.y = player_position.y * App->win->GetScale() - camera.h / 2;
 	}
 		
 
