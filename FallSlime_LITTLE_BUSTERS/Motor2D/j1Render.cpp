@@ -116,6 +116,42 @@ bool j1Render::PreUpdate()
 
 bool j1Render::Update(float dt)
 {	
+
+	//uint width, height = 0u;
+	//App->win->GetWindowSize(width, height);
+
+	//float x = 0.0f;
+	//if (App->player->flip_x == SDL_RendererFlip::SDL_FLIP_HORIZONTAL) {
+	//	x = width * 0.625F;
+	//}
+	//else {
+	//	x = width * 0.375F; // situates player on the middle of second screen partition(of 4)
+	//}
+
+	//x = width * 0.375F;
+	//float y = height / 2; 
+
+	//iPoint offset = { (int)x , (int)y };
+
+	//iPoint playerPivotPos;
+	//playerPivotPos.x = -(int)(App->player->position.x * App->win->GetScale()); // center of current player pivot
+	//playerPivotPos.y = -(int)(App->player->position.y * App->win->GetScale());
+
+	//float targetX = (playerPivotPos.x + (int)offset.x);
+	//float targetY = (playerPivotPos.y + (int)offset.y);
+
+
+	//cameraPos.x += (-targetX - App->render->camera.x) / 20;
+
+	//if (App->render->camera.y >= targetY)
+	//	cameraPos.y += (-targetY - App->render->camera.y) / 3;
+	//else
+	//	cameraPos.y += (-targetY - App->render->camera.y) / 50;
+	//	
+	//camera.x = cameraPos.x;
+	//camera.y = cameraPos.y;
+
+
 	fPoint player_position(App->player->position.x, App->player->position.y);
 
 	//Camera_x hit screen---------------------------------------
@@ -138,7 +174,11 @@ bool j1Render::Update(float dt)
 
 	//Camera_x Follow Player
 	if (free_camera_x)
-		camera.x = App->win->GetScale() * player_position.x - camera.w / 2;
+	{
+		player_position.x = -(player_position.x * App->win->GetScale() - camera.w / 2);
+		camera_position.x += (-player_position.x - App->render->camera.x) / 10;
+		camera.x = camera_position.x;
+	}
 
 	//Camera_y hit screen---------------------------------------
 	if (free_camera_y)
@@ -160,7 +200,10 @@ bool j1Render::Update(float dt)
 
 	//Camera_y Follow Player
 	if (free_camera_y)
-		camera.y = App->win->GetScale() * player_position.y - camera.h / 2;
+	{
+		camera.y = player_position.y * App->win->GetScale() - camera.h / 2;
+	}
+		
 
 	if (reset)
 	{
@@ -406,6 +449,8 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 bool j1Render::CameraReset() {
 	camera.x = 0;
 	camera.y = 0;
+	camera_position.x = 0;
+	camera_position.y = 0;
 	free_camera_x = false;
 	free_camera_y = false;
     return true;

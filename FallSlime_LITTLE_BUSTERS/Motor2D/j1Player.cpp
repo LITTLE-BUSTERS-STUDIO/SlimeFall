@@ -205,7 +205,7 @@ bool j1Player::Update(float dt)
 {
 	if (reset) 
 	{
-		App->player->Reset(App->map->data.initial_position);
+		Reset(App->map->data.initial_position);
 		reset = false;
 	}
 
@@ -224,6 +224,7 @@ bool j1Player::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 			position.x += speed_air;
 
+		velocity.x = velocity.y = 0;
 		return true;
 	}
 
