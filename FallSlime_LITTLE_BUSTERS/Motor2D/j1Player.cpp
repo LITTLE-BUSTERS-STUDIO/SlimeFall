@@ -12,6 +12,7 @@
 #include "j1Map.h"
 #include <math.h>
 #include "j1FadeToBlack.h"
+#include "Enemies.h"
 
 j1Player::j1Player() 
 {
@@ -304,9 +305,6 @@ bool j1Player::PostUpdate()
 		}
 		break;
 	case State::attack:
-		/*frame = jumping_anim.GetCurrentFrame();
-		texture = tex_player;*/
-
 		frame = attack_anim.GetCurrentFrame();
 		texture = attack_splash;
 		
@@ -546,6 +544,7 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 		case COLLIDER_ENEMY:
 			if (current_state == State::attack)
 				break;
+				
 			current_state = State::dead;
 			collider->type = COLLIDER_NONE;
 			break;
