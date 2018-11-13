@@ -100,7 +100,7 @@ bool j1App::Awake()
 		app_config = config.child("app");
 		title.create(app_config.child("title").child_value());
 		organization.create(app_config.child("organization").child_value());
-		framerate_cap = app_config.attribute("framerate_cap").as_uint();
+		framerate_cap = app_config.attribute("framerate_cap").as_int(0);
 	}
 
 	if(ret == true)
@@ -176,7 +176,11 @@ void j1App::PrepareUpdate()
 {
 	frame_count++;
 	last_sec_frame_count++;
-
+	dt = frame_time.ReadSec();
+	if (dt > (float)framerate_cap / 1000.0f)
+	{
+		dt = (float)framerate_cap / 1000.0f;
+	}
 	frame_time.Start();
 }
 
@@ -196,11 +200,25 @@ void j1App::FinishUpdate()
 		last_sec_frame_count = 0;
 	}
 
-	float avg_fps = frame_count / start_time.ReadSec();
+	float avg_fps = (float)frame_count / start_time.ReadSec();
 	float seconds_since_startup = start_time.ReadSec();
 	uint32 last_frame_ms = frame_time.Read();
 	uint32 frames_on_last_update = prev_last_sec_frame_count;
 
+	uint32 frame_cap_ms = 1000 / framerate_cap;
+
+	if (!App->render->vsync) 
+	{
+		if (frame_cap_ms > last_frame_ms)
+		{
+			SDL_Delay(frame_cap_ms - last_frame_ms);
+		}
+		else
+			SDL_Delay(frame_cap_ms - last_frame_ms % frame_cap_ms);
+	}
+
+
+	// Assigment 3 Title ===================================================
 	static char title[256];
 	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %lu ",
 		avg_fps, last_frame_ms, frames_on_last_update, dt, seconds_since_startup, frame_count);
@@ -319,17 +337,12 @@ const char* j1App::GetOrganization() const
 // Load / Save
 void j1App::LoadGame()
 {
-	// we should be checking if that file actually exist
-	// from the "GetSaveGames" list
 	want_to_load = true;
 }
 
 // ---------------------------------------
 void j1App::SaveGame() const
 {
-	// we should be checking if that file actually exist
-	// from the "GetSaveGames" list ... should we overwrite ?
-
 	want_to_save = true;
 }
 

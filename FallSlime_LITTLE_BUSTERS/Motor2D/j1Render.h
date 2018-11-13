@@ -59,7 +59,7 @@ public:
 	bool	debug_border = false;
 	bool	debug_middle = false;
 	bool	draw_pathfinding = true;
-
+	bool    vsync;
 	//XML vars
 	int		zoom ;
 	int		max_zoom;
@@ -76,7 +76,6 @@ private:
 	fPoint		camera_position = { 0,0 };
 	iPoint		camera_flip = { 0,0 };
 	uint		index_tremble = 0;
-
 };
 
 #endif // __j1RENDER_H__

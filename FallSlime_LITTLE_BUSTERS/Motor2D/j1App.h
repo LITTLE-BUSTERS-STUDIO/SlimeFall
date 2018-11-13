@@ -106,7 +106,6 @@ private:
 
 	p2List<j1Module*>	modules;
 	uint				frames;
-	float				dt;
 	int					argc;
 	char**				args;
 
@@ -125,7 +124,8 @@ private:
 	uint					last_sec_frame_count = 0;
 	uint					prev_last_sec_frame_count = 0;
 	uint64					frame_count = 0;
-	uint					framerate_cap = 0;
+	int					    framerate_cap = 0;
+	float                   dt = 0.0f;
 };
 
 extern j1App* App;
