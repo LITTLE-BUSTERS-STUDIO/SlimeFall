@@ -61,7 +61,8 @@ bool  j1Player::Awake(pugi::xml_node& node )
 	path_jump_fx3.create(node.child("sfx").child("jump3").attribute("path").as_string(""));
 	path_jump_fx4.create(node.child("sfx").child("jump4").attribute("path").as_string(""));
 	path_jump_fx5.create(node.child("sfx").child("jump5").attribute("path").as_string(""));
-	path_death_sfx.create(node.child("sfx").child("death").attribute("path").as_string(""));
+	path_death_fx.create(node.child("sfx").child("death").attribute("path").as_string(""));
+	path_attack_fx.create(node.child("sfx").child("attack").attribute("path").as_string(""));
 	//=============================================
 
 	return true;
@@ -81,12 +82,13 @@ bool j1Player::Start()
 	tex_player = App->tex->Load(path_tex_player.GetString());
 	death_splash = App->tex->Load(path_death_splash.GetString());
 
-	id_death_sfx = App->audio->LoadFx(path_death_sfx.GetString());
+	id_death_fx = App->audio->LoadFx(path_death_fx.GetString());
 	fx_jump1 = App->audio->LoadFx(path_jump_fx1.GetString());
 	fx_jump2 = App->audio->LoadFx(path_jump_fx2.GetString());
 	fx_jump3 = App->audio->LoadFx(path_jump_fx3.GetString());
 	fx_jump4 = App->audio->LoadFx(path_jump_fx4.GetString());
 	fx_jump5 = App->audio->LoadFx(path_jump_fx5.GetString());
+	fx_attack = App->audio->LoadFx(path_attack_fx.GetString());
 
 	return true;
 }
@@ -150,7 +152,7 @@ bool j1Player::PreUpdate()
 		attack = true;
 		attack_tremble = true;
 		collider->type = COLLIDER_ATTACK;
-
+		App->audio->PlayFx(fx_attack);
 		//Add sfx attack
 		//if kill enemy, auto jump
 		//Floor dust 
@@ -279,6 +281,13 @@ bool j1Player::PostUpdate()
 		frame = death_anim.GetLastFrame();
 		texture = death_splash;
 		flip_x = false;
+
+		if (!dead_fx)
+		{
+			App->audio->PlayFx(id_death_fx);
+			dead_fx = true;
+		}
+
 		break;
 	default:
 		break;
@@ -305,6 +314,7 @@ bool j1Player::Reset( fPoint pos)
 	velocity.y = 0;
 	acceleration.x = 0;
 	acceleration.y = 0;
+	dead_fx = false;
 	current_state = State::jumping;
 
 	if (collider != nullptr && collider->type != COLLIDER_GOD)
@@ -501,7 +511,6 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 
 			break;
 		case COLLIDER_DEATH:
-			App->audio->PlayFx(id_death_sfx);
 			current_state = State::dead;
 			collider->type = COLLIDER_NONE;
 			break;

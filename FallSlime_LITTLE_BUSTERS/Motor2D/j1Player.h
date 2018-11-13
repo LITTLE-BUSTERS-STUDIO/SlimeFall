@@ -90,6 +90,7 @@ public:
 	bool              check_fall = false;
 	SDL_Rect          rect_collider;
 	bool              flip_x = false;
+	bool			  dead_fx = false;
 
 	//Abilities================================
 	bool              gummy_jump = false;
@@ -110,13 +111,15 @@ public:
 	p2SString         path_jump_fx3;
 	p2SString         path_jump_fx4;
 	p2SString         path_jump_fx5;
-	p2SString         path_death_sfx;
+	p2SString         path_death_fx;
+	p2SString         path_attack_fx;
 	uint fx_jump1;
 	uint fx_jump2;
 	uint fx_jump3;
 	uint fx_jump4;
 	uint fx_jump5;
-	uint id_death_sfx;
+	uint id_death_fx;
+	uint fx_attack;
 	//=========================================
 };
 
