@@ -148,6 +148,7 @@ bool j1Player::PreUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN && current_state == State::jumping && attack == false)
 	{
 		attack = true;
+		attack_tremble = true;
 		//Add sfx attack
 		//Little tremble
 		//if kill enemy, auto gummyjump
@@ -416,6 +417,8 @@ bool j1Player::Save(pugi::xml_node& node) const
 	case COLLIDER_TYPE::COLLIDER_GOD:
 		collider_string.create("collider_god");
 		break;
+	default:
+		break;
 	}
 
 	state_node.append_attribute("collider_type") = collider_string.GetString();
@@ -485,7 +488,10 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 				check_fall = true;
 				on_ground = true;
 				break;
+			default:
+				break;
 			}
+
 			collider->SetPos(position.x - collider->rect.w / 2, position.y - collider->rect.h / 2);
 			ground_detector->SetPos(position.x - collider->rect.w / 2, position.y );
 			break;
@@ -496,7 +502,8 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 			break;
 		case COLLIDER_NEXT_LEVEL:
 			App->current_level->NextPhase();
-		
+			break;
+		default:
 			break;
 		}
 	}

@@ -81,6 +81,7 @@ public:
 	float speed_attack;
 	bool  apply_jump_speed = false;
 	bool  apply_attack = false;
+	bool  attack_tremble = false;
 
 	//Collision================================
 	Collider         *collider = nullptr;

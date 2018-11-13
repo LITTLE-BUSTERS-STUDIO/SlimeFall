@@ -6,6 +6,7 @@
 #include "j1Player.h"
 #include "Level_1.h"
 #include "j1Input.h"
+#include "j1Map.h"
 
 j1Render::j1Render() : j1Module()
 {
@@ -60,6 +61,7 @@ bool j1Render::Awake(pugi::xml_node& config)
 
 	margin = config.child("debug_border_margin").attribute("value").as_int(0);
 	smooth_speed = config.child("smooth_speed").attribute("value").as_uint(0U);
+	tremble = config.child("tremble").attribute("value").as_uint(0U);
 
 	return ret;
 }
@@ -129,6 +131,8 @@ bool j1Render::Update(float dt)
 	//Camera_x hit screen---------------------------------------
 	if (free_camera_x)
 	{
+		phase1_width = App->map->data.width * App->map->data.tile_width * App->win->GetScale(); //It shold be 2600 but it's not.
+
 	    if (camera.x <= 0)
 		{
 			camera.x = 0;
@@ -155,12 +159,13 @@ bool j1Render::Update(float dt)
 	//Camera_y hit screen---------------------------------------
 	if (free_camera_y)
 	{
+		phase1_high = App->map->data.height * App->map->data.tile_height *  App->win->GetScale(); //It shold be 1000 but it's not.
+
 		if (camera.y < 0) 
 		{
 			camera.y = 0;
 			free_camera_y = false;
 		}
-
 		else if (camera.y + camera.h > phase1_high)
 		{
 			camera.y = phase1_high - camera.h;
@@ -177,7 +182,23 @@ bool j1Render::Update(float dt)
 		camera_position.y += (-player_position.y - App->render->camera.y) / smooth_speed;
 		camera.y = camera_position.y;
 	}
-		
+	
+	//Camera tremble
+	if (App->player->attack_tremble)
+	{
+		if (index_tremble == 0)
+			camera.x += tremble;
+		else if (index_tremble == 1)
+			camera.x -= tremble;
+		else if (index_tremble == 2)
+			camera.x += tremble;
+		else if (index_tremble > 2)
+		{
+			App->player->attack_tremble = false;
+			index_tremble = 0;
+		}
+		index_tremble++;
+	}
 
 
 	return true;
