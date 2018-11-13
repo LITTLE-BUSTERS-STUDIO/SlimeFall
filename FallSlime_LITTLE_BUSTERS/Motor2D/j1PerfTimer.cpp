@@ -10,27 +10,28 @@ uint64 j1PerfTimer::frequency = 0;
 // ---------------------------------------------
 j1PerfTimer::j1PerfTimer()
 {
-	
-	frequency = SDL_GetPerformanceFrequency(); // to get the count per second of the high resolution counter.
+	if (frequency == 0)
+		frequency = SDL_GetPerformanceFrequency();
+
 	Start();
 }
 
 // ---------------------------------------------
 void j1PerfTimer::Start()
 {
-	started_at = SDL_GetPerformanceCounter();  // to get the current value of the high resolution counter.
-}
-
-// ---------------------------------------------
-uint64 j1PerfTimer::ReadTicks() const
-{
-	return (SDL_GetPerformanceCounter() - started_at);
+	started_at = SDL_GetPerformanceCounter();
 }
 
 // ---------------------------------------------
 double j1PerfTimer::ReadMs() const
 {
-	return (double)(SDL_GetPerformanceCounter() - started_at) / (double)(frequency) * 1000.0;
+	return 1000.0 * (double(SDL_GetPerformanceCounter() - started_at) / double(frequency));
+}
+
+// ---------------------------------------------
+uint64 j1PerfTimer::ReadTicks() const
+{
+	return SDL_GetPerformanceCounter() - started_at;
 }
 
 
