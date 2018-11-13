@@ -12,7 +12,8 @@ enum class State
 {
 	jumping,
 	boucing,
-	dead
+	dead,
+	attack
 };
 
 enum class Direction: uint
@@ -99,11 +100,14 @@ public:
 	//-----------Textures-------------------
 	p2SString         path_tex_player;
 	p2SString         path_death_splash;
+	p2SString         path_attack_splash;
 	SDL_Texture      *tex_player = nullptr;
 	SDL_Texture      *death_splash = nullptr;
+	SDL_Texture      *attack_splash = nullptr;
 	//----------Animations-----------------
 	Animation         jumping_anim;
 	Animation         death_anim;
+	Animation         attack_anim;
 	//------------Sfx----------------------
 	p2SString         path_jump_fx1;
 	p2SString         path_jump_fx2;

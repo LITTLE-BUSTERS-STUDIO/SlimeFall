@@ -48,7 +48,8 @@
   <player>
     <textures>
       <jumping path ="textures/player_animation.png"/>
-      <death path ="textures/player_death_animation.png"/>
+      <death path ="textures/player_death.png"/>
+      <attack path ="textures/player_attack.png"/>
     </textures>
     <sfx>
       <death path ="audio/fx/death.wav"/>

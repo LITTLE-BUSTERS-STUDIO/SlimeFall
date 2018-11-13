@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.0" name="player_death_animation" tilewidth="80" tileheight="100" tilecount="3" columns="3">
- <image source="../../../../../../Doc/player_death.png" width="240" height="100"/>
+<tileset version="1.2" tiledversion="1.2.0" name="player_attack_animation" tilewidth="80" tileheight="100" tilecount="3" columns="3">
+ <image source="../../../../../../Doc/player_attack.png" width="240" height="100"/>
  <tile id="0">
   <properties>
-   <property name="green_splash" type="bool" value="false"/>
+   <property name="green_attack" type="bool" value="false"/>
   </properties>
   <animation>
    <frame tileid="0" duration="100"/>
@@ -11,7 +11,7 @@
  </tile>
  <tile id="1">
   <properties>
-   <property name="blue_splash" type="bool" value="false"/>
+   <property name="blue_attack" type="bool" value="false"/>
   </properties>
   <animation>
    <frame tileid="1" duration="240"/>
@@ -19,7 +19,7 @@
  </tile>
  <tile id="2">
   <properties>
-   <property name="pink_splash" type="bool" value="false"/>
+   <property name="pink_attack" type="bool" value="false"/>
   </properties>
   <animation>
    <frame tileid="2" duration="240"/>

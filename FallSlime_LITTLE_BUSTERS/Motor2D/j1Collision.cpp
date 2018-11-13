@@ -31,7 +31,7 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_PLAYER][COLLIDER_NEXT_LEVEL] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_GOD] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_DEATH] = true;
-	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_ATTACK] = false;
 
 
