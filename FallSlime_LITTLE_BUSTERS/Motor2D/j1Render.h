@@ -58,7 +58,7 @@ public:
 	bool	free_camera_y = true;
 	bool	debug_border = false;
 	bool	debug_middle = false;
-	bool	pathfinding_quads = false;
+	bool	draw_pathfinding = true;
 
 	//XML vars
 	int		zoom ;

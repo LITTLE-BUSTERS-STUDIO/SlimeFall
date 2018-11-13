@@ -115,7 +115,7 @@ bool j1Render::PreUpdate()
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
-		pathfinding_quads = !pathfinding_quads;
+		draw_pathfinding = !draw_pathfinding;
 	return true;
 }
 

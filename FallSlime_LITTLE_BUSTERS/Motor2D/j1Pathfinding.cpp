@@ -56,7 +56,7 @@ bool j1PathFinding::PreUpdate()
 
 bool j1PathFinding::PostUpdate()
 {
-	if (App->render->pathfinding_quads)
+	if (App->render->draw_pathfinding)
 	{
 		//  Draw Walkable map ----------------------------
 		for (int j = 0; j < height; ++j)
@@ -171,7 +171,7 @@ p2List_item<PathNode>* PathList::GetNodeLowestScore() const
 PathNode::PathNode() : g(-1), h(-1), pos(-1, -1), parent(NULL)
 {}
 
-PathNode::PathNode(float g, float h, const iPoint& pos, PathNode* parent) : g(g), h(h), pos(pos), parent(parent)
+PathNode::PathNode(int g, int h, const iPoint& pos, PathNode* parent) : g(g), h(h), pos(pos), parent(parent)
 {}
 
 PathNode::PathNode(const PathNode& node) : g(node.g), h(node.h), pos(node.pos), parent(node.parent)
@@ -184,61 +184,51 @@ uint PathNode::FindWalkableAdjacents(PathList& list_to_fill, iPoint destination)
 {
 	iPoint position;
 	iPoint offset;
-	fPoint distance;
-	fPoint destin(destination.x, destination.y);
-	
+
+	// west
+	offset.create(-1, 0);
+	position.create(this->pos.x + offset.x, this->pos.y + offset.y);
+	if (App->path_finding->IsWalkable(position))
+		list_to_fill.list.add(PathNode(this->g + 1, position.DistanceManhattan(destination), position, this));
+	// south
+	offset.create(0, 1);
+	position.create(this->pos.x + offset.x, this->pos.y + offset.y);
+	if (App->path_finding->IsWalkable(position))
+		list_to_fill.list.add(PathNode(this->g + 1, position.DistanceManhattan(destination), position, this));
+	// east
+	offset.create(1, 0);
+	position.create(this->pos.x + offset.x, this->pos.y + offset.y);
+	if (App->path_finding->IsWalkable(position))
+		list_to_fill.list.add(PathNode(this->g + 1, position.DistanceManhattan(destination), position, this));
+	// north
+	offset.create(0, -1);
+	position.create(this->pos.x + offset.x, this->pos.y + offset.y);
+	if (App->path_finding->IsWalkable(position))
+		list_to_fill.list.add(PathNode(this->g + 1, position.DistanceManhattan(destination), position, this));
+
 	// south-west 
 	offset.create(-1, 1);
 	position.create(this->pos.x + offset.x, this->pos.y + offset.y);
-	distance.create(position.x, position.y);
 	if (App->path_finding->IsWalkable(position))
-		list_to_fill.list.add(PathNode(this->g +1.5f, distance.DistanceTo(destin), position, this));
+		list_to_fill.list.add(PathNode(this->g + 2, position.DistanceManhattan(destination), position, this));
 
 	// south-est
 	offset.create(1, 1);
 	position.create(this->pos.x + offset.x, this->pos.y + offset.y);
-	distance.create(position.x, position.y);
 	if (App->path_finding->IsWalkable(position))
-		list_to_fill.list.add(PathNode(this->g + 1.5f, distance.DistanceTo(destin), position, this));
+		list_to_fill.list.add(PathNode(this->g + 2, position.DistanceManhattan(destination), position, this));
 
 	// north-east
 	offset.create(1, -1);
 	position.create(this->pos.x + offset.x, this->pos.y + offset.y);
-	distance.create(position.x, position.y);
 	if (App->path_finding->IsWalkable(position))
-		list_to_fill.list.add(PathNode(this->g +1.5f, distance.DistanceTo(destin), position, this));
+		list_to_fill.list.add(PathNode(this->g + 2, position.DistanceManhattan(destination), position, this));
 
 	// north-west
 	offset.create(-1, -1);
 	position.create(this->pos.x + offset.x, this->pos.y + offset.y);
-	distance.create(position.x, position.y);
 	if (App->path_finding->IsWalkable(position))
-		list_to_fill.list.add(PathNode(this->g + 1.5f, distance.DistanceTo(destin), position, this));
-	// west
-	offset.create(-1, 0);
-	position.create(this->pos.x + offset.x, this->pos.y + offset.y);
-	distance.create(position.x, position.y);
-	if (App->path_finding->IsWalkable(position))
-		list_to_fill.list.add(PathNode(this->g + 1.0f, distance.DistanceTo(destin), position, this));
-	// south
-	offset.create(0, 1);
-	position.create(this->pos.x + offset.x, this->pos.y + offset.y);
-	distance.create(position.x, position.y);
-	if (App->path_finding->IsWalkable(position))
-		list_to_fill.list.add(PathNode(this->g + 1.0f, distance.DistanceTo(destin), position, this));
-	// east
-	offset.create(1, 0);
-	position.create(this->pos.x + offset.x, this->pos.y + offset.y);
-	distance.create(position.x, position.y);
-	if (App->path_finding->IsWalkable(position))
-		list_to_fill.list.add(PathNode(this->g + 1.0f, distance.DistanceTo(destin), position, this));
-	// north
-	offset.create(0, -1);
-	position.create(this->pos.x + offset.x, this->pos.y + offset.y);
-	distance.create(position.x, position.y);
-	if (App->path_finding->IsWalkable(position))
-		list_to_fill.list.add(PathNode(this->g + 1.0f, distance.DistanceTo(destin), position, this));
-
+		list_to_fill.list.add(PathNode(this->g + 2, position.DistanceManhattan(destination), position, this));
 
 	return list_to_fill.list.count();
 }
@@ -277,7 +267,7 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 	PathList closed;
 
 	// Add the origin tile to open
-	PathNode origin_node(1, origin.DistanceTo(destination), origin, nullptr);
+	PathNode origin_node(1, origin.DistanceManhattan(destination), origin, nullptr);
 	opened.list.add(origin_node);
 
 	// Iterate while we have tile in the open list
@@ -295,7 +285,7 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 		{
 			// Backtrack to create the final path
 
-			for (PathNode* node = (PathNode*)closed.list.end ; node ; node = (PathNode*)node->parent)
+			for (PathNode* node = (PathNode*) closed.list.end ; node ; node = (PathNode*)node->parent)
 			{
 				last_path.PushBack(node->pos);
 			}
@@ -314,8 +304,7 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 			{
 				continue;
 			}
-
-			p2List_item<PathNode>*  found_node_opened = (p2List_item<PathNode>*) opened.Find(item->data.pos);
+			p2List_item<PathNode>* found_node_opened = (p2List_item<PathNode>*) opened.Find(item->data.pos);
 
 			if (found_node_opened != nullptr)
 			{

@@ -63,25 +63,25 @@ public:
 	bool OnCollision(Collider*, Collider*);
 
 	//Debug====================================
-	bool   god_mode = false;
+	bool				god_mode = false;
 
 	//Transform================================
-	fPoint position;
-	fPoint velocity;
-	fPoint acceleration;
-	State  current_state = State::jumping;
-	bool   reset = false;
+	fPoint				position;
+	fPoint				velocity;
+	fPoint				acceleration;
+	State				current_state = State::jumping;
+	bool			    reset = false;
 
 	//Physics==================================
-	float gravity;
-	float speed_air;
-	float speed_ground;
-	float speed_jump;
-	float speed_gummy_jump;
-	float speed_attack;
-	bool  apply_jump_speed = false;
-	bool  apply_attack = false;
-	bool  attack_tremble = false;
+	float		        gravity;
+	float				speed_air;
+	float				speed_ground;
+	float				speed_jump;
+	float				speed_gummy_jump;
+	float				speed_attack;
+	bool				apply_jump_speed = false;
+	bool				apply_attack = false;
+	bool				attack_tremble = false;
 
 	//Collision================================
 	Collider         *collider = nullptr;
@@ -90,7 +90,6 @@ public:
 	bool              check_fall = false;
 	SDL_Rect          rect_collider;
 	bool              flip_x = false;
-	bool			  dead_fx = false;
 
 	//Abilities================================
 	bool              gummy_jump = false;
@@ -113,13 +112,14 @@ public:
 	p2SString         path_jump_fx5;
 	p2SString         path_death_fx;
 	p2SString         path_attack_fx;
-	uint fx_jump1;
-	uint fx_jump2;
-	uint fx_jump3;
-	uint fx_jump4;
-	uint fx_jump5;
-	uint id_death_fx;
-	uint fx_attack;
+	uint			  fx_jump1;
+	uint			  fx_jump2;
+	uint			  fx_jump3;
+	uint			  fx_jump4;
+	uint			  fx_jump5;
+	uint		      id_death_fx;
+	bool			  dead_fx = false;
+	uint		      fx_attack;
 	//=========================================
 };
 

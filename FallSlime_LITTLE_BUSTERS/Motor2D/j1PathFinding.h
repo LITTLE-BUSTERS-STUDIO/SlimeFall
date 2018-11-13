@@ -70,7 +70,7 @@ struct PathNode
 {
 	// Convenient constructors
 	PathNode();
-	PathNode(float g, float h, const iPoint& pos, PathNode* parent);
+	PathNode(int g, int h, const iPoint& pos, PathNode* parent);
 	PathNode(const PathNode& node);
 
 	// Fills a list (PathList) of all valid adjacent pathnodes
@@ -81,8 +81,8 @@ struct PathNode
 	int CalculateF(const iPoint& destination);
 
 	// -----------
-	float	    g;
-	float		h;
+	int	    g;
+	int		h;
 	iPoint		pos;
 	PathNode*	parent; // needed to reconstruct the path in the end
 };
