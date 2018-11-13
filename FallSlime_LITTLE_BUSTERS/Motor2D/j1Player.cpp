@@ -61,7 +61,8 @@ bool  j1Player::Awake(pugi::xml_node& node )
 	path_jump_fx3.create(node.child("sfx").child("jump3").attribute("path").as_string(""));
 	path_jump_fx4.create(node.child("sfx").child("jump4").attribute("path").as_string(""));
 	path_jump_fx5.create(node.child("sfx").child("jump5").attribute("path").as_string(""));
-	path_death_sfx.create(node.child("sfx").child("death").attribute("path").as_string(""));
+	path_death_fx.create(node.child("sfx").child("death").attribute("path").as_string(""));
+	path_attack_fx.create(node.child("sfx").child("attack").attribute("path").as_string(""));
 	//=============================================
 
 	return true;
@@ -81,12 +82,13 @@ bool j1Player::Start()
 	tex_player = App->tex->Load(path_tex_player.GetString());
 	death_splash = App->tex->Load(path_death_splash.GetString());
 
-	id_death_sfx = App->audio->LoadFx(path_death_sfx.GetString());
+	id_death_fx = App->audio->LoadFx(path_death_fx.GetString());
 	fx_jump1 = App->audio->LoadFx(path_jump_fx1.GetString());
 	fx_jump2 = App->audio->LoadFx(path_jump_fx2.GetString());
 	fx_jump3 = App->audio->LoadFx(path_jump_fx3.GetString());
 	fx_jump4 = App->audio->LoadFx(path_jump_fx4.GetString());
 	fx_jump5 = App->audio->LoadFx(path_jump_fx5.GetString());
+	fx_attack = App->audio->LoadFx(path_attack_fx.GetString());
 
 	return true;
 }
@@ -101,13 +103,13 @@ bool j1Player::PreUpdate()
 		{
 			if (god_mode)
 			{
-				god_mode = false;
 				collider->type = COLLIDER_PLAYER;
+				god_mode = false;
 			}
 			else
 			{
-				god_mode = true;
 				collider->type = COLLIDER_GOD;
+				god_mode = true;
 			}
 		}
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE)
@@ -129,8 +131,7 @@ bool j1Player::PreUpdate()
 		else
 			velocity.x = 0;
 	}
-	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
-		App->fade_to_black->FadeToBlack(0.5F);
+
 	//Only if player is dead
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && current_state == State::dead)
 	{
@@ -149,10 +150,12 @@ bool j1Player::PreUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN && current_state == State::jumping && attack == false)
 	{
 		attack = true;
-		//Add sfx attack
-		//Little tremble
-		//if kill enemy, auto gummyjump
-		//Floor dust is trembled
+		attack_tremble = true;
+		collider->type = COLLIDER_ATTACK;
+		App->audio->PlayFx(fx_attack);
+		//if kill enemy, auto jump
+		//Floor dust 
+		
 	}
 
 	if (apply_jump_speed)
@@ -277,6 +280,13 @@ bool j1Player::PostUpdate()
 		frame = death_anim.GetLastFrame();
 		texture = death_splash;
 		flip_x = false;
+
+		if (!dead_fx)
+		{
+			App->audio->PlayFx(id_death_fx);
+			dead_fx = true;
+		}
+
 		break;
 	default:
 		break;
@@ -303,6 +313,7 @@ bool j1Player::Reset( fPoint pos)
 	velocity.y = 0;
 	acceleration.x = 0;
 	acceleration.y = 0;
+	dead_fx = false;
 	current_state = State::jumping;
 	jumping_anim.Reset();
 
@@ -418,6 +429,8 @@ bool j1Player::Save(pugi::xml_node& node) const
 	case COLLIDER_TYPE::COLLIDER_GOD:
 		collider_string.create("collider_god");
 		break;
+	default:
+		break;
 	}
 
 	state_node.append_attribute("collider_type") = collider_string.GetString();
@@ -487,19 +500,24 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 				check_fall = true;
 				on_ground = true;
 				break;
+			default:
+				break;
 			}
+
 			collider->SetPos(position.x - collider->rect.w / 2, position.y - collider->rect.h / 2);
 			ground_detector->SetPos(position.x - collider->rect.w / 2, position.y );
+
+			collider->type = COLLIDER_PLAYER;
+
 			break;
 		case COLLIDER_DEATH:
-			App->audio->PlayFx(id_death_sfx);
 			current_state = State::dead;
 			collider->type = COLLIDER_NONE;
 			break;
 		case COLLIDER_NEXT_LEVEL:
 			App->current_level->NextPhase();
-			App->fade_to_black->FadeToBlack(0.5f);
-		
+			break;
+		default:
 			break;
 		}
 	}

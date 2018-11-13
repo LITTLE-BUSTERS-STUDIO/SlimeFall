@@ -58,6 +58,7 @@ public:
 	bool	free_camera_y = true;
 	bool	debug_border = false;
 	bool	debug_middle = false;
+	bool	pathfinding_quads = false;
 
 	//XML vars
 	int		zoom ;
@@ -68,9 +69,13 @@ public:
 	int		phase2_high;
 	int		margin;
 
+	uint	smooth_speed;
+	uint	tremble;
+
 private:
-	fPoint camera_position = { 0,0 };
-	iPoint camera_flip = { 0,0 };
+	fPoint		camera_position = { 0,0 };
+	iPoint		camera_flip = { 0,0 };
+	uint		index_tremble = 0;
 
 };
 

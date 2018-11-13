@@ -56,29 +56,30 @@ bool j1PathFinding::PreUpdate()
 
 bool j1PathFinding::PostUpdate()
 {
-
-	//  Draw Walkable map ----------------------------
-	for (int j = 0 ; j < height ; ++j)
+	if (App->render->pathfinding_quads)
 	{
-		for (int i = 0; i < width; ++i)
+		//  Draw Walkable map ----------------------------
+		for (int j = 0; j < height; ++j)
 		{
-			if (!IsWalkable(iPoint(i, j)))
+			for (int i = 0; i < width; ++i)
 			{
-				App->render->DrawQuad({ i * 16, j * 16, 16, 16}, 255, 255 ,255, 100);
+				if (!IsWalkable(iPoint(i, j)))
+				{
+					App->render->DrawQuad({ i * 16, j * 16, 16, 16 }, 255, 255, 255, 100);
+				}
 			}
 		}
+
+		// Draw Final path ------------------------------
+
+		const p2DynArray<iPoint>* path = GetLastPath();
+
+		for (uint i = 0; i < path->Count(); ++i)
+		{
+			iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+			App->render->DrawQuad({ pos.x, pos.y ,16,16 }, 0, 0, 0, 200);
+		}
 	}
-
-	// Draw Final path ------------------------------
-
-	const p2DynArray<iPoint>* path = GetLastPath();
-
-	for (uint i = 0; i < path->Count(); ++i)
-	{
-		iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-		App->render->DrawQuad({ pos.x, pos.y ,16,16 }, 0, 0, 0, 200);
-	}
-
 	return true;
 }
 

@@ -13,6 +13,8 @@
     <level1_1 width="2600" high ="1000"/>
     <level1_2 width="2600" high ="1000"/>
     <debug_border_margin value="4"/>
+    <smooth_speed value="10"/>
+    <tremble value="8"/>
   </renderer>
   
   <audio>
@@ -55,6 +57,7 @@
       <jump3 path ="audio/fx/jump3.wav"/>
       <jump4 path ="audio/fx/jump4.wav"/>
       <jump5 path ="audio/fx/jump5.wav"/>
+      <attack path ="audio/fx/attack.wav"/>
     </sfx> 
     <collider width="20" height="20"/>
     <physics gravity ="0.3" speed_air ="2.5" speed_ground ="0" speed_jump ="7" speed_gummy_jump ="3" speed_attack="10" />
