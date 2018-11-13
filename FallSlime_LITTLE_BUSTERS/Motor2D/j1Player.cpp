@@ -101,13 +101,13 @@ bool j1Player::PreUpdate()
 		{
 			if (god_mode)
 			{
-				god_mode = false;
 				collider->type = COLLIDER_PLAYER;
+				god_mode = false;
 			}
 			else
 			{
-				god_mode = true;
 				collider->type = COLLIDER_GOD;
+				god_mode = true;
 			}
 		}
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE)
@@ -149,10 +149,12 @@ bool j1Player::PreUpdate()
 	{
 		attack = true;
 		attack_tremble = true;
+		collider->type = COLLIDER_ATTACK;
+
 		//Add sfx attack
-		//Little tremble
-		//if kill enemy, auto gummyjump
-		//Floor dust is trembled
+		//if kill enemy, auto jump
+		//Floor dust 
+		
 	}
 
 	if (apply_jump_speed)
@@ -494,6 +496,9 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 
 			collider->SetPos(position.x - collider->rect.w / 2, position.y - collider->rect.h / 2);
 			ground_detector->SetPos(position.x - collider->rect.w / 2, position.y );
+
+			collider->type = COLLIDER_PLAYER;
+
 			break;
 		case COLLIDER_DEATH:
 			App->audio->PlayFx(id_death_sfx);
