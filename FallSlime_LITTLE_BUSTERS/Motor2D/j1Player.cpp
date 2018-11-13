@@ -42,6 +42,7 @@ bool  j1Player::Awake(pugi::xml_node& node )
 	//----------Textures---------------------------
 	path_tex_player.create(node.child("textures").child("jumping").attribute("path").as_string(""));
 	path_death_splash.create(node.child("textures").child("death").attribute("path").as_string(""));
+	path_attack_splash.create(node.child("textures").child("attack").attribute("path").as_string(""));
 	//----------Animations-------------------------
 	pugi::xml_document jumping_an_doc;
 	pugi::xml_node jumping_an_node;
@@ -54,6 +55,12 @@ bool  j1Player::Awake(pugi::xml_node& node )
 	death_an_doc.load_file("animations/player_death_animation.xml");
 	death_an_node = death_an_doc.child("tileset");
 	death_anim.LoadAnimation(death_an_node, "pink_splash");
+
+	pugi::xml_document attack_an_doc;
+	pugi::xml_node attack_an_node;
+	attack_an_doc.load_file("animations/player_attack_animation.xml");
+	attack_an_node = attack_an_doc.child("tileset");
+	attack_anim.LoadAnimation(attack_an_node, "pink_attack");
 
 	//----------SFX--------------------------------
 	path_jump_fx1.create(node.child("sfx").child("jump1").attribute("path").as_string(""));
@@ -81,6 +88,7 @@ bool j1Player::Start()
 	
 	tex_player = App->tex->Load(path_tex_player.GetString());
 	death_splash = App->tex->Load(path_death_splash.GetString());
+	attack_splash = App->tex->Load(path_attack_splash.GetString());
 
 	id_death_fx = App->audio->LoadFx(path_death_fx.GetString());
 	fx_jump1 = App->audio->LoadFx(path_jump_fx1.GetString());
@@ -152,7 +160,9 @@ bool j1Player::PreUpdate()
 		attack = true;
 		attack_tremble = true;
 		collider->type = COLLIDER_ATTACK;
+		current_state = State::attack;
 		App->audio->PlayFx(fx_attack);
+		
 		//if kill enemy, auto jump
 		//Floor dust 
 		
@@ -212,7 +222,7 @@ bool j1Player::Update(float dt)
 		reset = false;
 	}
 
-	if (current_state != State::jumping)
+	if (current_state != State::jumping && current_state != State::attack)
 		return true;
 
 	//Basic God Mode movement 
@@ -263,6 +273,7 @@ bool j1Player::PostUpdate()
 		texture = tex_player;
 		apply_attack = true;
 		break;
+
 	case State::boucing:
 		if (jumping_anim.GetFrameNumber() > 9)
 		{
@@ -276,6 +287,7 @@ bool j1Player::PostUpdate()
 		frame = jumping_anim.GetCurrentFrame();
 		texture = tex_player;
 		break;
+
 	case State::dead:
 		frame = death_anim.GetLastFrame();
 		texture = death_splash;
@@ -286,12 +298,22 @@ bool j1Player::PostUpdate()
 			App->audio->PlayFx(id_death_fx);
 			dead_fx = true;
 		}
-
 		break;
+	case State::attack:
+		/*frame = jumping_anim.GetCurrentFrame();
+		texture = tex_player;*/
+
+		frame = attack_anim.GetCurrentFrame();
+		texture = attack_splash;
+		
+		if (on_ground)
+			current_state = State::jumping;
+		break;
+
 	default:
 		break;
 	}
-
+	
 	App->render->Blit(texture, position.x - frame.w/2 , position.y - frame.h / 2, &frame  , flip_x );
 	return true;
 }
@@ -300,9 +322,11 @@ bool j1Player::PostUpdate()
 bool j1Player::CleanUp()
 {
 	App->tex->UnLoad(tex_player);
+	App->tex->UnLoad(death_splash);
+	App->tex->UnLoad(attack_splash);
 	tex_player = nullptr;
-	//App->audio->UnLoadFx(test_fx);
-
+	death_splash = nullptr;
+	attack_splash = nullptr;
 	return true;
 }
 
@@ -505,9 +529,7 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 
 			collider->SetPos(position.x - collider->rect.w / 2, position.y - collider->rect.h / 2);
 			ground_detector->SetPos(position.x - collider->rect.w / 2, position.y );
-
 			collider->type = COLLIDER_PLAYER;
-
 			break;
 		case COLLIDER_DEATH:
 			current_state = State::dead;
@@ -515,6 +537,12 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 			break;
 		case COLLIDER_NEXT_LEVEL:
 			App->current_level->NextPhase();
+			break;
+		case COLLIDER_ENEMY:
+			if (current_state == State::attack)
+				break;
+			current_state = State::dead;
+			collider->type = COLLIDER_NONE;
 			break;
 		default:
 			break;

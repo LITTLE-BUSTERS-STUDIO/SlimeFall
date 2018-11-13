@@ -51,7 +51,7 @@ bool Enemies::PreUpdate()
 
 	for (p2List_item<Enemy*> *item = current_enemies.start; item; item = item->next)
 	{
-		// TODO: Despawn enemies 
+		// TODO: Despawn enemies
 	}
 
 	for (p2List_item<Enemy_Info> *item = enemies_info.start ; item ; item = item->next ) 
