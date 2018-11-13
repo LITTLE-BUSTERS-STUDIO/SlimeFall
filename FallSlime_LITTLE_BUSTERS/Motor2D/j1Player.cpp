@@ -339,6 +339,7 @@ bool j1Player::Reset( fPoint pos)
 	acceleration.y = 0;
 	dead_fx = false;
 	current_state = State::jumping;
+	jumping_anim.Reset();
 
 	if (collider != nullptr && collider->type != COLLIDER_GOD)
 	{
