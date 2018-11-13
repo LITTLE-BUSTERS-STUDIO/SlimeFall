@@ -45,6 +45,9 @@ public:
 	// Set background color
 	void SetBackgroundColor(SDL_Color color);
 
+	// Camera shake
+	bool j1Render::CameraTremble();
+
 public:
 
 	SDL_Renderer*	renderer;
@@ -73,7 +76,7 @@ public:
 	uint	tremble;
 
 private:
-	fPoint		camera_position = { 0,0 };
+	iPoint		camera_position = { 0,0 };
 	iPoint		camera_flip = { 0,0 };
 	uint		index_tremble = 0;
 

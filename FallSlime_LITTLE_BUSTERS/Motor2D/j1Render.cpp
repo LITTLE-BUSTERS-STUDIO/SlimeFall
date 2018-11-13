@@ -133,7 +133,7 @@ bool j1Render::Update(float dt)
 	//Camera_x hit screen---------------------------------------
 	if (free_camera_x)
 	{
-		phase1_width = App->map->data.width * App->map->data.tile_width * App->win->GetScale(); //It shold be 2600 but it's not.
+		phase1_width = App->map->data.width * App->map->data.tile_width * (int)App->win->GetScale(); //It shold be 2600 but it's not.
 
 	    if (camera.x <= 0)
 		{
@@ -147,13 +147,13 @@ bool j1Render::Update(float dt)
 			free_camera_x = false;
 		}
 	}
-	else if (App->win->GetScale() * player_position.x > camera.w / 2 && App->win->GetScale() *player_position.x < phase1_width - camera.w / 2)
+	else if ((int)App->win->GetScale() * (int)player_position.x > camera.w / 2 && (int)App->win->GetScale() *(int)player_position.x < phase1_width - camera.w / 2)
 		free_camera_x = true;
 
 	//Camera_x Follow Player
 	if (free_camera_x)
 	{
-		player_position.x = -(player_position.x * App->win->GetScale() - camera.w / 2);
+		player_position.x = -((int)player_position.x * (int)App->win->GetScale() - camera.w / 2);
 		camera_position.x += (-player_position.x - App->render->camera.x) / smooth_speed;
 		camera.x = camera_position.x;
 	}
@@ -161,7 +161,7 @@ bool j1Render::Update(float dt)
 	//Camera_y hit screen---------------------------------------
 	if (free_camera_y)
 	{
-		phase1_high = App->map->data.height * App->map->data.tile_height *  App->win->GetScale(); //It shold be 1000 but it's not.
+		phase1_high = App->map->data.height * App->map->data.tile_height *  (int)App->win->GetScale(); //It shold be 1000 but it's not.
 
 		if (camera.y < 0) 
 		{
@@ -174,35 +174,21 @@ bool j1Render::Update(float dt)
 			free_camera_y = false;
 		}
 	}
-	else if (App->win->GetScale() * player_position.y > camera.h / 2 && App->win->GetScale() * player_position.y < phase1_high - camera.h / 2)
+	else if ((int)App->win->GetScale() * (int)player_position.y > camera.h / 2 && (int)App->win->GetScale() * (int)player_position.y < phase1_high - camera.h / 2)
 		free_camera_y = true;
 
 	//Camera_y Follow Player
 	if (free_camera_y)
 	{
-		player_position.y = -(player_position.y * App->win->GetScale() - camera.h / 2);
+		player_position.y = -((int)player_position.y * (int)App->win->GetScale() - camera.h / 2);
 		camera_position.y += (-player_position.y - App->render->camera.y) / smooth_speed;
 		camera.y = camera_position.y;
 	}
-	
+	LOG("CAMERA Y: %d CAMERA X: %d", camera.y, camera.x);
 	//Camera tremble
 	if (App->player->attack_tremble)
-	{
-		if (index_tremble == 0)
-			camera.x += tremble;
-		else if (index_tremble == 1)
-			camera.x -= tremble;
-		else if (index_tremble == 2)
-			camera.x += tremble;
-		else if (index_tremble > 2)
-		{
-			App->player->attack_tremble = false;
-			index_tremble = 0;
-		}
-		index_tremble++;
-	}
-
-
+		CameraTremble();
+	
 	return true;
 }
 
@@ -278,6 +264,23 @@ bool j1Render::Save(pugi::xml_node& data) const
 void j1Render::SetBackgroundColor(SDL_Color color)
 {
 	background = color;
+}
+
+bool j1Render::CameraTremble()
+{
+	if (index_tremble == 0)
+		camera.x += tremble;
+	else if (index_tremble == 1)
+		camera.x -= tremble;
+	else if (index_tremble == 2)
+		camera.x += tremble;
+	else if (index_tremble > 2)
+	{
+		App->player->attack_tremble = false;
+		index_tremble = 0;
+	}
+	index_tremble++;
+	return false;
 }
 
 void j1Render::SetViewPort(const SDL_Rect& rect)
