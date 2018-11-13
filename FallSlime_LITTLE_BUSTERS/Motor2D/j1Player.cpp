@@ -153,7 +153,6 @@ bool j1Player::PreUpdate()
 		attack_tremble = true;
 		collider->type = COLLIDER_ATTACK;
 		App->audio->PlayFx(fx_attack);
-		//Add sfx attack
 		//if kill enemy, auto jump
 		//Floor dust 
 		
