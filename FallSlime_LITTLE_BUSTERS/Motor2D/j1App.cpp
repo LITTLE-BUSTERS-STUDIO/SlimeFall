@@ -208,7 +208,7 @@ void j1App::FinishUpdate()
 	if (!App->render->vsync && framerate_cap != 0) 
 	{
 		
-	float frame_cap_ms = 1000.0f/ framerate_cap;
+	float frame_cap_ms = 1000.0F/ framerate_cap;
 
 		if (frame_cap_ms > last_frame_ms)
 		{
@@ -217,11 +217,14 @@ void j1App::FinishUpdate()
 	}
 
 
-	// Assigment 3 Title ===================================================
+	// Assigment 2 Title ===================================================
 	static char title[256];
-	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %lu ",
-		avg_fps, last_frame_ms, frames_on_last_update, dt, seconds_since_startup, frame_count);
-	App->win->SetTitle(title);
+	if(apply_cap_frames)
+		sprintf_s(title, 256, "Slime Fall     Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %lu Framerate Cap: ON", avg_fps, last_frame_ms, frames_on_last_update, dt, seconds_since_startup, frame_count);
+	else
+		sprintf_s(title, 256, "Slime Fall     Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %lu Framerate Cap: OFF", avg_fps, last_frame_ms, frames_on_last_update, dt, seconds_since_startup, frame_count);
+
+		App->win->SetTitle(title);
 
 }
 

@@ -128,6 +128,10 @@ private:
 	uint64					frame_count = 0;
 	int					    framerate_cap = 0;
 	float                   dt = 0.0f;
+public:
+
+	bool					apply_cap_frames = true;
+
 };
 
 extern j1App* App;

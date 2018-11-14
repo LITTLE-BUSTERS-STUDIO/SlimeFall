@@ -22,7 +22,7 @@
     <volume_music default="40"/>
     <volume_sfx default ="40"/>
     <max_volume value="100"/>
-    <mute value="true"/>
+    <mute value="false"/>
   </audio>
   
   <input>
