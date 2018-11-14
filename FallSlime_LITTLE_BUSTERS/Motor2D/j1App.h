@@ -20,6 +20,7 @@ class j1Player;
 class j1FadeToBlack;
 class Enemies;
 class j1PathFinding;
+class j1Timer;
 
 class j1App
 {
@@ -95,6 +96,7 @@ public:
 	j1FadeToBlack*		fade_to_black;
 	j1PathFinding*      path_finding;
 	Enemies *           enemies;
+	j1Timer *           timer;
 
 
 	// Levels

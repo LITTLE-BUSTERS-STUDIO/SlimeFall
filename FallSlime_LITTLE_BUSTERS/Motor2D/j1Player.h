@@ -63,6 +63,8 @@ public:
 	// Called by collision module
 	bool OnCollision(Collider*, Collider*);
 
+	//Gameplay 
+	bool Invulnerability(float);
 	//Debug====================================
 	bool				god_mode = false;
 
@@ -82,7 +84,9 @@ public:
 	float				speed_attack;
 	bool				apply_jump_speed = false;
 	bool				apply_attack = false;
+	bool				apply_invulnerability = false;
 	bool				attack_tremble = false;
+	bool				timer = true;
 
 	//Collision================================
 	Collider         *collider = nullptr;

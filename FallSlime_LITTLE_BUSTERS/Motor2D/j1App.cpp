@@ -15,6 +15,7 @@
 #include "j1FadeToBlack.h"
 #include "Enemies.h"
 #include "j1PathFinding.h"
+#include "j1Timer.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -34,6 +35,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	fade_to_black = new j1FadeToBlack();
 	enemies = new Enemies();
 	path_finding = new j1PathFinding();
+	timer = new j1Timer();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp

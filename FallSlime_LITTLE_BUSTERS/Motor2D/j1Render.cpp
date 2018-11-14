@@ -184,7 +184,7 @@ bool j1Render::Update(float dt)
 		camera_position.y += (-player_position.y - App->render->camera.y) / smooth_speed;
 		camera.y = camera_position.y;
 	}
-	LOG("CAMERA Y: %d CAMERA X: %d", camera.y, camera.x);
+
 	//Camera tremble
 	if (App->player->attack_tremble)
 		CameraTremble();

@@ -13,6 +13,7 @@
 #include <math.h>
 #include "j1FadeToBlack.h"
 #include "Enemies.h"
+#include "j1Timer.h"
 
 j1Player::j1Player() 
 {
@@ -163,28 +164,42 @@ bool j1Player::PreUpdate()
 		collider->type = COLLIDER_ATTACK;
 		current_state = State::attack;
 		App->audio->PlayFx(fx_attack);
-		
-		//if kill enemy, auto jump
-		//Floor dust 
+		//TODO floor dust 
 		
 	}
 
+	//Physics applied
 	if (apply_jump_speed)
 	{
-		velocity.y = -speed_jump - gummy_jump * speed_gummy_jump;
+		velocity.y = -speed_jump - (int)gummy_jump * speed_gummy_jump;
 		on_ground = false;
 		check_fall = false;
 		apply_jump_speed = false;
 		gummy_jump = false;
 		
 	}
+
 	if (apply_attack)
 	{
-		velocity.y += attack * speed_attack;
+		velocity.y += (int)attack * speed_attack;
 		attack = false;
 		apply_attack = false;
 	}
 
+	if (apply_invulnerability)
+	{
+		if (timer)
+			App->timer->Start();
+		
+		if (Invulnerability(0.3F))
+			apply_invulnerability = false;
+		else
+			timer = false;
+
+		
+	}
+
+	//Random Jump Fx
 	if (on_ground && current_state == State::jumping)
 	{
 		current_state = State::boucing;
@@ -538,12 +553,17 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 			App->current_level->NextPhase();
 			break;
 		case COLLIDER_ENEMY:
+
 			if (current_state == State::attack)
+			{
+				on_ground = true;
+				apply_invulnerability = true;
 				break;
-				
+			}
 			current_state = State::dead;
 			collider->type = COLLIDER_NONE;
 			break;
+
 		default:
 			break;
 		}
@@ -554,4 +574,20 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 	}
 
 	return ret;
+}
+
+bool j1Player::Invulnerability(float time)
+{
+	if (App->timer->ReadSec() > time)
+	{
+		collider->type = COLLIDER_PLAYER;
+		timer = true;
+		return true;
+	}
+	else
+		collider->type = COLLIDER_GOD;
+
+	LOG("%f", App->timer->ReadSec());
+
+	return false;
 }
