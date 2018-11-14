@@ -6,6 +6,46 @@
 
 struct SDL_Texture;
 struct Collider;
+class Properties;
+struct Entity_Info;
+
+class Properties
+{
+public:
+	Properties() {}
+	~Properties() {}
+
+	p2SString            name;
+	SDL_Rect             collider_rect;
+	SDL_Rect             spawn_rect;
+};
+
+
+class Entity_Info
+{
+public:
+	p2SString            name;
+	iPoint               position;
+	Properties           properties;
+	bool                 spawned = false;
+
+	Entity_Info() {}
+
+	Entity_Info(iPoint spawn_position, Properties properties)
+	{
+		position = spawn_position;
+		name = properties.name;
+
+		this->properties.spawn_rect = properties.spawn_rect;
+		this->properties.spawn_rect.x = spawn_position.x - properties.spawn_rect.w / 2;
+		this->properties.spawn_rect.y = spawn_position.y - properties.spawn_rect.h / 2;
+
+		this->properties.collider_rect = properties.collider_rect;
+		this->properties.collider_rect.x = spawn_position.x - properties.collider_rect.w / 2;
+		this->properties.collider_rect.y = spawn_position.y - properties.collider_rect.h / 2;
+	}
+};
+
 
 enum class EntityType 
 {
@@ -18,7 +58,7 @@ enum class EntityType
 class Entity
 {
 public:
-	Entity(iPoint position, SDL_Rect collider_rect);
+	Entity(iPoint position, Entity_Info info);
 	virtual ~Entity();
 
 	virtual bool HandleInput() { return true; };

@@ -10,18 +10,6 @@
 // Enemies Headers =======================
 class  Entity;
 class  Entity_Info;
-
-class Properties
-{
-public:
-	Properties() {}
-	~Properties() {}
-
-	p2SString            name;
-	SDL_Rect             collider_rect;
-	SDL_Rect             spawn_rect;
-};
-
 class Properties;
 
 class  EntityManager : public j1Module
@@ -50,6 +38,12 @@ public:
 
 	bool OnCollision(Collider*, Collider*);
 
+	bool Reset(fPoint pos);
+
+	//bool ResetAll();
+
+	//bool ResetEntity (Entity * entity);
+
 	// Player =========================================
 
 
@@ -57,11 +51,7 @@ public:
 
 	bool LoadEnemiesInfo(pugi::xml_node& node);
 
-	bool Reset(fPoint pos);
-
-
-
-//private:
+private:
 
 	bool SpawnEnemy(const Entity_Info& info);
 
@@ -82,51 +72,5 @@ private:
 	//p2List<Object_Properties>   objects_properties;
 
 };
-
-class Properties;
-
-class Entity_Info
-{
-public:
-	iPoint               position;
-	p2SString            name;
-	SDL_Rect             collider_rect;
-	SDL_Rect             spawn_rect;
-	bool                 spawned = false;
-
-	Entity_Info() {}
-	Entity_Info(iPoint spawn_position, Properties properties)
-	{
-		position = spawn_position;
-		name = properties.name;
-		spawn_rect = properties.spawn_rect;
-		spawn_rect.x = spawn_position.x - spawn_rect.w / 2;
-		spawn_rect.y = spawn_position.y - spawn_rect.h / 2;
-
-		collider_rect = properties.collider_rect;
-		collider_rect.x = spawn_position.x - collider_rect.w / 2;
-		collider_rect.y = spawn_position.y - collider_rect.h / 2;
-	}
-};
-
-
-
-//class Enemy_Properties : public Properties
-//{
-//
-//};
-//
-//class Player_Properties : public Properties
-//{
-//
-//};
-//
-//class Object_Properties : public Properties
-//{
-//
-//};
-
-
-
 
 #endif // __Enemies_H__
