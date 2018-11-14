@@ -7,7 +7,7 @@
   </app>
   
   <renderer>
-    <vsync value="true"/>
+    <vsync value="false"/>
     <debug zoom="1" max_zoom="4"/>
     <blit margin="30"/>
     <level1_1 width="2600" high ="1000"/>

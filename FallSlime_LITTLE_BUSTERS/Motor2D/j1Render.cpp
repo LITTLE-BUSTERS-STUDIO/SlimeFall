@@ -186,8 +186,8 @@ bool j1Render::Update(float dt)
 	}
 
 	//Camera tremble
-	/*if (App->player->attack_tremble)      CHECK TO DELETE
-		CameraTremble();*/
+	if (App->player->attack_tremble)      
+		CameraTremble();
 	
 	return true;
 }

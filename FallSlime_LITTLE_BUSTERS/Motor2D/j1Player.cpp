@@ -159,9 +159,7 @@ bool j1Player::PreUpdate()
 	//Only if player is jumping
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN && current_state == State::jumping && attack == false)
 	{
-		attack = true;
-		//attack_tremble = true;    CHECK TO DELETE
-		App->render->CameraTremble();
+		attack = true; 
 		collider->type = COLLIDER_ATTACK;
 		current_state = State::attack;
 		App->audio->PlayFx(fx_attack);
@@ -556,6 +554,7 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 			{
 				on_ground = true;
 				apply_invulnerability = true;
+				attack_tremble = true;
 				break;
 			}
 			current_state = State::dead;
