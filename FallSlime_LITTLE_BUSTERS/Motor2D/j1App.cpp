@@ -178,7 +178,6 @@ void j1App::PrepareUpdate()
 {
 	frame_count++;
 	last_sec_frame_count++;
-	perf_frame_time.Start();
 	dt = frame_time.ReadSec();
 	frame_time.Start();
 }
@@ -209,21 +208,12 @@ void j1App::FinishUpdate()
 	if (!App->render->vsync && framerate_cap != 0) 
 	{
 		
-		float frame_cap_ms = 1000/ framerate_cap;
+	float frame_cap_ms = 1000.0f/ framerate_cap;
 
 		if (frame_cap_ms > last_frame_ms)
 		{
 			SDL_Delay(frame_cap_ms - last_frame_ms);
 		}
-		else
-		{
-			/*SDL_Delay(frame_cap_ms - last_frame_ms % (int)frame_cap_ms);*/
-			frame_cap_ms = last_frame_ms;
-			SDL_Delay(frame_cap_ms - last_frame_ms);
-		}
-
-		LOG(" We waited for %f milliseconds and got back in %f" ,frame_cap_ms,(float) perf_frame_time.ReadMs());
-
 	}
 
 
