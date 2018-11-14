@@ -304,7 +304,12 @@ bool j1Player::PostUpdate()
 		frame = death_anim.GetLastFrame();
 		texture = death_splash;
 		flip_x = false;
-
+		if (god_mode)
+		{
+			collider->type = COLLIDER_PLAYER;
+			god_mode = false;
+		}
+			
 		if (!dead_fx)
 		{
 			App->audio->PlayFx(id_death_fx);
@@ -389,6 +394,10 @@ bool j1Player::Load(pugi::xml_node& node)
 	{
 		current_state = State::dead;
 	}
+	else if (state_string == "attack")
+	{
+		current_state = State::attack;
+	}
 
 	p2SString collider_string(node.child("state").attribute("collider_type").as_string(""));
 
@@ -403,6 +412,10 @@ bool j1Player::Load(pugi::xml_node& node)
 	else if (collider_string == "collider_god")
 	{
 		collider->type = COLLIDER_TYPE::COLLIDER_GOD;
+	}
+	else if (collider_string == "collider_attack")
+	{
+		collider->type = COLLIDER_TYPE::COLLIDER_ATTACK;
 	}
 
 	return ret;
@@ -444,6 +457,9 @@ bool j1Player::Save(pugi::xml_node& node) const
 	case State::dead:
 		state_string.create("dying");
 		break;
+	case State::attack:
+		state_string.create("attack");
+		break;
 	default:
 		break;
 	}
@@ -461,6 +477,9 @@ bool j1Player::Save(pugi::xml_node& node) const
 		break;
 	case COLLIDER_TYPE::COLLIDER_GOD:
 		collider_string.create("collider_god");
+		break;
+	case COLLIDER_TYPE::COLLIDER_ATTACK:
+		collider_string.create("collider_attack");
 		break;
 	default:
 		break;
@@ -589,6 +608,6 @@ bool j1Player::Invulnerability(float time)
 	}
 	else
 		collider->type = COLLIDER_GOD;
-
+	
 	return apply_timer = false;
 }
