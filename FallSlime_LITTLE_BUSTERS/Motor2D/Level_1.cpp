@@ -61,8 +61,6 @@ bool Level_1::Start()
 		parallax[i].rect_parallax.w = background_width;
 		parallax[i].rect_parallax.h = background_high;
 	}
-
-	/*App->enemies->SpawnEnemy(iPoint(10, 10) , Enemy_Type ::Test));*/ //TODO: Delete TEST
 	return true;
 }
 
@@ -96,13 +94,14 @@ bool Level_1::PostUpdate()
 	bool ret = true;
 
 	// Blit background--------------------------------------
-	for (uint i = 0; i < max_background_layers; i++)
-	{
-		if (i < 4) App->render->Blit(background_parallax, 0, backgorund_startpos, &parallax[i].rect_parallax, false, parallax_speed_1);
-		else if (i == 4) App->render->Blit(background_parallax, 0, backgorund_startpos, &parallax[i].rect_parallax, false, parallax_speed_3);
-		else if (i > 4) App->render->Blit(background_parallax, 0, backgorund_startpos, &parallax[i].rect_parallax, false, parallax_speed_2);
-	}
-	App->map->Draw();
+	//for (uint i = 0; i < max_background_layers; i++)
+	//{
+	//	if (i < 4) App->render->Blit(background_parallax, 0, backgorund_startpos, &parallax[i].rect_parallax, false, parallax_speed_1);
+	//	else if (i == 4) App->render->Blit(background_parallax, 0, backgorund_startpos, &parallax[i].rect_parallax, false, parallax_speed_3);
+	//	else if (i > 4) App->render->Blit(background_parallax, 0, backgorund_startpos, &parallax[i].rect_parallax, false, parallax_speed_2);
+	//}
+
+	//App->map->Draw();
 
 	return ret;
 }

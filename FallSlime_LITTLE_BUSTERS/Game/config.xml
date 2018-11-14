@@ -23,7 +23,7 @@
     <volume_sfx default ="40"/>
     <max_volume value="100"/>
     <mute value="true"/>
-  </audio>
+  </audio>º
   
   <input>
     <max_keys value="300"/>
