@@ -185,7 +185,8 @@ bool j1Render::Update(float dt)
 		camera.y = camera_position.y;
 	}
 
-	if (App->player->attack_tremble)
+	//Camera tremble
+	if (App->player->attack_tremble)      
 		CameraTremble();
 	
 	return true;
