@@ -42,7 +42,7 @@ bool EntityManager::Awake(pugi::xml_node& node)
 bool EntityManager::Start()
 {
 	LOG("Loading Entity Manager");
-	/*sprites = App->tex->Load("textures/enemies.png");*/
+
 	return true;
 }
 
@@ -50,9 +50,7 @@ bool EntityManager::CleanUp()
 {
 	LOG("Freeing all entities");
 
-	/*App->tex->UnLoad(sprites);*/
-
-	// Remove all enemies
+	// Remove all entities ======================================
 	p2List_item<Entity*>* item = entities.start;
 
 	while (item != NULL)
@@ -62,7 +60,7 @@ bool EntityManager::CleanUp()
 	}
 	entities.clear();
 
-	// Remove all enemies info
+	// Remove all entities info =================================
 	entities.clear();
 
 	return true;
@@ -88,8 +86,8 @@ bool EntityManager::PreUpdate()
 
 		int x = item->data.position.x;
 		int y = item->data.position.y;
-		int w = item->data.spawn_rect.w;
-		int h = item->data.spawn_rect.h;
+		int w = item->data.properties.spawn_rect.w;
+		int h = item->data.properties.spawn_rect.h;
 
 		if (((camera.x / scale < x + w) && (x < (camera.x + camera.w) / scale)
 			&& (camera.y / scale < y + h) && (y < (camera.y + camera.h) / scale)))
@@ -143,7 +141,7 @@ bool EntityManager::SpawnEnemy(const Entity_Info& info)
 
 	if (info.name == "test") 
 	{
-		enemy = new Enemy_Test( info.position, info.collider_rect);
+		enemy = new Enemy_Test( info.position, info);
 	}
 	
 	entities.add(enemy);

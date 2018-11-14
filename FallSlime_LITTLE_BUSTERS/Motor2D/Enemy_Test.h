@@ -5,11 +5,15 @@
 
 struct SDL_Texture;
 struct Collider;
+struct Entity_Info;
+
+
+
 
 class Enemy_Test: public Entity
 {
 public:
-	Enemy_Test(iPoint position, SDL_Rect collider_rect);
+	Enemy_Test(iPoint position, Entity_Info info);
 
 	bool Move(float dt) ;
 	bool Draw(SDL_Texture* sprites) ;
