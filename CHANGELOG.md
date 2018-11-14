@@ -1,3 +1,22 @@
+# *CHANGELOG* [1.2]  2018-11-14
+
+### Summarized
+
+* Implement Pathfinding A* and camera is now smooth. 
+
+### Added
+
+* Invulnerability function
+* Attack sprite
+* Fx attack
+* F8 to enable pathfinding view
+* Fade to black
+* Pathfinding A*
+* Camera follow is now smooth
+* Camera Tremble when player kill an enemy
+* Special Attack mechanic
+* God Mode free flying
+
 # *CHANGELOG* [1.1]  2018-10-14
 
 ### Summarized
@@ -8,7 +27,6 @@
 
 * New icon
 * Level 2 colliders
-
 
 # *CHANGELOG* [1.0]  2018-10-14
 
