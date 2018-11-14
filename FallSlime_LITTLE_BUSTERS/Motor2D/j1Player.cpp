@@ -160,7 +160,8 @@ bool j1Player::PreUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN && current_state == State::jumping && attack == false)
 	{
 		attack = true;
-		attack_tremble = true;
+		//attack_tremble = true;    CHECK TO DELETE
+		App->render->CameraTremble();
 		collider->type = COLLIDER_ATTACK;
 		current_state = State::attack;
 		App->audio->PlayFx(fx_attack);
@@ -188,15 +189,8 @@ bool j1Player::PreUpdate()
 
 	if (apply_invulnerability)
 	{
-		if (timer)
-			App->timer->Start();
-		
 		if (Invulnerability(0.3F))
 			apply_invulnerability = false;
-		else
-			timer = false;
-
-		
 	}
 
 	//Random Jump Fx
@@ -582,16 +576,20 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 
 bool j1Player::Invulnerability(float time)
 {
+	// Reset
+	if (apply_timer)
+		App->timer->Start();
+	
+
+	// Timer
 	if (App->timer->ReadSec() > time)
 	{
 		collider->type = COLLIDER_PLAYER;
-		timer = true;
+		apply_timer = true;
 		return true;
 	}
 	else
 		collider->type = COLLIDER_GOD;
 
-	LOG("%f", App->timer->ReadSec());
-
-	return false;
+	return apply_timer = false;
 }

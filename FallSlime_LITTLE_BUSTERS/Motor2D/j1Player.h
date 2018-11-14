@@ -86,7 +86,7 @@ public:
 	bool				apply_attack = false;
 	bool				apply_invulnerability = false;
 	bool				attack_tremble = false;
-	bool				timer = true;
+	bool				apply_timer = true;
 
 	//Collision================================
 	Collider         *collider = nullptr;
