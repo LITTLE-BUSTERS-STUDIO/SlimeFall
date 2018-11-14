@@ -117,7 +117,7 @@ private:
 	p2SString			load_game;
 	mutable p2SString	save_game;
 
-	j1PerfTimer				perf_timer;
+	j1PerfTimer				perf_frame_time;
 	j1Timer					frame_time;
 	j1Timer					start_time;
 	j1Timer					last_sec_frame_time;
