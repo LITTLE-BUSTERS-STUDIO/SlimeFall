@@ -73,25 +73,7 @@
   <properties>
    <property name="type" value="enemies"/>
   </properties>
-  <object id="395" name="test" x="212" y="166">
-   <point/>
-  </object>
-  <object id="396" name="test" x="172" y="144.667">
-   <point/>
-  </object>
-  <object id="397" name="test" x="209.667" y="247.667">
-   <point/>
-  </object>
-  <object id="398" name="test" x="256" y="196.667">
-   <point/>
-  </object>
-  <object id="399" name="test" x="335" y="369">
-   <point/>
-  </object>
-  <object id="400" name="test" x="221" y="401">
-   <point/>
-  </object>
-  <object id="401" name="test" x="338" y="120">
+  <object id="401" name="test" x="174" y="341">
    <point/>
   </object>
  </objectgroup>

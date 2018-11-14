@@ -58,7 +58,7 @@ bool j1Render::Awake(pugi::xml_node& config)
 	phase1_high = config.child("level1_1").attribute("high").as_int(0);
 	phase2_width = config.child("level1_2").attribute("width").as_int(0);
 	phase2_high = config.child("level1_2").attribute("high").as_int(0);
-
+	vsync = config.child("vsync").attribute("value").as_bool(true);
 	margin = config.child("debug_border_margin").attribute("value").as_int(0);
 	smooth_speed = config.child("smooth_speed").attribute("value").as_uint(0U);
 	tremble = config.child("tremble").attribute("value").as_uint(0U);

@@ -239,27 +239,30 @@ bool j1Player::Update(float dt)
 	}
 
 	if (current_state != State::jumping && current_state != State::attack)
+	{
 		return true;
-
-	//Basic God Mode movement 
+	}
+	
+	// God Mode movement =======================================
 	if (god_mode)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-			position.y -= speed_air;
+			position.y -= speed_air * dt;
 		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-			position.y += speed_air;
+			position.y += speed_air * dt;
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-			position.x -= speed_air;
+			position.x -= speed_air * dt;
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-			position.x += speed_air;
+			position.x += speed_air * dt;
 
 		velocity.x = velocity.y = 0;
 		return true;
 	}
 
+	// Normal movement =======================================+
 	if (on_ground == false)
 	{
-		acceleration.y = gravity;
+		acceleration.y = gravity * dt;
 		check_fall = false;
 	}
 	else
@@ -268,7 +271,8 @@ bool j1Player::Update(float dt)
 	}
 	
 	velocity += acceleration;
-	position += velocity;
+	position += velocity ;
+
 	collider->SetPos(position.x - rect_collider.w / 2, position.y - rect_collider.h / 2);
 	ground_detector->SetPos(position.x - rect_collider.w / 2, position.y);
 	on_ground = false;
