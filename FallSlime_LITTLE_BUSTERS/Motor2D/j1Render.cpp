@@ -133,8 +133,7 @@ bool j1Render::Update(float dt)
 	//Camera_x hit screen---------------------------------------
 	if (free_camera_x)
 	{
-		phase1_width = App->map->data.width * App->map->data.tile_width * (int)App->win->GetScale(); //It shold be 2600 but it's not.
-
+		
 	    if (camera.x <= 0)
 		{
 			camera.x = 0;
@@ -161,7 +160,7 @@ bool j1Render::Update(float dt)
 	//Camera_y hit screen---------------------------------------
 	if (free_camera_y)
 	{
-		phase1_high = App->map->data.height * App->map->data.tile_height *  (int)App->win->GetScale(); //It shold be 1000 but it's not.
+	
 
 		if (camera.y < 0) 
 		{

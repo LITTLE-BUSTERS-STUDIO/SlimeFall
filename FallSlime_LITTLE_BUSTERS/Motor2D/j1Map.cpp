@@ -40,14 +40,44 @@ void j1Map::Draw()
 
 	TileSet *tileset = nullptr;
 
-	for(p2List_item <MapLayer*>*layer = data.layers.start; layer; layer = layer->next)
+	iPoint left_top;
+
+		left_top = WorldToMap(cam.x / 2, cam.y / 2);
+
+		
+
+	//iPoint right_bottom = WorldToMap(  (cam.x + cam.w) /2 , (cam.y + cam.h) /2);
+
+	//for(p2List_item <MapLayer*>*layer = data.layers.start; layer; layer = layer->next)
+	//{
+	//	for (uint j = left_top.y ; j < right_bottom.y; j++)
+	//	{
+	//		for (uint i = left_top.x ; i < right_bottom.x ; i++)
+	//		{
+	//			uint id = layer->data->tiles [layer->data->Get(i, j)];
+	//			tileset = GetTileset(id);
+
+	//			iPoint map_pos = MapToWorld(i, j);
+	//			SDL_Rect rect = tileset->GetTileRect(id);
+
+
+	//			if (id == 0)
+	//			{
+	//				continue;
+	//			}
+	//			App->render->Blit(tileset->texture, map_pos.x, map_pos.y, &rect);
+	//		}
+	//	}
+	//}
+
+	// Normal draw ============================================================
+	for (p2List_item <MapLayer*>*layer = data.layers.start; layer; layer = layer->next)
 	{
 		for (uint j = 0; j < data.height; j++)
 		{
 			for (uint i = 0; i < data.width; i++)
 			{
-				uint id = layer->data->tiles [layer->data->Get(i, j)];
-
+				uint id = layer->data->tiles[layer->data->Get(i, j)];
 				tileset = GetTileset(id);
 
 				iPoint map_pos = MapToWorld(i, j);
