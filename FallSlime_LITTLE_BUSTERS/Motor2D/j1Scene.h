@@ -39,7 +39,7 @@ public:
 	virtual bool Update(float dt) { return true; }
 
 	// Called before all Updates
-	virtual bool PostUpdate() { return true; }
+	virtual bool PostUpdate(float dt) { return true; }
 
 	// Called before quitting
 	virtual bool CleanUp() { return true; }

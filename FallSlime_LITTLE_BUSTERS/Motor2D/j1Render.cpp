@@ -196,7 +196,7 @@ bool j1Render::Update(float dt)
 	return true;
 }
 
-bool j1Render::PostUpdate()
+bool j1Render::PostUpdate(float dt)
 {
 	//Quad borders DEBUG
 	int borderWidth = margin * zoom;

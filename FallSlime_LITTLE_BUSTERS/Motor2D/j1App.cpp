@@ -286,7 +286,7 @@ bool j1App::PostUpdate()
 			continue;
 		}
 
-		ret = item->data->PostUpdate();
+		ret = item->data->PostUpdate(dt);
 	}
 
 	return ret;

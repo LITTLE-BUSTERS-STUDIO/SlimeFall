@@ -272,7 +272,7 @@ bool j1Player::Update(float dt)
 }
 
 // Called each loop iteration
-bool j1Player::PostUpdate()
+bool j1Player::PostUpdate(float dt)
 {
 	SDL_Rect frame; 
 	SDL_Texture* texture = nullptr;
