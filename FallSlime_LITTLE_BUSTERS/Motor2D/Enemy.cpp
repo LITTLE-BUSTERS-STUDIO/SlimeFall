@@ -11,8 +11,9 @@ Enemy::Enemy(fPoint position, SDL_Rect collider_rect) : position( position), col
 
 Enemy::~Enemy()
 {
-	if (collider != nullptr)
-		collider->to_delete = true;
+	//TODO: Update delete colliders
+	//if (collider != nullptr)
+	//	collider->to_delete = true;
 }
 
 const Collider* Enemy::GetCollider() const

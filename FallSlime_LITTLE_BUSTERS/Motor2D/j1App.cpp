@@ -178,8 +178,10 @@ void j1App::PrepareUpdate()
 {
 	frame_count++;
 	last_sec_frame_count++;
+
 	dt = frame_time.ReadSec();
 	frame_time.Start();
+	perf_frame_time.Start();
 }
 
 // ---------------------------------------------
@@ -203,17 +205,19 @@ void j1App::FinishUpdate()
 	uint32 last_frame_ms = frame_time.Read();
 	uint32 frames_on_last_update = prev_last_sec_frame_count;
 
-	
+	if (last_frame_ms > 16.0f)
+		LOG("LAG MS : %u", last_frame_ms);
 
 	if (!App->render->vsync && framerate_cap != 0) 
 	{
-		
-	float frame_cap_ms = 1000.0F/ framerate_cap;
+
+	float frame_cap_ms = 1000.0f / (float)framerate_cap;
 
 		if (frame_cap_ms > last_frame_ms)
 		{
 			SDL_Delay(frame_cap_ms - last_frame_ms);
 		}
+
 	}
 
 
