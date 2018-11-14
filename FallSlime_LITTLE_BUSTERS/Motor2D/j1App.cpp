@@ -208,18 +208,6 @@ void j1App::FinishUpdate()
 	if (last_frame_ms > 16.0f)
 		LOG("LAG MS : %u", last_frame_ms);
 
-	if (!App->render->vsync && framerate_cap != 0) 
-	{
-
-	float frame_cap_ms = 1000.0f / (float)framerate_cap;
-
-		if (frame_cap_ms > last_frame_ms)
-		{
-			SDL_Delay(frame_cap_ms - last_frame_ms);
-		}
-
-	}
-
 
 	// Assigment 2 Title ===================================================
 	static char title[256];
@@ -228,7 +216,18 @@ void j1App::FinishUpdate()
 	else
 		sprintf_s(title, 256, "Slime Fall     Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %lu Framerate Cap: OFF", avg_fps, last_frame_ms, frames_on_last_update, dt, seconds_since_startup, frame_count);
 
-		App->win->SetTitle(title);
+	App->win->SetTitle(title);
+
+	if (!App->render->vsync && framerate_cap != 0 && apply_cap_frames)
+	{
+
+		float frame_cap_ms = 1000.0F / (float)framerate_cap;
+
+		if (frame_cap_ms > last_frame_ms)
+		{
+			SDL_Delay(frame_cap_ms - last_frame_ms);
+		}
+	}
 
 }
 
