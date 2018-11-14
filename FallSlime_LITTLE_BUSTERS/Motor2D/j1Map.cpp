@@ -41,43 +41,28 @@ void j1Map::Draw()
 	TileSet *tileset = nullptr;
 
 	iPoint left_top;
+	left_top = WorldToMap(cam.x / scale, cam.y / scale);
+	left_top += {-1 ,-1};
+	iPoint right_bottom;
+	right_bottom = WorldToMap((cam.x + cam.w) / scale, (cam.y + cam.h) / scale);
+	right_bottom += {1 , 1};
 
-		left_top = WorldToMap(cam.x / 2, cam.y / 2);
+	if (left_top.x < 0)
+		left_top.x = 0;
+	if (left_top.y < 0)
+		left_top.y = 0;
+	if (right_bottom.x > data.width)
+		right_bottom.x = data.width;
+	if (right_bottom.y > data.height)
+		right_bottom.y = data.height;
 
-		
-
-	//iPoint right_bottom = WorldToMap(  (cam.x + cam.w) /2 , (cam.y + cam.h) /2);
-
-	//for(p2List_item <MapLayer*>*layer = data.layers.start; layer; layer = layer->next)
-	//{
-	//	for (uint j = left_top.y ; j < right_bottom.y; j++)
-	//	{
-	//		for (uint i = left_top.x ; i < right_bottom.x ; i++)
-	//		{
-	//			uint id = layer->data->tiles [layer->data->Get(i, j)];
-	//			tileset = GetTileset(id);
-
-	//			iPoint map_pos = MapToWorld(i, j);
-	//			SDL_Rect rect = tileset->GetTileRect(id);
-
-
-	//			if (id == 0)
-	//			{
-	//				continue;
-	//			}
-	//			App->render->Blit(tileset->texture, map_pos.x, map_pos.y, &rect);
-	//		}
-	//	}
-	//}
-
-	// Normal draw ============================================================
-	for (p2List_item <MapLayer*>*layer = data.layers.start; layer; layer = layer->next)
+	for(p2List_item <MapLayer*>*layer = data.layers.start; layer; layer = layer->next)
 	{
-		for (uint j = 0; j < data.height; j++)
+		for (uint j = left_top.y ; j < right_bottom.y; j++)
 		{
-			for (uint i = 0; i < data.width; i++)
+			for (uint i = left_top.x ; i < right_bottom.x ; i++)
 			{
-				uint id = layer->data->tiles[layer->data->Get(i, j)];
+				uint id = layer->data->tiles [layer->data->Get(i, j)];
 				tileset = GetTileset(id);
 
 				iPoint map_pos = MapToWorld(i, j);
@@ -92,6 +77,29 @@ void j1Map::Draw()
 			}
 		}
 	}
+
+	// Normal draw ============================================================
+	//for (p2List_item <MapLayer*>*layer = data.layers.start; layer; layer = layer->next)
+	//{
+	//	for (uint j = 0; j < data.height; j++)
+	//	{
+	//		for (uint i = 0; i < data.width; i++)
+	//		{
+	//			uint id = layer->data->tiles[layer->data->Get(i, j)];
+	//			tileset = GetTileset(id);
+
+	//			iPoint map_pos = MapToWorld(i, j);
+	//			SDL_Rect rect = tileset->GetTileRect(id);
+
+
+	//			if (id == 0)
+	//			{
+	//				continue;
+	//			}
+	//			App->render->Blit(tileset->texture, map_pos.x, map_pos.y, &rect);
+	//		}
+	//	}
+	//}
 }
 
 inline uint MapLayer::Get(int x, int y) const
@@ -116,14 +124,14 @@ iPoint j1Map::WorldToMap(int x, int y) const
 
 	if (data.type == MAPTYPE_ORTHOGONAL)
 	{
-		ret.x = x / data.tile_width;
-		ret.y = y / data.tile_height;
+		ret.x = x / (int)data.tile_width;
+		ret.y = y / (int)data.tile_height;
 	}
 	else if (data.type == MAPTYPE_ISOMETRIC)
 	{
 
-		float half_width = data.tile_width * 0.5f;
-		float half_height = data.tile_height * 0.5f;
+		float half_width = (float)data.tile_width * 0.5f;
+		float half_height = (float)data.tile_height * 0.5f;
 		ret.x = int((x / half_width + y / half_height) / 2) - 1;
 		ret.y = int((y / half_height - (x / half_width)) / 2);
 	}

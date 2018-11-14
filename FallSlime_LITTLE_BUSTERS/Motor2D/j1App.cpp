@@ -48,7 +48,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(level_1);
 	// ==================================
 	AddModule(player);
-	//AddModule(entity_manager);
+	AddModule(entity_manager);
 	AddModule(path_finding);
 	// Colission needs to be always before render
 	AddModule(collision);
@@ -178,10 +178,8 @@ void j1App::PrepareUpdate()
 {
 	frame_count++;
 	last_sec_frame_count++;
-
 	dt = frame_time.ReadSec();
 	frame_time.Start();
-	perf_frame_time.Start();
 }
 
 // ---------------------------------------------

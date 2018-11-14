@@ -130,7 +130,7 @@ bool EntityManager::LoadEnemiesInfo(pugi::xml_node& node)
 		// Read information ------------------------------
 		p2SString name(object.attribute("name").as_string());
 		Properties properties = GetProperties(name);
-		entities_info.add(Entity_Info( iPoint (object.attribute("x").as_int(0), object.attribute("y").as_int(0)), properties));
+		entities_info.add( Entity_Info( iPoint (object.attribute("x").as_int(0), object.attribute("y").as_int(0)), properties));
 	}
 
 	return ret;
@@ -143,7 +143,7 @@ bool EntityManager::SpawnEnemy(const Entity_Info& info)
 
 	if (info.name == "test") 
 	{
-		/*enemy = new Enemy_Test( info.position, info.collider_rect);*/
+		enemy = new Enemy_Test( info.position, info.collider_rect);
 	}
 	
 	entities.add(enemy);
