@@ -205,7 +205,7 @@ void j1App::FinishUpdate()
 	uint32 last_frame_ms = frame_time.Read();
 	uint32 frames_on_last_update = prev_last_sec_frame_count;
 
-	if (last_frame_ms > 16.0f)
+	if (last_frame_ms > 16.0F)
 		LOG("LAG MS : %u", last_frame_ms);
 
 
