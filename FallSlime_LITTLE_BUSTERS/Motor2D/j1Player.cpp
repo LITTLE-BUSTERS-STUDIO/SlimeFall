@@ -596,11 +596,11 @@ bool j1Player::Invulnerability(float time)
 {
 	// Reset
 	if (apply_timer)
-		App->timer->Start();
+		App->timer.Start();
 	
 
 	// Timer
-	if (App->timer->ReadSec() > time)
+	if (App->timer.ReadSec() > time)
 	{
 		collider->type = COLLIDER_PLAYER;
 		apply_timer = true;
