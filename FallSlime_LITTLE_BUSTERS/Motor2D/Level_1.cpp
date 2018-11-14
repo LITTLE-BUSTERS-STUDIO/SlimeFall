@@ -8,7 +8,7 @@
 #include "j1Window.h"
 #include "j1Map.h"
 #include "Level_1.h"
-#include "Enemies.h"
+#include "EntityManager.h"
 
 Level_1::Level_1() : j1Scene()
 {

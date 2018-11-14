@@ -13,7 +13,7 @@
 #include "j1App.h"
 #include "Level_1.h"
 #include "j1FadeToBlack.h"
-#include "Enemies.h"
+#include "EntityManager.h"
 #include "j1PathFinding.h"
 #include "j1Timer.h"
 
@@ -33,7 +33,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	player = new j1Player();
 	level_1 = new Level_1();
 	fade_to_black = new j1FadeToBlack();
-	enemies = new Enemies();
+	entity_manager = new EntityManager();
 	path_finding = new j1PathFinding();
 	timer = new j1Timer();
 
@@ -48,7 +48,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(level_1);
 	// ==================================
 	AddModule(player);
-	AddModule(enemies);
+	//AddModule(entity_manager);
 	AddModule(path_finding);
 	// Colission needs to be always before render
 	AddModule(collision);

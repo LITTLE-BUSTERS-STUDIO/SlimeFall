@@ -12,7 +12,7 @@
 #include "j1Map.h"
 #include <math.h>
 #include "j1FadeToBlack.h"
-#include "Enemies.h"
+#include "EntityManager.h"
 #include "j1Timer.h"
 
 j1Player::j1Player() 

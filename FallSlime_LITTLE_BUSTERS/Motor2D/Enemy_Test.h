@@ -1,15 +1,15 @@
 #ifndef __Enemy_Test_H__
 #define __Enemy_Test_H__
 
-#include "Enemy.h"
+#include "Entity.h"
 
 struct SDL_Texture;
 struct Collider;
 
-class Enemy_Test: public Enemy
+class Enemy_Test: public Entity
 {
 public:
-	Enemy_Test(fPoint position, SDL_Rect collider_rect);
+	Enemy_Test(iPoint position, SDL_Rect collider_rect);
 
 	bool Move(float dt) ;
 	bool Draw(SDL_Texture* sprites) ;

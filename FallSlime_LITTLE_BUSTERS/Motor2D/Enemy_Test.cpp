@@ -1,6 +1,6 @@
 #include "Enemy_Test.h"
 
-Enemy_Test::Enemy_Test(fPoint position, SDL_Rect collider_rect) :Enemy( position, collider_rect)
+Enemy_Test::Enemy_Test(iPoint position, SDL_Rect collider_rect) :Entity( position, collider_rect)
 {
 
 }
