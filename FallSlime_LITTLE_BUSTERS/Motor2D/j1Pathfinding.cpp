@@ -54,7 +54,7 @@ bool j1PathFinding::PreUpdate()
 	return true;
 }
 
-bool j1PathFinding::PostUpdate()
+bool j1PathFinding::PostUpdate(float dt)
 {
 	if (App->render->draw_pathfinding)
 	{

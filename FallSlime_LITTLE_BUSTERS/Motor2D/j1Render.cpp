@@ -82,11 +82,6 @@ bool j1Render::Start()
 bool j1Render::PreUpdate()
 {
 	SDL_RenderClear(renderer);
-	//Change frame cap
-	if (App->input->keyboard[SDL_SCANCODE_F11] == KEY_DOWN)
-	{
-		App->apply_cap_frames = !App->apply_cap_frames;
-	}
 
 	//ZOOM
 	if (App->input->keyboard[SDL_SCANCODE_F3] == KEY_DOWN)
@@ -199,7 +194,7 @@ bool j1Render::Update(float dt)
 	return true;
 }
 
-bool j1Render::PostUpdate()
+bool j1Render::PostUpdate(float dt)
 {
 	//Quad borders DEBUG
 	int borderWidth = margin * zoom;

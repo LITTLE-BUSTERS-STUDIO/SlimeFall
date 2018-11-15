@@ -167,7 +167,7 @@ bool j1Collision::Update(float dt)
 }
 
 // Called before render is available
-bool j1Collision::PostUpdate()
+bool j1Collision::PostUpdate(float dt)
 {
 	if (App->input->keyboard[SDL_SCANCODE_F9] == KEY_DOWN) {
 		debug = !debug;

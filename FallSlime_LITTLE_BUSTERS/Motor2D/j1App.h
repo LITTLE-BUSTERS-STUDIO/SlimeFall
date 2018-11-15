@@ -20,7 +20,6 @@ class j1Player;
 class j1FadeToBlack;
 class EntityManager;
 class j1PathFinding;
-class j1Timer;
 
 class j1App
 {
@@ -116,7 +115,6 @@ private:
 	p2SString			load_game;
 	mutable p2SString	save_game;
 
-	j1PerfTimer				perf_frame_time; //Test 
 	j1Timer					frame_time;
 	j1Timer					start_time;
 	j1Timer					last_sec_frame_time;
@@ -129,6 +127,8 @@ private:
 public:
 
 	bool					apply_cap_frames = true;
+	j1Timer					timer;
+
 
 };
 

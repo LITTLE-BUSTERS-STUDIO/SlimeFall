@@ -88,16 +88,16 @@ bool Level_1::Update(float dt)
 }
 
 // Called each loop iteration
-bool Level_1::PostUpdate()
+bool Level_1::PostUpdate(float dt)
 {
 	bool ret = true;
 
 	// Blit background--------------------------------------
 	for (uint i = 0; i < max_background_layers; i++)
 	{
-		if (i < 4) App->render->Blit(background_parallax, 0, backgorund_startpos, &parallax[i].rect_parallax, false, parallax_speed_1);
-		else if (i == 4) App->render->Blit(background_parallax, 0, backgorund_startpos, &parallax[i].rect_parallax, false, parallax_speed_3);
-		else if (i > 4) App->render->Blit(background_parallax, 0, backgorund_startpos, &parallax[i].rect_parallax, false, parallax_speed_2);
+		if (i < 4) App->render->Blit(background_parallax, 0, backgorund_startpos, &parallax[i].rect_parallax, false, parallax_speed_1 * ceil(dt));
+		else if (i == 4) App->render->Blit(background_parallax, 0, backgorund_startpos, &parallax[i].rect_parallax, false, parallax_speed_3 * ceil(dt));
+		else if (i > 4) App->render->Blit(background_parallax, 0, backgorund_startpos, &parallax[i].rect_parallax, false, parallax_speed_2 * ceil(dt));
 	}
 
 	App->map->Draw();

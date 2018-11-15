@@ -166,7 +166,7 @@ bool EntityManager::Update(float dt)
 	return true;
 }
 
-bool EntityManager::PostUpdate()
+bool EntityManager::PostUpdate(float dt)
 {
 	for (p2List_item<Entity*> *item = entities.start; item; item = item->next)
 	{

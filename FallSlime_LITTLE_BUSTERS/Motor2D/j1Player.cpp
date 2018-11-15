@@ -122,13 +122,11 @@ bool j1Player::HandleInput()
 	//Only if player is jumping
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN && current_state == State::jumping && attack == false)
 	{
-		attack = true; 
+		attack = true;
 		collider->type = COLLIDER_ATTACK;
 		current_state = State::attack;
 		App->audio->PlayFx(fx_attack);
-
 	}
-
 	//Physics applied
 	if (apply_jump_speed)
 	{
@@ -137,7 +135,6 @@ bool j1Player::HandleInput()
 		check_fall = false;
 		apply_jump_speed = false;
 		gummy_jump = false;
-		
 	}
 
 	if (apply_attack)
@@ -147,11 +144,9 @@ bool j1Player::HandleInput()
 		apply_attack = false;
 	}
 
-	if (apply_invulnerability)
-	{
-		if (Invulnerability(0.3F))
-			apply_invulnerability = false;
-	}
+	if (apply_invulnerability && Invulnerability(0.3F))
+		apply_invulnerability = false;
+
 
 	//Random Jump Fx
 	if (on_ground && current_state == State::jumping)
@@ -185,6 +180,8 @@ bool j1Player::HandleInput()
 
 bool j1Player::Update(float dt)
 {
+	this->dt = dt;
+
 	if (reset) 
 	{
 		Reset(App->map->data.initial_position);
@@ -196,27 +193,30 @@ bool j1Player::Update(float dt)
 		return true;
 	}
 	
+
 	// God Mode movement =======================================
 	if (god_mode)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-			position.y -= speed_air * dt;
+
+			position.y -= speed_air * ceil(dt);
 		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-			position.y += speed_air * dt;
+			position.y += speed_air * ceil(dt);
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-			position.x -= speed_air * dt;
+			position.x -= speed_air * ceil(dt);
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-			position.x += speed_air * dt;
+			position.x += speed_air * ceil(dt);
 
 		velocity.x = velocity.y = 0;
 		return true;
 	}
-
+	
 	// Normal movement =======================================+
 	if (on_ground == false)
 	{
-		acceleration.y = gravity /** dt*/;
+		acceleration.y = gravity* ceil(dt); //Active dt
 		check_fall = false;
+		
 	}
 	else
 	{
@@ -228,17 +228,19 @@ bool j1Player::Update(float dt)
 
 	collider->SetPos(position.x - collider_rect.w / 2, position.y - collider_rect.h / 2);
 	ground_detector->SetPos(position.x - collider_rect.w / 2, position.y);
+
 	on_ground = false;
 
 	return true;
 }
 
 // Called each loop iteration
+
 bool j1Player::Draw()
 {
 	SDL_Rect frame; 
 	SDL_Texture* texture = nullptr;
-	jumping_anim.speed = 0.7f;
+	jumping_anim.speed = 0.7F;
 
 	switch ((State)current_state)
 	{
@@ -254,11 +256,11 @@ bool j1Player::Draw()
 			current_state = State::jumping;
 			apply_jump_speed = true;
 			jumping_anim.Reset();
-			frame = jumping_anim.GetCurrentFrame();
+			frame = jumping_anim.GetCurrentFrame(dt);
 			texture = tex_player;
 			break;
 		}
-		frame = jumping_anim.GetCurrentFrame();
+		frame = jumping_anim.GetCurrentFrame(dt);
 		texture = tex_player;
 		break;
 
@@ -279,7 +281,7 @@ bool j1Player::Draw()
 		}
 		break;
 	case State::attack:
-		frame = attack_anim.GetCurrentFrame();
+		frame = attack_anim.GetCurrentFrame(dt);
 		texture = attack_splash;
 		
 		if (on_ground)
@@ -287,7 +289,7 @@ bool j1Player::Draw()
 		break;
 	}
 	
-	App->render->Blit(texture, position.x - frame.w/2 , position.y - frame.h / 2, &frame  , flip_x );
+	App->render->Blit(texture, (int)position.x - frame.w/2 , (int)position.y - frame.h / 2, &frame  , flip_x );
 	return true;
 }
 
@@ -515,8 +517,8 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 				break;
 			}
 
-			collider->SetPos(position.x - collider->rect.w / 2, position.y - collider->rect.h / 2);
-			ground_detector->SetPos(position.x - collider->rect.w / 2, position.y );
+			collider->SetPos((int)position.x - collider->rect.w / 2, (int)position.y - collider->rect.h / 2);
+			ground_detector->SetPos((int)position.x - collider->rect.w / 2, (int)position.y );
 			collider->type = COLLIDER_PLAYER;
 			break;
 		case COLLIDER_DEATH:

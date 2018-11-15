@@ -35,12 +35,6 @@ public:
 
 	virtual ~j1Player();
 
-	void Init();
-
-	bool Awake(pugi::xml_node&);
-
-	bool Start();
-
 	bool HandleInput();
 
 	bool Update(float dt);
@@ -60,6 +54,7 @@ public:
 
 	// Methods ================================ 
 	bool Invulnerability(float);
+
 	bool Reset(fPoint pos);
 
 	//Debug====================================
@@ -70,7 +65,7 @@ public:
 	fPoint				acceleration;
 	State				current_state = State::jumping;
 	bool			    reset = false;
-
+	float               dt;
 	//Physics==================================
 	float		        gravity;
 	float				speed_air;

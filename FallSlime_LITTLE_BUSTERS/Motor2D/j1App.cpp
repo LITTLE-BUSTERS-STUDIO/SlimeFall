@@ -15,7 +15,6 @@
 #include "j1FadeToBlack.h"
 #include "EntityManager.h"
 #include "j1PathFinding.h"
-#include "j1Timer.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -169,9 +168,18 @@ pugi::xml_node j1App::LoadConfig(pugi::xml_document& config_file) const
 // ---------------------------------------------
 void j1App::PrepareUpdate()
 {
+
+	//Change frame cap
+	if (App->input->keyboard[SDL_SCANCODE_F11] == KEY_DOWN)
+		apply_cap_frames = !App->apply_cap_frames;
+
 	frame_count++;
 	last_sec_frame_count++;
 	dt = frame_time.ReadSec();
+
+	if (dt > (float)framerate_cap / 1000)
+		dt = (float)framerate_cap / 1000;
+
 	frame_time.Start();
 }
 
@@ -201,13 +209,17 @@ void j1App::FinishUpdate()
 
 
 	// Assigment 2 Title ===================================================
-	static char title[256];
-	if(apply_cap_frames)
-		sprintf_s(title, 256, "Slime Fall     Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %lu Framerate Cap: ON", avg_fps, last_frame_ms, frames_on_last_update, dt, seconds_since_startup, frame_count);
-	else
-		sprintf_s(title, 256, "Slime Fall     Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %lu Framerate Cap: OFF", avg_fps, last_frame_ms, frames_on_last_update, dt, seconds_since_startup, frame_count);
+	static char title_info[256];
 
-	App->win->SetTitle(title);
+	p2SString FramerateCap;
+	if (apply_cap_frames)
+		FramerateCap = "ON";
+	else
+		FramerateCap = "OFF";
+
+	sprintf_s(title_info, 256, "Slime Fall || Framerate Cap: %s || Av.FPS: %.2f || Last Frame Ms: %02u || Last sec frames: %i || Last dt: %.3f || Time since startup: %.3f || Frame Count: %lu", FramerateCap.GetString(), avg_fps, last_frame_ms, frames_on_last_update, dt, seconds_since_startup, frame_count);
+
+	App->win->SetTitle(title_info);
 
 	if (!App->render->vsync && framerate_cap != 0 && apply_cap_frames)
 	{
@@ -216,10 +228,9 @@ void j1App::FinishUpdate()
 
 		if (frame_cap_ms > last_frame_ms)
 		{
-			SDL_Delay(frame_cap_ms - last_frame_ms);
+			SDL_Delay((int)frame_cap_ms - last_frame_ms);
 		}
 	}
-
 }
 
 // Call modules before each loop iteration
@@ -281,7 +292,7 @@ bool j1App::PostUpdate()
 			continue;
 		}
 
-		ret = item->data->PostUpdate();
+		ret = item->data->PostUpdate(dt);
 	}
 
 	return ret;
