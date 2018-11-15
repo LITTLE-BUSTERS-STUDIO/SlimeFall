@@ -199,6 +199,7 @@ bool j1Map::CleanUp()
 				item_3->data->colls[i] = nullptr;
 			}
 		}
+
 		item_3 = item_3->next;
 	}
 

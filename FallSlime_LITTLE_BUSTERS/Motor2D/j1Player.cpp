@@ -199,13 +199,13 @@ bool j1Player::Update(float dt)
 	if (god_mode)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-			position.y -= speed_air * ceil(dt);
+			position.y -= speed_air * dt;
 		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-			position.y += speed_air * ceil(dt);
+			position.y += speed_air *dt;
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-			position.x -= speed_air * ceil(dt);
+			position.x -= speed_air * dt;
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-			position.x += speed_air * ceil(dt);
+			position.x += speed_air *dt;
 
 		velocity.x = velocity.y = 0;
 		return true;
@@ -214,7 +214,7 @@ bool j1Player::Update(float dt)
 	// Normal movement =======================================+
 	if (on_ground == false)
 	{
-		acceleration.y = gravity* ceil(dt); //Active dt
+		acceleration.y = gravity*dt; //Active dt
 		check_fall = false;
 		
 	}

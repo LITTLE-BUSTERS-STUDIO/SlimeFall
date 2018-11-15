@@ -177,9 +177,6 @@ void j1App::PrepareUpdate()
 	last_sec_frame_count++;
 	dt = frame_time.ReadSec();
 
-	if (dt > (float)framerate_cap / 1000)
-		dt = (float)framerate_cap / 1000;
-
 	frame_time.Start();
 }
 
@@ -198,6 +195,7 @@ void j1App::FinishUpdate()
 		prev_last_sec_frame_count = last_sec_frame_count;
 		last_sec_frame_count = 0;
 	}
+
 
 	float avg_fps = (float)frame_count / start_time.ReadSec();
 	float seconds_since_startup = start_time.ReadSec();
