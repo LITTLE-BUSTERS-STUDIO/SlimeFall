@@ -178,8 +178,6 @@ void j1App::PrepareUpdate()
 
 	dt = perfect_frame_time.ReadSec();
 	perfect_frame_time.ReadMs();
-
-	LOG("%f", dt);
 	//frame_time.Start();
 	perfect_frame_time.Start();
 }
@@ -243,7 +241,8 @@ void j1App::FinishUpdate()
 		{
 			SDL_Delay((uint32)frame_cap_ms - last_frame_ms);
 		}
-
+		else
+			SDL_Delay(frame_cap_ms - (uint32)last_frame_ms % (uint32)frame_cap_ms);
 			
 	}
 }
