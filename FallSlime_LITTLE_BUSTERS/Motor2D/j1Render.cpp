@@ -27,30 +27,6 @@ bool j1Render::Awake(pugi::xml_node& config)
 {
 	LOG("Create SDL rendering context");
 	bool ret = true;
-	// load flags
-	Uint32 flags = SDL_RENDERER_ACCELERATED;
-
-	if(config.child("vsync").attribute("value").as_bool(true) == true)
-	{
-		flags |= SDL_RENDERER_PRESENTVSYNC;
-		LOG("Using vsync");
-	}
-
-	renderer = SDL_CreateRenderer(App->win->window, -1, flags);
-
-	if(renderer == NULL)
-	{
-		LOG("Could not create the renderer! SDL_Error: %s\n", SDL_GetError());
-		ret = false;
-	}
-	else
-	{
-
-		camera.w = App->win->screen_surface->w;
-		camera.h = App->win->screen_surface->h;
-		camera.x = 0;
-		camera.y = 0;
-	}
 
 	zoom = config.child("debug").attribute("zoom").as_uint(1u);
 	max_zoom = config.child("debug").attribute("max_zoom").as_uint(1u);
@@ -64,18 +40,44 @@ bool j1Render::Awake(pugi::xml_node& config)
 	smooth_speed = config.child("smooth_speed").attribute("value").as_uint(0U);
 	tremble = config.child("tremble").attribute("value").as_uint(0U);
 
+	// load flags
+	Uint32 flags = SDL_RENDERER_ACCELERATED;
+	if (vsync)
+	{
+		flags |= SDL_RENDERER_PRESENTVSYNC;
+		LOG("Using vsync");
+	}
+	renderer = SDL_CreateRenderer(App->win->window, -1, flags);
+
+	if (renderer == NULL)
+	{
+		LOG("Could not create the renderer! SDL_Error: %s\n", SDL_GetError());
+		ret = false;
+	}
+	else
+	{
+
+		camera.w = App->win->screen_surface->w;
+		camera.h = App->win->screen_surface->h;
+		camera.x = 0;
+		camera.y = 0;
+	}
+
 	return ret;
 }
 
 // Called before the first frame
 bool j1Render::Start()
 {
+
 	LOG("render start");
+	bool ret = true;
 	// back background
 	SetViewPort(camera);
 	SDL_RenderGetViewport(renderer, &viewport);
 
-	return true;
+
+	return ret;
 }
 
 // Called each loop iteration

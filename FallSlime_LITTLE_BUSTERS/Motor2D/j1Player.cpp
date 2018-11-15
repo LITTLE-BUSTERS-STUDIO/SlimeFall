@@ -126,6 +126,7 @@ bool j1Player::HandleInput()
 		collider->type = COLLIDER_ATTACK;
 		current_state = State::attack;
 		App->audio->PlayFx(fx_attack);
+
 	}
 	//Physics applied
 	if (apply_jump_speed)
@@ -198,7 +199,6 @@ bool j1Player::Update(float dt)
 	if (god_mode)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-
 			position.y -= speed_air * ceil(dt);
 		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 			position.y += speed_air * ceil(dt);
@@ -559,7 +559,6 @@ bool j1Player::Invulnerability(float time)
 	if (apply_timer)
 		timer_invulnerability.Start();
 	
-
 	// Timer
 	if (timer_invulnerability.ReadSec() > time)
 	{

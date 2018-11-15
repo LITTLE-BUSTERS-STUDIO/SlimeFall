@@ -171,7 +171,13 @@ void j1App::PrepareUpdate()
 
 	//Change frame cap
 	if (App->input->keyboard[SDL_SCANCODE_F11] == KEY_DOWN)
-		apply_cap_frames = !App->apply_cap_frames;
+		apply_cap_frames = !apply_cap_frames;
+
+	//Change frame cap
+	if (App->input->keyboard[SDL_SCANCODE_F] == KEY_DOWN)
+	{
+		App->render->vsync = !App->render->vsync;
+	}
 
 	frame_count++;
 	last_sec_frame_count++;
@@ -217,7 +223,14 @@ void j1App::FinishUpdate()
 	else
 		FramerateCap = "OFF";
 
-	sprintf_s(title_info, 256, "Slime Fall || Framerate Cap: %s || Av.FPS: %.2f || Last Frame Ms: %02u || Last sec frames: %i || Last dt: %.3f || Time since startup: %.3f || Frame Count: %lu", FramerateCap.GetString(), avg_fps, last_frame_ms, frames_on_last_update, dt, seconds_since_startup, frame_count);
+	p2SString VsyncCap;
+	if (App->render->vsync)
+		VsyncCap = "ON";
+	else
+		VsyncCap = "OFF";
+
+	sprintf_s(title_info, 256, "Slime Fall || Framerate Cap: %s || Vsync: %s || Av.FPS: %.2f || Last Frame Ms: %02u || Last sec frames: %i || Last dt: %.3f || Time since startup: %.3f || Frame Count: %lu", FramerateCap.GetString(), VsyncCap.GetString(), avg_fps, last_frame_ms, frames_on_last_update, dt, seconds_since_startup, frame_count);
+
 
 	App->win->SetTitle(title_info);
 
@@ -230,7 +243,11 @@ void j1App::FinishUpdate()
 		{
 			SDL_Delay((int)frame_cap_ms - last_frame_ms);
 		}
+		LOG("HELLO");
 	}
+	else
+		LOG("%d", App->render->vsync);
+
 }
 
 // Call modules before each loop iteration
