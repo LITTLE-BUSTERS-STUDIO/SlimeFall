@@ -175,9 +175,11 @@ void j1App::PrepareUpdate()
 
 	frame_count++;
 	last_sec_frame_count++;
-	dt = frame_time.ReadSec();
 
-	frame_time.Start();
+	dt = perfect_frame_time.ReadSec();
+	perfect_frame_time.ReadMs();
+	//frame_time.Start();
+	perfect_frame_time.Start();
 }
 
 // ---------------------------------------------
@@ -199,7 +201,7 @@ void j1App::FinishUpdate()
 
 	float avg_fps = (float)frame_count / start_time.ReadSec();
 	float seconds_since_startup = start_time.ReadSec();
-	uint32 last_frame_ms = frame_time.Read();
+	double last_frame_ms = perfect_frame_time.ReadMs();
 	uint32 frames_on_last_update = prev_last_sec_frame_count;
 
 	if (last_frame_ms > 16.0F)
@@ -221,7 +223,11 @@ void j1App::FinishUpdate()
 	else
 		VsyncCap = "OFF";
 
-	sprintf_s(title_info, 256, "Slime Fall || Framerate Cap: %s || Vsync: %s || FPS: %i || Av.FPS: %.2f || Last Frame Ms: %02u || Last dt: %.3f || Time since startup: %.3f || Frame Count: %lu", FramerateCap.GetString(), VsyncCap.GetString(), frames_on_last_update, avg_fps, last_frame_ms, dt, seconds_since_startup, frame_count);
+	sprintf_s(
+		title_info,
+		256,
+		"Slime Fall || Framerate Cap: %s || Vsync: %s || FPS: %i || Av.FPS: %.2f || Last Frame Ms: %0.1f || Last dt: %.3f || Time since startup: %.3f || Frame Count: %lu", 
+		FramerateCap.GetString(), VsyncCap.GetString(), frames_on_last_update, avg_fps, last_frame_ms, dt, seconds_since_startup, frame_count);
 
 
 	App->win->SetTitle(title_info);
@@ -229,17 +235,16 @@ void j1App::FinishUpdate()
 	if (!App->render->vsync && framerate_cap != 0 && apply_cap_frames)
 	{
 
-		float frame_cap_ms = 1000.0F / (float)framerate_cap;
+		uint32 frame_cap_ms = 1000.0F / (float)framerate_cap;
 
 		if (frame_cap_ms > last_frame_ms)
 		{
-			SDL_Delay((int)frame_cap_ms - last_frame_ms);
+			SDL_Delay((uint32)frame_cap_ms - last_frame_ms);
 		}
-		/*LOG("HELLO");*/
+		else
+			SDL_Delay(frame_cap_ms - (uint32)last_frame_ms % (uint32)frame_cap_ms);
+			
 	}
-	//else
-	//	LOG("%d", App->render->vsync);
-
 }
 
 // Call modules before each loop iteration
@@ -436,4 +441,8 @@ bool j1App::SavegameNow() const
 	data.reset();
 	want_to_save = false;
 	return ret;
+}
+int j1App::GetFramerateCap() const
+{
+	return framerate_cap;
 }

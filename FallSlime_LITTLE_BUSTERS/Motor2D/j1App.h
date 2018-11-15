@@ -48,13 +48,20 @@ public:
 
 	// Exposing some properties for reading
 	int GetArgc() const;
+
 	const char* GetArgv(int index) const;
+
 	const char* GetTitle() const;
+
 	const char* GetOrganization() const;
 
 	void LoadGame();
+
 	void SaveGame() const;
+
 	void GetSaveGames(p2List<p2SString>& list_to_fill) const;
+
+	int GetFramerateCap() const;
 
 private:
 
@@ -78,7 +85,10 @@ private:
 
 	// Load / Save
 	bool LoadGameNow();
+
 	bool SavegameNow() const;
+
+
 
 public:
 
@@ -115,6 +125,7 @@ private:
 	p2SString			load_game;
 	mutable p2SString	save_game;
 
+	j1PerfTimer             perfect_frame_time;
 	j1Timer					frame_time;
 	j1Timer					start_time;
 	j1Timer					last_sec_frame_time;
@@ -122,7 +133,7 @@ private:
 	uint					prev_last_sec_frame_count = 0;
 	uint64					frame_count = 0;
 	int					    framerate_cap = 0;
-	float                   dt = 0.0f;
+	float                   dt = 0.00F;
 
 public:
 

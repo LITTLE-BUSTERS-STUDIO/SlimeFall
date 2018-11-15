@@ -34,4 +34,7 @@ uint64 j1PerfTimer::ReadTicks() const
 	return SDL_GetPerformanceCounter() - started_at;
 }
 
-
+float j1PerfTimer::ReadSec() const
+{
+	return (double(SDL_GetPerformanceCounter() - started_at) / double(frequency));
+}
