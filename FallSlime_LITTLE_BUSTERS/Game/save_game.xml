@@ -7,21 +7,16 @@
 		<volumes music="40" sfx="40" mute="true" />
 	</audio>
 	<map />
-	<FadeToBlack />
 	<level_1>
 		<phase current_phase="1" />
 	</level_1>
-	<player>
-		<position x="217" y="251.299988" />
-		<velocity x="0" y="5.30000162" />
-		<conditions apply_jump_speed="false" on_ground="false" check_fall="false" flip_x="false" gummy_jump="false" />
-		<state current_state="jumping" collider_type="collider_player" />
-	</player>
-	<enemies />
+	<entities />
+	<pathfinding />
 	<:anonymous />
+	<FadeToBlack />
 	<renderer>
-		<camera x="0" y="142" />
+		<camera x="0" y="0" />
 		<debug zoom="1" />
-		<conditions free_camera_x="false" free_camera_y="true" />
+		<conditions free_camera_x="false" free_camera_y="false" />
 	</renderer>
 </game_state>

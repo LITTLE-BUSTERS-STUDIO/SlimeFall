@@ -237,10 +237,10 @@ void j1App::FinishUpdate()
 		{
 			SDL_Delay((int)frame_cap_ms - last_frame_ms);
 		}
-		LOG("HELLO");
+		/*LOG("HELLO");*/
 	}
-	else
-		LOG("%d", App->render->vsync);
+	//else
+	//	LOG("%d", App->render->vsync);
 
 }
 
