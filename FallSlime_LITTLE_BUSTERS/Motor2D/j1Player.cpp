@@ -235,27 +235,29 @@ bool j1Player::Update(float dt)
 		return true;
 	}
 	
+
 	// God Mode movement =======================================
 	if (god_mode)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-			position.y -= speed_air /** dt*/;
+			position.y -= speed_air * ceil(dt);
 		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-			position.y += speed_air /** dt*/;
+			position.y += speed_air * ceil(dt);
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-			position.x -= speed_air /** dt*/;
+			position.x -= speed_air * ceil(dt);
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-			position.x += speed_air /** dt*/;
+			position.x += speed_air * ceil(dt);
 
 		velocity.x = velocity.y = 0;
 		return true;
 	}
-
+	
 	// Normal movement =======================================+
 	if (on_ground == false)
 	{
-		acceleration.y = gravity /** dt*/;
+		acceleration.y = gravity/** ceil(dt)*/; //Active dt
 		check_fall = false;
+		
 	}
 	else
 	{
@@ -276,7 +278,7 @@ bool j1Player::PostUpdate(float dt)
 {
 	SDL_Rect frame; 
 	SDL_Texture* texture = nullptr;
-	jumping_anim.speed = 0.7f;
+	jumping_anim.speed = 0.7F;
 
 	switch ((State)current_state)
 	{
@@ -292,11 +294,11 @@ bool j1Player::PostUpdate(float dt)
 			current_state = State::jumping;
 			apply_jump_speed = true;
 			jumping_anim.Reset();
-			frame = jumping_anim.GetCurrentFrame();
+			frame = jumping_anim.GetCurrentFrame(dt);
 			texture = tex_player;
 			break;
 		}
-		frame = jumping_anim.GetCurrentFrame();
+		frame = jumping_anim.GetCurrentFrame(dt);
 		texture = tex_player;
 		break;
 
@@ -317,7 +319,7 @@ bool j1Player::PostUpdate(float dt)
 		}
 		break;
 	case State::attack:
-		frame = attack_anim.GetCurrentFrame();
+		frame = attack_anim.GetCurrentFrame(dt);
 		texture = attack_splash;
 		
 		if (on_ground)
