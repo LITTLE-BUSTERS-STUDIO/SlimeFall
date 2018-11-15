@@ -177,6 +177,12 @@ void j1App::PrepareUpdate()
 	last_sec_frame_count++;
 
 	dt = perfect_frame_time.ReadSec();
+
+	if (dt > 1.0f / framerate_cap + 0.02f) 
+	{
+		dt = 1.0f / framerate_cap + 0.02f;
+	}
+
 	perfect_frame_time.ReadMs();
 	//frame_time.Start();
 	perfect_frame_time.Start();

@@ -28,7 +28,7 @@ j1Player::j1Player(fPoint pos, Entity_Info info) : Entity(pos, info)
 	speed_air = player_properties->speed_air;
 	speed_ground = player_properties->speed_ground;
 	speed_jump = player_properties->speed_jump;
-	speed_gummy_jump = player_properties->speed_jump;
+	speed_gummy_jump = player_properties->speed_gummy_jump;
 	speed_attack = player_properties->speed_attack;
 
 	// Colliders ------------------------------------------
@@ -132,11 +132,12 @@ bool j1Player::HandleInput()
 	if (apply_jump_speed)
 	{
 		velocity.y = -speed_jump - (float)gummy_jump * speed_gummy_jump;
-		on_ground = false;
+ 		on_ground = false;
 		check_fall = false;
 		apply_jump_speed = false;
 		gummy_jump = false;
 	}
+
 
 	if (apply_attack)
 	{
@@ -223,7 +224,7 @@ bool j1Player::Update(float dt)
 		acceleration.y = 0;
 	}
 	
-	velocity += acceleration;
+	velocity += {acceleration.x *dt, acceleration.y *dt};
 	position += {velocity.x * dt, velocity.y *dt} ;
 
 	collider->SetPos(position.x - collider_rect.w / 2, position.y - collider_rect.h / 2);
