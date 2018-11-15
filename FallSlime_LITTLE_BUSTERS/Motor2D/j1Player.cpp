@@ -131,7 +131,7 @@ bool j1Player::HandleInput()
 	//Physics applied
 	if (apply_jump_speed)
 	{
-		velocity.y = -speed_jump - (int)gummy_jump * speed_gummy_jump;
+		velocity.y = -speed_jump - (float)gummy_jump * speed_gummy_jump;
 		on_ground = false;
 		check_fall = false;
 		apply_jump_speed = false;
@@ -140,7 +140,7 @@ bool j1Player::HandleInput()
 
 	if (apply_attack)
 	{
-		velocity.y += (int)attack * speed_attack;
+		velocity.y += (float)attack * speed_attack;
 		attack = false;
 		apply_attack = false;
 	}
@@ -214,7 +214,7 @@ bool j1Player::Update(float dt)
 	// Normal movement =======================================+
 	if (on_ground == false)
 	{
-		acceleration.y = gravity*dt; //Active dt
+		acceleration.y = gravity; //Active dt
 		check_fall = false;
 		
 	}
@@ -224,7 +224,7 @@ bool j1Player::Update(float dt)
 	}
 	
 	velocity += acceleration;
-	position += velocity ;
+	position += {velocity.x * dt, velocity.y *dt} ;
 
 	collider->SetPos(position.x - collider_rect.w / 2, position.y - collider_rect.h / 2);
 	ground_detector->SetPos(position.x - collider_rect.w / 2, position.y);
@@ -240,7 +240,7 @@ bool j1Player::Draw()
 {
 	SDL_Rect frame; 
 	SDL_Texture* texture = nullptr;
-	jumping_anim.speed = 0.7F;
+	jumping_anim.speed = 43.75F;
 
 	switch ((State)current_state)
 	{

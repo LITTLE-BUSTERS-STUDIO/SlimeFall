@@ -26,5 +26,5 @@ uint32 j1Timer::Read() const
 // ---------------------------------------------
 float j1Timer::ReadSec() const
 {
-	return (float)(SDL_GetTicks() - started_at) / 1000.0f;
+	return (float)((float)SDL_GetTicks() - (float)started_at) / 1000.00000F;
 }
