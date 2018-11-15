@@ -15,8 +15,8 @@
 	<:anonymous />
 	<FadeToBlack />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="0" y="99" />
 		<debug zoom="1" />
-		<conditions free_camera_x="false" free_camera_y="false" />
+		<conditions free_camera_x="false" free_camera_y="true" />
 	</renderer>
 </game_state>
