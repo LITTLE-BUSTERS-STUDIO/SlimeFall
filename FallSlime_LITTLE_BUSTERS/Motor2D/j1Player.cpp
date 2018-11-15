@@ -48,9 +48,9 @@ j1Player::j1Player(fPoint pos, Entity_Info info) : Entity(pos, info)
 	attack_splash = App->tex->Load(player_properties->path_attack_splash.GetString());
 
 	// Animations ----------------------------------------
-	jumping_anim.LoadAnimation(player_properties->path_jumping_anim, "pink_slime"); // 00000000000000000000
-	death_anim.LoadAnimation(player_properties->path_death_anim, "pink_splash");  // 00000000000000000000
-	attack_anim.LoadAnimation(player_properties->path_attack_anim, "pink_attack"); // 00000000000000000000
+	jumping_anim.LoadAnimation(player_properties->path_jumping_anim, "pink_slime");
+	death_anim.LoadAnimation(player_properties->path_death_anim, "pink_splash");  
+	attack_anim.LoadAnimation(player_properties->path_attack_anim, "pink_attack"); 
 
 	// Sfx ----------------------------------------------
 	id_death_fx = App->audio->LoadFx(player_properties->path_death_fx.GetString());
@@ -129,21 +129,31 @@ bool j1Player::HandleInput()
 
 	}
 	//Physics applied
+
+	if (apply_attack)
+	{
+		if(is_gummy_jumping && attack)
+			velocity.y += ((float)attack * speed_attack) + speed_gummy_jump;
+
+		else
+			velocity.y += (float)attack * speed_attack;
+		attack = false;
+		apply_attack = false;		
+	}
 	if (apply_jump_speed)
 	{
 		velocity.y = -speed_jump - (float)gummy_jump * speed_gummy_jump;
+
+		if (gummy_jump)
+			is_gummy_jumping = true;
+
 		on_ground = false;
 		check_fall = false;
 		apply_jump_speed = false;
 		gummy_jump = false;
 	}
 
-	if (apply_attack)
-	{
-		velocity.y += (float)attack * speed_attack;
-		attack = false;
-		apply_attack = false;
-	}
+	
 
 	if (apply_invulnerability && Invulnerability(0.3F))
 		apply_invulnerability = false;
@@ -214,7 +224,7 @@ bool j1Player::Update(float dt)
 	// Normal movement =======================================+
 	if (on_ground == false)
 	{
-		acceleration.y = gravity; //Active dt
+		acceleration.y = gravity;
 		check_fall = false;
 		
 	}
@@ -248,6 +258,7 @@ bool j1Player::Draw()
 		frame = jumping_anim.GetLastFrame();
 		texture = tex_player;
 		apply_attack = true;
+
 		break;
 
 	case State::boucing:
@@ -255,6 +266,7 @@ bool j1Player::Draw()
 		{
 			current_state = State::jumping;
 			apply_jump_speed = true;
+			is_gummy_jumping = false;
 			jumping_anim.Reset();
 			frame = jumping_anim.GetCurrentFrame(dt);
 			texture = tex_player;

@@ -78,6 +78,7 @@ public:
 	bool				apply_invulnerability = false;
 	bool				attack_tremble = false;
 	bool				apply_timer = true;
+	bool				gummy_jumping = false;
 
 	// Collision================================
 	Collider         *ground_detector = nullptr;
