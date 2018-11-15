@@ -162,9 +162,7 @@ bool j1Player::PreUpdate()
 		attack = true; 
 		collider->type = COLLIDER_ATTACK;
 		current_state = State::attack;
-		App->audio->PlayFx(fx_attack);
-		//TODO floor dust 
-		
+		App->audio->PlayFx(fx_attack);		
 	}
 
 	//Physics applied
@@ -175,7 +173,6 @@ bool j1Player::PreUpdate()
 		check_fall = false;
 		apply_jump_speed = false;
 		gummy_jump = false;
-		
 	}
 
 	if (apply_attack)
@@ -185,11 +182,9 @@ bool j1Player::PreUpdate()
 		apply_attack = false;
 	}
 
-	if (apply_invulnerability)
-	{
-		if (Invulnerability(0.3F))
-			apply_invulnerability = false;
-	}
+	if (apply_invulnerability && Invulnerability(0.3F))
+		apply_invulnerability = false;
+
 
 	//Random Jump Fx
 	if (on_ground && current_state == State::jumping)
@@ -255,7 +250,7 @@ bool j1Player::Update(float dt)
 	// Normal movement =======================================+
 	if (on_ground == false)
 	{
-		acceleration.y = gravity/** ceil(dt)*/; //Active dt
+		acceleration.y = gravity* ceil(dt); //Active dt
 		check_fall = false;
 		
 	}
@@ -267,8 +262,8 @@ bool j1Player::Update(float dt)
 	velocity += acceleration;
 	position += velocity ;
 
-	collider->SetPos(position.x - rect_collider.w / 2, position.y - rect_collider.h / 2);
-	ground_detector->SetPos(position.x - rect_collider.w / 2, position.y);
+	collider->SetPos((int)position.x - rect_collider.w / 2, (int)position.y - rect_collider.h / 2);
+	ground_detector->SetPos((int)position.x - rect_collider.w / 2, (int)position.y);
 	on_ground = false;
 	return true;
 }
@@ -330,7 +325,7 @@ bool j1Player::PostUpdate(float dt)
 		break;
 	}
 	
-	App->render->Blit(texture, position.x - frame.w/2 , position.y - frame.h / 2, &frame  , flip_x );
+	App->render->Blit(texture, (int)position.x - frame.w/2 , (int)position.y - frame.h / 2, &frame  , flip_x );
 	return true;
 }
 
@@ -558,8 +553,8 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 				break;
 			}
 
-			collider->SetPos(position.x - collider->rect.w / 2, position.y - collider->rect.h / 2);
-			ground_detector->SetPos(position.x - collider->rect.w / 2, position.y );
+			collider->SetPos((int)position.x - collider->rect.w / 2, (int)position.y - collider->rect.h / 2);
+			ground_detector->SetPos((int)position.x - collider->rect.w / 2, (int)position.y );
 			collider->type = COLLIDER_PLAYER;
 			break;
 		case COLLIDER_DEATH:

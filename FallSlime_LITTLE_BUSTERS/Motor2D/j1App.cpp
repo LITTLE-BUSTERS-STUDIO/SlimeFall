@@ -215,7 +215,7 @@ void j1App::FinishUpdate()
 
 
 	// Assigment 2 Title ===================================================
-	static char title[256];
+	static char title_info[256];
 
 	p2SString FramerateCap;
 	if (apply_cap_frames)
@@ -223,9 +223,9 @@ void j1App::FinishUpdate()
 	else
 		FramerateCap = "OFF";
 
-	sprintf_s(title, 256, "Slime Fall || Framerate Cap: %s || Av.FPS: %.2f || Last Frame Ms: %02u || Last sec frames: %i || Last dt: %.3f || Time since startup: %.3f || Frame Count: %lu", FramerateCap.GetString(), avg_fps, last_frame_ms, frames_on_last_update, dt, seconds_since_startup, frame_count);
+	sprintf_s(title_info, 256, "Slime Fall || Framerate Cap: %s || Av.FPS: %.2f || Last Frame Ms: %02u || Last sec frames: %i || Last dt: %.3f || Time since startup: %.3f || Frame Count: %lu", FramerateCap.GetString(), avg_fps, last_frame_ms, frames_on_last_update, dt, seconds_since_startup, frame_count);
 
-	App->win->SetTitle(title);
+	App->win->SetTitle(title_info);
 
 	if (!App->render->vsync && framerate_cap != 0 && apply_cap_frames)
 	{
@@ -234,7 +234,7 @@ void j1App::FinishUpdate()
 
 		if (frame_cap_ms > last_frame_ms)
 		{
-			SDL_Delay(frame_cap_ms - last_frame_ms);
+			SDL_Delay((int)frame_cap_ms - last_frame_ms);
 		}
 	}
 }
