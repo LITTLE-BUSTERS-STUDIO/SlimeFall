@@ -289,7 +289,7 @@ bool j1Map::Load(const char* file_name)
 		// Enemies ----------------------------------------------
 		else if (type == "enemies")
 		{
-			App->entity_manager->LoadEnemiesInfo(object_group);
+			App->entity_manager->LoadEntitiesInfo(object_group);
 		}
 		// Initial position -------------------------------------
 		else if (type == "initial_position")

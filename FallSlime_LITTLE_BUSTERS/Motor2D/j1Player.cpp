@@ -13,100 +13,62 @@
 #include <math.h>
 #include "j1FadeToBlack.h"
 #include "EntityManager.h"
-#include "j1Timer.h"
 
-j1Player::j1Player() 
+
+j1Player::j1Player(fPoint pos, Entity_Info info) : Entity(pos, info)
 {
 	name.create("player");
-}
 
+	// Add components ===================================================================
+	Player_Properties* player_properties = (Player_Properties *)info.properties;
+	collider_rect = player_properties->collider_rect;
+
+	// Values ---------------------------------------------
+	gravity = player_properties->gravity;
+	speed_air = player_properties->speed_air;
+	speed_ground = player_properties->speed_ground;
+	speed_jump = player_properties->speed_jump;
+	speed_gummy_jump = player_properties->speed_jump;
+	speed_attack = player_properties->speed_attack;
+
+	// Colliders ------------------------------------------
+	ground_detector = App->collision->AddCollider(collider_rect, COLLIDER_PLAYER, App->entity_manager);
+
+	if (god_mode)
+		collider = App->collision->AddCollider(collider_rect, COLLIDER_GOD, App->entity_manager);
+	else
+		collider = App->collision->AddCollider(collider_rect, COLLIDER_PLAYER, App->entity_manager);
+
+	colliders.add(collider);
+	colliders.add(ground_detector);
+
+	// Textures ------------------------------------------
+	tex_player = App->tex->Load(player_properties->path_tex_player.GetString());
+	death_splash = App->tex->Load(player_properties->path_death_splash.GetString());
+	attack_splash = App->tex->Load(player_properties->path_attack_splash.GetString());
+
+	// Animations ----------------------------------------
+	jumping_anim.LoadAnimation(player_properties->path_jumping_anim, "pink_slime"); // 00000000000000000000
+	death_anim.LoadAnimation(player_properties->path_death_anim, "pink_splash");  // 00000000000000000000
+	attack_anim.LoadAnimation(player_properties->path_attack_anim, "pink_attack"); // 00000000000000000000
+
+	// Sfx ----------------------------------------------
+	id_death_fx = App->audio->LoadFx(player_properties->path_death_fx.GetString());
+	fx_jump1 = App->audio->LoadFx(player_properties->path_jump_fx1.GetString());
+	fx_jump2 = App->audio->LoadFx(player_properties->path_jump_fx2.GetString());
+	fx_jump3 = App->audio->LoadFx(player_properties->path_jump_fx3.GetString());
+	fx_jump4 = App->audio->LoadFx(player_properties->path_jump_fx4.GetString());
+	fx_jump5 = App->audio->LoadFx(player_properties->path_jump_fx5.GetString());
+	fx_attack = App->audio->LoadFx(player_properties->path_attack_fx.GetString());
+}
 
 j1Player::~j1Player()
 {
 
 }
 
-// Called before render is available
-bool  j1Player::Awake(pugi::xml_node& node )
+bool j1Player::HandleInput()
 {
-	//Values=======================================
-	rect_collider.w = node.child("collider").attribute("width").as_uint(0);
-	rect_collider.h = node.child("collider").attribute("height").as_uint(0);
-	gravity = node.child("physics").attribute("gravity").as_float(0);
-	speed_ground = node.child("physics").attribute("speed_ground").as_float(0);
-	speed_air = node.child("physics").attribute("speed_air").as_float(0);
-	speed_jump = node.child("physics").attribute("speed_jump").as_float(0);
-	speed_gummy_jump = node.child("physics").attribute("speed_gummy_jump").as_float(0);
-	speed_attack = node.child("physics").attribute("speed_attack").as_float(0);
-	god_mode = node.child("debug").attribute("god_mode").as_bool(false);
-
-	//Assets=======================================
-	//----------Textures---------------------------
-	path_tex_player.create(node.child("textures").child("jumping").attribute("path").as_string(""));
-	path_death_splash.create(node.child("textures").child("death").attribute("path").as_string(""));
-	path_attack_splash.create(node.child("textures").child("attack").attribute("path").as_string(""));
-	//----------Animations-------------------------
-	pugi::xml_document jumping_an_doc;
-	pugi::xml_node jumping_an_node;
-	jumping_an_doc.load_file("animations/player_animation.xml");
-	jumping_an_node = jumping_an_doc.child("tileset");
-	jumping_anim.LoadAnimation(jumping_an_node, "pink_slime");
-
-	pugi::xml_document death_an_doc;
-	pugi::xml_node death_an_node;
-	death_an_doc.load_file("animations/player_death_animation.xml");
-	death_an_node = death_an_doc.child("tileset");
-	death_anim.LoadAnimation(death_an_node, "pink_splash");
-
-	pugi::xml_document attack_an_doc;
-	pugi::xml_node attack_an_node;
-	attack_an_doc.load_file("animations/player_attack_animation.xml");
-	attack_an_node = attack_an_doc.child("tileset");
-	attack_anim.LoadAnimation(attack_an_node, "pink_attack");
-
-	//----------SFX--------------------------------
-	path_jump_fx1.create(node.child("sfx").child("jump1").attribute("path").as_string(""));
-	path_jump_fx2.create(node.child("sfx").child("jump2").attribute("path").as_string(""));
-	path_jump_fx3.create(node.child("sfx").child("jump3").attribute("path").as_string(""));
-	path_jump_fx4.create(node.child("sfx").child("jump4").attribute("path").as_string(""));
-	path_jump_fx5.create(node.child("sfx").child("jump5").attribute("path").as_string(""));
-	path_death_fx.create(node.child("sfx").child("death").attribute("path").as_string(""));
-	path_attack_fx.create(node.child("sfx").child("attack").attribute("path").as_string(""));
-	//=============================================
-
-	return true;
-}
-
-// Called before the first frame
-bool j1Player::Start()
-{
-	// Add all components 
-	ground_detector = App->collision->AddCollider(rect_collider, COLLIDER_PLAYER, this);
-
-	if (god_mode)
-		collider = App->collision->AddCollider(rect_collider, COLLIDER_GOD, this);
-	else
-		collider = App->collision->AddCollider(rect_collider, COLLIDER_PLAYER, this);
-	
-	tex_player = App->tex->Load(path_tex_player.GetString());
-	death_splash = App->tex->Load(path_death_splash.GetString());
-	attack_splash = App->tex->Load(path_attack_splash.GetString());
-
-	id_death_fx = App->audio->LoadFx(path_death_fx.GetString());
-	fx_jump1 = App->audio->LoadFx(path_jump_fx1.GetString());
-	fx_jump2 = App->audio->LoadFx(path_jump_fx2.GetString());
-	fx_jump3 = App->audio->LoadFx(path_jump_fx3.GetString());
-	fx_jump4 = App->audio->LoadFx(path_jump_fx4.GetString());
-	fx_jump5 = App->audio->LoadFx(path_jump_fx5.GetString());
-	fx_attack = App->audio->LoadFx(path_attack_fx.GetString());
-
-	return true;
-}
-
-// Called each loop iteration
-bool j1Player::PreUpdate()
-{
-	
 	if (current_state != State::dead)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
@@ -154,6 +116,7 @@ bool j1Player::PreUpdate()
 	{
 		gummy_jump = true;
 		App->audio->PlayFx(fx_jump5);
+		//TODO floor dust 
 	}
 
 	//Only if player is jumping
@@ -163,8 +126,7 @@ bool j1Player::PreUpdate()
 		collider->type = COLLIDER_ATTACK;
 		current_state = State::attack;
 		App->audio->PlayFx(fx_attack);
-		//TODO floor dust 
-		
+
 	}
 
 	//Physics applied
@@ -221,7 +183,6 @@ bool j1Player::PreUpdate()
 	return true;
 }
 
-// Called each loop iteration
 bool j1Player::Update(float dt)
 {
 	if (reset) 
@@ -239,13 +200,13 @@ bool j1Player::Update(float dt)
 	if (god_mode)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-			position.y -= speed_air /** dt*/;
+			position.y -= speed_air * dt;
 		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-			position.y += speed_air /** dt*/;
+			position.y += speed_air * dt;
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-			position.x -= speed_air /** dt*/;
+			position.x -= speed_air * dt;
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-			position.x += speed_air /** dt*/;
+			position.x += speed_air * dt;
 
 		velocity.x = velocity.y = 0;
 		return true;
@@ -265,14 +226,15 @@ bool j1Player::Update(float dt)
 	velocity += acceleration;
 	position += velocity ;
 
-	collider->SetPos(position.x - rect_collider.w / 2, position.y - rect_collider.h / 2);
-	ground_detector->SetPos(position.x - rect_collider.w / 2, position.y);
+	collider->SetPos(position.x - collider_rect.w / 2, position.y - collider_rect.h / 2);
+	ground_detector->SetPos(position.x - collider_rect.w / 2, position.y);
 	on_ground = false;
+
 	return true;
 }
 
 // Called each loop iteration
-bool j1Player::PostUpdate()
+bool j1Player::Draw()
 {
 	SDL_Rect frame; 
 	SDL_Texture* texture = nullptr;
@@ -322,9 +284,6 @@ bool j1Player::PostUpdate()
 		
 		if (on_ground)
 			current_state = State::jumping;
-		break;
-
-	default:
 		break;
 	}
 	
@@ -596,11 +555,11 @@ bool j1Player::Invulnerability(float time)
 {
 	// Reset
 	if (apply_timer)
-		App->timer->Start();
+		timer_invulnerability.Start();
 	
 
 	// Timer
-	if (App->timer->ReadSec() > time)
+	if (timer_invulnerability.ReadSec() > time)
 	{
 		collider->type = COLLIDER_PLAYER;
 		apply_timer = true;

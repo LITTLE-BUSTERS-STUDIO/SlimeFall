@@ -2,10 +2,11 @@
 #include "j1Map.h"
 #include "j1App.h"
 #include "j1Input.h"
-#include "j1Player.h"
 #include "j1Render.h"
 #include "p2Log.h"
 #include "j1FadeToBlack.h"
+#include "j1Player.h"
+#include "EntityManager.h"
 
 
 bool j1Scene::LoadPhase(uint phase_number, bool spawn) 
@@ -42,10 +43,15 @@ bool j1Scene::LoadPhase(uint phase_number, bool spawn)
 
 		if (spawn)
 		{
-			App->player->reset = true;
-			App->render->reset = true;
+			if (App->entity_manager->GetPlayer())
+			{
+				App->entity_manager->GetPlayer()->reset = true;
+				App->render->reset = true;
+			}
+			else
+				App->entity_manager->CreatePlayer(App->map->data.initial_position);
+		
 		}
-
 	}
 	
 	return ret;
@@ -71,7 +77,7 @@ bool j1Scene::PreUpdate()
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
-		App->player->reset = true;
+		App->entity_manager->GetPlayer()->reset = true;
 		App->render->reset = true;
 	}
 

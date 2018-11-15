@@ -7,15 +7,12 @@ struct SDL_Texture;
 struct Collider;
 struct Entity_Info;
 
-
-
-
 class Enemy_Test: public Entity
 {
 public:
-	Enemy_Test(iPoint position, Entity_Info info);
+	Enemy_Test(fPoint position, Entity_Info info);
 
-	bool Move(float dt) ;
+	bool Update(float dt) ;
 	bool Draw(SDL_Texture* sprites) ;
 	bool OnCollision(Collider* collider) ;
 };

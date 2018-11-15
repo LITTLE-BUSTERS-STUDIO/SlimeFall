@@ -1,11 +1,11 @@
 #include "Enemy_Test.h"
 
-Enemy_Test::Enemy_Test(iPoint position, Entity_Info info) :Entity( position, info)
+Enemy_Test::Enemy_Test(fPoint position, Entity_Info info) :Entity( position, info)
 {
 
 }
 
-bool Enemy_Test::Move(float dt)
+bool Enemy_Test::Update(float dt)
 {
 
 	return true;

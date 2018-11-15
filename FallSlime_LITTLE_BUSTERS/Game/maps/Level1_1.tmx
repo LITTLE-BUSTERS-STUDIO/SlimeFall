@@ -65,15 +65,15 @@
   <properties>
    <property name="type" value="initial_position"/>
   </properties>
-  <object id="370" name="initial_position" x="82" y="189.5">
+  <object id="370" name="initial_position" x="72" y="196.5">
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="69" name="enemies">
+ <objectgroup id="69" name="entities">
   <properties>
    <property name="type" value="enemies"/>
   </properties>
-  <object id="401" name="test" x="174" y="341">
+  <object id="401" name="test" x="202" y="109">
    <point/>
   </object>
  </objectgroup>

@@ -30,15 +30,11 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	collision = new j1Collision();
 	audio = new j1Audio();
 	map = new j1Map();
-	player = new j1Player();
 	level_1 = new Level_1();
 	fade_to_black = new j1FadeToBlack();
 	entity_manager = new EntityManager();
 	path_finding = new j1PathFinding();
-	timer = new j1Timer();
 
-	// Ordered for awake / Start / Update
-	// Reverse order of CleanUp
 	AddModule(input);
 	AddModule(win);
 	AddModule(tex);
@@ -47,14 +43,11 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	// Levels ===========================
 	AddModule(level_1);
 	// ==================================
-	AddModule(player);
 	AddModule(entity_manager);
 	AddModule(path_finding);
 	// Colission needs to be always before render
 	AddModule(collision);
-
 	AddModule(fade_to_black);
-
 	// Render last to swap buffer
 	AddModule(render);
 

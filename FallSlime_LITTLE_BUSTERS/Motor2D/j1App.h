@@ -91,13 +91,10 @@ public:
 	j1Audio*			audio;
 	j1Scene*			scene;
 	j1Map*				map;
-	j1Player*           player;
 	j1Collision*        collision;
 	j1FadeToBlack*		fade_to_black;
 	j1PathFinding*      path_finding;
-	EntityManager *           entity_manager;
-	j1Timer *           timer;
-
+	EntityManager *     entity_manager;
 
 	// Levels
 	j1Scene*            level_1;
@@ -128,6 +125,7 @@ private:
 	uint64					frame_count = 0;
 	int					    framerate_cap = 0;
 	float                   dt = 0.0f;
+
 public:
 
 	bool					apply_cap_frames = true;

@@ -73,7 +73,6 @@ bool Level_1::Update(float dt)
 	iPoint map_coordinates(x / App->map->data.tile_width, y / App->map->data.tile_height);
 	iPoint map_coordinates_pixel(x, y);
 
-
 	//Title=======================================================================================
 	//p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:%d, %d Pixel: %d, %d Camera: %d, %d",
 	//	App->map->data.width, App->map->data.height,

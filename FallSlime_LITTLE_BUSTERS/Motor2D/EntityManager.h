@@ -7,10 +7,10 @@
 #include "j1Module.h"
 #include "SDL/include/SDL.h"
 
-// Enemies Headers =======================
+
 class  Entity;
 class  Entity_Info;
-class Properties;
+class  Properties;
 
 class  EntityManager : public j1Module
 {
@@ -40,37 +40,33 @@ public:
 
 	bool Reset(fPoint pos);
 
+	bool CreatePlayer(fPoint spawn_pos);
 	//bool ResetAll();
 
 	//bool ResetEntity (Entity * entity);
 
 	// Player =========================================
 
+	j1Player* GetPlayer();
 
 	// Enemies ========================================
 
-	bool LoadEnemiesInfo(pugi::xml_node& node);
+	bool LoadEntitiesInfo(pugi::xml_node& node);
 
 private:
 
-	bool SpawnEnemy(const Entity_Info& info);
+	bool CreateEntity(const Entity_Info& info);
 
-	Properties GetProperties(const p2SString name) const;
+	Properties* GetProperties(const p2SString name) const;
 
 private:
 	// Entities ===========================================
 	p2List<Entity_Info>         entities_info;          // Entities to spawn added in LoadMap (objectgroup entities)
 	p2List<Entity*>				entities;				// Active entities
+	j1Player*                   player = nullptr;
 
 	//// Entities Properties ================================
-	p2List<Properties>          enemies_properties; 
-	//// Player ----------------------------------------
-	//Player_Properties           player_properties;
-	//// Enemies ----------------------------------------
-	//p2List<Enemy_Properties>    enemies_properties;    // Added in Awake (config.xml)
-	//// Objects ----------------------------------------
-	//p2List<Object_Properties>   objects_properties;
-
+	p2List<Properties *>        properties_list; 
 };
 
 #endif // __Enemies_H__

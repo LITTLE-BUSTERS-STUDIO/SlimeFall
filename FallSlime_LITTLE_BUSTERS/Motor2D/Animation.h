@@ -67,14 +67,19 @@ public:
 		current_frame = 0.0f;
 	}
 
-	bool LoadAnimation(pugi::xml_node anim_node , p2SString name)
+	bool LoadAnimation(p2SString path, p2SString name)
 	{
-		pugi::xml_node node;
-
+		pugi::xml_document anim_doc;
+		pugi::xml_node anim_node;
+		anim_doc.load_file(path.GetString());
+		anim_node = anim_doc.child("tileset");
+		
 		if (anim_node == NULL)
 		{
 			return false;
 		}
+
+		pugi::xml_node node;
 		
 		for (node = anim_node.child("tile"); node; node = node.next_sibling("tile"))
 		{

@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "j1Window.h"
 #include "j1Render.h"
+#include "EntityManager.h"
 #include "j1Player.h"
 #include "Level_1.h"
 #include "j1Input.h"
@@ -133,7 +134,9 @@ bool j1Render::Update(float dt)
 		reset = false;
 	}
 
-	fPoint player_position(App->player->position.x, App->player->position.y);
+
+	j1Player * pl = App->entity_manager->GetPlayer();
+	fPoint player_position(App->entity_manager->GetPlayer()->position);
 
 	//Camera_x hit screen---------------------------------------
 	if (free_camera_x)
@@ -190,7 +193,7 @@ bool j1Render::Update(float dt)
 	}
 
 	//Camera tremble
-	if (App->player->attack_tremble)      
+	if (App->entity_manager->GetPlayer()->attack_tremble)
 		CameraTremble();
 	
 	return true;
@@ -280,7 +283,7 @@ bool j1Render::CameraTremble()
 		camera.x += tremble;
 	else if (index_tremble > 2)
 	{
-		App->player->attack_tremble = false;
+		App->entity_manager->GetPlayer()->attack_tremble = false;
 		index_tremble = 0;
 	}
 	index_tremble++;
