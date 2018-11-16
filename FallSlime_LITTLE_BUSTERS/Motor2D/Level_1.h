@@ -32,9 +32,22 @@ public:
 
 private:
 	p2SString music_path;
+	p2SString background_path1;
+	p2SString background_path2;
+	p2SString background_path3;
 	p2SString background_path;
+	SDL_Texture * background_parallax1 = nullptr;
+	SDL_Texture * background_parallax2 = nullptr;
+	SDL_Texture * background_parallax3 = nullptr;
 	SDL_Texture * background_parallax = nullptr;
+	
+	Parallax parallax1[4];
+	Parallax parallax2[4];
+	Parallax parallax3[3];
+
 	Parallax parallax[11];
+	
+
 public:
 	uint		phase1_width;
 	uint		phase1_high;
@@ -43,7 +56,7 @@ public:
 	uint		background_width;
 	uint		background_high;
 	uint		max_background_layers;
-	uint		backgorund_startpos;
+	uint		background_startpos;
 	float		parallax_speed_1;
 	float		parallax_speed_2;
 	float		parallax_speed_3;

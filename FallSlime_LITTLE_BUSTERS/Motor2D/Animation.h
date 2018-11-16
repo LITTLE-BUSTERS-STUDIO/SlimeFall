@@ -49,6 +49,7 @@ public:
 	{
 		current_frame += speed * App->GetDeltaTime(); //Active dt
 
+
 		if (current_frame >= last_frame)
 		{
 			return frames[(int)last_frame - 1];
