@@ -35,18 +35,24 @@ public:
 		frames[last_frame++] = rect;
 	}
 
-	float GetFrameNumber()
+	float GetFrameValue()
 	{
 		return current_frame;
 	}
 
-	SDL_Rect& GetCurrentFrame(float dt)
+	void SetFrameValue(float value)
 	{
-		current_frame += speed * dt; //Active dt
+	   current_frame = value;
+	}
+
+	SDL_Rect& GetCurrentFrame()
+	{
+		current_frame += speed * App->GetDeltaTime(); //Active dt
 
 		if (current_frame >= last_frame)
 		{
-			current_frame = (loop) ? 0.0f : last_frame - 1;
+			return frames[(int)last_frame - 1];
+			current_frame = current_frame - (float)last_frame;
 			loops++;
 		}
 
@@ -66,7 +72,6 @@ public:
 
 	void Reset()
 	{
-		loops = 0;
 		current_frame = 0.0f;
 	}
 

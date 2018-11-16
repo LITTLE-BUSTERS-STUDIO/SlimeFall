@@ -193,8 +193,6 @@ bool j1Player::HandleInput()
 
 bool j1Player::Update(float dt)
 {
-	this->dt = dt;
-
 	if (reset) 
 	{
 		Reset(App->map->data.initial_position);
@@ -264,17 +262,17 @@ bool j1Player::Draw()
 		break;
 
 	case State::boucing:
-		if (jumping_anim.GetFrameNumber() > 9)
+		if (jumping_anim.GetFrameValue() > 9)
 		{
 			current_state = State::jumping;
 			apply_jump_speed = true;
 			is_gummy_jumping = false;
+			frame = jumping_anim.GetCurrentFrame();
 			jumping_anim.Reset();
-			frame = jumping_anim.GetCurrentFrame(dt);
 			texture = tex_player;
 			break;
 		}
-		frame = jumping_anim.GetCurrentFrame(dt);
+		frame = jumping_anim.GetCurrentFrame();
 		texture = tex_player;
 		break;
 
@@ -295,7 +293,7 @@ bool j1Player::Draw()
 		}
 		break;
 	case State::attack:
-		frame = attack_anim.GetCurrentFrame(dt);
+		frame = attack_anim.GetCurrentFrame();
 		texture = attack_splash;
 		
 		if (on_ground)

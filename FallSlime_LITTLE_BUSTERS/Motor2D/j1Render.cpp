@@ -124,21 +124,17 @@ bool j1Render::PreUpdate()
 
 bool j1Render::Update(float dt)
 {	
-
 	if (reset)
 	{
 		CameraReset();
 		reset = false;
 	}
 
-
-	j1Player * pl = App->entity_manager->GetPlayer();
 	fPoint player_position(App->entity_manager->GetPlayer()->position);
 
 	//Camera_x hit screen---------------------------------------
 	if (free_camera_x)
 	{
-		
 	    if (camera.x <= 0)
 		{
 			camera.x = 0;
@@ -152,7 +148,7 @@ bool j1Render::Update(float dt)
 		}
 
 		if (!free_camera_x)
-			camera_position.x = camera.x;
+			smoth_position.x = camera.x;
 	}
 	else if ((int)App->win->GetScale() * (int)player_position.x > camera.w / 2 && (int)App->win->GetScale() *(int)player_position.x < phase1_width - camera.w / 2)
 		free_camera_x = true;
@@ -161,8 +157,8 @@ bool j1Render::Update(float dt)
 	if (free_camera_x)
 	{
 		player_position.x = -((int)player_position.x * (int)App->win->GetScale() - camera.w / 2);
-		camera_position.x += (-(int)player_position.x - App->render->camera.x) / (int)smooth_speed;
-		camera.x = camera_position.x;
+		smoth_position.x += (-(int)player_position.x - App->render->camera.x) / (int)smooth_speed;
+		camera.x = smoth_position.x;
 	}
 
 	//Camera_y hit screen---------------------------------------
@@ -181,7 +177,7 @@ bool j1Render::Update(float dt)
 		}
 
 		if (!free_camera_y)
-			camera_position.y = camera.y;
+			smoth_position.y = camera.y;
 	}
 	else if ((int)App->win->GetScale() * (int)player_position.y > (camera.h / 2) && (int)App->win->GetScale() * (int)player_position.y < phase1_high - camera.h / 2)
 		free_camera_y = true;
@@ -190,8 +186,8 @@ bool j1Render::Update(float dt)
 	if (free_camera_y)
 	{
 		player_position.y = -((int)player_position.y * (int)App->win->GetScale() - camera.h / 2);
-		camera_position.y += (-player_position.y - App->render->camera.y) / smooth_speed;
-		camera.y = camera_position.y;
+		smoth_position.y += (-player_position.y - App->render->camera.y) / smooth_speed;
+		camera.y = smoth_position.y;
 	}
 
 	//Camera tremble
@@ -241,8 +237,12 @@ bool j1Render::CleanUp()
 // Load Game State
 bool j1Render::Load(pugi::xml_node& data)
 {
-	camera.x = data.child("camera").attribute("x").as_int(0);
-	camera.y = data.child("camera").attribute("y").as_int(0);
+	camera.x = data.child("camera_position").attribute("x").as_int(0);
+	camera.y = data.child("camera_position").attribute("y").as_int(0);
+
+	camera.x = data.child("camera_smoth_position").attribute("x").as_int(0);
+	camera.y = data.child("camera_smoth_position").attribute("y").as_int(0);
+
 	zoom = data.child("debug").attribute("zoom").as_int(0);
 	free_camera_x = data.child("conditions").attribute("free_camera_x").as_bool(false);
 	free_camera_y = data.child("conditions").attribute("free_camera_y").as_bool(false);
@@ -253,17 +253,18 @@ bool j1Render::Load(pugi::xml_node& data)
 // Save Game State
 bool j1Render::Save(pugi::xml_node& data) const
 {
-	pugi::xml_node cam = data.append_child("camera");
+	pugi::xml_node cam_pos = data.append_child("camera_position");
+	cam_pos.append_attribute("x") = camera.x;
+	cam_pos.append_attribute("y") = camera.y;
 
-	cam.append_attribute("x") = camera.x;
-	cam.append_attribute("y") = camera.y;
+	pugi::xml_node cam_smoth_pos = data.append_child("camera_smoth_position");
+	cam_smoth_pos.append_attribute("x") = smoth_position.x;
+	cam_smoth_pos.append_attribute("y") = smoth_position.y;
 
 	pugi::xml_node debug = data.append_child("debug");
-
 	debug.append_attribute("zoom") = zoom;
 
 	pugi::xml_node conditions = data.append_child("conditions");
-
 	conditions.append_attribute("free_camera_x") = free_camera_x;
 	conditions.append_attribute("free_camera_y") = free_camera_y;
 
@@ -454,8 +455,8 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 bool j1Render::CameraReset() {
 	camera.x = 0;
 	camera.y = 0;
-	camera_position.x = 0;
-	camera_position.y = 0;
+	smoth_position.x = 0;
+	smoth_position.y = 0;
 	free_camera_x = false;
 	free_camera_y = false;
     return true;

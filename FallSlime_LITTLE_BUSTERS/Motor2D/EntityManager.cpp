@@ -247,11 +247,25 @@ bool EntityManager::OnCollision(Collider* c1, Collider* c2)
 
 bool EntityManager::Load(pugi::xml_node& node)
 {
+	pugi::xml_node node_entity;
+
+	for (p2List_item<Entity*> *item = entities.start; item; item = item->next)
+	{
+		node_entity = node.child(item->data->name.GetString());
+		item->data->Load(node_entity);
+	}
 	return true;
 }
 
 bool EntityManager::Save(pugi::xml_node& node) const
 {
+	pugi::xml_node node_entity;
+
+	for (p2List_item<Entity*> *item = entities.start; item; item = item->next)
+	{
+		node_entity = node.append_child(item->data->name.GetString());
+		item->data->Save(node_entity);
+	}
 	return true;
 }
 
