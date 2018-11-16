@@ -26,7 +26,9 @@ bool Level_1::Awake(pugi::xml_node& config)
 	LOG("Loading Level 1");
 	bool ret = true;
 	music_path = config.child("music").attribute("path").as_string("");
-	background_path = config.child("background").attribute("path").as_string("");
+	background_path1 = config.child("background1").attribute("path").as_string("");
+	background_path2 = config.child("background2").attribute("path").as_string("");
+	background_path3 = config.child("background3").attribute("path").as_string("");
 
 	for (pugi::xml_node node = config.child("phase"); node; node = node.next_sibling("phase"))
 	{
@@ -40,7 +42,7 @@ bool Level_1::Awake(pugi::xml_node& config)
 	background_width = config.child("background_dimension").attribute("width").as_uint(0u);
 	background_high = config.child("background_dimension").attribute("high").as_uint(0u);
 	max_background_layers = config.child("max_background_layers").attribute("value").as_uint(0u);
-	backgorund_startpos = config.child("backgorund_startpos").attribute("value").as_uint(0u);
+	background_startpos = config.child("background_startpos").attribute("value").as_uint(0u);
 	parallax_speed_1 = config.child("parallax_speed").attribute("low").as_float(0.0f);
 	parallax_speed_2 = config.child("parallax_speed").attribute("medium").as_float(0.0f);
 	parallax_speed_3 = config.child("parallax_speed").attribute("high").as_float(0.0f);
@@ -52,15 +54,29 @@ bool Level_1::Start()
 {
 	LoadPhase(1);
 	App->audio->PlayMusic(music_path.GetString());
-	background_parallax = App->tex->Load(background_path.GetString());
+	background_parallax1 = App->tex->Load(background_path1.GetString());
+	background_parallax2 = App->tex->Load(background_path2.GetString());
+	background_parallax3 = App->tex->Load(background_path3.GetString());
+
 	//Parallax
-	for (uint i = 0; i < max_background_layers; i++)
+	for (uint i = 0; i < 4; i++)
 	{
-		parallax[i].rect_parallax.x = background_width * i;
-		parallax[i].rect_parallax.y = 0;
-		parallax[i].rect_parallax.w = background_width;
-		parallax[i].rect_parallax.h = background_high;
+		parallax1[i].rect_parallax.x = background_width * i;
+		parallax1[i].rect_parallax.y = 0;
+		parallax1[i].rect_parallax.w = background_width;
+		parallax1[i].rect_parallax.h = background_high;
+
+		parallax2[i].rect_parallax.x = background_width * i;
+		parallax2[i].rect_parallax.y = 0;
+		parallax2[i].rect_parallax.w = background_width;
+		parallax2[i].rect_parallax.h = background_high;
+
+		parallax3[i].rect_parallax.x = background_width * i;
+		parallax3[i].rect_parallax.y = 0;
+		parallax3[i].rect_parallax.w = background_width;
+		parallax3[i].rect_parallax.h = background_high;
 	}
+
 	return true;
 }
 
@@ -94,11 +110,21 @@ bool Level_1::PostUpdate(float dt)
 
 	// Blit background--------------------------------------
 	for (uint i = 0; i < max_background_layers; i++)
+		App->render->Blit(background_parallax1, 0, background_startpos, &parallax1[i].rect_parallax, false, parallax_speed_1 /** dt*/);
+
+
+	for (uint i = 0; i < max_background_layers; i++)
 	{
-		if (i < 4) App->render->Blit(background_parallax, 0, backgorund_startpos, &parallax[i].rect_parallax, false, parallax_speed_1 * ceil(dt));
-		else if (i == 4) App->render->Blit(background_parallax, 0, backgorund_startpos, &parallax[i].rect_parallax, false, parallax_speed_3 * ceil(dt));
-		else if (i > 4) App->render->Blit(background_parallax, 0, backgorund_startpos, &parallax[i].rect_parallax, false, parallax_speed_2 * ceil(dt));
+
+		if (i == 0)
+			App->render->Blit(background_parallax2, 0, background_startpos, &parallax2[i].rect_parallax, false, parallax_speed_3 /** dt*/);
+		else if (i > 0)
+			App->render->Blit(background_parallax2, 0, background_startpos, &parallax2[i].rect_parallax, false, parallax_speed_2/** dt*/);
 	}
+
+	for (uint i = 0; i < max_background_layers; i++)
+		App->render->Blit(background_parallax3, 0, background_startpos, &parallax3[i].rect_parallax, false, parallax_speed_2 /** dt*/);
+
 
 	App->map->Draw();
 
@@ -109,7 +135,9 @@ bool Level_1::PostUpdate(float dt)
 bool Level_1::CleanUp()
 {
 	LOG("Freeing scene");
-	App->tex->UnLoad(background_parallax);
+	App->tex->UnLoad(background_parallax1);
+	App->tex->UnLoad(background_parallax2);
+	App->tex->UnLoad(background_parallax3);
 
 	// Remove all tilesets
 	p2List_item<Phase*>* item;
