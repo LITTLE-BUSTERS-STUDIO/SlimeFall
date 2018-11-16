@@ -76,7 +76,7 @@ public:
 	uint	tremble;
 
 private:
-	iPoint		camera_position = { 0,0 };
+	iPoint		smoth_position = { 0,0 };
 	iPoint		camera_flip = { 0,0 };
 	uint		index_tremble = 0;
 };

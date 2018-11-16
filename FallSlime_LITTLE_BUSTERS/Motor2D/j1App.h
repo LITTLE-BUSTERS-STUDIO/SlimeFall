@@ -61,7 +61,7 @@ public:
 
 	void GetSaveGames(p2List<p2SString>& list_to_fill) const;
 
-	int GetFramerateCap() const;
+	float GetDeltaTime() const;
 
 private:
 

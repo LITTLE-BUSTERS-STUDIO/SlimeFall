@@ -1,7 +1,7 @@
 <!-- Config file for the game -->
 
 <config>
-  <app framerate_cap="60">
+  <app framerate_cap="30">
     <title>Slime Fall</title>
     <organization>UPC</organization>
   </app>
@@ -65,7 +65,6 @@
        <player name ="player">
              <collider width="20" height="20"/>
              <physics gravity ="1100" speed_air ="150.0" speed_ground ="0" speed_jump ="400" speed_gummy_jump ="180" speed_attack="600.0" />
-            <!--   <physics gravit0y ="0.3" speed_air ="2.5" speed_ground ="0" speed_jump ="7" speed_gummy_jump ="3" speed_attack="10" />   -->
              <debug god_mode="false"/>
              <animations>
                <jumping path ="animations/player_animation.xml"/>

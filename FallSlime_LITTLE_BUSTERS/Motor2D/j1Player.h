@@ -46,11 +46,9 @@ public:
 	bool OnCollision(Collider* c1, Collider* c2);
 
 	// Save & Load =============================
-	bool Load(pugi::xml_node&);
+	bool Load(pugi::xml_node& node);
 
-	bool Save(pugi::xml_node&) const;
-
-
+	bool Save(pugi::xml_node& node) const;
 
 	// Methods ================================ 
 	bool Invulnerability(float);
@@ -65,7 +63,7 @@ public:
 	fPoint				acceleration;
 	State				current_state = State::jumping;
 	bool			    reset = false;
-	float               dt;
+
 	//Physics==================================
 	float		        gravity;
 	float				speed_air;

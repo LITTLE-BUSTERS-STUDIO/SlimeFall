@@ -169,10 +169,6 @@ pugi::xml_node j1App::LoadConfig(pugi::xml_document& config_file) const
 void j1App::PrepareUpdate()
 {
 
-	//Change frame cap
-	if (App->input->keyboard[SDL_SCANCODE_F11] == KEY_DOWN)
-		apply_cap_frames = !apply_cap_frames;
-
 	frame_count++;
 	last_sec_frame_count++;
 
@@ -203,7 +199,6 @@ void j1App::FinishUpdate()
 		prev_last_sec_frame_count = last_sec_frame_count;
 		last_sec_frame_count = 0;
 	}
-
 
 	float avg_fps = (float)frame_count / start_time.ReadSec();
 	float seconds_since_startup = start_time.ReadSec();
@@ -270,6 +265,12 @@ bool j1App::PreUpdate()
 		}
 
 		ret = item->data->PreUpdate();
+	}
+
+	// Change frame cap ========================================
+	if (App->input->keyboard[SDL_SCANCODE_F11] == KEY_DOWN)
+	{
+		apply_cap_frames = !apply_cap_frames;
 	}
 
 	return ret;
@@ -448,7 +449,8 @@ bool j1App::SavegameNow() const
 	want_to_save = false;
 	return ret;
 }
-int j1App::GetFramerateCap() const
+
+float j1App::GetDeltaTime() const
 {
-	return framerate_cap;
+	return dt;
 }
