@@ -14,7 +14,9 @@ public:
 	Enemy_Bat(fPoint position, Entity_Info info);
 
 	bool Update(float dt) ;
+
 	bool Draw(SDL_Texture* sprites) ;
+
 	bool OnCollision(Collider* c1, Collider* c2) ;
 };
 

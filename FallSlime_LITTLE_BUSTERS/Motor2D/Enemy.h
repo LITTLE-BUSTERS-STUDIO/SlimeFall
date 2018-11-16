@@ -12,6 +12,7 @@ struct Entity_Info;
 class Enemy : public Entity
 {
 public:
+	// Virtual methods ===============================
 	Enemy(fPoint position, Entity_Info info);
 
 	virtual bool Update(float dt) { return true; };
@@ -20,10 +21,21 @@ public:
 
 	virtual bool OnCollision(Collider* c1, Collider* c2 ) { return true; };
 
-	float                 path_interval_time = 1000.0f;
-	j1Timer               path_timer;
-	SDL_Rect              detection_ratio;
-	p2DynArray<iPoint>    last_path;
+	// Common methods ===============================
+	bool UpdateLogic();   // Update only the path
+
+	bool FollowPath();   
+
+	bool CheckTargetRatio();
+
+	Entity*               target = nullptr;                 // Entity to follow
+	uint32                path_interval_time = 0u;          // Time between every path creation
+	j1Timer               path_timer;                    
+	int                   detection_ratio;                  // Tiles mesure
+	p2DynArray<iPoint>    last_path;                        // Lat created path   
+
+	Animation             animation;
+	
 };
 
 #endif // __Enemy_H__

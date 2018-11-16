@@ -41,8 +41,6 @@ public:
 
 	bool Draw();
 
-	bool CleanUp();
-
 	bool OnCollision(Collider* c1, Collider* c2);
 
 	// Save & Load =============================
@@ -55,41 +53,39 @@ public:
 
 	bool Reset(fPoint pos);
 
+public :
+	bool			    reset = false;
+	bool				attack_tremble = false;
+private:
 	//Debug====================================
 	bool				god_mode = false;
 
-	//Transform================================
-	fPoint				velocity;
-	fPoint				acceleration;
-	State				current_state = State::jumping;
-	bool			    reset = false;
-
-	//Physics==================================
+	// Physics= ===================================
 	float		        gravity;
 	float				speed_air;
 	float				speed_ground;
 	float				speed_jump;
 	float				speed_gummy_jump;
 	float				speed_attack;
+	// States ================================
+	State				current_state = State::jumping;
+	bool                gummy_jump = false;
+	bool			    attack = false;
 	bool				apply_jump_speed = false;
 	bool				apply_attack = false;
 	bool				apply_invulnerability = false;
-	bool				attack_tremble = false;
 	bool				apply_timer = true;
 	bool				is_gummy_jumping = false;
-
-	// Collision================================
-	Collider         *ground_detector = nullptr;
-	Collider         *player_collider = nullptr;
-	bool              on_ground = false;
-	bool              check_fall = false;
-	SDL_Rect          collider_rect;
-	bool              flip_x = false;
+	bool                on_ground = false;
+	bool                check_fall = false;
+	bool                flip_x = false;
+	// Collision ================================
+	Collider           *ground_detector = nullptr;
+	Collider           *player_collider = nullptr;
+	SDL_Rect            collider_rect;
 
 	// Abilities ================================
-	bool              gummy_jump = false;
-	bool			  attack = false;
-	j1Timer           timer_invulnerability;
+	j1Timer             timer_invulnerability;
 
 	// Assets ===================================
 

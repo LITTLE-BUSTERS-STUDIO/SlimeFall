@@ -21,7 +21,7 @@ public:
 	SDL_Rect             spawn_rect;
 };
 
-class Player_Properties: public Properties
+class Player_Properties : public Properties
 {
 public:
 
@@ -33,10 +33,10 @@ public:
 	float			  speed_gummy_jump;
 	float             speed_attack;
 	//-----------Animations-----------------
-	p2SString         path_jumping_anim;
-	p2SString         path_death_anim;
-	p2SString         path_attack_anim;;
 
+	Animation         jumping_anim;
+	Animation		  death_anim;
+	Animation		  attack_anim;
 	//-----------Textures-------------------
 	p2SString         path_tex_player;
 	p2SString         path_death_splash;
@@ -50,6 +50,12 @@ public:
 	p2SString         path_jump_fx5;
 	p2SString         path_death_fx;
 	p2SString         path_attack_fx;
+};
+
+class Enemy_Properties : public Properties
+{
+	int               detection_ratio;
+	float             path_interval_time;
 
 };
 
@@ -111,8 +117,14 @@ public:
 
 	p2SString             name;
 	fPoint                position;
+	fPoint                velocity;
+	fPoint                acceleration;
+
 	p2List<Collider*>     colliders;
 	EntityType            type = EntityType::Unknown;
 };
+
+
+
 
 #endif // __Entity_H__
