@@ -29,11 +29,11 @@ public:
 	bool CheckTargetRatio();
 
 	Entity*               target = nullptr;                 // Entity to follow
-	uint32                path_interval_time = 0u;          // Time between every path creation
-	j1Timer               path_timer;                    
-	int                   detection_ratio;                  // Tiles mesure
-	p2DynArray<iPoint>    last_path;                        // Lat created path   
+	uint32                path_interval_time = 0u;          // Time between every path creation (ms)
+	int                   detection_ratio;                  
 
+	j1Timer               path_timer;
+	p2DynArray<iPoint>    last_path;                      
 	Animation             animation;
 	
 };

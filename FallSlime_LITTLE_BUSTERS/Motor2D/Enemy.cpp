@@ -1,5 +1,9 @@
 #include "Enemy.h"
+#include "EntityManager.h"
+#include "J1Player.h"
 #include "j1PathFinding.h"
+
+#define MAX_DETECTION_RATIO 50
 
 Enemy::Enemy(fPoint position, Entity_Info info) :Entity(position, info)
 {
@@ -29,19 +33,24 @@ bool Enemy::UpdateLogic()
 
 bool  Enemy::FollowPath( )
 {
+	if (last_path.Count())
+	{
+
+	}
+
 	return true;
 }
 
 bool Enemy::CheckTargetRatio()
 {
-	bool ret = true;
+	bool ret = false;
 
-	if (target) 
+	if (detection_ratio < MAX_DETECTION_RATIO && target)
 	{
-
+		if (position.DistanceManhattan(App->entity_manager->GetPlayer()->position) < detection_ratio)
+		{
+			ret = true;
+		}
 	}
-
-
-
 	return ret;
 }
