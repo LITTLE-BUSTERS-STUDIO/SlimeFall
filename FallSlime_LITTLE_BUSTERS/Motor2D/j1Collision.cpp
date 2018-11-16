@@ -229,7 +229,7 @@ bool j1Collision:: CleanUp()
 {
 	LOG("Freeing all colliders");
 
-	// Remove all tilesets
+	// Remove all colliders =====================
 	p2List_item<Collider*>* item;
 	item = colliders.start;
 
@@ -238,7 +238,9 @@ bool j1Collision:: CleanUp()
 		RELEASE(item->data);
 		item = item->next;
 	}
+	
 	colliders.clear();
+	item = colliders.start;
 
 	return true;
 }

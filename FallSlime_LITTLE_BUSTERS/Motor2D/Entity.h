@@ -1,5 +1,5 @@
-#ifndef __Enemy_H__
-#define __Enemy_H__
+#ifndef __Entity_H__
+#define __Entity_H__
 
 #include "p2Point.h"
 #include "Animation.h"
@@ -59,6 +59,7 @@ public:
 	p2SString            name;
 	fPoint               position;
 	Properties*          properties = nullptr;
+	SDL_Rect             spawn_rect;
 	bool                 spawned = false;
 
 	Entity_Info() {}
@@ -69,13 +70,9 @@ public:
 		name = properties->name;
 		this->properties = properties;
 
-		//this->properties.spawn_rect = properties.spawn_rect;
-		//this->properties.spawn_rect.x = spawn_position.x - properties.spawn_rect.w / 2;
-		//this->properties.spawn_rect.y = spawn_position.y - properties.spawn_rect.h / 2;
-
-		//this->properties.collider_rect = properties.collider_rect;
-		//this->properties.collider_rect.x = spawn_position.x - properties.collider_rect.w / 2;
-		//this->properties.collider_rect.y = spawn_position.y - properties.collider_rect.h / 2;
+		spawn_rect = properties->spawn_rect;
+	    spawn_rect.x = spawn_position.x - properties->spawn_rect.w / 2;
+		spawn_rect.y = spawn_position.y - properties->spawn_rect.h / 2;
 	}
 };
 
@@ -110,15 +107,12 @@ public:
 
 	// Common methods ==================================
 
-	const Collider* GetCollider() const;
-
 	bool FindCollider(Collider *collider) const;
 
-	p2SString   name;
-	fPoint      position;
-	p2List<Collider*> colliders;
-	Collider*   collider = nullptr;
-	EntityType  type = EntityType::Unknown;
+	p2SString             name;
+	fPoint                position;
+	p2List<Collider*>     colliders;
+	EntityType            type = EntityType::Unknown;
 };
 
-#endif // __Enemy_H__
+#endif // __Entity_H__

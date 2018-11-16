@@ -80,6 +80,7 @@ public:
 
 	// Collision================================
 	Collider         *ground_detector = nullptr;
+	Collider         *player_collider = nullptr;
 	bool              on_ground = false;
 	bool              check_fall = false;
 	SDL_Rect          collider_rect;
