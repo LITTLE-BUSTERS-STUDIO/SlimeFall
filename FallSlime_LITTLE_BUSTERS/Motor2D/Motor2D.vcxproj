@@ -76,6 +76,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Enemy_Test.cpp" />
@@ -100,6 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Enemy_Test.h" />
@@ -133,7 +135,11 @@
     <None Include="..\Game\maps\Level1_2.tmx" />
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="..\Game\animations\player_animation.xml" />
+    <Xml Include="..\Game\animations\player_attack_animation.xml" />
+    <Xml Include="..\Game\animations\player_death_animation.xml" />
     <Xml Include="..\Game\config.xml" />
+    <Xml Include="..\Game\save_game.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

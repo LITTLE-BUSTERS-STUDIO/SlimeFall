@@ -77,29 +77,6 @@ void j1Map::Draw()
 			}
 		}
 	}
-
-	// Normal draw ============================================================
-	//for (p2List_item <MapLayer*>*layer = data.layers.start; layer; layer = layer->next)
-	//{
-	//	for (uint j = 0; j < data.height; j++)
-	//	{
-	//		for (uint i = 0; i < data.width; i++)
-	//		{
-	//			uint id = layer->data->tiles[layer->data->Get(i, j)];
-	//			tileset = GetTileset(id);
-
-	//			iPoint map_pos = MapToWorld(i, j);
-	//			SDL_Rect rect = tileset->GetTileRect(id);
-
-
-	//			if (id == 0)
-	//			{
-	//				continue;
-	//			}
-	//			App->render->Blit(tileset->texture, map_pos.x, map_pos.y, &rect);
-	//		}
-	//	}
-	//}
 }
 
 inline uint MapLayer::Get(int x, int y) const
@@ -200,6 +177,7 @@ bool j1Map::CleanUp()
 			}
 		}
 
+		RELEASE(item_3->data);
 		item_3 = item_3->next;
 	}
 

@@ -5,7 +5,7 @@
 #include "j1Render.h"
 #include "j1Window.h"
 #include "j1Textures.h"
-
+#include "j1Collision.h"
 // Entities Headers =======================
 #include "Entity.h"
 #include "j1Player.h"
@@ -105,8 +105,9 @@ bool EntityManager::CleanUp()
 
 	// Remove all entities ======================================
 	p2List_item<Entity*>* item = entities.start;
+	p2List_item<Collider*>* colliders = nullptr;
 
-	while (item != NULL)
+	while (item != nullptr)
 	{
 		RELEASE(item->data);
 		item = item->next;
@@ -196,7 +197,7 @@ bool EntityManager::CreateEntity(const Entity_Info& info)
 
 	if (info.name == "test") 
 	{
-		entity = new Enemy_Test( info.position, info);
+		entity = new Enemy_Bat( info.position, info);
 	}
 
 	if (entity != nullptr) 

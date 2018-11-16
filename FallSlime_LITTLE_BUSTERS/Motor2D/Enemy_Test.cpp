@@ -1,22 +1,22 @@
 #include "Enemy_Test.h"
 
-Enemy_Test::Enemy_Test(fPoint position, Entity_Info info) :Entity( position, info)
+Enemy_Bat::Enemy_Bat(fPoint position, Entity_Info info) :Enemy( position, info)
 {
 
 }
 
-bool Enemy_Test::Update(float dt)
+bool Enemy_Bat::Update(float dt)
 {
 
 	return true;
 }
 
-bool Enemy_Test::Draw(SDL_Texture* sprites)
+bool Enemy_Bat::Draw(SDL_Texture* sprites)
 {
 	return true;
 }
 
-bool Enemy_Test::OnCollision(Collider* collider)
+bool Enemy_Bat::OnCollision(Collider* c1, Collider* c2)
 {
 	return true;
 }
