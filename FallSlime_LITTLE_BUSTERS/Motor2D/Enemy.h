@@ -24,9 +24,11 @@ public:
 	// Common methods ===============================
 	bool UpdateLogic();   // Update only the path
 
-	bool FollowPath();   
+	bool FollowPath(float dt);
 
 	bool CheckTargetRatio();
+
+	Collider*             main_collider = nullptr;
 
 	Entity*               target = nullptr;                 // Entity to follow
 	uint32                path_interval_time = 0u;          // Time between every path creation (ms)
@@ -35,7 +37,10 @@ public:
 	j1Timer               path_timer;
 	p2DynArray<iPoint>    last_path;                      
 	Animation             animation;
-	
+	iPoint                current_point = {-1,-1};
+	fPoint                vector;
+
+	bool                  target_detected;
 };
 
 #endif // __Enemy_H__

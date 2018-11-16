@@ -6,7 +6,7 @@
 
 Entity::Entity(fPoint position, Entity_Info info) : position( position)
 {
-	
+
 }
 
 Entity::~Entity()
