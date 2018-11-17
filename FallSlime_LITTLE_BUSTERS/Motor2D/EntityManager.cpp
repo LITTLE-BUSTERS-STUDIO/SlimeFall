@@ -32,62 +32,66 @@ bool EntityManager::Awake(pugi::xml_node& node)
 
 	// Players ///////////////////////////////////////////
 	pugi::xml_node enemy_node = node.child("players").child("player");
-	
-		Player_Properties*  player_properties = new Player_Properties();
 
-		player_properties->name.create(enemy_node.attribute("name").as_string(""));
+	Player_Properties*  player_properties = new Player_Properties();
 
-		pugi::xml_node collider_node = enemy_node.child("collider");
-		player_properties->collider_rect = { 0 , 0 , collider_node.attribute("width").as_int(0) , collider_node.attribute("height").as_int(0) };
+	player_properties->name.create(enemy_node.attribute("name").as_string(""));
 
-		pugi::xml_node spawn_margin = enemy_node.child("spawn_margin");
-		player_properties->spawn_rect = { 0 , 0 , spawn_margin.attribute("width").as_int(0) , spawn_margin.attribute("height").as_int(0) };
+	pugi::xml_node collider_node = enemy_node.child("collider");
+	player_properties->collider_rect = { 0 , 0 , collider_node.attribute("width").as_int(0) , collider_node.attribute("height").as_int(0) };
 
-		// Values ======================
+	pugi::xml_node spawn_margin = enemy_node.child("spawn_margin");
+	player_properties->spawn_rect = { 0 , 0 , spawn_margin.attribute("width").as_int(0) , spawn_margin.attribute("height").as_int(0) };
 
-		player_properties->gravity = enemy_node.child("physics").attribute("gravity").as_float(0);
-		player_properties->speed_ground = enemy_node.child("physics").attribute("speed_ground").as_float(0);
-		player_properties->speed_air = enemy_node.child("physics").attribute("speed_air").as_float(0);
-		player_properties->speed_jump = enemy_node.child("physics").attribute("speed_jump").as_float(0);
-		player_properties->speed_gummy_jump = enemy_node.child("physics").attribute("speed_gummy_jump").as_float(0);
-		player_properties->speed_attack = enemy_node.child("physics").attribute("speed_attack").as_float(0);
+	// Values ======================
 
-		// Assets ======================
+	player_properties->gravity = enemy_node.child("physics").attribute("gravity").as_float(0);
+	player_properties->speed_ground = enemy_node.child("physics").attribute("speed_ground").as_float(0);
+	player_properties->speed_air = enemy_node.child("physics").attribute("speed_air").as_float(0);
+	player_properties->speed_jump = enemy_node.child("physics").attribute("speed_jump").as_float(0);
+	player_properties->speed_gummy_jump = enemy_node.child("physics").attribute("speed_gummy_jump").as_float(0);
+	player_properties->speed_attack = enemy_node.child("physics").attribute("speed_attack").as_float(0);
 
-		//----------Textures---------------------------
-		player_properties->path_tex_player.create(enemy_node.child("textures").child("jumping").attribute("path").as_string(""));
-		player_properties->path_death_splash.create(enemy_node.child("textures").child("death").attribute("path").as_string(""));
-		player_properties->path_attack_splash.create(enemy_node.child("textures").child("attack").attribute("path").as_string(""));
-		//----------Animations-------------------------
-		player_properties->jumping_anim.LoadAnimation(p2SString(enemy_node.child("animations").child("jumping").attribute("path").as_string("")), "pink_slime");
-		player_properties->death_anim.LoadAnimation(p2SString(enemy_node.child("animations").child("death").attribute("path").as_string("")), "pink_splash");
-		player_properties->attack_anim.LoadAnimation(p2SString(enemy_node.child("animations").child("attack").attribute("path").as_string("")), "pink_attack");
+	// Assets ======================
 
-		//-----------------Sfx-----------------------
-		player_properties->path_jump_fx1.create(enemy_node.child("sfx").child("jump1").attribute("path").as_string(""));
-		player_properties->path_jump_fx2.create(enemy_node.child("sfx").child("jump2").attribute("path").as_string(""));
-		player_properties->path_jump_fx3.create(enemy_node.child("sfx").child("jump3").attribute("path").as_string(""));
-		player_properties->path_jump_fx4.create(enemy_node.child("sfx").child("jump4").attribute("path").as_string(""));
-		player_properties->path_jump_fx5.create(enemy_node.child("sfx").child("jump5").attribute("path").as_string(""));
-		player_properties->path_death_fx.create(enemy_node.child("sfx").child("death").attribute("path").as_string(""));
-		player_properties->path_attack_fx.create(enemy_node.child("sfx").child("attack").attribute("path").as_string(""));
+	//----------Textures---------------------------
+	player_properties->path_tex_player.create(enemy_node.child("textures").child("jumping").attribute("path").as_string(""));
+	player_properties->path_death_splash.create(enemy_node.child("textures").child("death").attribute("path").as_string(""));
+	player_properties->path_attack_splash.create(enemy_node.child("textures").child("attack").attribute("path").as_string(""));
 
-		//=================================================================
+	player_properties->path_tex_bat.create(enemy_node.child("textures").child("enemy_bat").attribute("path").as_string(""));
+	//----------Animations-------------------------
+	player_properties->jumping_anim.LoadAnimation(p2SString(enemy_node.child("animations").child("jumping").attribute("path").as_string("")), "pink_slime");
+	player_properties->death_anim.LoadAnimation(p2SString(enemy_node.child("animations").child("death").attribute("path").as_string("")), "pink_splash");
+	player_properties->attack_anim.LoadAnimation(p2SString(enemy_node.child("animations").child("attack").attribute("path").as_string("")), "pink_attack");
 
-		properties_list.add(player_properties);
-	
+	player_properties->bat_anim.LoadAnimation(p2SString(enemy_node.child("animations").child("enemy_bat").attribute("path").as_string("")), "enemy_bat");
+
+	//-----------------Sfx-----------------------
+	player_properties->path_jump_fx1.create(enemy_node.child("sfx").child("jump1").attribute("path").as_string(""));
+	player_properties->path_jump_fx2.create(enemy_node.child("sfx").child("jump2").attribute("path").as_string(""));
+	player_properties->path_jump_fx3.create(enemy_node.child("sfx").child("jump3").attribute("path").as_string(""));
+	player_properties->path_jump_fx4.create(enemy_node.child("sfx").child("jump4").attribute("path").as_string(""));
+	player_properties->path_jump_fx5.create(enemy_node.child("sfx").child("jump5").attribute("path").as_string(""));
+	player_properties->path_death_fx.create(enemy_node.child("sfx").child("death").attribute("path").as_string(""));
+	player_properties->path_attack_fx.create(enemy_node.child("sfx").child("attack").attribute("path").as_string(""));
+
+	//=================================================================
+
+	properties_list.add(player_properties);
+
 	// Enemies //////////////////////////////////////////////
 
-	for (pugi::xml_node enemy_node = node.child("enemies").child("enemy") ; enemy_node; enemy_node = enemy_node.next_sibling("enemy"))
+	for (pugi::xml_node enemy_node = node.child("enemies").child("enemy"); enemy_node; enemy_node = enemy_node.next_sibling("enemy"))
 	{
 		Properties* properties = new Properties();
 		properties->name.create(enemy_node.attribute("name").as_string(""));
 
 		pugi::xml_node collider_node = enemy_node.child("collider");
-		properties->collider_rect = { 0 , 0 , collider_node.attribute("width").as_int(0) , collider_node.attribute("height").as_int(0)};
+		properties->collider_rect = { 0 , 0 , collider_node.attribute("width").as_int(0) , collider_node.attribute("height").as_int(0) };
 
 		pugi::xml_node spawn_margin = enemy_node.child("spawn_margin");
-		properties->spawn_rect = { 0 , 0 , spawn_margin.attribute("width").as_int(0) , spawn_margin.attribute("height").as_int(0)};
+		properties->spawn_rect = { 0 , 0 , spawn_margin.attribute("width").as_int(0) , spawn_margin.attribute("height").as_int(0) };
 
 		properties_list.add(properties);
 	}

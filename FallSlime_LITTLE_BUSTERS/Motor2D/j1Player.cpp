@@ -49,10 +49,14 @@ j1Player::j1Player(fPoint pos, Entity_Info info) : Entity(pos, info)
 	death_splash = App->tex->Load(player_properties->path_death_splash.GetString());
 	attack_splash = App->tex->Load(player_properties->path_attack_splash.GetString());
 
+	tex_bat = App->tex->Load(player_properties->path_tex_bat.GetString());
+
 	// Animations ----------------------------------------
 	jumping_anim = player_properties->jumping_anim;
 	death_anim = player_properties->death_anim;
 	attack_anim = player_properties->attack_anim;
+
+	bat_anim = player_properties->bat_anim;
 
 	// Sfx ----------------------------------------------
 	id_death_fx = App->audio->LoadFx(player_properties->path_death_fx.GetString());
@@ -69,6 +73,8 @@ j1Player::~j1Player()
 	App->tex->UnLoad(tex_player);
 	App->tex->UnLoad(death_splash);
 	App->tex->UnLoad(attack_splash);
+
+	App->tex->UnLoad(tex_bat);
 }
 
 bool j1Player::HandleInput()

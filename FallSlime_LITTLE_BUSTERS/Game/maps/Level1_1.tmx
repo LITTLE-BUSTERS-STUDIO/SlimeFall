@@ -61,7 +61,7 @@
   <tile id="56" terrain="3,3,,"/>
   <tile id="57" terrain="3,,,"/>
  </tileset>
- <tileset firstgid="61" name="Parallax" tilewidth="928" tileheight="793" tilecount="11" columns="11">
+ <tileset firstgid="61" name="Parallax" tilewidth="928" tileheight="793" tilecount="0" columns="11">
   <image source="Parallax.png" width="10208" height="793"/>
  </tileset>
  <objectgroup id="64" name="initial_position">
