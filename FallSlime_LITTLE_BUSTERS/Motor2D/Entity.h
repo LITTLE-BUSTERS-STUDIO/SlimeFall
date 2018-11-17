@@ -37,13 +37,18 @@ public:
 	Animation         jumping_anim;
 	Animation		  death_anim;
 	Animation		  attack_anim;
+
 	Animation		  bat_anim;
+	Animation         smoke_anim;
+
 	//-----------Textures-------------------
 	p2SString         path_tex_player;
 	p2SString         path_death_splash;
 	p2SString         path_attack_splash;
 
 	p2SString         path_tex_bat;
+	p2SString         path_tex_smoke;
+
 
 	//------------Sfx----------------------
 	p2SString         path_jump_fx1;
@@ -84,7 +89,6 @@ public:
 		spawn_rect.y = spawn_position.y - properties->spawn_rect.h / 2;
 	}
 };
-
 
 enum class EntityType 
 {
