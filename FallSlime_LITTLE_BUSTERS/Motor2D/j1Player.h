@@ -62,6 +62,7 @@ private:
 	float				speed_attack;
 	// States ================================
 	State				current_state = State::jumping;
+	//Bool ===================================
 	bool                gummy_jump = false;
 	bool			    attack = false;
 	bool				apply_jump_speed = false;

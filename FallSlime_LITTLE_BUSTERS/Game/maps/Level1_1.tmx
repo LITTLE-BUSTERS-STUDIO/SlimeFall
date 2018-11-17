@@ -61,7 +61,6 @@
   <tile id="56" terrain="3,3,,"/>
   <tile id="57" terrain="3,,,"/>
  </tileset>
- <tileset firstgid="61" source="Skeleton.tsx"/>
  <objectgroup id="64" name="initial_position">
   <properties>
    <property name="type" value="initial_position"/>

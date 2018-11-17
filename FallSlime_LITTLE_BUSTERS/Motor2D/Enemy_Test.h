@@ -25,8 +25,11 @@ public:
 	bool Enemy_Bat::Reset(fPoint pos);
 
 	bool OnCollision(Collider* c1, Collider* c2) ;
-
 private:
+
+	//Bool ===================================
+	bool                flip_x = false;
+
 	//-----------Textures-------------------
 	SDL_Texture *	tex_smoke = nullptr;
 	SDL_Texture *	tex_bat = nullptr;

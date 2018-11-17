@@ -3,6 +3,7 @@
 #include "EntityManager.h"
 #include "j1Collision.h"
 #include "j1Textures.h"
+#include "j1Player.h"
 
 #include "j1Map.h"
 #include "j1Render.h"
@@ -79,8 +80,13 @@ bool Enemy_Bat::Draw()
 	if (bat_anim.GetFrameValue() > 9)
 		bat_anim.Reset();
 
+	if (position.x < App->entity_manager->GetPlayer()->position.x)
+		flip_x = true;
+	else
+		flip_x = false;
+
 	App->render->Blit(tex_smoke, 200, 140, &smoke_anim.GetCurrentFrame());
-	App->render->Blit(tex_bat, 100, 140, &bat_anim.GetCurrentFrame());
+	App->render->Blit(tex_bat, position.x - main_collider->rect.w, position.y - main_collider->rect.h , &bat_anim.GetCurrentFrame(), flip_x);
 	return true;
 }
 
