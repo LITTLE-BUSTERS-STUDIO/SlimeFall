@@ -344,7 +344,6 @@ bool j1Player::Draw()
 	if (skeleton_walking_anim.GetFrameValue() > 20)
 		skeleton_walking_anim.Reset();
 
-	
 	App->render->Blit(tex_bat, 100, 140, &bat_anim.GetCurrentFrame());
 	App->render->Blit(tex_smoke, 200, 140, &smoke_anim.GetCurrentFrame());
 	App->render->Blit(tex_skeleton, 250, 140, &skeleton_attack_anim.GetCurrentFrame());
