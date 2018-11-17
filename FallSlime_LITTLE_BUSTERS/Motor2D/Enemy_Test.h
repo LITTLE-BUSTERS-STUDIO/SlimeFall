@@ -15,7 +15,7 @@ public:
 
 	bool Update(float dt) ;
 
-	bool Draw(SDL_Texture* sprites) ;
+	bool Draw();
 
 	bool OnCollision(Collider* c1, Collider* c2) ;
 };

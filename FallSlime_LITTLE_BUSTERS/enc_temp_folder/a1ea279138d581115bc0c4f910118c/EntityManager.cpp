@@ -158,6 +158,8 @@ bool EntityManager::PreUpdate()
 		}
 	}
 
+	LOG("%i", entities.count());
+
 	for (p2List_item<Entity*> *item = entities.start; item; item = item->next)
 	{
 		item->data->HandleInput();

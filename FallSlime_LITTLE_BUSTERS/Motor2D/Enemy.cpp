@@ -19,7 +19,7 @@ Enemy::Enemy(fPoint position, Entity_Info info) :Entity(position, info)
 	current_point = {pos.x, pos.y};
 	
 	velocity = { 100, 100 };
-	path_interval_time = 200u;
+	path_interval_time = 500u;
 	detection_ratio = 300;
 
 }
@@ -50,7 +50,8 @@ bool  Enemy::FollowPath( float dt)
 	iPoint pos = { (int)position.x, (int)position.y };
 	pos = App->map->WorldToMap(pos.x, pos.y);
 
-	if (pos.x > current_point.x - 1 && pos.x < current_point.x + 1 && pos.y > current_point.y - 1 && pos.y < current_point.y + 1)
+	/*if (pos.x > current_point.x - 1 && pos.x < current_point.x + 1 && pos.y > current_point.y - 1 && pos.y < current_point.y + 1)*/
+	if (pos == current_point)
 	{
 		/*previous_point =  current_point;*/
 		if (last_path.Count()) 

@@ -296,6 +296,7 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination ,p
 		if (current_node->data.pos == destination)
 		{
 			// Backtrack to create the final path
+			path.Clear();
 
 			for (PathNode* node = (PathNode*) closed.list.end ; node ; node = (PathNode*)node->parent)
 			{
