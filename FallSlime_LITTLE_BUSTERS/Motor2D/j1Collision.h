@@ -64,7 +64,7 @@ public:
 	bool CleanUp();
 
 	Collider * AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback = nullptr);
-	Direction ResolveOverlap(Collider *dynamic_col, Collider *static_col, fPoint &position, fPoint &velocity);
+	Direction ResolveOverlap(Collider *dynamic_col, Collider *static_col, fPoint &position ,fPoint &velocity);
 
 private:
 	p2List<Collider*> colliders;

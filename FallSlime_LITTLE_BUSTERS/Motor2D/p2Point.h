@@ -131,6 +131,24 @@ public:
 	{
 		return abs(v.x - x) + abs(v.y - y);
 	}
+
+	void Normalize() {
+		float module = sqrt(x * x + y * y);
+		x = x / module;
+		y = y / module;
+	}
+
+	p2Point Normalized() {
+
+		p2Point normalized;
+		float module = sqrtf(x * x + y * y);
+		float norm_x, norm_x;
+		norm_x = x / module;
+		norm_x = x / module;
+
+		return p2Point(norm_x, norm_y)
+	}
+
 };
 
 typedef p2Point<int> iPoint;

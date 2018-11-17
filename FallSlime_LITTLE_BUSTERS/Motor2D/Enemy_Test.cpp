@@ -18,14 +18,21 @@ Enemy_Bat::Enemy_Bat(fPoint position, Entity_Info info) :Enemy( position, info)
 
 bool Enemy_Bat::Update(float dt)
 {
-	CheckTargetRatio();
-	UpdateLogic();
-	FollowPath(dt);
+
+	velocity = { 100,100 };
+
+	if (CheckTargetRatio())
+	{
+		UpdateLogic();
+		FollowPath(dt);
+	}
+
 
 	if (main_collider)
 	{
 		main_collider->SetPos(position.x - main_collider->rect.w / 2, position.y - main_collider->rect.h / 2);
 	}
+
 	return true;
 }
 

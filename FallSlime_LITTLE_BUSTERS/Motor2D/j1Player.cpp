@@ -510,18 +510,21 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 	// Switch all collider types
 	if (c1 == player_collider)
 	{
-		Direction direction = App->collision->ResolveOverlap(c1, c2, position, velocity);
+		Direction direction; 
 
 		switch (c2->type)
 		{
 		case COLLIDER_WALL:
 
+			direction = App->collision->ResolveOverlap(c1, c2, position, velocity);
+
 			if (direction == Direction::down)
 			{
 				check_fall = true;
 				on_ground = true;
+				break;
 			}
-		
+
 			player_collider->SetPos((int)position.x - player_collider->rect.w / 2, (int)position.y - player_collider->rect.h / 2);
 			ground_detector->SetPos((int)position.x - player_collider->rect.w / 2, (int)position.y );
 			player_collider->type = COLLIDER_PLAYER;
