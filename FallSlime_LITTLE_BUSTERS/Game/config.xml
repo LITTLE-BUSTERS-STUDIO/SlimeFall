@@ -80,7 +80,7 @@
                <attack path ="textures/player_attack.png"/>
                <enemy_bat path ="textures/Enemy_bat.png"/>
                <smoke path ="textures/Smoke.png"/>
-               <skeleton path ="textures/Skeleton.png"/>
+               <enemy_skeleton path ="textures/Skeleton.png"/>
              </textures>
              <sfx>
                <death path ="audio/fx/death.wav"/>

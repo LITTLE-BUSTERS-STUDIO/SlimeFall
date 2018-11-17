@@ -89,6 +89,7 @@ private:
 
 	SDL_Texture      *tex_bat = nullptr;
 	SDL_Texture      *tex_smoke = nullptr;
+	SDL_Texture      *tex_skeleton = nullptr;
 	//----------Animations-----------------
 	Animation         jumping_anim;
 	Animation         death_anim;
@@ -96,6 +97,8 @@ private:
 
 	Animation         bat_anim;
 	Animation         smoke_anim;
+	Animation         skeleton_anim;
+
 	//------------Sfx----------------------
 	uint			  fx_jump1;
 	uint			  fx_jump2;

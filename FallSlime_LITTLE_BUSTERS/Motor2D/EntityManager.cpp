@@ -61,6 +61,7 @@ bool EntityManager::Awake(pugi::xml_node& node)
 
 	player_properties->path_tex_bat.create(enemy_node.child("textures").child("enemy_bat").attribute("path").as_string(""));
 	player_properties->path_tex_smoke.create(enemy_node.child("textures").child("smoke").attribute("path").as_string(""));
+	player_properties->path_tex_skeleton.create(enemy_node.child("textures").child("enemy_skeleton").attribute("path").as_string(""));
 	//----------Animations-------------------------
 	player_properties->jumping_anim.LoadAnimation(p2SString(enemy_node.child("animations").child("jumping").attribute("path").as_string("")), "pink_slime");
 	player_properties->death_anim.LoadAnimation(p2SString(enemy_node.child("animations").child("death").attribute("path").as_string("")), "pink_splash");
@@ -68,6 +69,7 @@ bool EntityManager::Awake(pugi::xml_node& node)
 
 	player_properties->bat_anim.LoadAnimation(p2SString(enemy_node.child("animations").child("enemy_bat").attribute("path").as_string("")), "enemy_bat");
 	player_properties->smoke_anim.LoadAnimation(p2SString(enemy_node.child("animations").child("smoke").attribute("path").as_string("")), "smoke");
+	player_properties->skeleton_anim.LoadAnimation(p2SString(enemy_node.child("animations").child("enemy_skeleton").attribute("path").as_string("")), "skeleton_attack");
 
 	//-----------------Sfx-----------------------
 	player_properties->path_jump_fx1.create(enemy_node.child("sfx").child("jump1").attribute("path").as_string(""));

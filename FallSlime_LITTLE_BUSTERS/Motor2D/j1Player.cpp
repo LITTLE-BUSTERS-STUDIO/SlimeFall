@@ -51,6 +51,7 @@ j1Player::j1Player(fPoint pos, Entity_Info info) : Entity(pos, info)
 
 	tex_bat = App->tex->Load(player_properties->path_tex_bat.GetString());
 	tex_smoke = App->tex->Load(player_properties->path_tex_smoke.GetString());
+	tex_skeleton = App->tex->Load(player_properties->path_tex_skeleton.GetString());
 
 	// Animations ----------------------------------------
 	jumping_anim = player_properties->jumping_anim;
@@ -59,6 +60,7 @@ j1Player::j1Player(fPoint pos, Entity_Info info) : Entity(pos, info)
 
 	bat_anim = player_properties->bat_anim;
 	smoke_anim = player_properties->smoke_anim;
+	skeleton_anim = player_properties->skeleton_anim;
 
 	// Sfx ----------------------------------------------
 	id_death_fx = App->audio->LoadFx(player_properties->path_death_fx.GetString());
@@ -78,6 +80,7 @@ j1Player::~j1Player()
 
 	App->tex->UnLoad(tex_bat);
 	App->tex->UnLoad(tex_smoke);
+	App->tex->UnLoad(tex_skeleton);
 }
 
 bool j1Player::HandleInput()
@@ -338,6 +341,14 @@ bool j1Player::Draw()
 		smoke_anim.Reset();
 	
 	App->render->Blit(tex_smoke, 200, 140, &smoke_anim.GetCurrentFrame());
+
+	//TEST 3
+	skeleton_anim.speed = 15.0F;
+
+	if (skeleton_anim.GetFrameValue() > 9)
+		skeleton_anim.Reset();
+
+	App->render->Blit(tex_skeleton, 300, 140, &skeleton_anim.GetCurrentFrame());
 	return true;
 }
 

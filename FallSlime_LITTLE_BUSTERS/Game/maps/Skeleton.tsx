@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.2" tiledversion="1.2.0" name="Skeleton" tilewidth="43" tileheight="37" tilecount="90" columns="18">
-  <properties>
-    <property name="loop" type="bool" value="true"/>
-  </properties>
  <image source="../textures/Skeleton.png" width="783" height="195"/>
  <tile id="0">
-   <properties>
-     <property name="skeleton_attack"/>
-   </properties>
   <animation>
    <frame tileid="0" duration="200"/>
    <frame tileid="1" duration="200"/>
@@ -30,9 +24,6 @@
   </animation>
  </tile>
  <tile id="18">
-   <properties>
-     <property name="skeleton_dead"/>
-   </properties>
   <animation>
    <frame tileid="18" duration="200"/>
    <frame tileid="19" duration="200"/>
@@ -52,9 +43,6 @@
   </animation>
  </tile>
  <tile id="36">
-   <properties>
-     <property name="skeleton_walking"/>
-   </properties>
   <animation>
    <frame tileid="36" duration="200"/>
    <frame tileid="37" duration="200"/>
@@ -72,9 +60,6 @@
   </animation>
  </tile>
  <tile id="54">
-   <properties>
-     <property name="skeleton_react"/>
-   </properties>
   <animation>
    <frame tileid="54" duration="200"/>
    <frame tileid="55" duration="200"/>
@@ -83,9 +68,6 @@
   </animation>
  </tile>
  <tile id="72">
-   <properties>
-     <property name="skeleton_idle"/>
-   </properties>
   <animation>
    <frame tileid="72" duration="200"/>
    <frame tileid="73" duration="200"/>
