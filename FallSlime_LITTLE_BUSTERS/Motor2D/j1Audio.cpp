@@ -4,6 +4,8 @@
 #include "p2List.h"
 #include "j1App.h"
 #include "j1Input.h"
+#include "Brofiler/Brofiler.h"
+
 
 #include "SDL/include/SDL.h"
 #include "SDL_mixer\include\SDL_mixer.h"
@@ -22,6 +24,8 @@ j1Audio::~j1Audio()
 // Called before render is available
 bool j1Audio::Awake(pugi::xml_node& config)
 {
+	BROFILER_CATEGORY("Audio Awake", Profiler::Color::CornflowerBlue);
+
 	LOG("Loading Audio Mixer");
 	bool ret = true;
 	SDL_Init(0);
@@ -73,6 +77,8 @@ bool j1Audio::Awake(pugi::xml_node& config)
 
 bool j1Audio::PreUpdate()
 {
+	BROFILER_CATEGORY("Audio PreUpdate", Profiler::Color::BurlyWood);
+
 	if (App->input->keyboard[SDL_SCANCODE_F7] == KEY_DOWN && mute == false) //Mute
 	{
 		mute = true;
@@ -106,14 +112,14 @@ bool j1Audio::PreUpdate()
 
 		}
 	}
-
-
 	return true;
 }
 
 // Called before quitting
 bool j1Audio::CleanUp()
 {
+	BROFILER_CATEGORY("Audio CleanUp", Profiler::Color::Chartreuse);
+
 	if(!active)
 		return true;
 
@@ -141,6 +147,7 @@ bool j1Audio::CleanUp()
 bool j1Audio::PlayMusic(const char* path)
 {
 	bool ret = true;
+	BROFILER_CATEGORY("PlayMusic", Profiler::Color::Brown);
 
 	if(!active)
 		return false;
@@ -219,6 +226,7 @@ unsigned int j1Audio::LoadFx(const char* path)
 bool j1Audio::PlayFx(unsigned int id, int repeat)
 {
 	bool ret = false;
+	BROFILER_CATEGORY("PlayFx", Profiler::Color::BlueViolet);
 
 	if(!active)
 		return false;

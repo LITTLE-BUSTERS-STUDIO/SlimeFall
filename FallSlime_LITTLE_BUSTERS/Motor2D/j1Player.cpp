@@ -13,6 +13,8 @@
 #include <math.h>
 #include "j1FadeToBlack.h"
 #include "EntityManager.h"
+#include "Brofiler/Brofiler.h"
+
 
 
 j1Player::j1Player(fPoint pos, Entity_Info info) : Entity(pos, info)
@@ -47,10 +49,14 @@ j1Player::j1Player(fPoint pos, Entity_Info info) : Entity(pos, info)
 	death_splash = App->tex->Load(player_properties->path_death_splash.GetString());
 	attack_splash = App->tex->Load(player_properties->path_attack_splash.GetString());
 
+	tex_bat = App->tex->Load(player_properties->path_tex_bat.GetString());
+
 	// Animations ----------------------------------------
 	jumping_anim = player_properties->jumping_anim;
 	death_anim = player_properties->death_anim;
 	attack_anim = player_properties->attack_anim;
+
+	bat_anim = player_properties->bat_anim;
 
 	// Sfx ----------------------------------------------
 	id_death_fx = App->audio->LoadFx(player_properties->path_death_fx.GetString());
@@ -67,10 +73,14 @@ j1Player::~j1Player()
 	App->tex->UnLoad(tex_player);
 	App->tex->UnLoad(death_splash);
 	App->tex->UnLoad(attack_splash);
+
+	App->tex->UnLoad(tex_bat);
 }
 
 bool j1Player::HandleInput()
 {
+	BROFILER_CATEGORY("Player HandleInput", Profiler::Color::LightCoral);
+
 	if (current_state != State::dead)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
@@ -195,6 +205,8 @@ bool j1Player::HandleInput()
 
 bool j1Player::Update(float dt)
 {
+	BROFILER_CATEGORY("Player Update", Profiler::Color::LightCyan);
+
 	if (reset) 
 	{
 		Reset(App->map->data.initial_position);
@@ -250,6 +262,8 @@ bool j1Player::Update(float dt)
 
 bool j1Player::Draw()
 {
+	BROFILER_CATEGORY("Player Draw", Profiler::Color::LightGoldenRodYellow);
+
 	SDL_Rect frame; 
 	SDL_Texture* texture = nullptr;
 	jumping_anim.speed = 43.75F;
@@ -309,6 +323,8 @@ bool j1Player::Draw()
 
 bool j1Player::Reset( fPoint pos)
 {
+	BROFILER_CATEGORY("Player Reset", Profiler::Color::LightGray);
+
 	position = pos;
 	velocity.x = 0;
 	velocity.y = 0;
@@ -456,6 +472,8 @@ bool j1Player::Save(pugi::xml_node& node) const
 // Remove Colliders Overlap
 bool j1Player::OnCollision(Collider* c1, Collider* c2)
 {
+	BROFILER_CATEGORY("Player OnCollision", Profiler::Color::LightGreen);
+
 	bool ret = true;
 
 	// Switch all collider types

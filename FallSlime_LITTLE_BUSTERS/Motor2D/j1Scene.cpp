@@ -7,10 +7,13 @@
 #include "j1FadeToBlack.h"
 #include "j1Player.h"
 #include "EntityManager.h"
+#include "Brofiler/Brofiler.h"
 
 
 bool j1Scene::LoadPhase(uint phase_number, bool spawn) 
 {
+	BROFILER_CATEGORY("Scene LoadPhase", Profiler::Color::LimeGreen);
+
 	App->fade_to_black->FadeToBlack(0.5f);
 	p2List_item<Phase*>* item = nullptr;
 	bool ret = true;
@@ -65,6 +68,8 @@ bool  j1Scene::UnloadPhase(uint phase_number)
 // Called each loop iteration
 bool j1Scene::PreUpdate()
 {
+	BROFILER_CATEGORY("Scene PreUpdate", Profiler::Color::Linen);
+
 	bool ret = true;
 
 	// Assigment keys =======================================
@@ -95,6 +100,8 @@ bool j1Scene::PreUpdate()
 
 bool j1Scene::NextPhase()
 {
+	BROFILER_CATEGORY("Scene NextPhase", Profiler::Color::Magenta);
+
 	bool ret = true;
 	ret = LoadPhase(++current_phase);
 	if (!ret)

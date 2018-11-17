@@ -4,6 +4,8 @@
 #include "j1Collision.h"
 #include "p2Defs.h"
 #include "p2Log.h"
+#include "Brofiler/Brofiler.h"
+
 
 
 j1Collision::j1Collision()
@@ -78,6 +80,8 @@ j1Collision::~j1Collision()
 
 bool j1Collision::Update(float dt)
 {
+	BROFILER_CATEGORY("Collision Update", Profiler::Color::LightPink);
+
 	// Remove all colliders scheduled for deletion
 	p2List_item<Collider*>* item = nullptr;
 	p2List_item<Collider*>* item_2 = nullptr;
@@ -169,6 +173,8 @@ bool j1Collision::Update(float dt)
 // Called before render is available
 bool j1Collision::PostUpdate(float dt)
 {
+	BROFILER_CATEGORY("Collision PostUpdate", Profiler::Color::LightSalmon);
+
 	if (App->input->keyboard[SDL_SCANCODE_F9] == KEY_DOWN) {
 		debug = !debug;
 	}
@@ -227,6 +233,8 @@ bool j1Collision::PostUpdate(float dt)
 // Called before quitting
 bool j1Collision:: CleanUp()
 {
+	BROFILER_CATEGORY("Collision CleanUp", Profiler::Color::LightSeaGreen);
+
 	LOG("Freeing all colliders");
 
 	// Remove all colliders =====================

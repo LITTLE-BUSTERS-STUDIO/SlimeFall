@@ -5,30 +5,25 @@
 #include "j1Collision.h"
 #include "j1Map.h"
 #include "p2Log.h"
+#include "Brofiler/Brofiler.h"
 
 #define MAX_DETECTION_RATIO 400
 
 Enemy::Enemy(fPoint position, Entity_Info info) :Entity(position, info)
 {
-
 	main_collider = App->collision->AddCollider(info.properties->collider_rect, COLLIDER_ENEMY, App->entity_manager);
 	colliders.add(main_collider);
-
 
 	iPoint pos = { (int)position.x, (int)position.y};
 	pos = App->map->WorldToMap(pos.x, pos.y);
 	current_point = {pos.x, pos.y};
 	
-	//path_interval_time = 0u;
 	velocity = { 100, 100 };
 	path_interval_time = 200u;
 	detection_ratio = 300;
 
-	if (path_interval_time) 
-	{
-		path_timer.Start();
-	}
 }
+
 
 bool Enemy::UpdateLogic() 
 {
@@ -39,8 +34,6 @@ bool Enemy::UpdateLogic()
 
 		map_target = App->map->WorldToMap(map_target.x, map_target.y);
 		map_pos = App->map->WorldToMap(map_pos.x, map_pos.y);
-
-		App->path_finding->DeleteLastPath();
 		App->path_finding->CreatePath( map_pos, map_target, last_path);
 
 		path_timer.Start();
@@ -65,7 +58,6 @@ bool  Enemy::FollowPath( float dt)
 			last_path.Pop(current_point);
 		}
 	}
-	
 
 	float   distance;
 	distance = fPoint(pos.x, pos.y).DistanceTo(fPoint(current_point.x, current_point.y));
@@ -90,3 +82,4 @@ bool Enemy::CheckTargetRatio()
 	}
 	return target_detected = ret;
 }
+

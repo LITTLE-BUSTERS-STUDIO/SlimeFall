@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "j1Render.h"
 #include "j1Textures.h"
+#include "Brofiler/Brofiler.h"
 
 #include "SDL_image/include/SDL_image.h"
 #pragma comment( lib, "SDL_image/libx86/SDL2_image.lib" )
@@ -19,6 +20,8 @@ j1Textures::~j1Textures()
 // Called before render is available
 bool j1Textures::Awake(pugi::xml_node& config)
 {
+	BROFILER_CATEGORY("Textures Awake", Profiler::Color::DarkViolet);
+
 	LOG("Init Image library");
 	bool ret = true;
 	// load support for the PNG image format
@@ -45,6 +48,8 @@ bool j1Textures::Start()
 // Called before quitting
 bool j1Textures::CleanUp()
 {
+	BROFILER_CATEGORY("Textures CleanUp", Profiler::Color::DeepPink);
+
 	LOG("Freeing textures and Image library");
 	p2List_item<SDL_Texture*>* item;
 
@@ -61,6 +66,8 @@ bool j1Textures::CleanUp()
 // Load new texture from file path
 SDL_Texture* const j1Textures::Load(const char* path)
 {
+	BROFILER_CATEGORY("Textures Load", Profiler::Color::DeepSkyBlue);
+
 	SDL_Texture* texture = NULL;
 	SDL_Surface* surface = IMG_Load(path);
 
@@ -80,6 +87,8 @@ SDL_Texture* const j1Textures::Load(const char* path)
 // Unload texture
 bool j1Textures::UnLoad(SDL_Texture* texture)
 {
+	BROFILER_CATEGORY("Textures UnLoad", Profiler::Color::DimGray);
+
 	p2List_item<SDL_Texture*>* item;
 
 	for(item = textures.start; item != NULL; item = item->next)
@@ -98,6 +107,8 @@ bool j1Textures::UnLoad(SDL_Texture* texture)
 // Translate a surface into a texture
 SDL_Texture* const j1Textures::LoadSurface(SDL_Surface* surface)
 {
+	BROFILER_CATEGORY("Textures LoadSurface", Profiler::Color::DodgerBlue);
+
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(App->render->renderer, surface);
 
 	if(texture == NULL)

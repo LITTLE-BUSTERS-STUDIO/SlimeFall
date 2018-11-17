@@ -70,11 +70,13 @@
                <jumping path ="animations/player_animation.xml"/>
                <death path ="animations/player_death_animation.xml"/>
                <attack path ="animations/player_attack_animation.xml"/>
+               <enemy_bat path ="animations/enemy_bat_animation.xml"/>
              </animations>
              <textures>
                <jumping path ="textures/player_animation.png"/>
                <death path ="textures/player_death.png"/>
                <attack path ="textures/player_attack.png"/>
+               <enemy_bat path ="textures/Enemy_bat.png"/>
              </textures>
              <sfx>
                <death path ="audio/fx/death.wav"/>

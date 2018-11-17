@@ -1,3 +1,20 @@
+# *CHANGELOG* [1.3]  2018-11-17
+
+### Summarized
+
+* Brofiler and cap 30fps added and a lot of bugs fixed
+
+### Added
+
+* F11 to change cap frames ON/OFF
+* Tremble camera bug fixed
+* Entity manager created
+* All vars multiply delta time
+* Brofiler added
+* Load parallax improved (now, laptops can run background)
+* Sprites added
+
+
 # *CHANGELOG* [1.2]  2018-11-14
 
 ### Summarized

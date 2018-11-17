@@ -4,6 +4,7 @@
 #include "j1Input.h"
 #include "j1Window.h"
 #include "SDL/include/SDL.h"
+#include "Brofiler/Brofiler.h"
 
 j1Input::j1Input() : j1Module()
 {
@@ -19,6 +20,8 @@ j1Input::~j1Input()
 // Called before render is available
 bool j1Input::Awake(pugi::xml_node& config)
 {
+	BROFILER_CATEGORY("Input Awake", Profiler::Color::Coral);
+
 	LOG("Init SDL input event system");
 	bool ret = true;
 	SDL_Init(0);
@@ -48,6 +51,8 @@ bool j1Input::Start()
 // Called each loop iteration
 bool j1Input::PreUpdate()
 {
+	BROFILER_CATEGORY("Input PreUpdate", Profiler::Color::CadetBlue);
+
 	static SDL_Event event;
 	
 	const Uint8* keys = SDL_GetKeyboardState(NULL);
@@ -131,6 +136,8 @@ bool j1Input::PreUpdate()
 // Called before quitting
 bool j1Input::CleanUp()
 {
+	BROFILER_CATEGORY("Input CleanUP", Profiler::Color::Chocolate);
+
 	LOG("Quitting SDL event subsystem");
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 	return true;

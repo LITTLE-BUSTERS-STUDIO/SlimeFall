@@ -86,10 +86,13 @@ private:
 	SDL_Texture      *tex_player = nullptr;
 	SDL_Texture      *death_splash = nullptr;
 	SDL_Texture      *attack_splash = nullptr;
+
+	SDL_Texture      *tex_bat = nullptr;
 	//----------Animations-----------------
 	Animation         jumping_anim;
 	Animation         death_anim;
 	Animation         attack_anim;
+	Animation         bat_anim;
 	//------------Sfx----------------------
 	uint			  fx_jump1;
 	uint			  fx_jump2;

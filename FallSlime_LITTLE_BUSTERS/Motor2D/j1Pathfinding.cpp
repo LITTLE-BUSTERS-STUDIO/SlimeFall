@@ -5,6 +5,7 @@
 #include "j1PathFinding.h"
 #include "j1Input.h"
 #include "j1Map.h"
+#include "Brofiler/Brofiler.h"
 
 j1PathFinding::j1PathFinding() : j1Module(), map(nullptr), last_path(DEFAULT_PATH_LENGTH), width(0), height(0)
 {
@@ -21,6 +22,8 @@ j1PathFinding::~j1PathFinding()
 // Called before quitting
 bool j1PathFinding::CleanUp()
 {
+	BROFILER_CATEGORY("Pathfinding CleanUp", Profiler::Color::LightSkyBlue);
+
 	LOG("Freeing pathfinding library");
 
 	last_path.Clear();
@@ -29,6 +32,8 @@ bool j1PathFinding::CleanUp()
 }
 bool j1PathFinding::PreUpdate()
 {
+	BROFILER_CATEGORY("Pathfinding PreUpdate", Profiler::Color::LightSlateGray);
+
 	// Debug pathfing =====================================
 	int x, y;
 	App->input->GetMousePosition(x, y);
@@ -56,6 +61,8 @@ bool j1PathFinding::PreUpdate()
 
 bool j1PathFinding::PostUpdate(float dt)
 {
+	BROFILER_CATEGORY("Pathfinding PostUpdate", Profiler::Color::LightYellow);
+
 	if (App->render->draw_pathfinding)
 	{
 		//  Draw Walkable map ----------------------------
@@ -183,6 +190,8 @@ PathNode::PathNode(const PathNode& node) : g(node.g), h(node.h), pos(node.pos), 
 // ----------------------------------------------------------------------------------
 uint PathNode::FindWalkableAdjacents(PathList& list_to_fill, iPoint destination)
 {
+	BROFILER_CATEGORY("Pathfinding FindWalkableAdjacents", Profiler::Color::LightSteelBlue);
+
 	iPoint position;
 	iPoint offset;
 
@@ -258,6 +267,8 @@ int PathNode::CalculateF(const iPoint& destination)
 // ----------------------------------------------------------------------------------
 int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination ,p2DynArray<iPoint> &path)
 {
+	BROFILER_CATEGORY("Pathfinding CreatePath", Profiler::Color::Lime);
+
 	// If origin or destination are not walkable, return -1
 	if (IsWalkable(origin) == false || IsWalkable(destination) == false)
 	{

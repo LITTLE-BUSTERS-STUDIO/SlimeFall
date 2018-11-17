@@ -5,6 +5,7 @@
 #include "PugiXml/src/pugixml.hpp"
 #include "p2SString.h"
 #include "j1App.h"
+#include "Brofiler/Brofiler.h"
 
 #define MAX_FRAMES 25
 
@@ -78,6 +79,8 @@ public:
 
 	bool LoadAnimation(p2SString path, p2SString name)
 	{
+		BROFILER_CATEGORY("Animation LoadAnimation", Profiler::Color::MediumSeaGreen);
+
 		pugi::xml_document anim_doc;
 		pugi::xml_node anim_node;
 		anim_doc.load_file(path.GetString());

@@ -4,6 +4,7 @@
 
 #include "j1Timer.h"
 #include "SDL\include\SDL_timer.h"
+#include "Brofiler/Brofiler.h"
 
 // ---------------------------------------------
 j1Timer::j1Timer()

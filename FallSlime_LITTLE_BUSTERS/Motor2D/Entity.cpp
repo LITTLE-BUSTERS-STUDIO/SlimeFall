@@ -3,10 +3,11 @@
 #include "EntityManager.h"
 #include "j1Render.h"
 #include "j1Collision.h"
+#include "Brofiler/Brofiler.h"
 
 Entity::Entity(fPoint position, Entity_Info info) : position( position)
 {
-
+	
 }
 
 Entity::~Entity()

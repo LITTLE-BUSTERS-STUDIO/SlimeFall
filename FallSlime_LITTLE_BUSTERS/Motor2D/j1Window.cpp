@@ -2,6 +2,7 @@
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Window.h"
+#include "Brofiler/Brofiler.h"
 
 #include "SDL/include/SDL.h"
 
@@ -21,6 +22,8 @@ j1Window::~j1Window()
 // Called before render is available
 bool j1Window::Awake(pugi::xml_node& config)
 {
+	BROFILER_CATEGORY("Window Awake", Profiler::Color::FireBrick);
+
 	LOG("Init SDL window & surface");
 	bool ret = true;
 
@@ -82,6 +85,8 @@ bool j1Window::Awake(pugi::xml_node& config)
 // Called before quitting
 bool j1Window::CleanUp()
 {
+	BROFILER_CATEGORY("Window CleanUp", Profiler::Color::FireBrick);
+
 	LOG("Destroying SDL window and quitting all SDL systems");
 
 	//Destroy window
