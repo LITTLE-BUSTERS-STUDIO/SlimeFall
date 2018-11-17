@@ -264,7 +264,7 @@ bool Collider::CheckCollision(const SDL_Rect& r) const
 }
 
 
-Direction j1Collision::ResolveOverlap(Collider *dynamic_col, Collider *static_col, fPoint &position, fPoint &velocity)
+Direction j1Collision::ResolveOverlap(Collider *dynamic_col, Collider *static_col, fPoint &position , fPoint &velocity)
 {
 	SDL_Rect dynamic = dynamic_col->rect;
 	SDL_Rect rigid = static_col->rect;
@@ -294,7 +294,7 @@ Direction j1Collision::ResolveOverlap(Collider *dynamic_col, Collider *static_co
 		}
 	}
 
-	if (offset_direction == -1) 
+	if (offset_direction == -1)
 	{
 		return Direction::unknown;
 	}
@@ -302,19 +302,19 @@ Direction j1Collision::ResolveOverlap(Collider *dynamic_col, Collider *static_co
 	switch ((Direction)offset_direction)
 	{
 	case Direction::right:
-		position.x = rigid.x - dynamic.w / 2;
+		position.x = (float)rigid.x - (float)dynamic.w / 2.0f;
 		velocity.x = 0;
 		break;
 	case Direction::left:
-		position.x = rigid.x + rigid.w + dynamic.w / 2;
+		position.x = (float)rigid.x + (float)rigid.w + (float)dynamic.w / 2.0f;
 		velocity.x = 0;
 		break;
 	case Direction::up:
-		position.y = rigid.y + rigid.h + dynamic.h / 2;
+		position.y = (float)rigid.y + (float)rigid.h + (float)dynamic.h / 2.0f;
 		velocity.y = 0;
 		break;
 	case Direction::down:
-		position.y = rigid.y - dynamic.h / 2;
+		position.y = (float)rigid.y - (float)dynamic.h / 2.0f;
 		velocity.y = 0;
 		break;
 	}

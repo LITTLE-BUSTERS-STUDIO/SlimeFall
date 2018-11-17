@@ -15,11 +15,10 @@ Enemy::Enemy(fPoint position, Entity_Info info) :Entity(position, info)
 	colliders.add(main_collider);
 
 	iPoint pos = { (int)position.x, (int)position.y};
-	pos = App->map->WorldToMap(pos.x, pos.y);
-	current_point = {pos.x, pos.y};
+	current_point = App->map->WorldToMap(pos.x, pos.y);
 	
-	velocity = { 100, 100 };
-	path_interval_time = 500u;
+	velocity = { 40, 40  };
+	path_interval_time = 400u;
 	detection_ratio = 300;
 
 }
@@ -27,7 +26,7 @@ Enemy::Enemy(fPoint position, Entity_Info info) :Entity(position, info)
 
 bool Enemy::UpdateLogic() 
 {
-	if (  path_timer.Read() > path_interval_time  && target_detected ) 
+	if (  path_timer.Read() > path_interval_time ) 
 	{
 		iPoint map_target(target->position.x, target->position.y);
 		iPoint map_pos(position.x, position.y);
@@ -35,7 +34,7 @@ bool Enemy::UpdateLogic()
 		map_target = App->map->WorldToMap(map_target.x, map_target.y);
 		map_pos = App->map->WorldToMap(map_pos.x, map_pos.y);
 		App->path_finding->CreatePath( map_pos, map_target, last_path);
-
+		new_path = true;
 		path_timer.Start();
 	}
 	return true;
@@ -47,25 +46,34 @@ bool  Enemy::FollowPath( float dt)
 	{
 		return false;
 	}
-	iPoint pos = { (int)position.x, (int)position.y };
-	pos = App->map->WorldToMap(pos.x, pos.y);
 
-	/*if (pos.x > current_point.x - 1 && pos.x < current_point.x + 1 && pos.y > current_point.y - 1 && pos.y < current_point.y + 1)*/
-	if (pos == current_point)
+	if (new_path)
 	{
-		/*previous_point =  current_point;*/
-		if (last_path.Count()) 
+		last_path.Pop(current_point);
+		last_path.Pop(current_point);
+		new_path = false;
+	}
+
+	fPoint velocity_to_follow;
+	iPoint node_in_world;
+	node_in_world = App->map->MapToWorld(current_point.x, current_point.y);
+
+	velocity_to_follow.x = (float)node_in_world.x - position.x;
+	velocity_to_follow.y = (float)node_in_world.y - position.y;
+
+	velocity_to_follow.Normalize();
+
+	position.x += velocity_to_follow.x * 100.0f * dt;
+	position.y += velocity_to_follow.y * 100.0f * dt;
+
+	if (position.x > node_in_world.x - 10 && position.x < node_in_world.x + 10 && position.y > node_in_world.y - 10 && position.y < node_in_world.y + 10)
+	{
+		if (last_path.Count())
 		{
 			last_path.Pop(current_point);
 		}
 	}
 
-	float   distance;
-	distance = fPoint(pos.x, pos.y).DistanceTo(fPoint(current_point.x, current_point.y));
-	vector = { current_point.x - (float)pos.x , current_point.y - (float)pos.y };
-	vector = { vector.x / distance , vector.y / distance };
-
-   	position += { velocity.x * vector.x * dt, velocity.y * vector.y * dt};
 
 	return true;
 }

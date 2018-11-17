@@ -290,19 +290,18 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination ,p
 		p2List_item<PathNode>* iterate_node = opened.GetNodeLowestScore();
 		p2List_item<PathNode>* current_node = closed.list.add(iterate_node->data);
 		opened.list.del(iterate_node);
-		iterate_node = nullptr;
 
 		// If we just added the destination, we are done!
 		if (current_node->data.pos == destination)
 		{
 			// Backtrack to create the final path
 			path.Clear();
-
-			for (PathNode* node = (PathNode*) closed.list.end ; node ; node = (PathNode*)node->parent)
+			for (PathNode* node = (PathNode*)closed.list.end; node; node = (PathNode*)node->parent)
+			/*for (PathNode* node = &current_node->data  ; node ; node = node->parent)*/
 			{
 				path.PushBack(node->pos);
 			}
-			path.Flip();
+			//path.Flip();
 
 			return path.Count();
 		}

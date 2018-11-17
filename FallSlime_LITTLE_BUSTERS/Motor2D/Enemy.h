@@ -43,6 +43,7 @@ public:
 	fPoint                vector;
 
 	bool                  target_detected;
+	bool                  new_path = true;
 };
 
 #endif // __Enemy_H__
