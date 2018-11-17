@@ -4,6 +4,8 @@
 #include "j1Collision.h"
 #include "p2Defs.h"
 #include "p2Log.h"
+#include "Brofiler/Brofiler.h"
+
 
 
 j1Collision::j1Collision()

@@ -9,6 +9,7 @@
 #include "j1Map.h"
 #include "Level_1.h"
 #include "EntityManager.h"
+#include "Brofiler/Brofiler.h"
 
 Level_1::Level_1() : j1Scene()
 {

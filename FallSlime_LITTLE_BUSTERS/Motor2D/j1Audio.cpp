@@ -4,6 +4,8 @@
 #include "p2List.h"
 #include "j1App.h"
 #include "j1Input.h"
+#include "Brofiler/Brofiler.h"
+
 
 #include "SDL/include/SDL.h"
 #include "SDL_mixer\include\SDL_mixer.h"

@@ -7,6 +7,7 @@
 #include "j1FadeToBlack.h"
 #include "j1Player.h"
 #include "EntityManager.h"
+#include "Brofiler/Brofiler.h"
 
 
 bool j1Scene::LoadPhase(uint phase_number, bool spawn) 

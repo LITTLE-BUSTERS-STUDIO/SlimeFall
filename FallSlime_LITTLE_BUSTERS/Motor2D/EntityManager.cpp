@@ -6,6 +6,8 @@
 #include "j1Window.h"
 #include "j1Textures.h"
 #include "j1Collision.h"
+#include "Brofiler/Brofiler.h"
+
 // Entities Headers =======================
 #include "Entity.h"
 #include "j1Player.h"
@@ -54,10 +56,9 @@ bool EntityManager::Awake(pugi::xml_node& node)
 		player_properties->path_tex_player.create(enemy_node.child("textures").child("jumping").attribute("path").as_string(""));
 		player_properties->path_death_splash.create(enemy_node.child("textures").child("death").attribute("path").as_string(""));
 		player_properties->path_attack_splash.create(enemy_node.child("textures").child("attack").attribute("path").as_string(""));
-
 		//----------Animations-------------------------
-		player_properties->jumping_anim.LoadAnimation(p2SString (enemy_node.child("animations").child("jumping").attribute("path").as_string("")), "pink_slime");
-		player_properties->death_anim.LoadAnimation(p2SString (enemy_node.child("animations").child("death").attribute("path").as_string("")), "pink_splash");
+		player_properties->jumping_anim.LoadAnimation(p2SString(enemy_node.child("animations").child("jumping").attribute("path").as_string("")), "pink_slime");
+		player_properties->death_anim.LoadAnimation(p2SString(enemy_node.child("animations").child("death").attribute("path").as_string("")), "pink_splash");
 		player_properties->attack_anim.LoadAnimation(p2SString(enemy_node.child("animations").child("attack").attribute("path").as_string("")), "pink_attack");
 
 		//-----------------Sfx-----------------------

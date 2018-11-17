@@ -9,6 +9,7 @@
 #include "j1Map.h"
 #include "EntityManager.h"
 #include <math.h>
+#include "Brofiler/Brofiler.h"
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {

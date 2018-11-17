@@ -2,6 +2,7 @@
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Window.h"
+#include "Brofiler/Brofiler.h"
 
 #include "SDL/include/SDL.h"
 

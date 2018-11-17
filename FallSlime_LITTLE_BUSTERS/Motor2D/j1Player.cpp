@@ -13,6 +13,8 @@
 #include <math.h>
 #include "j1FadeToBlack.h"
 #include "EntityManager.h"
+#include "Brofiler/Brofiler.h"
+
 
 
 j1Player::j1Player(fPoint pos, Entity_Info info) : Entity(pos, info)

@@ -8,6 +8,7 @@
 #include "Level_1.h"
 #include "j1Input.h"
 #include "j1Map.h"
+#include "Brofiler/Brofiler.h"
 
 j1Render::j1Render() : j1Module()
 {

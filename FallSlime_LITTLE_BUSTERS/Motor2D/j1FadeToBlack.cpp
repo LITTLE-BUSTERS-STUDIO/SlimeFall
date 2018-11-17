@@ -9,6 +9,7 @@
 #include "j1Scene.h"
 #include "SDL/include/SDL_render.h"
 #include "SDL/include/SDL_timer.h"
+#include "Brofiler/Brofiler.h"
 
 bool j1FadeToBlack::Awake(pugi::xml_node&)
 {
