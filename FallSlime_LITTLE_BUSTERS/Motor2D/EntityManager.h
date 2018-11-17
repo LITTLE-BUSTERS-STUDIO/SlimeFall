@@ -41,6 +41,7 @@ public:
 	bool Reset(fPoint pos);
 
 	bool CreatePlayer(fPoint spawn_pos);
+	bool CreateEnemy(fPoint spawn_pos);
 	//bool ResetAll();
 
 	//bool ResetEntity (Entity * entity);
@@ -64,6 +65,7 @@ private:
 	p2List<Entity_Info>         entities_info;          // Entities to spawn added in LoadMap (objectgroup entities)
 	p2List<Entity*>				entities;				// Active entities
 	j1Player*                   player = nullptr;
+	//Enemy_Bat*                  enemy_bat = nullptr;
 
 	//// Entities Properties ================================
 	p2List<Properties *>        properties_list; 

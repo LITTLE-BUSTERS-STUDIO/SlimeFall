@@ -93,13 +93,20 @@
              </sfx>
        </player>
    </players>
-   
+
    <enemies>
      <enemy name ="test">
        <collider width ="20" height="20"/>
        <spawn_margin width ="40" height="40"/>
+       <animations>
+         <enemy_bat path ="animations/enemy_bat_animation.xml"/>
+         <smoke path ="animations/smoke_animation.xml"/>
+       </animations>
+       <textures>
+         <enemy_bat path ="textures/Enemy_bat.png"/>
+         <smoke path ="textures/Smoke.png"/>
+       </textures>
      </enemy>
-     
    </enemies>
    
  </entities>

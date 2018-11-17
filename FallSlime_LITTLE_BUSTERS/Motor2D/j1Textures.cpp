@@ -67,10 +67,14 @@ bool j1Textures::CleanUp()
 SDL_Texture* const j1Textures::Load(const char* path)
 {
 	BROFILER_CATEGORY("Textures Load", Profiler::Color::DeepSkyBlue);
-
+	
 	SDL_Texture* texture = NULL;
 	SDL_Surface* surface = IMG_Load(path);
 
+	if (IMG_Load(path) == NULL)
+	{
+		LOG("Could not load IMG_Load with path: %s. IMG_Load: %s", path, IMG_GetError());
+	}
 	if(surface == NULL)
 	{
 		LOG("Could not load surface with path: %s. IMG_Load: %s", path, IMG_GetError());

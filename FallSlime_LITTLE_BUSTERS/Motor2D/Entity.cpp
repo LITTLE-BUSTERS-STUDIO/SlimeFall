@@ -15,12 +15,11 @@ Entity::~Entity()
 
 }
 
-
 bool Entity::FindCollider( Collider *collider) const
 {
 	for (p2List_item<Collider*>*item = colliders.start ; item ; item = item->next )
 	{
-		if (item->data = collider) 
+		if (item->data == collider) 
 		{
 			return true;
 		}
