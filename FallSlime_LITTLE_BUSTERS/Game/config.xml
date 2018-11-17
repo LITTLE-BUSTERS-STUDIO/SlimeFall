@@ -71,12 +71,16 @@
                <death path ="animations/player_death_animation.xml"/>
                <attack path ="animations/player_attack_animation.xml"/>
                <enemy_bat path ="animations/enemy_bat_animation.xml"/>
+               <smoke path ="animations/smoke_animation.xml"/>
+               <enemy_skeleton path ="animations/skeleton_animation.xml"/>
              </animations>
              <textures>
                <jumping path ="textures/player_animation.png"/>
                <death path ="textures/player_death.png"/>
                <attack path ="textures/player_attack.png"/>
                <enemy_bat path ="textures/Enemy_bat.png"/>
+               <smoke path ="textures/Smoke.png"/>
+               <enemy_skeleton path ="textures/Skeleton.png"/>
              </textures>
              <sfx>
                <death path ="audio/fx/death.wav"/>

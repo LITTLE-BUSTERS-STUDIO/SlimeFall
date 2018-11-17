@@ -50,6 +50,8 @@ j1Player::j1Player(fPoint pos, Entity_Info info) : Entity(pos, info)
 	attack_splash = App->tex->Load(player_properties->path_attack_splash.GetString());
 
 	tex_bat = App->tex->Load(player_properties->path_tex_bat.GetString());
+	tex_smoke = App->tex->Load(player_properties->path_tex_smoke.GetString());
+	tex_skeleton = App->tex->Load(player_properties->path_tex_skeleton.GetString());
 
 	// Animations ----------------------------------------
 	jumping_anim = player_properties->jumping_anim;
@@ -57,6 +59,10 @@ j1Player::j1Player(fPoint pos, Entity_Info info) : Entity(pos, info)
 	attack_anim = player_properties->attack_anim;
 
 	bat_anim = player_properties->bat_anim;
+	smoke_anim = player_properties->smoke_anim;
+	skeleton_attack_anim = player_properties->skeleton_attack_anim;
+	skeleton_walking_anim = player_properties->skeleton_walking_anim;
+	skeleton_dead_anim = player_properties->skeleton_dead_anim;
 
 	// Sfx ----------------------------------------------
 	id_death_fx = App->audio->LoadFx(player_properties->path_death_fx.GetString());
@@ -75,6 +81,8 @@ j1Player::~j1Player()
 	App->tex->UnLoad(attack_splash);
 
 	App->tex->UnLoad(tex_bat);
+	App->tex->UnLoad(tex_smoke);
+	App->tex->UnLoad(tex_skeleton);
 }
 
 bool j1Player::HandleInput()
@@ -268,6 +276,7 @@ bool j1Player::Draw()
 	SDL_Texture* texture = nullptr;
 	jumping_anim.speed = 43.75F;
 
+
 	switch ((State)current_state)
 	{
 	case State::jumping:
@@ -318,6 +327,29 @@ bool j1Player::Draw()
 	}
 	
 	App->render->Blit(texture, (int)position.x - frame.w/2 , (int)position.y - frame.h / 2, &frame  , flip_x );
+
+	//TEST
+	bat_anim.speed = 10.0F;
+	smoke_anim.speed = 15.0F;
+	skeleton_attack_anim.speed = skeleton_dead_anim.speed =skeleton_walking_anim.speed = 15.0F;
+
+	if (bat_anim.GetFrameValue() > 9 )
+		bat_anim.Reset();
+	if (smoke_anim.GetFrameValue() > 9)
+		smoke_anim.Reset();
+	if (skeleton_attack_anim.GetFrameValue() > 20)
+		skeleton_attack_anim.Reset();
+	if (skeleton_dead_anim.GetFrameValue() > 20)
+		skeleton_dead_anim.Reset();
+	if (skeleton_walking_anim.GetFrameValue() > 20)
+		skeleton_walking_anim.Reset();
+
+	
+	App->render->Blit(tex_bat, 100, 140, &bat_anim.GetCurrentFrame());
+	App->render->Blit(tex_smoke, 200, 140, &smoke_anim.GetCurrentFrame());
+	App->render->Blit(tex_skeleton, 250, 140, &skeleton_attack_anim.GetCurrentFrame());
+	App->render->Blit(tex_skeleton, 300, 140, &skeleton_dead_anim.GetCurrentFrame());
+	App->render->Blit(tex_skeleton, 350, 140, &skeleton_walking_anim.GetCurrentFrame());
 	return true;
 }
 
