@@ -117,15 +117,12 @@ bool EntityManager::CleanUp()
 
 	// Remove all entities ======================================
 	p2List_item<Entity*>* item = entities.start;
-	p2List_item<Collider*>* colliders = nullptr;
 
-	while (item != nullptr)
+	while (item != NULL)
 	{
 		RELEASE(item->data);
 		item = item->next;
 	}
-	entities.clear();
-
 	// Remove all entities info =================================
 	entities.clear();
 
@@ -224,7 +221,7 @@ bool EntityManager::CreateEntity(const Entity_Info& info)
 
 	if (entity != nullptr) 
 	{
-		LOG("Entity created");
+		LOG("Entity %s created", info.name.GetString());
 	}
 	else 
 	{
@@ -241,7 +238,8 @@ bool EntityManager::CreatePlayer(fPoint spawn_pos)
 {
 	BROFILER_CATEGORY("EntityManager CreatePlayer", Profiler::Color::LightBlue);
 
-	LOG("Enemy Spawned");
+    LOG("Entity Player created");
+
 	Entity* entity = nullptr;
 
 	if (player == nullptr)

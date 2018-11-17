@@ -37,7 +37,9 @@ public:
 	j1Timer               path_timer;
 	p2DynArray<iPoint>    last_path;                      
 	Animation             animation;
+
 	iPoint                current_point = {-1,-1};
+	iPoint				  previous_point;
 	fPoint                vector;
 
 	bool                  target_detected;

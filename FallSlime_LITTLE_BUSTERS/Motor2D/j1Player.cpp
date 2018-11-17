@@ -499,67 +499,22 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 	// Switch all collider types
 	if (c1 == player_collider)
 	{
-		int offset_direction;
+		Direction direction = App->collision->ResolveOverlap(c1, c2, position, velocity);
 
 		switch (c2->type)
 		{
 		case COLLIDER_WALL:
 
-			SDL_Rect player = c1->rect;
-			SDL_Rect coll = c2->rect;
-
-			bool directions[(uint)Direction::max];
-			directions[(uint)Direction::left] = velocity.x < 0;
-			directions[(uint)Direction::right] = velocity.x > 0;
-			directions[(uint)Direction::up] = velocity.y < 0;
-			directions[(uint)Direction::down] = velocity.y > 0;
-
-			uint distances[(uint)Direction::max];
-			distances[(uint)Direction::right] = player.x + player.w - coll.x;
-			distances[(uint)Direction::left] = coll.x + coll.w - player.x;
-			distances[(uint)Direction::up] = coll.y + coll.h - player.y;
-			distances[(uint)Direction::down] = player.y + player.h - coll.y;
-
-			offset_direction = -1;
-
-			for (uint i = 0; i < (uint)Direction::max; ++i)
+			if (direction == Direction::down)
 			{
-				if (directions[i]) {
-
-					if (offset_direction == -1)
-						offset_direction = i;
-					else if (distances[i] < distances[(uint)offset_direction])
-						offset_direction = i;
-				}
-			}
-
-			switch ((Direction)offset_direction)
-			{
-			case Direction::right:
-				position.x = coll.x - player.w / 2;
-				velocity.x = 0;
-				break;
-			case Direction::left:
-				position.x = coll.x + coll.w + player.w / 2;
-				velocity.x = 0;
-				break;
-			case Direction::up:
-				position.y = coll.y + coll.h + player.h / 2;
-				velocity.y = 0;
-				break;
-			case Direction::down:
-				position.y = coll.y - player.h / 2;
-				velocity.y = 0;
 				check_fall = true;
 				on_ground = true;
-				break;
-			default:
-				break;
 			}
-
+		
 			player_collider->SetPos((int)position.x - player_collider->rect.w / 2, (int)position.y - player_collider->rect.h / 2);
 			ground_detector->SetPos((int)position.x - player_collider->rect.w / 2, (int)position.y );
 			player_collider->type = COLLIDER_PLAYER;
+
 			break;
 		case COLLIDER_DEATH:
 			current_state = State::dead;
@@ -580,9 +535,6 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 			current_state = State::dead;
 			player_collider->type = COLLIDER_NONE;
 			break;
-
-		default:
-			break;
 		}
 	}
 	
@@ -592,6 +544,10 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 
 	return ret;
 }
+
+
+
+
 
 bool j1Player::Invulnerability(float time)
 {

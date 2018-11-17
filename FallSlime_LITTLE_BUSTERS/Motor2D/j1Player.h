@@ -18,14 +18,7 @@ enum class State
 	attack
 };
 
-enum class Direction: uint
-{
-	right,
-	left,
-	up,
-	down,
-	max
-};
+
 
 class j1Player : public Entity
 {

@@ -45,7 +45,7 @@ bool j1PathFinding::PreUpdate()
 		if (origin_selected == true && IsWalkable(p))
 		{
 			App->path_finding->DeleteLastPath();
-			App->path_finding->CreatePath(origin, p);
+			App->path_finding->CreatePath(origin, p, last_path);
 			origin_selected = false;
 		}
 		else if (origin_selected == false && IsWalkable(p))
@@ -85,6 +85,7 @@ bool j1PathFinding::PostUpdate(float dt)
 		{
 			iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
 			App->render->DrawQuad({ pos.x, pos.y ,16,16 }, 0, 0, 0, 200);
+			
 		}
 	}
 	return true;
@@ -264,12 +265,12 @@ int PathNode::CalculateF(const iPoint& destination)
 // ----------------------------------------------------------------------------------
 // Actual A* algorithm: return number of steps in the creation of the path or -1 ----
 // ----------------------------------------------------------------------------------
-int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
+int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination ,p2DynArray<iPoint> &path)
 {
 	BROFILER_CATEGORY("Pathfinding CreatePath", Profiler::Color::Lime);
 
 	// If origin or destination are not walkable, return -1
-	if (IsWalkable(origin) == false && IsWalkable(destination) == false)
+	if (IsWalkable(origin) == false || IsWalkable(destination) == false)
 	{
 		return -1;
 	}
@@ -295,14 +296,15 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 		if (current_node->data.pos == destination)
 		{
 			// Backtrack to create the final path
+			path.Clear();
 
 			for (PathNode* node = (PathNode*) closed.list.end ; node ; node = (PathNode*)node->parent)
 			{
-				last_path.PushBack(node->pos);
+				path.PushBack(node->pos);
 			}
-			last_path.Flip();
+			path.Flip();
 
-			return last_path.Count();
+			return path.Count();
 		}
 
 		// Fill a list of all adjancent nodes
@@ -334,3 +336,22 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 
 	return -1;
 }
+
+//struct Walkable_Map
+//{
+//	p2SString name;
+//	uchar ** map;
+//};
+//
+//p2List<Walkable_Map> walkable_maps;
+//
+//uchar ** GetWalkableMap(p2SString name)
+//{
+//	for (p2List_item<Walkable_Map> * item = walkable_maps.start; item; item = item->next)
+//	{
+//		if (item->data.name == name)
+//		{
+//			return item->data;
+//		}
+//	}
+//}

@@ -339,8 +339,6 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 	rect.x = (int)((camera.w * (zoom - 1)) / 2) + (int)(-camera.x * speed) + x * scale;
 	rect.y = (int)((camera.h * (zoom - 1)) / 2) + (int)(-camera.y * speed) + y * scale;
 
-
-
 	if (section != NULL)
 	{
 		rect.w = section->w;
@@ -440,7 +438,7 @@ bool j1Render::DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 
 bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool use_camera) const
 {
 	bool ret = true;
-	uint scale = App->win->GetScale();
+	int scale = App->win->GetScale();
 
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 	SDL_SetRenderDrawColor(renderer, r, g, b, a);
@@ -452,8 +450,8 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 
 	for(uint i = 0; i < 360; ++i)
 	{
-		points[i].x = (int)(x -camera.x* use_camera + radius * cos(i * factor));
-		points[i].y = (int)(y - camera.y* use_camera + radius * sin(i * factor));
+		points[i].x = (int)(x -camera.x* use_camera + radius * cos(i * factor)) * scale;
+		points[i].y = (int)(y - camera.y* use_camera + radius * sin(i * factor)) * scale;
 	}
 
 	result = SDL_RenderDrawPoints(renderer, points, 360);
