@@ -24,6 +24,8 @@ Level_1::~Level_1()
 // Called before render is available
 bool Level_1::Awake(pugi::xml_node& config)
 {
+	BROFILER_CATEGORY("Level1 Awake", Profiler::Color::Maroon);
+
 	LOG("Loading Level 1");
 	bool ret = true;
 	music_path = config.child("music").attribute("path").as_string("");
@@ -53,6 +55,8 @@ bool Level_1::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Level_1::Start()
 {
+	BROFILER_CATEGORY("Level1 Start", Profiler::Color::MediumAquaMarine);
+
 	LoadPhase(1);
 	App->audio->PlayMusic(music_path.GetString());
 	background_parallax1 = App->tex->Load(background_path1.GetString());
@@ -84,6 +88,8 @@ bool Level_1::Start()
 // Called each loop iteration
 bool Level_1::Update(float dt)
 {
+	BROFILER_CATEGORY("Level1 Update", Profiler::Color::MediumBlue);
+
 	int x, y;
 
 	App->input->GetMousePosition(x, y);
@@ -107,6 +113,8 @@ bool Level_1::Update(float dt)
 // Called each loop iteration
 bool Level_1::PostUpdate(float dt)
 {
+	BROFILER_CATEGORY("Level1 PostUpdate", Profiler::Color::MediumOrchid);
+
 	bool ret = true;
 
 	// Blit background--------------------------------------
@@ -135,6 +143,8 @@ bool Level_1::PostUpdate(float dt)
 // Called before quitting
 bool Level_1::CleanUp()
 {
+	BROFILER_CATEGORY("Level1 CleanUp", Profiler::Color::MediumPurple);
+
 	LOG("Freeing scene");
 	App->tex->UnLoad(background_parallax1);
 	App->tex->UnLoad(background_parallax2);

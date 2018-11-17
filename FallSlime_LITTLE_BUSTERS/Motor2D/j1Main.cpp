@@ -85,7 +85,7 @@ int main(int argc, char* args[])
 		case LOOP:
 		{
 			BROFILER_FRAME("SlimeFall");
-			BROFILER_CATEGORY("UpdateLogic", Profiler::Color::Aqua);
+			BROFILER_CATEGORY("Main loop", Profiler::Color::Aqua);
 
 			if (App->Update() == false)
 				state = CLEAN;

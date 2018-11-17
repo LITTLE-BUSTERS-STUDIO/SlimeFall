@@ -23,6 +23,8 @@ j1Map::~j1Map()
 // Called before render is available
 bool j1Map::Awake(pugi::xml_node& config)
 {
+	BROFILER_CATEGORY("Map Awake", Profiler::Color::Cornsilk);
+
 	LOG("Loading Map");
 	bool ret = true;
 
@@ -34,6 +36,8 @@ bool j1Map::Awake(pugi::xml_node& config)
 
 void j1Map::Draw()
 {
+	BROFILER_CATEGORY("Map Draw", Profiler::Color::Crimson);
+
 	if (map_loaded == false)
 		return;
 	int scale = App->win->GetScale(); 
@@ -137,6 +141,8 @@ SDL_Rect TileSet::GetTileRect(int id) const
 // Called before quitting
 bool j1Map::CleanUp()
 {
+	BROFILER_CATEGORY("Map CleanUp", Profiler::Color::Cyan);
+
 	LOG("Unloading map");
 
 	// Remove all tilesets
@@ -193,6 +199,8 @@ bool j1Map::CleanUp()
 // Load new map
 bool j1Map::Load(const char* file_name)
 {
+	BROFILER_CATEGORY("Map new Load", Profiler::Color::DarkCyan);
+
 	bool ret = true;
 	p2SString tmp("%s%s", folder.GetString(), file_name);
 
@@ -322,6 +330,8 @@ bool j1Map::Load(const char* file_name)
 // Load map general properties
 bool j1Map::LoadMap()
 {
+	BROFILER_CATEGORY("Map Load", Profiler::Color::DarkGoldenRod);
+
 	bool ret = true;
 	pugi::xml_node map = map_file.child("map");
 
@@ -385,11 +395,10 @@ bool j1Map::LoadMap()
 	return ret;
 }
 
-
-
-
 bool j1Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
 {
+	BROFILER_CATEGORY("Map LoadTilesetDetails", Profiler::Color::DarkGray);
+
 	bool ret = true;
 	set->name.create(tileset_node.attribute("name").as_string());
 	set->firstgid = tileset_node.attribute("firstgid").as_int();
@@ -415,6 +424,8 @@ bool j1Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
 
 bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 {
+	BROFILER_CATEGORY("Map LoadTilesetImage", Profiler::Color::DarkGreen);
+
 	bool ret = true;
 	pugi::xml_node image = tileset_node.child("image");
 
@@ -451,6 +462,8 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 
 bool j1Map::LoadLayer(pugi::xml_node& layer_node, MapLayer* layer)
 {
+	BROFILER_CATEGORY("Map LoadLayer", Profiler::Color::DarkKhaki);
+
 	bool ret = true;
 	layer->name.create(layer_node.attribute("name").as_string());
 	layer->width = layer_node.attribute("width").as_int();
@@ -495,6 +508,8 @@ bool j1Map::LoadLayer(pugi::xml_node& layer_node, MapLayer* layer)
 
 bool j1Map::LoadColliders(pugi::xml_node& object_node, CollidersGroup* group)
 {
+	BROFILER_CATEGORY("Map LoadColliders", Profiler::Color::DarkMagenta);
+
 	bool ret = true;
 	
 	COLLIDER_TYPE collider_type = COLLIDER_NONE;

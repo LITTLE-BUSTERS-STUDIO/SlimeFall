@@ -26,6 +26,8 @@ j1Render::~j1Render()
 // Called before render is available
 bool j1Render::Awake(pugi::xml_node& config)
 {
+	BROFILER_CATEGORY("Render Awake", Profiler::Color::DarkOliveGreen);
+
 	LOG("Create SDL rendering context");
 	bool ret = true;
 
@@ -70,6 +72,7 @@ bool j1Render::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1Render::Start()
 {
+	BROFILER_CATEGORY("Render Start", Profiler::Color::DarkOrange);
 
 	LOG("render start");
 	bool ret = true;
@@ -84,6 +87,8 @@ bool j1Render::Start()
 // Called each loop iteration
 bool j1Render::PreUpdate()
 {
+	BROFILER_CATEGORY("Render PreUpdate", Profiler::Color::DarkOrchid);
+
 	SDL_RenderClear(renderer);
 
 	//ZOOM
@@ -125,6 +130,8 @@ bool j1Render::PreUpdate()
 
 bool j1Render::Update(float dt)
 {	
+	BROFILER_CATEGORY("Render Update", Profiler::Color::DarkRed);
+
 	if (reset)
 	{
 		CameraReset();
@@ -200,6 +207,8 @@ bool j1Render::Update(float dt)
 
 bool j1Render::PostUpdate(float dt)
 {
+	BROFILER_CATEGORY("Render PostUpdate", Profiler::Color::DarkSalmon);
+
 	//Quad borders DEBUG
 	int borderWidth = margin * zoom;
 	int scale = App->win->GetScale();
@@ -230,6 +239,8 @@ bool j1Render::PostUpdate(float dt)
 // Called before quitting
 bool j1Render::CleanUp()
 {
+	BROFILER_CATEGORY("Render CleanUp", Profiler::Color::DarkSeaGreen);
+
 	LOG("Destroying SDL render");
 	SDL_DestroyRenderer(renderer);
 	return true;
@@ -238,6 +249,7 @@ bool j1Render::CleanUp()
 // Load Game State
 bool j1Render::Load(pugi::xml_node& data)
 {
+
 	camera.x = data.child("camera_position").attribute("x").as_int(0);
 	camera.y = data.child("camera_position").attribute("y").as_int(0);
 
@@ -318,6 +330,8 @@ iPoint j1Render::ScreenToWorld(int x, int y) const
 // Blit to screen
 bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, bool flip_x, float speed, double angle, int pivot_x, int pivot_y) const
 {
+	BROFILER_CATEGORY("Render Load", Profiler::Color::DarkSlateGray);
+
 	bool ret = true;
 	int scale = App->win->GetScale();
 
@@ -454,6 +468,9 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 }
 
 bool j1Render::CameraReset() {
+
+	BROFILER_CATEGORY("Render CameraReset", Profiler::Color::DarkTurquoise);
+
 	camera.x = 0;
 	camera.y = 0;
 	smoth_position.x = 0;

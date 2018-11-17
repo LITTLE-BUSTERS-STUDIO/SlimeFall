@@ -26,6 +26,8 @@ EntityManager::~EntityManager()
 
 bool EntityManager::Awake(pugi::xml_node& node)
 {
+	BROFILER_CATEGORY("EntityManager Update", Profiler::Color::GreenYellow);
+
 	// Load properties =====================================================
 
 	// Players ///////////////////////////////////////////
@@ -103,6 +105,8 @@ bool EntityManager::Start()
 
 bool EntityManager::CleanUp()
 {
+	BROFILER_CATEGORY("EntityManager CleanUp", Profiler::Color::HoneyDew);
+
 	LOG("Freeing all entities");
 
 	// Remove all entities ======================================
@@ -124,6 +128,8 @@ bool EntityManager::CleanUp()
 
 bool EntityManager::PreUpdate()
 {
+	BROFILER_CATEGORY("EntityManager PreUpdate", Profiler::Color::HotPink);
+
 	SDL_Rect camera = App->render->camera;
 	int scale = App->win->GetScale();
 
@@ -161,6 +167,8 @@ bool EntityManager::PreUpdate()
 
 bool EntityManager::Update(float dt)
 {
+	BROFILER_CATEGORY("EntityManager Update", Profiler::Color::Lavender);
+
 	for (p2List_item<Entity*> *item = entities.start; item ; item = item->next)
 	{
 		item->data->Update(dt);
@@ -171,6 +179,8 @@ bool EntityManager::Update(float dt)
 
 bool EntityManager::PostUpdate(float dt)
 {
+	BROFILER_CATEGORY("EntityManager PostUpdate", Profiler::Color::LavenderBlush);
+
 	for (p2List_item<Entity*> *item = entities.start; item; item = item->next)
 	{
 		item->data->Draw();
@@ -181,6 +191,8 @@ bool EntityManager::PostUpdate(float dt)
 
 bool EntityManager::LoadEntitiesInfo(pugi::xml_node& node)
 {
+	BROFILER_CATEGORY("EntityManager LoadEntitiesInfo", Profiler::Color::LawnGreen);
+
 	bool ret = true;
 	
 	for (pugi::xml_node object = node.child("object"); object; object = object.next_sibling("object"))
@@ -195,6 +207,8 @@ bool EntityManager::LoadEntitiesInfo(pugi::xml_node& node)
 
 bool EntityManager::CreateEntity(const Entity_Info& info)
 {
+	BROFILER_CATEGORY("EntityManager CreateEntity", Profiler::Color::LemonChiffon);
+
 	Entity* entity = nullptr;
 
 	if (info.name == "test") 
@@ -219,6 +233,8 @@ bool EntityManager::CreateEntity(const Entity_Info& info)
 
 bool EntityManager::CreatePlayer(fPoint spawn_pos)
 {
+	BROFILER_CATEGORY("EntityManager CreatePlayer", Profiler::Color::LightBlue);
+
 	LOG("Enemy Spawned");
 	Entity* entity = nullptr;
 

@@ -73,6 +73,8 @@ j1Player::~j1Player()
 
 bool j1Player::HandleInput()
 {
+	BROFILER_CATEGORY("Player HandleInput", Profiler::Color::LightCoral);
+
 	if (current_state != State::dead)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
@@ -197,6 +199,8 @@ bool j1Player::HandleInput()
 
 bool j1Player::Update(float dt)
 {
+	BROFILER_CATEGORY("Player Update", Profiler::Color::LightCyan);
+
 	if (reset) 
 	{
 		Reset(App->map->data.initial_position);
@@ -252,6 +256,8 @@ bool j1Player::Update(float dt)
 
 bool j1Player::Draw()
 {
+	BROFILER_CATEGORY("Player Draw", Profiler::Color::LightGoldenRodYellow);
+
 	SDL_Rect frame; 
 	SDL_Texture* texture = nullptr;
 	jumping_anim.speed = 43.75F;
@@ -311,6 +317,8 @@ bool j1Player::Draw()
 
 bool j1Player::Reset( fPoint pos)
 {
+	BROFILER_CATEGORY("Player Reset", Profiler::Color::LightGray);
+
 	position = pos;
 	velocity.x = 0;
 	velocity.y = 0;
@@ -458,6 +466,8 @@ bool j1Player::Save(pugi::xml_node& node) const
 // Remove Colliders Overlap
 bool j1Player::OnCollision(Collider* c1, Collider* c2)
 {
+	BROFILER_CATEGORY("Player OnCollision", Profiler::Color::LightGreen);
+
 	bool ret = true;
 
 	// Switch all collider types

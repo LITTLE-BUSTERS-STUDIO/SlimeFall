@@ -71,6 +71,8 @@ bool j1FadeToBlack::PostUpdate(float dt)
 
 bool j1FadeToBlack::FadeToBlack(float time)
 {
+	BROFILER_CATEGORY("FadeToBlack", Profiler::Color::MediumSlateBlue);
+
 	bool ret = false;
 
 	if (current_step == fade_step::none)

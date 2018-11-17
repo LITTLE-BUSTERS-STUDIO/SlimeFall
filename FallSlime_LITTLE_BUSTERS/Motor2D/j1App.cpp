@@ -132,6 +132,7 @@ bool j1App::Start()
 // Called each loop iteration
 bool j1App::Update()
 {
+	BROFILER_CATEGORY("App Update", Profiler::Color::Gold);
 
 	bool ret = true;
 	PrepareUpdate();
