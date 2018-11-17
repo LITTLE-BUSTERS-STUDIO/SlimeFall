@@ -60,7 +60,9 @@ j1Player::j1Player(fPoint pos, Entity_Info info) : Entity(pos, info)
 
 	bat_anim = player_properties->bat_anim;
 	smoke_anim = player_properties->smoke_anim;
-	skeleton_anim = player_properties->skeleton_anim;
+	skeleton_attack_anim = player_properties->skeleton_attack_anim;
+	skeleton_walking_anim = player_properties->skeleton_walking_anim;
+	skeleton_dead_anim = player_properties->skeleton_dead_anim;
 
 	// Sfx ----------------------------------------------
 	id_death_fx = App->audio->LoadFx(player_properties->path_death_fx.GetString());
@@ -328,27 +330,26 @@ bool j1Player::Draw()
 
 	//TEST
 	bat_anim.speed = 10.0F;
-
-	if (bat_anim.GetFrameValue() > 9)
-		bat_anim.Reset();
-	
-	App->render->Blit(tex_bat, 100, 140, &bat_anim.GetCurrentFrame());
-
-	//TEST 2
 	smoke_anim.speed = 15.0F;
+	skeleton_attack_anim.speed = skeleton_dead_anim.speed =skeleton_walking_anim.speed = 15.0F;
 
+	if (bat_anim.GetFrameValue() > 9 )
+		bat_anim.Reset();
 	if (smoke_anim.GetFrameValue() > 9)
 		smoke_anim.Reset();
+	if (skeleton_attack_anim.GetFrameValue() > 20)
+		skeleton_attack_anim.Reset();
+	if (skeleton_dead_anim.GetFrameValue() > 20)
+		skeleton_dead_anim.Reset();
+	if (skeleton_walking_anim.GetFrameValue() > 20)
+		skeleton_walking_anim.Reset();
+
 	
+	App->render->Blit(tex_bat, 100, 140, &bat_anim.GetCurrentFrame());
 	App->render->Blit(tex_smoke, 200, 140, &smoke_anim.GetCurrentFrame());
-
-	//TEST 3
-	skeleton_anim.speed = 15.0F;
-
-	if (skeleton_anim.GetFrameValue() > 9)
-		skeleton_anim.Reset();
-
-	App->render->Blit(tex_skeleton, 300, 140, &skeleton_anim.GetCurrentFrame());
+	App->render->Blit(tex_skeleton, 250, 140, &skeleton_attack_anim.GetCurrentFrame());
+	App->render->Blit(tex_skeleton, 300, 140, &skeleton_dead_anim.GetCurrentFrame());
+	App->render->Blit(tex_skeleton, 350, 140, &skeleton_walking_anim.GetCurrentFrame());
 	return true;
 }
 

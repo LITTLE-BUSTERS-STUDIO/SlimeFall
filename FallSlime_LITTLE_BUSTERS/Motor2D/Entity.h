@@ -40,7 +40,10 @@ public:
 
 	Animation		  bat_anim;
 	Animation         smoke_anim;
-	Animation         skeleton_anim;
+	Animation         skeleton_attack_anim;
+	Animation         skeleton_dead_anim;
+	Animation         skeleton_walking_anim;
+
 
 	//-----------Textures-------------------
 	p2SString         path_tex_player;
