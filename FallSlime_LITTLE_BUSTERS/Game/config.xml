@@ -90,7 +90,7 @@
    
    <enemies>
      <enemy name ="test">
-       <collider width ="30" height="30"/>
+       <collider width ="20" height="20"/>
        <spawn_margin width ="40" height="40"/>
      </enemy>
      

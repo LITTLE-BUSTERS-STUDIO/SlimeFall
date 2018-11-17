@@ -240,8 +240,6 @@ bool j1Collision:: CleanUp()
 	}
 	
 	colliders.clear();
-	item = colliders.start;
-
 	return true;
 }
 
@@ -255,4 +253,64 @@ Collider * j1Collision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module*
 bool Collider::CheckCollision(const SDL_Rect& r) const
 {
 	return !(r.x >= (rect.x + rect.w) || (r.x + r.w) <= rect.x || r.y >= (rect.y + rect.h) || (r.y + r.h) <= rect.y);
+}
+
+
+Direction j1Collision::ResolveOverlap(Collider *dynamic_col, Collider *static_col, fPoint &position, fPoint &velocity)
+{
+	SDL_Rect dynamic = dynamic_col->rect;
+	SDL_Rect rigid = static_col->rect;
+
+	bool directions[(uint)Direction::unknown];
+	directions[(uint)Direction::left] = velocity.x < 0;
+	directions[(uint)Direction::right] = velocity.x > 0;
+	directions[(uint)Direction::up] = velocity.y < 0;
+	directions[(uint)Direction::down] = velocity.y > 0;
+
+	uint distances[(uint)Direction::unknown];
+	distances[(uint)Direction::right] = dynamic.x + dynamic.w - rigid.x;
+	distances[(uint)Direction::left] = rigid.x + rigid.w - dynamic.x;
+	distances[(uint)Direction::up] = rigid.y + rigid.h - dynamic.y;
+	distances[(uint)Direction::down] = dynamic.y + dynamic.h - rigid.y;
+
+	int offset_direction = -1;
+
+	for (uint i = 0; i < (uint)Direction::unknown; ++i)
+	{
+		if (directions[i]) {
+
+			if (offset_direction == -1)
+				offset_direction = i;
+			else if (distances[i] < distances[(uint)offset_direction])
+				offset_direction = i;
+		}
+	}
+
+	if (offset_direction == -1) 
+	{
+		return Direction::unknown;
+	}
+
+	switch ((Direction)offset_direction)
+	{
+	case Direction::right:
+		position.x = rigid.x - dynamic.w / 2;
+		velocity.x = 0;
+		break;
+	case Direction::left:
+		position.x = rigid.x + rigid.w + dynamic.w / 2;
+		velocity.x = 0;
+		break;
+	case Direction::up:
+		position.y = rigid.y + rigid.h + dynamic.h / 2;
+		velocity.y = 0;
+		break;
+	case Direction::down:
+		position.y = rigid.y - dynamic.h / 2;
+		velocity.y = 0;
+		break;
+	}
+
+
+	return (Direction)offset_direction;
 }

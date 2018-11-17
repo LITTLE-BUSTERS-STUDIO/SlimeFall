@@ -34,7 +34,10 @@ public:
 	// Destructor
 	~p2DynArray()
 	{
-		delete[] data;
+		if (data != nullptr) {
+			delete[] data;
+		}
+		
 	}
 
 	// Operators

@@ -6,22 +6,23 @@
 #include "j1Map.h"
 #include "p2Log.h"
 
-#define MAX_DETECTION_RATIO 600
+#define MAX_DETECTION_RATIO 400
 
 Enemy::Enemy(fPoint position, Entity_Info info) :Entity(position, info)
 {
+
 	main_collider = App->collision->AddCollider(info.properties->collider_rect, COLLIDER_ENEMY, App->entity_manager);
 	colliders.add(main_collider);
 
 
 	iPoint pos = { (int)position.x, (int)position.y};
-	App->map->WorldToMap(pos.x, pos.y);
+	pos = App->map->WorldToMap(pos.x, pos.y);
 	current_point = {pos.x, pos.y};
 	
 	//path_interval_time = 0u;
 	velocity = { 100, 100 };
-	path_interval_time = 1000U;
-	detection_ratio = 500;
+	path_interval_time = 200u;
+	detection_ratio = 300;
 
 	if (path_interval_time) 
 	{
@@ -31,8 +32,6 @@ Enemy::Enemy(fPoint position, Entity_Info info) :Entity(position, info)
 
 bool Enemy::UpdateLogic() 
 {
-	//LOG("enemy timer %u", path_timer.Read());
-
 	if (  path_timer.Read() > path_interval_time  && target_detected ) 
 	{
 		iPoint map_target(target->position.x, target->position.y);
@@ -40,9 +39,10 @@ bool Enemy::UpdateLogic()
 
 		map_target = App->map->WorldToMap(map_target.x, map_target.y);
 		map_pos = App->map->WorldToMap(map_pos.x, map_pos.y);
+
 		App->path_finding->DeleteLastPath();
-		App->path_finding->CreatePath( map_pos, map_target );
-		last_path = *App->path_finding->GetLastPath();
+		App->path_finding->CreatePath( map_pos, map_target, last_path);
+
 		path_timer.Start();
 	}
 	return true;
@@ -55,21 +55,24 @@ bool  Enemy::FollowPath( float dt)
 		return false;
 	}
 	iPoint pos = { (int)position.x, (int)position.y };
-	App->map->WorldToMap(pos.x, pos.y);
-	
-	if ( pos == current_point)
+	pos = App->map->WorldToMap(pos.x, pos.y);
+
+	if (pos.x > current_point.x - 1 && pos.x < current_point.x + 1 && pos.y > current_point.y - 1 && pos.y < current_point.y + 1)
 	{
-		iPoint  previous_point =  current_point;
-		float   distance;
-
-		last_path.Pop(current_point);
-
-		distance = fPoint(previous_point.x, previous_point.y).DistanceTo(fPoint(current_point.x, current_point.y));
-		vector = { current_point.x - (float) previous_point.x , current_point.y - (float)previous_point.y };
-		vector = { vector.x / distance , vector.y / distance };
+		/*previous_point =  current_point;*/
+		if (last_path.Count()) 
+		{
+			last_path.Pop(current_point);
+		}
 	}
+	
 
-	/*position += { velocity.x * vector.x * dt, velocity.y * vector.y * dt};*/
+	float   distance;
+	distance = fPoint(pos.x, pos.y).DistanceTo(fPoint(current_point.x, current_point.y));
+	vector = { current_point.x - (float)pos.x , current_point.y - (float)pos.y };
+	vector = { vector.x / distance , vector.y / distance };
+
+   	position += { velocity.x * vector.x * dt, velocity.y * vector.y * dt};
 
 	return true;
 }

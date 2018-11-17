@@ -59,6 +59,7 @@ class Enemy_Properties : public Properties
 
 };
 
+
 class Entity_Info
 {
 public:
@@ -123,8 +124,5 @@ public:
 	p2List<Collider*>     colliders;
 	EntityType            type = EntityType::Unknown;
 };
-
-
-
 
 #endif // __Entity_H__
