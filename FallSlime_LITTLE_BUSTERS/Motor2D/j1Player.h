@@ -49,6 +49,9 @@ public:
 public :
 	bool			    reset = false;
 	bool				attack_tremble = false;
+
+	int what = 0;
+
 private:
 	//Debug====================================
 	bool				god_mode = false;

@@ -243,7 +243,12 @@ bool j1Player::Update(float dt)
 		acceleration.y = 0;
 	}
 	
+	
 	velocity += {acceleration.x *dt, acceleration.y *dt};
+	
+	if (velocity.y > 1200)
+		velocity.y = 1200;
+
 	position += {velocity.x *dt, velocity.y *dt};
 
 	collider->SetPos(position.x - collider_rect.w / 2, position.y - collider_rect.h / 2);
