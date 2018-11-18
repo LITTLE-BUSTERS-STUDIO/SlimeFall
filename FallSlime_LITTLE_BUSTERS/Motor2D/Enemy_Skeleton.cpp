@@ -20,7 +20,6 @@ Enemy_Skeleton::Enemy_Skeleton(fPoint position, Entity_Info info) :Enemy(positio
 
 	target = (Entity*)App->entity_manager->GetPlayer();
 
-
 	// Textures ------------------------------------------
 	tex_skeleton = properties->skeleton_tex;
 
@@ -127,7 +126,7 @@ bool Enemy_Skeleton::Draw()
 bool Enemy_Skeleton::Reset(Entity_Info info )
 {
 	BROFILER_CATEGORY("Enemy_Bat Reset", Profiler::Color::LightGray);
-
+	current_state = Enemy_Skeleton_State::walking;
 	return true;
 }
 

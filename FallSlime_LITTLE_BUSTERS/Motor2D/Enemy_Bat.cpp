@@ -48,8 +48,6 @@ bool Enemy_Bat::Update(float dt)
 }
 
 
-
-
 bool Enemy_Bat::Draw()
 {
 
@@ -117,11 +115,7 @@ bool Enemy_Bat::Reset(Entity_Info  info)
 {
 	BROFILER_CATEGORY("Enemy_Bat Reset", Profiler::Color::LightGray);
 
-	
-	velocity.x = 0;
-	velocity.y = 0;
-	acceleration.x = 0;
-	acceleration.y = 0;
+	current_state = Enemy_Bat_State::flying;
 	bat_anim.Reset();
 	return true;
 }
