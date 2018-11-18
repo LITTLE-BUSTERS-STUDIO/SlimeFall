@@ -113,13 +113,13 @@ bool Enemy_Skeleton::Draw()
 			current_state = Enemy_Skeleton_State::walking;
 			frame = skeleton_dead_anim.GetCurrentFrame();
 			skeleton_dead_anim.Reset();
-			App->audio->PlayFx(fx_skaleton_death);
 			Desactive();
 		}
 		frame = skeleton_dead_anim.GetCurrentFrame();
 
 		if (!dead_fx)
 		{
+			App->audio->PlayFx(fx_skaleton_death);
 			dead_fx = true;
 		}
 		break;
