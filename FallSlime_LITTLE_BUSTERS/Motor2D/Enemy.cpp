@@ -58,8 +58,8 @@ bool  Enemy::FollowPath( float dt)
 	iPoint node_in_world;
 	node_in_world = App->map->MapToWorld(current_point.x, current_point.y);
 
-	velocity_to_follow.x = (float)node_in_world.x - position.x;
-	velocity_to_follow.y = (float)node_in_world.y - position.y;
+	velocity_to_follow.x = (float)node_in_world.x + 8.0f- position.x;
+	velocity_to_follow.y = (float)node_in_world.y + 8.0f - position.y;
 
 	velocity_to_follow.Normalize();
 

@@ -334,8 +334,6 @@ Direction j1Collision::SolveOverlap(Collider *dynamic_col, Collider *static_col,
 		//velocity.y = 0;
 		break;
 	}
-
-
 	return (Direction)offset_direction;
 }
 

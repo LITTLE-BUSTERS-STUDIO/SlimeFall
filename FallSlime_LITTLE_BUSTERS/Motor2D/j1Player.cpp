@@ -251,7 +251,6 @@ bool j1Player::Update(float dt)
 		acceleration.y = 0;
 	}
 	
-
 	velocity += {acceleration.x *dt, acceleration.y *dt};
 	position += {velocity.x *dt, velocity.y *dt};
 
@@ -265,11 +264,16 @@ bool j1Player::Update(float dt)
 	{
 		for (p2List_item<Direction> * item = directions.start; item; item = item->next)
 		{
-			if (item->data == Direction::down)
+			switch (item->data)
 			{
+			case Direction::down:
 				check_fall = true;
 				on_ground = true;
 				collider->type = COLLIDER_PLAYER;
+				break;
+			case Direction::up:
+				velocity.y = 0;
+				break;
 			}
 		}
 		collider->SetPos(position.x - collider_rect.w / 2, position.y - collider_rect.h / 2);
