@@ -1,3 +1,18 @@
+# *CHANGELOG* [2.0]  2018-11-17
+
+### Summarized
+
+* Enemyes added
+
+### Added
+
+* Enemy bat and skeleton animations
+* Enemy bat and skeleton sfx
+* Entity sistem improved
+* Bug fade to black fixed
+* Bug camera smooth save and load fixed
+* Sprites enemies added
+
 # *CHANGELOG* [1.3]  2018-11-17
 
 ### Summarized
