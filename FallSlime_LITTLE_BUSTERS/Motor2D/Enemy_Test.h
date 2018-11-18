@@ -1,6 +1,9 @@
 #ifndef __Enemy_Test_H__
 #define __Enemy_Test_H__
 
+#include "j1Module.h"
+#include "Animation.h"
+#include "j1Player.h"
 #include "Entity.h"
 #include "Enemy.h"
 
@@ -8,7 +11,11 @@ struct SDL_Texture;
 struct Collider;
 struct Entity_Info;
 
-
+enum class Enemy_State
+{
+	flying,
+	dead
+};
 
 
 class Enemy_Bat: public Enemy
@@ -25,10 +32,19 @@ public:
 	bool Enemy_Bat::Reset(fPoint pos);
 
 	bool OnCollision(Collider* c1, Collider* c2) ;
+
+public:
+	// States ================================
+	Enemy_State				current_state = Enemy_State::flying;
+	// Collision =============================
+	Collider				*enemy_collider = nullptr;
+
 private:
 
 	//Bool ===================================
 	bool                flip_x = false;
+	//Vars ===================================
+	int margin_flip;
 
 	//-----------Textures-------------------
 	SDL_Texture *	tex_smoke = nullptr;

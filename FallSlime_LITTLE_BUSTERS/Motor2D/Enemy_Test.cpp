@@ -62,6 +62,7 @@ bool Enemy_Bat::Update(float dt)
 
 bool Enemy_Bat::Draw()
 {
+
 	for (uint i = 0; i < last_path.Count(); ++i)
 	{
 		iPoint pos = App->map->MapToWorld(last_path.At(i)->x, last_path.At(i)->y);
@@ -74,19 +75,50 @@ bool Enemy_Bat::Draw()
 	smoke_anim.speed = 15.0F;
 	bat_anim.speed = 10.0F;
 
+	switch ((Enemy_State)current_state)
+	{
+	case Enemy_State::flying:
+		if (bat_anim.GetFrameValue() > 9)
+		{
+			frame = bat_anim.GetCurrentFrame();
+			texture = tex_bat;
+			bat_anim.Reset();
+		}
+		frame = bat_anim.GetCurrentFrame();
+		texture = tex_bat;
+		break;
+
+	case Enemy_State::dead:
+		if (smoke_anim.GetFrameValue() > 9)
+		{
+			current_state = Enemy_State::flying;
+			frame = smoke_anim.GetCurrentFrame();
+			texture = tex_smoke;
+			smoke_anim.Reset();
+
+		}
+		frame = smoke_anim.GetCurrentFrame();
+		texture = tex_smoke;
+		break;
+	}
+
 	if (smoke_anim.GetFrameValue() > 9)
 		smoke_anim.Reset();
 
-	if (bat_anim.GetFrameValue() > 9)
-		bat_anim.Reset();
 
 	if (position.x < App->entity_manager->GetPlayer()->position.x)
+	{
 		flip_x = true;
+		margin_flip = main_collider->rect.w + 10;
+	}
 	else
+	{
 		flip_x = false;
+		margin_flip = main_collider->rect.w;
+	}
+		
 
-	App->render->Blit(tex_smoke, 200, 140, &smoke_anim.GetCurrentFrame());
-	App->render->Blit(tex_bat, position.x - main_collider->rect.w, position.y - main_collider->rect.h , &bat_anim.GetCurrentFrame(), flip_x);
+	App->render->Blit(texture, position.x - margin_flip, position.y - main_collider->rect.h , &frame, flip_x);
 	return true;
 }
 
@@ -109,9 +141,21 @@ bool Enemy_Bat::Reset(fPoint pos)
 
 bool Enemy_Bat::OnCollision(Collider* c1, Collider* c2)
 {
-	if (main_collider == c1 && c2->type == COLLIDER_TYPE::COLLIDER_WALL) 
+	BROFILER_CATEGORY("Enemy_bat OnCollision", Profiler::Color::LightGreen);
+
+
+	Direction direction;
+
+	if (c1 == main_collider)
 	{
-      	App->collision->ResolveOverlap(c1, c2, position, velocity);
+		switch (c2->type)
+		{
+		case COLLIDER_WALL:
+			App->collision->ResolveOverlap(c1, c2, position, velocity);
+
+		}
 	}
+	
+	
 	return true;
 }

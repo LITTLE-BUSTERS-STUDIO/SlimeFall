@@ -9,6 +9,7 @@
 #include "j1Window.h"
 #include "j1Collision.h"
 #include "j1Player.h"
+#include "Enemy_Test.h"
 #include "j1Map.h"
 #include <math.h>
 #include "j1FadeToBlack.h"
@@ -89,7 +90,7 @@ bool j1Player::HandleInput()
 {
 	BROFILER_CATEGORY("Player HandleInput", Profiler::Color::LightCoral);
 
-	if (current_state != State::dead)
+	if (current_state != Player_State::dead)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 		{
@@ -125,25 +126,25 @@ bool j1Player::HandleInput()
 	}
 
 	//Only if player is dead
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && current_state == State::dead)
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && current_state == Player_State::dead)
 	{
 		reset = true;
 		App->render->reset = true;
 	}
 
 	// Only if player is on ground 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && current_state == State::boucing && gummy_jump ==false)
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && current_state == Player_State::boucing && gummy_jump ==false)
 	{
 		gummy_jump = true;
 		App->audio->PlayFx(fx_jump5);
 	}
 
 	//Only if player is jumping
-	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN && current_state == State::jumping && attack == false)
+	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN && current_state == Player_State::jumping && attack == false)
 	{
 		attack = true;
 		player_collider->type = COLLIDER_ATTACK;
-		current_state = State::attack;
+		current_state = Player_State::attack;
 		App->audio->PlayFx(fx_attack);
 
 	}
@@ -181,9 +182,9 @@ bool j1Player::HandleInput()
 
 
 	//Random Jump Fx
-	if (on_ground && current_state == State::jumping)
+	if (on_ground && current_state == Player_State::jumping)
 	{
-		current_state = State::boucing;
+		current_state = Player_State::boucing;
 
 		uint random_jump = rand() % 4 + 1;
 		
@@ -220,7 +221,7 @@ bool j1Player::Update(float dt)
 		reset = false;
 	}
 
-	if (current_state != State::jumping && current_state != State::attack)
+	if (current_state != Player_State::jumping && current_state != Player_State::attack)
 	{
 		return true;
 	}
@@ -276,19 +277,19 @@ bool j1Player::Draw()
 	jumping_anim.speed = 43.75F;
 
 
-	switch ((State)current_state)
+	switch ((Player_State)current_state)
 	{
-	case State::jumping:
+	case Player_State::jumping:
 		frame = jumping_anim.GetLastFrame();
 		texture = tex_player;
 		apply_attack = true;
 
 		break;
 
-	case State::boucing:
+	case Player_State::boucing:
 		if (jumping_anim.GetFrameValue() > 9)
 		{
-			current_state = State::jumping;
+			current_state = Player_State::jumping;
 			apply_jump_speed = true;
 			is_gummy_jumping = false;
 			frame = jumping_anim.GetCurrentFrame();
@@ -300,7 +301,7 @@ bool j1Player::Draw()
 		texture = tex_player;
 		break;
 
-	case State::dead:
+	case Player_State::dead:
 		frame = death_anim.GetLastFrame();
 		texture = death_splash;
 		flip_x = false;
@@ -316,12 +317,12 @@ bool j1Player::Draw()
 			dead_fx = true;
 		}
 		break;
-	case State::attack:
+	case Player_State::attack:
 		frame = attack_anim.GetCurrentFrame();
 		texture = attack_splash;
 		
 		if (on_ground)
-			current_state = State::jumping;
+			current_state = Player_State::jumping;
 		break;
 	}
 	
@@ -361,7 +362,7 @@ bool j1Player::Reset( fPoint pos)
 	acceleration.x = 0;
 	acceleration.y = 0;
 	dead_fx = false;
-	current_state = State::jumping;
+	current_state = Player_State::jumping;
 	jumping_anim.Reset();
 
 	if (player_collider != nullptr && player_collider->type != COLLIDER_GOD)
@@ -393,19 +394,19 @@ bool j1Player::Load(pugi::xml_node& node)
 
 	if (state_string == "jumping")
 	{
-		current_state = State::jumping;
+		current_state = Player_State::jumping;
 	}
 	else if  (state_string == "boucing")
 	{
-		current_state = State::boucing;
+		current_state = Player_State::boucing;
 	}
 	else if (state_string == "dying")
 	{
-		current_state = State::dead;
+		current_state = Player_State::dead;
 	}
 	else if (state_string == "attack")
 	{
-		current_state = State::attack;
+		current_state = Player_State::attack;
 	}
 
 	p2SString collider_string(node.child("state").attribute("collider_type").as_string(""));
@@ -455,18 +456,18 @@ bool j1Player::Save(pugi::xml_node& node) const
 	pugi::xml_node state_node = node.append_child("state");
 
 	p2SString state_string;
-	switch ((State)current_state)
+	switch ((Player_State)current_state)
 	{
-	case State::jumping:
+	case Player_State::jumping:
 		state_string.create("jumping");
 		break;
-	case State::boucing:
+	case Player_State::boucing:
 		state_string.create("boucing");
 		break;
-	case State::dead:
+	case Player_State::dead:
 		state_string.create("dying");
 		break;
-	case State::attack:
+	case Player_State::attack:
 		state_string.create("attack");
 		break;
 	default:
@@ -530,7 +531,7 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 
 			break;
 		case COLLIDER_DEATH:
-			current_state = State::dead;
+			current_state = Player_State::dead;
 			player_collider->type = COLLIDER_NONE;
 			break;
 		case COLLIDER_NEXT_LEVEL:
@@ -538,14 +539,14 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 			break;
 		case COLLIDER_ENEMY:
 
-			if (current_state == State::attack)
+			if (current_state == Player_State::attack)
 			{
 				on_ground = true;
 				apply_invulnerability = true;
 				attack_tremble = true;
 				break;
 			}
-			current_state = State::dead;
+			current_state = Player_State::dead;
 			player_collider->type = COLLIDER_NONE;
 			break;
 		}

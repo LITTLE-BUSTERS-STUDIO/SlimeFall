@@ -344,3 +344,4 @@ j1Player* EntityManager::GetPlayer()
 {
 	return player;
 }
+

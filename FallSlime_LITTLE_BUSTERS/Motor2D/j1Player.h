@@ -10,7 +10,7 @@
 
 struct SDL_Texture;
 
-enum class State
+enum class Player_State
 {
 	jumping,
 	boucing,
@@ -61,8 +61,8 @@ private:
 	float				speed_gummy_jump;
 	float				speed_attack;
 	// States ================================
-	State				current_state = State::jumping;
-	//Bool ===================================
+	Player_State				current_state = Player_State::jumping;
+	//Bool =====================================
 	bool                gummy_jump = false;
 	bool			    attack = false;
 	bool				apply_jump_speed = false;
