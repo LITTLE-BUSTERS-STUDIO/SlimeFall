@@ -165,7 +165,7 @@ bool j1Player::HandleInput()
 	}
 
 
-	if (apply_invulnerability && Invulnerability(0.5F))
+	if (apply_invulnerability && Invulnerability(1.F))
 		apply_invulnerability = false;
 
 	//Random Jump Fx

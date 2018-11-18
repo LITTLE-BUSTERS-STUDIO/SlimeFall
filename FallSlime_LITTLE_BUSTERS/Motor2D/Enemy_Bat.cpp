@@ -90,9 +90,12 @@ bool Enemy_Bat::Draw()
 		}
 		frame = smoke_anim.GetCurrentFrame();
 		texture = tex_smoke;
-		if (smoke_anim.GetFrameValue() <= 1)
+
+		if (!dead_fx)
+		{
 			App->audio->PlayFx(fx_bat_death);
-		
+			dead_fx = true;
+		}
 		break;
 
 	default:
@@ -125,6 +128,8 @@ bool Enemy_Bat::Reset(Entity_Info  info)
 
 	current_state = Enemy_Bat_State::flying;
 	bat_anim.Reset();
+	dead_fx = false;
+
 	return true;
 }
 

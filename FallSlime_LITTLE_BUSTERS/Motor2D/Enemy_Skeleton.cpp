@@ -110,13 +110,15 @@ bool Enemy_Skeleton::Draw()
 			current_state = Enemy_Skeleton_State::walking;
 			frame = skeleton_dead_anim.GetCurrentFrame();
 			skeleton_dead_anim.Reset();
+			App->audio->PlayFx(fx_skaleton_death);
 			Desactive();
 		}
 		frame = skeleton_dead_anim.GetCurrentFrame();
 
-		if (skeleton_dead_anim.GetFrameValue() <= 1)
-			App->audio->PlayFx(fx_skaleton_death);
-
+		if (!dead_fx)
+		{
+			dead_fx = true;
+		}
 		break;
 
 	default:
@@ -145,6 +147,7 @@ bool Enemy_Skeleton::Reset(Entity_Info info )
 {
 	BROFILER_CATEGORY("Enemy_Bat Reset", Profiler::Color::LightGray);
 	current_state = Enemy_Skeleton_State::walking;
+	dead_fx = false;
 	return true;
 }
 
