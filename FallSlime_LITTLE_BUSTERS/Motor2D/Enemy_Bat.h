@@ -51,6 +51,9 @@ private:
 	Animation         smoke_anim;
 	Animation         bat_anim;
 
+	// Sfx ----------------------------------------------
+	uint			  fx_bat_death;
+
 
 };
 

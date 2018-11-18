@@ -58,7 +58,6 @@ j1Player::j1Player(fPoint pos, Entity_Info info) : Entity(pos, info)
 	attack_anim = player_properties->attack_anim;
 
 	// Sfx ----------------------------------------------
-
 	fx_jump1 = player_properties->id_jump_fx1;
 	fx_jump2 = player_properties->id_jump_fx2;
 	fx_jump3 = player_properties->id_jump_fx3;

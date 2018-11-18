@@ -8,23 +8,23 @@
 	</audio>
 	<map />
 	<level_1>
-		<phase current_phase="1" />
+		<phase current_phase="2" />
 	</level_1>
-	<entities>
+	<skeleton>
 		<player>
-			<position x="728.476074" y="312.196503" />
-			<velocity x="0" y="0" />
-			<conditions apply_jump_speed="false" on_ground="false" check_fall="false" flip_x="false" gummy_jump="false" />
-			<state current_state="jumping" collider_type="collider_god" />
+			<position x="49.9360619" y="170" />
+			<velocity x="0" y="146.197784" />
+			<conditions apply_jump_speed="true" on_ground="true" check_fall="true" flip_x="false" gummy_jump="false" />
+			<state current_state="jumping" collider_type="collider_player" />
 		</player>
-	</entities>
+	</skeleton>
 	<pathfinding />
 	<:anonymous />
 	<FadeToBlack />
 	<renderer>
-		<camera_position x="733" y="175" />
-		<camera_smoth_position x="733" y="175" />
+		<camera_position x="0" y="0" />
+		<camera_smoth_position x="0" y="0" />
 		<debug zoom="1" />
-		<conditions free_camera_x="true" free_camera_y="true" />
+		<conditions free_camera_x="false" free_camera_y="false" />
 	</renderer>
 </game_state>

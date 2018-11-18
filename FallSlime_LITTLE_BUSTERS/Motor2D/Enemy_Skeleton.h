@@ -14,7 +14,7 @@ struct Entity_Info;
 enum class Enemy_Skeleton_State
 {
 	walking,
-	attack,
+	idle,
 	dead
 };
 
@@ -50,13 +50,16 @@ private:
 	int						margin_flip;
 	fPoint					skeleton_pos;
 	//-----------Textures-------------------
-	SDL_Texture      *tex_skeleton = nullptr;
+	SDL_Texture				*tex_skeleton = nullptr;
 
 	//----------Animations-----------------
 	Animation         skeleton_attack_anim;
 	Animation         skeleton_dead_anim;
 	Animation         skeleton_walking_anim;
+	Animation         skeleton_idle_anim;
 
+	//------------Sfx----------------------
+	uint			  fx_skaleton_death;
 
 
 };

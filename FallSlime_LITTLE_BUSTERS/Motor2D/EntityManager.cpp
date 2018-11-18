@@ -129,7 +129,7 @@ bool EntityManager::Start()
 			properties->smoke_anim.LoadAnimation(p2SString(animations_node.child("smoke").attribute("path").as_string("")), "smoke");
 
 			//=============== Sfx ======================
-
+			properties->id_bat_death_fx = App->audio->LoadFx(sfx_node.child("death").attribute("path").as_string(""));
 		}
 
 		else if (name == "skeleton")
@@ -145,7 +145,10 @@ bool EntityManager::Start()
 			properties->skeleton_attack_anim.LoadAnimation(p2SString(enemy_node.child("animations").child("enemy_skeleton").attribute("path").as_string("")), "skeleton_attack");
 			properties->skeleton_dead_anim.LoadAnimation(p2SString(enemy_node.child("animations").child("enemy_skeleton").attribute("path").as_string("")), "skeleton_dead");
 			properties->skeleton_walking_anim.LoadAnimation(p2SString(enemy_node.child("animations").child("enemy_skeleton").attribute("path").as_string("")), "skeleton_walking");
+			properties->skeleton_idle_anim.LoadAnimation(p2SString(enemy_node.child("animations").child("enemy_skeleton").attribute("path").as_string("")), "skeleton_idle");
 			//=============== Sfx ======================
+			properties->id_skeleton_death_fx = App->audio->LoadFx(sfx_node.child("death").attribute("path").as_string(""));
+
 		}
 
 		if (enemy_properties == nullptr)
@@ -165,7 +168,7 @@ bool EntityManager::Start()
 		properties_list.add(enemy_properties);
 	}
 
-	App->current_level->LoadPhase(1); //TODO: Create levels manager
+	App->current_level->LoadPhase(1);
 
 	return true;
 }
@@ -211,11 +214,6 @@ bool EntityManager::PreUpdate()
 
 	SDL_Rect camera = App->render->camera;
 	int scale = App->win->GetScale();
-
-	for (p2List_item<Entity*> *item = entities.start; item; item = item->next)
-	{
-		// TODO: Despawn entities
-	}
 
 	// Spawn entities ===============================
 

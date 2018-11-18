@@ -230,8 +230,8 @@ void j1App::FinishUpdate()
 	sprintf_s(
 		title_info,
 		256,
-		"Slime Fall || Framerate Cap: %s || Vsync: %s || FPS: %i || Av.FPS: %.2f || Last Frame Ms: %0.1f || Last dt: %.3f || Time since startup: %.3f || Frame Count: %lu", 
-		FramerateCap.GetString(), VsyncCap.GetString(), frames_on_last_update, avg_fps, last_frame_ms, dt, seconds_since_startup, frame_count);
+		"Slime Fall || Framerate Cap: %s || Vsync: %s || FPS: %i || Av.FPS: %.2f || Last Frame Ms: %0.1f", 
+		FramerateCap.GetString(), VsyncCap.GetString(), frames_on_last_update, avg_fps, last_frame_ms);
 
 
 	App->win->SetTitle(title_info);

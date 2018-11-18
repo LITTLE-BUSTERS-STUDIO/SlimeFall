@@ -38,6 +38,9 @@
         <enemy_bat path ="textures/Enemy_bat.png"/>
         <smoke path ="textures/Smoke.png"/>
       </textures>
+      <sfx>
+        <death path ="bat_death.wav"/>
+      </sfx>
     </enemy>
 
     <enemy name ="skeleton">
@@ -50,6 +53,9 @@
       <textures>
         <enemy_skeleton path ="textures/Skeleton.png"/>
       </textures>
+      <sfx>
+        <death path ="skeleton_death.wav"/>
+      </sfx>
     </enemy>
 
 

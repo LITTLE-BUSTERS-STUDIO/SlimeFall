@@ -7,6 +7,7 @@
 #include "j1Player.h"
 #include "j1PathFinding.h"
 #include "p2Log.h"
+#include "j1Audio.h"
 
 #include "j1Map.h"
 #include "j1Render.h"
@@ -28,7 +29,10 @@ Enemy_Skeleton::Enemy_Skeleton(fPoint position, Entity_Info info) :Enemy(positio
 	skeleton_walking_anim = properties->skeleton_walking_anim;
 	skeleton_dead_anim = properties->skeleton_dead_anim;
 	skeleton_attack_anim = properties->skeleton_attack_anim;
+	skeleton_idle_anim = properties->skeleton_idle_anim;
 
+	// Sfx ----------------------------------------------
+	fx_skaleton_death = properties->id_skeleton_death_fx;
 }
 
 Enemy_Skeleton::~Enemy_Skeleton()
@@ -37,6 +41,7 @@ Enemy_Skeleton::~Enemy_Skeleton()
 
 bool Enemy_Skeleton::Update(float dt)
 {
+	target = (Entity*)App->entity_manager->GetPlayer();
 	velocity = { 100,100 };
 
 	if (CheckTargetRatio())
@@ -49,7 +54,12 @@ bool Enemy_Skeleton::Update(float dt)
 
 	check_ground.x = position.x;
 	check_ground.y = position.y + 2;
-	if(App->path_finding->IsWalkable(check_ground))
+	if (App->path_finding->IsWalkable(check_ground))
+
+		if (main_collider)
+		{
+			main_collider->SetPos(position.x - main_collider->rect.w / 2, position.y - main_collider->rect.h / 2);
+		}
 
 
 	return true;
@@ -66,7 +76,9 @@ bool Enemy_Skeleton::Draw()
 
 	SDL_Rect frame;
 	SDL_Texture* texture = tex_skeleton;
-	
+	skeleton_dead_anim.speed = skeleton_walking_anim.speed = 15.0F;
+	skeleton_idle_anim.speed = 5.0F;
+
 	switch ((Enemy_Skeleton_State)current_state)
 	{
 	case Enemy_Skeleton_State::walking:
@@ -78,13 +90,22 @@ bool Enemy_Skeleton::Draw()
 		frame = skeleton_walking_anim.GetCurrentFrame();
 		break;
 
-	case Enemy_Skeleton_State::attack:
-		//frame = skeleton_attack_anim.GetCurrentFrame();
+	case Enemy_Skeleton_State::idle:
+		if (skeleton_idle_anim.GetFrameValue() > 9)
+		{
+			current_state = Enemy_Skeleton_State::walking;
+			frame = skeleton_idle_anim.GetCurrentFrame();
+			skeleton_idle_anim.Reset();
+		}
+		frame = skeleton_idle_anim.GetCurrentFrame();
+
+
 		break;
 
 	case Enemy_Skeleton_State::dead:
-		if (skeleton_dead_anim.GetFrameValue() > 20)
+		if (skeleton_dead_anim.GetFrameValue() > 18)
 		{
+			App->audio->PlayFx(fx_skaleton_death);
 			current_state = Enemy_Skeleton_State::walking;
 			frame = skeleton_dead_anim.GetCurrentFrame();
 			skeleton_dead_anim.Reset();
@@ -95,15 +116,6 @@ bool Enemy_Skeleton::Draw()
 	default:
 		break;
 	}
-	skeleton_attack_anim.speed = skeleton_dead_anim.speed = skeleton_walking_anim.speed = 15.0F;
-
-	if (skeleton_attack_anim.GetFrameValue() > 20)
-		skeleton_attack_anim.Reset();
-	if (skeleton_dead_anim.GetFrameValue() > 20)
-		skeleton_dead_anim.Reset();
-	if (skeleton_walking_anim.GetFrameValue() > 20)
-		skeleton_walking_anim.Reset();
-
 
 
 	if (position.x < App->entity_manager->GetPlayer()->position.x)
@@ -156,40 +168,31 @@ bool Enemy_Skeleton::FollowPath(float dt)
 
 	node_in_world = App->map->MapToWorld(current_point.x, current_point.y);
 
-	iPoint check_ground_right;
+	iPoint check_ground;
 	//iPoint check_ground_left;
 
-	check_ground_right.x = node_in_world.x /*+ main_collider->rect.w*/;
-	check_ground_right.y = node_in_world.y + main_collider->rect.h + 30;
+	check_ground.x = node_in_world.x /*+ main_collider->rect.w*/;
+	check_ground.y = node_in_world.y + main_collider->rect.h + 30;
 
-	//check_ground_left.x = node_in_world.x;
-	//check_ground_left.y = node_in_world.y + main_collider->rect.h - 100;
 
-	check_ground_right = App->map->WorldToMap(check_ground_right.x, check_ground_right.y);
-	//check_ground_left = App->map->WorldToMap(check_ground_left.x, check_ground_left.y);
+	check_ground = App->map->WorldToMap(check_ground.x, check_ground.y);
 
-	//LOG("%f   %f", check_ground_left.x, check_ground_left.y);
-	/*LOG("position %i   %i", node_in_world.x, node_in_world.y);
-	LOG("collider %i   %i", main_collider->rect.w, main_collider->rect.h);*/
 
-	if (node_in_world.x > position.x && !App->path_finding->IsWalkable(check_ground_right))
+	if (node_in_world.x > position.x && !App->path_finding->IsWalkable(check_ground) && current_state != Enemy_Skeleton_State::dead)
 	{
 		velocity_to_follow.x = 50;
-		LOG("RIGHT");
+		current_state = Enemy_Skeleton_State::walking;
 	}
-	
-
-	else if (node_in_world.x < position.x && !App->path_finding->IsWalkable(check_ground_right))
+	else if (node_in_world.x < position.x && !App->path_finding->IsWalkable(check_ground) && current_state != Enemy_Skeleton_State::dead)
 	{
-		LOG("LEFT");
 		velocity_to_follow.x = -50;
-
+		current_state = Enemy_Skeleton_State::walking;
 	}
-
 	else
 	{
 		velocity_to_follow.x = 0;
-		check_ground_right.y = node_in_world.y + main_collider->rect.h;
+		current_state = Enemy_Skeleton_State::idle;
+		check_ground.y = node_in_world.y + main_collider->rect.h;
 		LOG("IDLE");
 
 	}
