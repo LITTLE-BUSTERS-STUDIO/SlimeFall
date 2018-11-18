@@ -14,6 +14,8 @@ Enemy::Enemy(fPoint position, Entity_Info info) :Entity(position, info)
 	main_collider = App->collision->AddCollider(info.properties->collider_rect, COLLIDER_ENEMY, App->entity_manager);
 	colliders.add(main_collider);
 
+	main_collider->SetPos(position.x - info.properties->collider_rect.w/2 , position.y - info.properties->collider_rect.h / 2);
+
 	iPoint pos = { (int)position.x, (int)position.y};
 	current_point = App->map->WorldToMap(pos.x, pos.y);
 	
