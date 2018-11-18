@@ -178,7 +178,7 @@ bool j1Player::HandleInput()
 	}
 
 
-	if (apply_invulnerability && Invulnerability(1.F))
+	if (apply_invulnerability && Invulnerability(0.5F))
 		apply_invulnerability = false;
 
 	//Random Jump Fx
@@ -537,6 +537,7 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 			attack_tremble = true;
 			break;
 		}
+		
 		current_state = Player_State::dead;
 		collider->type = COLLIDER_NONE;
 		break;
