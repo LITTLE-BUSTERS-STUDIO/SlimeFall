@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="100" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="72" nextobjectid="426">
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="100" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="72" nextobjectid="428">
  <tileset firstgid="1" name="Basic_tileset" tilewidth="16" tileheight="16" tilecount="60" columns="10">
   <image source="Basic_tileset.png" width="160" height="96"/>
   <terraintypes>
@@ -16103,13 +16103,13 @@
   <properties>
    <property name="type" value="colliders"/>
   </properties>
-  <object id="331" x="-6.5455" y="241.093" width="148.443" height="46.3333"/>
-  <object id="332" x="211.161" y="287.426" width="40.3803" height="30.0087"/>
+  <object id="331" x="-4.90914" y="240.002" width="148.443" height="46.3333"/>
+  <object id="332" x="208.979" y="287.426" width="45.4712" height="33.2814"/>
   <object id="333" x="258.29" y="223.5" width="92.8065" height="32.0226"/>
-  <object id="336" x="547.769" y="257.15" width="107.492" height="30.6515"/>
+  <object id="336" x="547.769" y="256.15" width="95.8556" height="31.6515"/>
   <object id="338" x="451.53" y="288.872" width="26.7723" height="29.4462"/>
   <object id="345" x="593.456" y="319.551" width="107.272" height="64.4462"/>
-  <object id="347" x="640.378" y="399.706" width="189.651" height="29.9848"/>
+  <object id="347" x="640.378" y="399.706" width="189.651" height="31.6212"/>
   <object id="348" x="867.405" y="336.777" width="24.8859" height="28.4917"/>
   <object id="349" x="965.182" y="288.704" width="170.068" height="29.9084"/>
   <object id="352" x="320.239" y="207.432" width="30.5489" height="28.5302"/>
@@ -16125,24 +16125,26 @@
   <object id="388" x="1170.47" y="34.3905" width="82.2192" height="59.0523"/>
   <object id="393" x="-0.8937" y="508.758" width="1026.74" height="49.9848"/>
   <object id="394" x="-1.12" y="-27.2424" width="1105.74" height="26.4848"/>
-  <object id="404" x="-6.5965" y="282.833" width="132.693" height="35.0833"/>
-  <object id="405" x="-6.0965" y="307.583" width="83.443" height="57.5833"/>
-  <object id="406" x="-6.3465" y="392.333" width="36.693" height="123.333"/>
-  <object id="407" x="629.989" y="372.277" width="71.5223" height="27.7796"/>
+  <object id="404" x="-4.5965" y="285.015" width="132.693" height="35.0833"/>
+  <object id="405" x="-3.5965" y="310.333" width="83.443" height="57.5833"/>
+  <object id="406" x="-4.30105" y="392.878" width="36.693" height="123.333"/>
+  <object id="407" x="623.807" y="372.277" width="77.7041" height="27.7796"/>
   <object id="408" x="1119.14" y="288.754" width="31.5526" height="43.9917"/>
   <object id="409" x="1103.56" y="480.095" width="165.72" height="30.81"/>
   <object id="412" x="273.347" y="246.905" width="61.0565" height="23.4393"/>
   <object id="413" x="289.222" y="263.28" width="28.8065" height="23.4393"/>
-  <object id="414" x="-6.0965" y="358.334" width="54.193" height="40.583"/>
-  <object id="415" x="561.129" y="283.174" width="93.992" height="19.6515"/>
-  <object id="416" x="577.754" y="299.424" width="77.492" height="19.6515"/>
+  <object id="414" x="-5.0965" y="360.584" width="54.193" height="40.583"/>
+  <object id="415" x="561.856" y="287.538" width="80.9011" height="15.8333"/>
+  <object id="416" x="576.663" y="302.151" width="65.6738" height="17.6515"/>
   <object id="417" x="978.091" y="309.546" width="157.068" height="25.1584"/>
   <object id="418" x="1011.72" y="329.171" width="124.318" height="21.6584"/>
   <object id="419" x="1113.56" y="344.254" width="22.3859" height="22.9917"/>
-  <object id="420" x="655.841" y="428.008" width="30.651" height="18.3181"/>
-  <object id="421" x="706.341" y="428.508" width="59.651" height="18.3181"/>
-  <object id="422" x="722.508" y="444.841" width="26.9843" height="18.3181"/>
-  <object id="423" x="801.841" y="427.841" width="26.9843" height="18.3181"/>
+  <object id="420" x="655.841" y="428.008" width="32.651" height="20.1363"/>
+  <object id="421" x="704.068" y="428.508" width="63.5601" height="19.7726"/>
+  <object id="422" x="720.871" y="445.295" width="31.4389" height="18.3181"/>
+  <object id="423" x="800.591" y="429.591" width="29.4843" height="18.3181"/>
+  <object id="426" x="1114.31" y="438.004" width="22.3859" height="51.9917"/>
+  <object id="427" x="643.345" y="256.231" width="12.9465" height="65.2765"/>
  </objectgroup>
  <objectgroup color="#ff0000" id="19" name="colliders_death">
   <properties>

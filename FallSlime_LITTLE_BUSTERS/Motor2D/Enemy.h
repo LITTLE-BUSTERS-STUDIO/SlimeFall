@@ -39,7 +39,9 @@ public:
 	Animation             animation;
 
 	iPoint                current_point = {-1,-1};
-	iPoint				  previous_point;
+	fPoint				  previous_position;
+	iPoint                error_margin;
+	bool                  add_error_margin = false;
 	fPoint                vector;
 
 	bool                  target_detected;
