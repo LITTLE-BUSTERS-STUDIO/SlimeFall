@@ -77,9 +77,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Enemy_Skeleton.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="Enemy_Test.cpp" />
+    <ClCompile Include="Enemy_Bat.cpp" />
     <ClCompile Include="j1FadeToBlack.cpp" />
     <ClCompile Include="j1Main.cpp" />
     <ClCompile Include="j1App.cpp" />
@@ -102,9 +103,10 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Enemy_Skeleton.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="Entity.h" />
-    <ClInclude Include="Enemy_Test.h" />
+    <ClInclude Include="Enemy_Bat.h" />
     <ClInclude Include="j1Collision.h" />
     <ClInclude Include="j1FadeToBlack.h" />
     <ClInclude Include="j1Map.h" />

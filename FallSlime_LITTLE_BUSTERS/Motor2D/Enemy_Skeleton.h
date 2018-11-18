@@ -1,5 +1,5 @@
-#ifndef __Enemy_Test_H__
-#define __Enemy_Test_H__
+#ifndef __Enemy_Skeleton_H__
+#define __Enemy_Skeleton_H__
 
 #include "j1Module.h"
 #include "Animation.h"
@@ -11,51 +11,48 @@ struct SDL_Texture;
 struct Collider;
 struct Entity_Info;
 
-enum class Enemy_State
+enum class Enemy_Skeleton_State
 {
-	flying,
+	walking,
+	attack,
 	dead
 };
 
 
-class Enemy_Bat: public Enemy
+class Enemy_Skeleton : public Enemy
 {
 public:
-	Enemy_Bat(fPoint position, Entity_Info info);
+	Enemy_Skeleton(fPoint position, Entity_Info info);
 
-	virtual ~Enemy_Bat();
+	virtual ~Enemy_Skeleton();
 
-	bool Update(float dt) ;
+	bool Update(float dt);
 
 	bool Draw();
 
-	bool Enemy_Bat::Reset(fPoint pos);
+	bool Enemy_Skeleton::Reset(fPoint pos);
 
-	bool OnCollision(Collider* c1, Collider* c2) ;
+	bool OnCollision(Collider* c1, Collider* c2);
 
 public:
 	// States ================================
-	Enemy_State				current_state = Enemy_State::flying;
+	Enemy_Skeleton_State	current_state = Enemy_Skeleton_State::walking;
 	// Collision =============================
 	Collider				*enemy_collider = nullptr;
 
 private:
 
 	//Bool ===================================
-	bool                flip_x = false;
+	bool				    flip_x = false;
 	//Vars ===================================
 	int margin_flip;
 
 	//-----------Textures-------------------
-	SDL_Texture *	tex_smoke = nullptr;
-	SDL_Texture *	tex_bat = nullptr;
-
+	
 	//----------Animations-----------------
-	Animation         smoke_anim;
-	Animation         bat_anim;
+	
 
 
 };
 
-#endif // __Enemy_Test_H__
-
+#endif // __Enemy_Skeleton_H__

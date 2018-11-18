@@ -9,7 +9,7 @@
 #include "j1Window.h"
 #include "j1Collision.h"
 #include "j1Player.h"
-#include "Enemy_Test.h"
+#include "Enemy_Bat.h"
 #include "j1Map.h"
 #include <math.h>
 #include "j1FadeToBlack.h"
