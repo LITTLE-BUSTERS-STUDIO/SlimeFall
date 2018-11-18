@@ -40,6 +40,8 @@ public:
 private:
 	//Bool ===================================
 	bool              flip_x = false;
+	bool              	dead_fx = false;
+
 	//Vars ===================================
 	int               margin_flip;
 
