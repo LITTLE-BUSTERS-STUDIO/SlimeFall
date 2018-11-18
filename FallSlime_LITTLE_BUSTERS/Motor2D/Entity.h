@@ -100,6 +100,7 @@ class Entity_Info
 {
 public:
 	p2SString            name;
+	int                  id;
 	fPoint               position;
 	Properties*          properties = nullptr;
 	SDL_Rect             spawn_rect;

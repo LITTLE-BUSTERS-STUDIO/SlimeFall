@@ -67,11 +67,7 @@ bool Enemy_Skeleton::Update(float dt)
 
 bool Enemy_Skeleton::Draw()
 {
-	for (uint i = 0; i < last_path.Count(); ++i)
-	{
-		iPoint pos = App->map->MapToWorld(last_path.At(i)->x, last_path.At(i)->y);
-		App->render->DrawQuad({ pos.x, pos.y ,16,16 }, 0, 0, 0, 200);
-	}
+	DrawPath();
 
 	SDL_Rect frame;
 	SDL_Texture* texture = tex_skeleton;

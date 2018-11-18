@@ -115,6 +115,7 @@ bool j1Player::HandleInput()
 	//Only if player is dead
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && current_state == Player_State::dead)
 	{
+		App->entity_manager->ResetAll();
 		reset = true;
 		App->render->reset = true;
 	}
