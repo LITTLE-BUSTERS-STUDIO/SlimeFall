@@ -45,8 +45,8 @@ private:
 	//Bool ===================================
 	bool				    flip_x = false;
 	//Vars ===================================
-	int margin_flip;
-
+	int						margin_flip;
+	fPoint					skeleton_pos;
 	//-----------Textures-------------------
 	SDL_Texture      *tex_skeleton = nullptr;
 

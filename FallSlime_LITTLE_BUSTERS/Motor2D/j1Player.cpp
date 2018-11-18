@@ -246,8 +246,8 @@ bool j1Player::Update(float dt)
 	
 	velocity += {acceleration.x *dt, acceleration.y *dt};
 	
-	if (velocity.y > 1200)
-		velocity.y = 1200;
+	if (velocity.y > 800)
+		velocity.y = 800;
 
 	position += {velocity.x *dt, velocity.y *dt};
 

@@ -43,9 +43,14 @@ bool Enemy_Skeleton::Update(float dt)
 		FollowPath(dt);
 	}
 
+	static float pos_grounded = position.y - main_collider->rect.h / 2;
+	
+	skeleton_pos.y = pos_grounded;
+	skeleton_pos.x = position.x - main_collider->rect.w / 2;
+
 	if (main_collider)
 	{
-		main_collider->SetPos(position.x - main_collider->rect.w / 2, position.y - main_collider->rect.h / 2);
+		main_collider->SetPos(skeleton_pos.x, skeleton_pos.y);
 	}
 
 	return true;
@@ -109,7 +114,6 @@ bool Enemy_Skeleton::Reset(fPoint pos)
 	velocity.y = 0;
 	acceleration.x = 0;
 	acceleration.y = 0;
-	//bat_anim.Reset();
 
 	return true;
 }
