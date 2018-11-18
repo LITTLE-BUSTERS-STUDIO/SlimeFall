@@ -51,11 +51,11 @@ bool Enemy_Bat::Update(float dt)
 		FollowPath(dt);
 	}
 
-
 	if (main_collider)
 	{
 		main_collider->SetPos(position.x - main_collider->rect.w / 2, position.y - main_collider->rect.h / 2);
 	}
+
 
 	return true;
 }
@@ -100,10 +100,10 @@ bool Enemy_Bat::Draw()
 		frame = smoke_anim.GetCurrentFrame();
 		texture = tex_smoke;
 		break;
-	}
 
-	if (smoke_anim.GetFrameValue() > 9)
-		smoke_anim.Reset();
+	default:
+		break;
+	}
 
 
 	if (position.x < App->entity_manager->GetPlayer()->position.x)
@@ -144,7 +144,7 @@ bool Enemy_Bat::OnCollision(Collider* c1, Collider* c2)
 	BROFILER_CATEGORY("Enemy_bat OnCollision", Profiler::Color::LightGreen);
 
 
-	Direction direction;
+	Direction bat_direction;
 
 	if (c1 == main_collider)
 	{
@@ -152,7 +152,13 @@ bool Enemy_Bat::OnCollision(Collider* c1, Collider* c2)
 		{
 		case COLLIDER_WALL:
 			App->collision->ResolveOverlap(c1, c2, position, velocity);
+			break;
+		case COLLIDER_ATTACK:
+			current_state = Enemy_State::dead;
+			break;
 
+		default:
+			break;
 		}
 	}
 	

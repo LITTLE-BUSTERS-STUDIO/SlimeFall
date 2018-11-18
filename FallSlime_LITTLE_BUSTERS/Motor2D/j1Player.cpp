@@ -328,15 +328,9 @@ bool j1Player::Draw()
 	
 	App->render->Blit(texture, (int)position.x - frame.w/2 , (int)position.y - frame.h / 2, &frame  , flip_x );
 
-	//TEST-----------------------------------------------------
-	//bat_anim.speed = 10.0F;
-	//smoke_anim.speed = 15.0F;
+	
 	skeleton_attack_anim.speed = skeleton_dead_anim.speed =skeleton_walking_anim.speed = 15.0F;
 
-	/*if (bat_anim.GetFrameValue() > 9 )
-		bat_anim.Reset();*/
-	/*if (smoke_anim.GetFrameValue() > 9)
-		smoke_anim.Reset();*/
 	if (skeleton_attack_anim.GetFrameValue() > 20)
 		skeleton_attack_anim.Reset();
 	if (skeleton_dead_anim.GetFrameValue() > 20)
@@ -344,8 +338,6 @@ bool j1Player::Draw()
 	if (skeleton_walking_anim.GetFrameValue() > 20)
 		skeleton_walking_anim.Reset();
 
-	//App->render->Blit(tex_bat, 100, 140, &bat_anim.GetCurrentFrame());
-	//App->render->Blit(tex_smoke, 200, 140, &smoke_anim.GetCurrentFrame());
 	App->render->Blit(tex_skeleton, 250, 140, &skeleton_attack_anim.GetCurrentFrame());
 	App->render->Blit(tex_skeleton, 300, 140, &skeleton_dead_anim.GetCurrentFrame());
 	App->render->Blit(tex_skeleton, 350, 140, &skeleton_walking_anim.GetCurrentFrame());
