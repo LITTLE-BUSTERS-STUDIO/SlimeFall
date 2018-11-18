@@ -386,7 +386,7 @@ bool j1Player::Reset( fPoint pos)
 
 
 //Save and Load
-bool j1Player::Load(pugi::xml_node& node)
+bool j1Player::Load(pugi::xml_node& node) 
 {
 	bool ret = true;
 	position.x = node.child("position").attribute("x").as_float(0);

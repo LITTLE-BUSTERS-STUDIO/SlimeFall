@@ -56,7 +56,6 @@ bool  Enemy::FollowPath( float dt)
 
 	if (add_error_margin)
 	{
-		last_path.Pop(current_point);
 		current_point += error_margin;
 		error_margin = { 0,0 };
 		add_error_margin = false;
@@ -87,7 +86,7 @@ bool  Enemy::FollowPath( float dt)
 		}
 	}
 	
-	if ((int)previous_position.x == (int)position.x && (int)previous_position.y == (int)position.y)
+	if (previous_position.x == position.x && previous_position.y == position.y)
 	{
 		if (velocity_to_follow.y > 0)
 			error_margin.y -= 2;
@@ -100,8 +99,6 @@ bool  Enemy::FollowPath( float dt)
 
 		add_error_margin = true;
 	}
-
-
 	return true;
 }
 
