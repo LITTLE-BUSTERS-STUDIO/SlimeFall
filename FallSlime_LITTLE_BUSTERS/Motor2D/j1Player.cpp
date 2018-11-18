@@ -282,7 +282,7 @@ bool j1Player::Draw()
 	case Player_State::jumping:
 		frame = jumping_anim.GetLastFrame();
 		texture = tex_player;
-		apply_attack = true;
+		apply_attack = true;   
 
 		break;
 
@@ -323,6 +323,8 @@ bool j1Player::Draw()
 		
 		if (on_ground)
 			current_state = Player_State::jumping;
+		break;
+	default:
 		break;
 	}
 	

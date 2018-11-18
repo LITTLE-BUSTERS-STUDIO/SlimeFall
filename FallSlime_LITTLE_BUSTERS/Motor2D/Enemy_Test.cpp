@@ -95,7 +95,6 @@ bool Enemy_Bat::Draw()
 			frame = smoke_anim.GetCurrentFrame();
 			texture = tex_smoke;
 			smoke_anim.Reset();
-
 		}
 		frame = smoke_anim.GetCurrentFrame();
 		texture = tex_smoke;
@@ -109,16 +108,19 @@ bool Enemy_Bat::Draw()
 	if (position.x < App->entity_manager->GetPlayer()->position.x)
 	{
 		flip_x = true;
-		margin_flip = main_collider->rect.w + 10;
+		margin_flip = main_collider->rect.w + main_collider->rect.w/2;
 	}
 	else
 	{
 		flip_x = false;
 		margin_flip = main_collider->rect.w;
 	}
-		
+	
+	if(current_state == Enemy_State::dead)
+		margin_flip = main_collider->rect.w;
 
-	App->render->Blit(texture, position.x - margin_flip, position.y - main_collider->rect.h , &frame, flip_x);
+
+	App->render->Blit(texture, position.x - margin_flip, position.y - main_collider->rect.h, &frame, flip_x);
 	return true;
 }
 
