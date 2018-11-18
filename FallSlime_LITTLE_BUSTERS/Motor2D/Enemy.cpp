@@ -28,7 +28,7 @@ bool Enemy::UpdateLogic()
 {
 	if (  path_timer.Read() > path_interval_time ) 
 	{
-		iPoint map_target(target->position.x, target->position.y);
+		iPoint map_target (target->position.x, target->position.y);
 		iPoint map_pos(position.x, position.y);
 
 		map_target = App->map->WorldToMap(map_target.x, map_target.y);
@@ -42,9 +42,16 @@ bool Enemy::UpdateLogic()
 
 bool  Enemy::FollowPath( float dt)
 {
-	if (!last_path.Count())
+	if (!last_path.Count() > 0)
 	{
 		return false;
+	}
+
+	if (add_error_margin && !new_path)
+	{
+		current_point += error_margin;
+		error_margin = { 0,0 };
+		add_error_margin = false;
 	}
 
 	if (new_path)
@@ -54,19 +61,11 @@ bool  Enemy::FollowPath( float dt)
 		new_path = false;
 	}
 
-	if (add_error_margin)
-	{
-		last_path.Pop(current_point);
-		current_point += error_margin;
-		error_margin = { 0,0 };
-		add_error_margin = false;
-	}
-
 	fPoint velocity_to_follow;
 	iPoint node_in_world;
 	node_in_world = App->map->MapToWorld(current_point.x, current_point.y);
-	velocity_to_follow.x = (float)node_in_world.x  - position.x;
-	velocity_to_follow.y = (float)node_in_world.y  - position.y;
+	velocity_to_follow.x = (float)node_in_world.x  - position.x ;
+	velocity_to_follow.y = (float)node_in_world.y - position.y ;
 
 	velocity_to_follow.Normalize();
 
@@ -87,21 +86,20 @@ bool  Enemy::FollowPath( float dt)
 		}
 	}
 	
-	if ((int)previous_position.x == (int)position.x && (int)previous_position.y == (int)position.y)
+	if ((int)previous_position.x == (int)position.x  && (int)previous_position.y == (int)position.y)
 	{
-		if (velocity_to_follow.y > 0)
-			error_margin.y -= 2;
-		else if (velocity_to_follow.y < 0)
-			error_margin.y += 2;
-		if (velocity_to_follow.x > 0)
-			error_margin.x += 2;
-		else if (velocity_to_follow.x < 0)
-			error_margin.x -= 2;
+		if (node_in_world.x > position.x )
+			error_margin.x += 3;
+		else
+			error_margin.x -= 3;
+
+		if (node_in_world.y > position.y)
+			error_margin.y += 3;
+		else
+			error_margin.y -= 3;
 
 		add_error_margin = true;
 	}
-
-
 	return true;
 }
 
