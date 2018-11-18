@@ -63,8 +63,14 @@ bool j1FadeToBlack::PostUpdate(float dt)
 	} break;
 	}
 
+	SDL_Rect camera_fade;
+
+	camera_fade.x = 0;
+	camera_fade.y = 0;
+	camera_fade.w = App->render->camera.w;
+	camera_fade.h = App->render->camera.h;
 	// Finally render the black square with alpha on the screen
-	App->render->DrawQuad( App->render->camera, 0, 0, 0, normalized * 255);
+	App->render->DrawQuad(camera_fade, 0, 0, 0, normalized * 255);
 
 	return true;
 }

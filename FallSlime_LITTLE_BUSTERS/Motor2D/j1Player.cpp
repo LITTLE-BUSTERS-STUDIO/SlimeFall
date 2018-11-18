@@ -10,6 +10,7 @@
 #include "j1Collision.h"
 #include "j1Player.h"
 #include "Enemy_Bat.h"
+#include "Enemy_Skeleton.h"
 #include "j1Map.h"
 #include <math.h>
 #include "j1FadeToBlack.h"
@@ -46,6 +47,7 @@ j1Player::j1Player(fPoint pos, Entity_Info info) : Entity(pos, info)
 	colliders.add(collider);
 
 	// Textures ------------------------------------------
+
 	tex_player = player_properties->player_tex;
 	death_splash = player_properties->death_tex;
 	attack_splash = player_properties->attack_tex;
@@ -61,13 +63,7 @@ j1Player::j1Player(fPoint pos, Entity_Info info) : Entity(pos, info)
 
 j1Player::~j1Player()
 {
-	App->tex->UnLoad(tex_player);
-	App->tex->UnLoad(death_splash);
-	App->tex->UnLoad(attack_splash);
 
-	//App->tex->UnLoad(tex_bat);
-	//App->tex->UnLoad(tex_smoke);
-	App->tex->UnLoad(tex_skeleton);
 }
 
 bool j1Player::HandleInput()
@@ -237,7 +233,12 @@ bool j1Player::Update(float dt)
 		acceleration.y = 0;
 	}
 	
+	
 	velocity += {acceleration.x *dt, acceleration.y *dt};
+	
+	if (velocity.y > 1200)
+		velocity.y = 1200;
+
 	position += {velocity.x *dt, velocity.y *dt};
 
 	collider->SetPos(position.x - collider_rect.w / 2, position.y - collider_rect.h / 2);
@@ -331,19 +332,6 @@ bool j1Player::Draw()
 	
 	App->render->Blit(texture, (int)position.x - frame.w/2 , (int)position.y - frame.h / 2, &frame  , flip_x );
 
-	
-	skeleton_attack_anim.speed = skeleton_dead_anim.speed =skeleton_walking_anim.speed = 15.0F;
-
-	if (skeleton_attack_anim.GetFrameValue() > 20)
-		skeleton_attack_anim.Reset();
-	if (skeleton_dead_anim.GetFrameValue() > 20)
-		skeleton_dead_anim.Reset();
-	if (skeleton_walking_anim.GetFrameValue() > 20)
-		skeleton_walking_anim.Reset();
-
-	App->render->Blit(tex_skeleton, 250, 140, &skeleton_attack_anim.GetCurrentFrame());
-	App->render->Blit(tex_skeleton, 300, 140, &skeleton_dead_anim.GetCurrentFrame());
-	App->render->Blit(tex_skeleton, 350, 140, &skeleton_walking_anim.GetCurrentFrame());
 	return true;
 }
 

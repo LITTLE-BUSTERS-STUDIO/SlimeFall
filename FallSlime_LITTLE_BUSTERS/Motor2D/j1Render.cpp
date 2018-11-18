@@ -253,8 +253,8 @@ bool j1Render::Load(pugi::xml_node& data)
 	camera.x = data.child("camera_position").attribute("x").as_int(0);
 	camera.y = data.child("camera_position").attribute("y").as_int(0);
 
-	camera.x = data.child("camera_smoth_position").attribute("x").as_int(0);
-	camera.y = data.child("camera_smoth_position").attribute("y").as_int(0);
+	smoth_position.x = data.child("camera_smoth_position").attribute("x").as_int(0);
+	smoth_position.y = data.child("camera_smoth_position").attribute("y").as_int(0);
 
 	zoom = data.child("debug").attribute("zoom").as_int(0);
 	free_camera_x = data.child("conditions").attribute("free_camera_x").as_bool(false);

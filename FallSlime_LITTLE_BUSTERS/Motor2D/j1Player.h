@@ -49,6 +49,9 @@ public:
 public :
 	bool			    reset = false;
 	bool				attack_tremble = false;
+
+	int what = 0;
+
 private:
 	//Debug====================================
 	bool				god_mode = false;
@@ -87,19 +90,10 @@ private:
 	SDL_Texture      *death_splash = nullptr;
 	SDL_Texture      *attack_splash = nullptr;
 
-	//SDL_Texture      *tex_bat = nullptr;
-	//SDL_Texture      *tex_smoke = nullptr;
-	SDL_Texture      *tex_skeleton = nullptr;
 	//----------Animations-----------------
 	Animation         jumping_anim;
 	Animation         death_anim;
 	Animation         attack_anim;
-
-	//Animation         bat_anim;
-	//Animation         smoke_anim;
-	Animation         skeleton_attack_anim;
-	Animation         skeleton_dead_anim;
-	Animation         skeleton_walking_anim;
 
 	//------------Sfx----------------------
 	uint			  fx_jump1;

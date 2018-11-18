@@ -17,19 +17,23 @@ Enemy_Skeleton::Enemy_Skeleton(fPoint position, Entity_Info info) :Enemy(positio
 
 	Enemy_Properties* enemy_properties = (Enemy_Properties *)info.properties;
 
-	// Textures ------------------------------------------
+	//// Textures ------------------------------------------
+	//tex_skeleton = App->tex->Load(enemy_properties->path_tex_skeleton.GetString());
 
-	// Animations ----------------------------------------
+	//// Animations ------------------------------skeleton_attack_anim = player_properties->skeleton_attack_anim;
+	//skeleton_walking_anim = enemy_properties->skeleton_walking_anim;
+	//skeleton_dead_anim = enemy_properties->skeleton_dead_anim;
+	//skeleton_attack_anim = enemy_properties->skeleton_attack_anim;
 	
 }
 
 Enemy_Skeleton::~Enemy_Skeleton()
 {
+	App->tex->UnLoad(tex_skeleton);
 }
 
 bool Enemy_Skeleton::Update(float dt)
 {
-
 	velocity = { 100,100 };
 
 	if (CheckTargetRatio())
@@ -71,6 +75,18 @@ bool Enemy_Skeleton::Draw()
 	default:
 		break;
 	}
+	skeleton_attack_anim.speed = skeleton_dead_anim.speed = skeleton_walking_anim.speed = 15.0F;
+
+	if (skeleton_attack_anim.GetFrameValue() > 20)
+		skeleton_attack_anim.Reset();
+	if (skeleton_dead_anim.GetFrameValue() > 20)
+		skeleton_dead_anim.Reset();
+	if (skeleton_walking_anim.GetFrameValue() > 20)
+		skeleton_walking_anim.Reset();
+
+	App->render->Blit(tex_skeleton, 300, 140, &skeleton_dead_anim.GetCurrentFrame());
+	App->render->Blit(tex_skeleton, 350, 140, &skeleton_walking_anim.GetCurrentFrame());
+	App->render->Blit(tex_skeleton, 400, 140, &skeleton_attack_anim.GetCurrentFrame());
 
 
 	if (position.x < App->entity_manager->GetPlayer()->position.x)
@@ -79,7 +95,7 @@ bool Enemy_Skeleton::Draw()
 		flip_x = false;
 		
 	
-	App->render->Blit(texture, position.x , position.y, &frame, flip_x);
+	//App->render->Blit(texture, position.x , position.y, &frame, flip_x);
 	return true;
 }
 

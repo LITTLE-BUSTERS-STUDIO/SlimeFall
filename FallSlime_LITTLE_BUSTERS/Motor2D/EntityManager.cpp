@@ -294,6 +294,10 @@ bool EntityManager::CreateEntity(const Entity_Info& info)
 	{
 		entity = new Enemy_Bat( info.position, info);
 	}
+	if (info.name == "skeleton") 
+	{
+		entity = new Enemy_Skeleton( info.position, info);
+	}
 
 	if (entity != nullptr) 
 	{

@@ -75,8 +75,9 @@ public:
 	uint	smooth_speed;
 	uint	tremble;
 
-private:
 	iPoint		smoth_position = { 0,0 };
+
+private:
 	iPoint		camera_flip = { 0,0 };
 	uint		index_tremble = 0;
 };

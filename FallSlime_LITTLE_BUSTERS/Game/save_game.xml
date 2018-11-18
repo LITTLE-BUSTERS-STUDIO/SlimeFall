@@ -12,43 +12,19 @@
 	</level_1>
 	<entities>
 		<player>
-			<position x="88.6717453" y="57.8546791" />
+			<position x="728.476074" y="312.196503" />
 			<velocity x="0" y="0" />
 			<conditions apply_jump_speed="false" on_ground="false" check_fall="false" flip_x="false" gummy_jump="false" />
 			<state current_state="jumping" collider_type="collider_god" />
 		</player>
-		<:anonymous />
-		<:anonymous />
-		<:anonymous />
-		<:anonymous />
-		<:anonymous />
-		<:anonymous />
-		<:anonymous />
-		<:anonymous />
-		<:anonymous />
-		<:anonymous />
-		<:anonymous />
-		<:anonymous />
-		<:anonymous />
-		<:anonymous />
-		<:anonymous />
-		<:anonymous />
-		<:anonymous />
-		<:anonymous />
-		<:anonymous />
-		<:anonymous />
-		<:anonymous />
-		<:anonymous />
-		<:anonymous />
-		<:anonymous />
 	</entities>
 	<pathfinding />
 	<:anonymous />
 	<FadeToBlack />
 	<renderer>
-		<camera_position x="0" y="0" />
-		<camera_smoth_position x="0" y="0" />
+		<camera_position x="733" y="175" />
+		<camera_smoth_position x="733" y="175" />
 		<debug zoom="1" />
-		<conditions free_camera_x="false" free_camera_y="false" />
+		<conditions free_camera_x="true" free_camera_y="true" />
 	</renderer>
 </game_state>
