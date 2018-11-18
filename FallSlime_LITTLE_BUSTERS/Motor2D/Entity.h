@@ -32,14 +32,14 @@ public:
 	float			  speed_jump;
 	float			  speed_gummy_jump;
 	float             speed_attack;
-	//-----------Animations-----------------
 
+	//-----------Animations-----------------
 	Animation         jumping_anim;
 	Animation		  death_anim;
 	Animation		  attack_anim;
 
-	Animation		  bat_anim;
-	Animation         smoke_anim;
+	//Animation		  bat_anim;
+	//Animation         smoke_anim;
 	Animation         skeleton_attack_anim;
 	Animation         skeleton_dead_anim;
 	Animation         skeleton_walking_anim;
@@ -50,8 +50,8 @@ public:
 	p2SString         path_death_splash;
 	p2SString         path_attack_splash;
 
-	p2SString         path_tex_bat;
-	p2SString         path_tex_smoke;
+	//p2SString         path_tex_bat;
+	//p2SString         path_tex_smoke;
 	p2SString         path_tex_skeleton;
 
 
@@ -67,9 +67,17 @@ public:
 
 class Enemy_Properties : public Properties
 {
+public:
 	int               detection_ratio;
 	float             path_interval_time;
 
+	//-----------Animations-----------------
+	Animation         smoke_anim;
+	Animation		  bat_anim;
+
+	//-----------Textures-------------------
+	p2SString         path_tex_smoke;
+	p2SString         path_tex_bat;
 };
 
 
