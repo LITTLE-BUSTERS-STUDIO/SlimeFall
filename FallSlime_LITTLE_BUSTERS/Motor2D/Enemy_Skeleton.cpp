@@ -106,6 +106,8 @@ bool Enemy_Skeleton::Draw()
 		break;
 
 	case Enemy_Skeleton_State::dead:
+
+		main_collider->type = COLLIDER_NONE;
 		if (skeleton_dead_anim.GetFrameValue() > 18)
 		{
 			current_state = Enemy_Skeleton_State::walking;

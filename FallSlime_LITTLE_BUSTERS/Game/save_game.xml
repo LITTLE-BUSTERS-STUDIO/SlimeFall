@@ -8,26 +8,23 @@
 	</audio>
 	<map />
 	<level_1>
-		<phase current_phase="1" />
+		<phase current_phase="2" />
 	</level_1>
-	<skeleton>
+	<entities>
 		<player>
-			<position x="72" y="196.836426" />
-			<velocity x="0" y="-287.829956" />
-			<conditions apply_jump_speed="false" on_ground="false" check_fall="false" flip_x="false" gummy_jump="false" />
-			<state current_state="jumping" collider_type="collider_player" />
+			<position x="94.768898" y="170" />
+			<velocity x="0" y="368.175629" />
+			<conditions apply_jump_speed="false" on_ground="true" check_fall="true" flip_x="false" gummy_jump="false" />
+			<state current_state="boucing" collider_type="collider_player" />
 		</player>
-		<Enemy_Info name="bat" id="0" x="593" x="168" spawned="true" />
-		<Enemy_Info name="bat" id="0" x="1197" x="392" spawned="false" />
-		<Enemy_Info name="skeleton" id="0" x="676" x="314" spawned="false" />
-		<Enemy_Info name="skeleton" id="0" x="281" x="211" spawned="true" />
-	</skeleton>
-
+	</entities>
+	<pathfinding />
+	<:anonymous />
 	<FadeToBlack />
 	<renderer>
-		<camera_position x="0" y="59" />
-		<camera_smoth_position x="0" y="59" />
+		<camera_position x="0" y="0" />
+		<camera_smoth_position x="0" y="0" />
 		<debug zoom="1" />
-		<conditions free_camera_x="false" free_camera_y="true" />
+		<conditions free_camera_x="false" free_camera_y="false" />
 	</renderer>
 </game_state>

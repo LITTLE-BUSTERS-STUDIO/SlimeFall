@@ -80,6 +80,7 @@ bool Enemy_Bat::Draw()
 		break;
 
 	case Enemy_Bat_State::dead:
+		main_collider->type = COLLIDER_NONE;
 		if (smoke_anim.GetFrameValue() > 9)
 		{
 			current_state = Enemy_Bat_State::flying;
