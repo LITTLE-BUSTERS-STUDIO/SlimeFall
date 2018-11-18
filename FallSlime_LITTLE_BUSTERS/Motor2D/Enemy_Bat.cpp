@@ -14,7 +14,6 @@
 Enemy_Bat::Enemy_Bat(fPoint position, Entity_Info info) :Enemy( position, info)
 {
 	Enemy_Bat_Properties* properties = (Enemy_Bat_Properties *)info.properties;
-	target = (Entity*)App->entity_manager->GetPlayer();
 
 	// Textures ------------------------------------------
 	tex_smoke = properties->smoke_tex;
@@ -31,6 +30,7 @@ Enemy_Bat::~Enemy_Bat()
 
 bool Enemy_Bat::Update(float dt)
 {
+	target = (Entity*)App->entity_manager->GetPlayer();
 	velocity = { 100,100 };
 
 	if (CheckTargetRatio())
@@ -47,6 +47,9 @@ bool Enemy_Bat::Update(float dt)
 
 	return true;
 }
+
+
+
 
 bool Enemy_Bat::Draw()
 {
@@ -115,7 +118,7 @@ bool Enemy_Bat::Reset()
 {
 	BROFILER_CATEGORY("Enemy_Bat Reset", Profiler::Color::LightGray);
 
-	//position = pos;
+	
 	velocity.x = 0;
 	velocity.y = 0;
 	acceleration.x = 0;

@@ -73,11 +73,9 @@
   <properties>
    <property name="type" value="enemies"/>
   </properties>
-
-  <object id="425" name="bat" x="326.515" y="154.455">
+  <object id="425" name="bat" x="268.515" y="163.455">
    <point/>
   </object>
-
  </objectgroup>
  <layer id="65" name="Spikes" width="100" height="40">
   <data>

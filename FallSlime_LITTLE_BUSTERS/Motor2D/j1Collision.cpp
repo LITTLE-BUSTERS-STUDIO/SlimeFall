@@ -248,10 +248,11 @@ bool j1Collision:: CleanUp()
 		}
 
 	}
+	colliders.clear();
 
 	LOG("Deleted %i colliders", count);
 
-	colliders.clear();
+
 	return true;
 }
 

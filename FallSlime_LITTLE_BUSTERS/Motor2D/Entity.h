@@ -83,19 +83,7 @@ public:
 	SDL_Texture*      skeleton_tex;
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+class Entity;
 
 class Entity_Info
 {
@@ -104,6 +92,7 @@ public:
 	fPoint               position;
 	Properties*          properties = nullptr;
 	SDL_Rect             spawn_rect;
+	Entity              *entity = nullptr;
 	bool                 spawned = false;
 
 	Entity_Info() {}
@@ -118,9 +107,6 @@ public:
 	    spawn_rect.x = spawn_position.x - properties->spawn_rect.w / 2;
 		spawn_rect.y = spawn_position.y - properties->spawn_rect.h / 2;
 	}
-
-
-
 };
 
 class Entity
@@ -152,8 +138,7 @@ public:
 	// Variables ======================================
 	p2SString             name;
 	int                   id;
-	bool                  active = true;
-	Entity_Info          *info;
+	bool                  active = false;
 
 	fPoint                position;
 	fPoint                velocity;

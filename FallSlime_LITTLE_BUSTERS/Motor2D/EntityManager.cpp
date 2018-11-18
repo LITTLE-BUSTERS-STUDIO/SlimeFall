@@ -217,28 +217,37 @@ bool EntityManager::PreUpdate()
 		// TODO: Despawn entities
 	}
 
-	for (p2List_item<Entity_Info> *item = entities_info.start ; item ; item = item->next ) 
+	// Spawn entities ===============================
+
+	for (p2List_item<Entity_Info> *item = entities_info.start ; item; item = item->next )
 	{
-        // TODO: Spawn enttities 
 
 		if (item->data.spawned)
 		{
 			continue;
 		}
 
-		SDL_Rect rect = item->data.properties->spawn_rect;
+		fPoint pos = item->data.position;
 
-		if (((camera.x / scale < rect.x + rect.w) && (rect.x < (camera.x + camera.w) / scale)
-			&& (camera.y / scale < rect.y + rect.h) && (rect.y < (camera.y + camera.h) / scale)))
+		if (((camera.x / scale < pos.x) && (pos.x < (camera.x + camera.w) / scale)
+			&& (camera.y / scale < pos.y ) && (pos.y < (camera.y + camera.h) / scale)))
 		{
-			item->data.spawned = true;
-			CreateEntity(item->data);
+			if (item->data.entity)
+			{
+				item->data.entity->active = true;
+				item->data.spawned = true;
+			}
+			
 		}
 	}
 
 
-	for (p2List_item<Entity*> *item = entities.start;  item && item->data->active; item = item->next)
+	for (p2List_item<Entity*> *item = entities.start;  item; item = item->next)
 	{
+		if (!item->data->active)
+		{
+			continue;
+		}
 		item->data->HandleInput();
 	}
 
@@ -250,8 +259,12 @@ bool EntityManager::Update(float dt)
 {
 	BROFILER_CATEGORY("EntityManager Update", Profiler::Color::Lavender);
 
-	for (p2List_item<Entity*> *item = entities.start; item && item->data->active; item = item->next)
+	for (p2List_item<Entity*> *item = entities.start; item; item = item->next)
 	{
+		if (!item->data->active)
+		{
+			continue;
+		}
 		item->data->Update(dt);
 	}
 
@@ -262,15 +275,19 @@ bool EntityManager::PostUpdate(float dt)
 {
 	BROFILER_CATEGORY("EntityManager PostUpdate", Profiler::Color::LavenderBlush);
 
-	for (p2List_item<Entity*> *item = entities.start;  item && item->data->active ; item = item->next)
+	for (p2List_item<Entity*> *item = entities.start;  item ; item = item->next)
 	{
+		if (!item->data->active)
+		{
+			continue;
+		}
 		item->data->Draw();
 	}
 
 	return true;
 }
 
-bool EntityManager::LoadEntitiesInfo(pugi::xml_node& node)
+bool EntityManager::LoadEntities(pugi::xml_node& node)
 {
 	BROFILER_CATEGORY("EntityManager LoadEntitiesInfo", Profiler::Color::LawnGreen);
 
@@ -280,13 +297,15 @@ bool EntityManager::LoadEntitiesInfo(pugi::xml_node& node)
 	{
 		// Read information ------------------------------
 		p2SString name(object.attribute("name").as_string());
-		entities_info.add( Entity_Info( fPoint (object.attribute("x").as_int(0), object.attribute("y").as_int(0)), GetProperties(name) ) );
+		Entity_Info info(fPoint(object.attribute("x").as_int(0), object.attribute("y").as_int(0)), GetProperties(name));
+		info.entity = CreateEntity(info);
+		entities_info.add(info);
 	}
 
 	return ret;
 }
 
-Entity* EntityManager::CreateEntity(const Entity_Info& info)
+Entity* EntityManager::CreateEntity(Entity_Info& info)
 {
 	BROFILER_CATEGORY("EntityManager CreateEntity", Profiler::Color::LemonChiffon);
 
@@ -296,7 +315,7 @@ Entity* EntityManager::CreateEntity(const Entity_Info& info)
 	{
 		entity = new Enemy_Bat( info.position, info);
 	}
-	if (info.name == "skeleton") 
+	else if (info.name == "skeleton") 
 	{
 		entity = new Enemy_Skeleton( info.position, info);
 	}
@@ -325,6 +344,7 @@ bool EntityManager::CreatePlayer(fPoint spawn_pos)
 		Entity_Info info( spawn_pos, GetProperties(p2SString("player")) );
 		LOG("Player created at Position x: %.1f  y: %.1f", info.position.x, info.position.y);
 		entity = player = new j1Player( info.position, info);
+		entity->active = true;
 		entities.add(entity);
 	}
 	
@@ -334,8 +354,13 @@ bool EntityManager::CreatePlayer(fPoint spawn_pos)
 
 bool EntityManager::OnCollision(Collider* c1, Collider* c2)
 {
-	for (p2List_item<Entity*> *item = entities.start; item && item->data->active; item = item->next)
+	for (p2List_item<Entity*> *item = entities.start; item ; item = item->next)
 	{
+		if (!item->data->active)
+		{
+			continue;
+		}
+
 		if (item->data->FindCollider(c1))
 		{
 			item->data->OnCollision(c1, c2);
@@ -381,8 +406,12 @@ bool EntityManager::ResetAll()
 
 Properties* EntityManager::GetProperties(p2SString name) const 
 {
-	for (p2List_item<Properties*> *item = properties_list.start; item && item->data; item = item->next)
+	for (p2List_item<Properties*> *item = properties_list.start; item; item = item->next)
 	{
+		if (item->data == nullptr)
+		{
+			continue;
+		}
 		if (item->data->name == name)
 		{
 			return item->data;
