@@ -305,6 +305,37 @@ bool EntityManager::LoadEntities(pugi::xml_node& node)
 	return ret;
 }
 
+bool  EntityManager::UnloadEntities()
+{
+	// Remove all entities info =================================
+	
+	p2List_item<Entity*>* item = entities.start;
+
+	while (item != nullptr)
+	{
+		if (item->data->name == "player")
+		{
+			item = item->next;
+			continue;
+		}
+
+		for (p2List_item<Collider*>* colliders = item->data->colliders.start; colliders; colliders = colliders->next)
+		{
+			colliders->data->to_delete = true;
+		}
+
+		p2List_item<Entity*>* iterator = item->next;
+
+		RELEASE(item->data);
+		entities.del(item);
+		item = iterator;
+	}
+
+	entities_info.clear();
+
+	return true;
+}
+
 Entity* EntityManager::CreateEntity(Entity_Info& info)
 {
 	BROFILER_CATEGORY("EntityManager CreateEntity", Profiler::Color::LemonChiffon);
