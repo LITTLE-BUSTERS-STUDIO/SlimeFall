@@ -52,6 +52,7 @@ struct Collider
 	bool CheckCollision(const SDL_Rect& r) const;
 };
 
+
 class j1Collision : public j1Module
 {
 public:
@@ -63,8 +64,11 @@ public:
 	bool PostUpdate(float dt);
 	bool CleanUp();
 
-	Collider * AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback = nullptr);
-	Direction ResolveOverlap(Collider *dynamic_col, Collider *static_col, fPoint &position ,fPoint &velocity);
+	Collider  *AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback = nullptr);
+	Direction  SolveOverlap(Collider *dynamic_col, Collider *static_col, fPoint &position ,fPoint &velocity);
+	bool CheckOverlap(p2List<Direction> &directions, Collider *dynamic_col, COLLIDER_TYPE type, fPoint &position, fPoint &velocity);
+	//bool       PreventOverlap(Collider &dynamic_col, Collider *static_col );
+	//bool       RayCast(fPoint vector, fPoint origin, Collider* collider, COLLIDER_TYPE type);
 
 private:
 	p2List<Collider*> colliders;

@@ -187,7 +187,6 @@ bool j1Collision::PostUpdate(float dt)
 	p2List_item<Collider*>* item;
 	item = colliders.start;
 
-
 	while (item != NULL)
 	{
 		// Skip empty colliders
@@ -263,8 +262,25 @@ bool Collider::CheckCollision(const SDL_Rect& r) const
 	return !(r.x >= (rect.x + rect.w) || (r.x + r.w) <= rect.x || r.y >= (rect.y + rect.h) || (r.y + r.h) <= rect.y);
 }
 
+bool j1Collision::CheckOverlap(p2List<Direction> &directions , Collider *dynamic_col, COLLIDER_TYPE type, fPoint &position, fPoint &velocity)
+{
+	for (p2List_item<Collider*> * item = colliders.start; item; item = item->next)
+	{
+		if (type != item->data->type  || item->data == dynamic_col)
+		{
+			continue;
+		}
 
-Direction j1Collision::ResolveOverlap(Collider *dynamic_col, Collider *static_col, fPoint &position , fPoint &velocity)
+		if (dynamic_col->CheckCollision(item->data->rect))
+		{
+			directions.add(SolveOverlap(dynamic_col, item->data, position, velocity));
+		}
+	}
+
+	return true;
+}
+
+Direction j1Collision::SolveOverlap(Collider *dynamic_col, Collider *static_col, fPoint &position , fPoint &velocity)
 {
 	SDL_Rect dynamic = dynamic_col->rect;
 	SDL_Rect rigid = static_col->rect;
@@ -303,22 +319,168 @@ Direction j1Collision::ResolveOverlap(Collider *dynamic_col, Collider *static_co
 	{
 	case Direction::right:
 		position.x = (float)rigid.x - (float)dynamic.w / 2.0f;
-		velocity.x = 0;
+	/*	velocity.x = 0;*/
 		break;
 	case Direction::left:
 		position.x = (float)rigid.x + (float)rigid.w + (float)dynamic.w / 2.0f;
-		velocity.x = 0;
+		//velocity.x = 0;
 		break;
 	case Direction::up:
 		position.y = (float)rigid.y + (float)rigid.h + (float)dynamic.h / 2.0f;
-		velocity.y = 0;
+		//velocity.y = 0;
 		break;
 	case Direction::down:
 		position.y = (float)rigid.y - (float)dynamic.h / 2.0f;
-		velocity.y = 0;
+		//velocity.y = 0;
 		break;
 	}
 
 
 	return (Direction)offset_direction;
 }
+
+//bool j1Collision::RayCast(fPoint vector, fPoint origin, Collider* collider, COLLIDER_TYPE type)
+//{
+//	bool ret = false;
+//	float divisions = 5;
+//	vector.x /= divisions;
+//	vector.y /= divisions;
+//	Collider collider_1 = *collider;
+//	SDL_Rect rect;
+//
+//	for (int i = 0; i < divisions ; ++i)
+//	{
+//		collider_1.rect.x += vector.x;
+//		collider_1.rect.y += vector.y;
+//
+//		for (p2List_item<Collider*> * item = colliders.start; item; item = item->next)
+//		{
+//			if (item->data->type == type)
+//			{
+//				rect = item->data->rect;
+//
+//				if (collider_1.CheckCollision(rect))
+//				{
+//					PreventOverlap(collider_1, item->data);
+//					collider->rect.x = collider_1.rect.x;
+//					collider->rect.y = collider_1.rect.y;
+//
+//					return true;
+//				}
+//
+//				
+//			}
+//		}
+//	}
+//	return ret;
+//}
+
+
+//bool j1Collision::PreventOverlap(Collider &dynamic_col, Collider *static_col)
+//{
+//	SDL_Rect dynamic = dynamic_col.rect;
+//	SDL_Rect rigid = static_col->rect;
+//
+//	uint distances[(uint)Direction::unknown];
+//	distances[(uint)Direction::right] = dynamic.x + dynamic.w - rigid.x;
+//	distances[(uint)Direction::left] = rigid.x + rigid.w - dynamic.x;
+//	distances[(uint)Direction::up] = rigid.y + rigid.h - dynamic.y;
+//	distances[(uint)Direction::down] = dynamic.y + dynamic.h - rigid.y;
+//
+//	int shorter_distance = -1;
+//	
+//	for (uint i = 0; i < (uint)Direction::unknown; ++i)
+//	{
+//		if (shorter_distance == -1 && distances[i] < 2147483647)
+//		{
+//			shorter_distance = i;
+//		}
+//		else if (distances[i] < distances[(uint)shorter_distance])
+//		{
+//			shorter_distance = i;
+//		}
+//	}
+//
+//	switch ((Direction)shorter_distance)
+//	{
+//	case Direction::right:
+//		dynamic_col.rect.x = rigid.x - dynamic.w;
+//		break;
+//	case Direction::left:
+//		dynamic_col.rect.x = rigid.x + rigid.w;
+//		break;
+//	case Direction::up:
+//		dynamic_col.rect.y = rigid.y + rigid.h;
+//		break;
+//	case Direction::down:
+//		dynamic_col.rect.y = rigid.y - dynamic.h;
+//		break;
+//	}
+//	return true;
+//}
+
+
+//bool j1Collision::RayCast(fPoint vector, fPoint origin, Collider* collider, COLLIDER_TYPE type)
+//{
+//	bool ret = false;
+//	fPoint point = origin;
+//	float divisions = 5;
+//	vector.x /= divisions;
+//	vector.y /= divisions;
+//	SDL_Rect rect;
+//
+//	for (int i = 0; i < divisions; ++i)
+//	{
+//		point += vector;
+//
+//		for (p2List_item<Collider*> * item = colliders.start; item; item = item->next)
+//		{
+//			if (item->data->type == type)
+//			{
+//				rect = item->data->rect;
+//				if (point.x > rect.x &&  point.x < (rect.x + rect.w) && point.y > rect.y && point.y < (rect.y + rect.h))
+//				{
+//
+//					int distances[(uint)Direction::unknown];
+//					distances[(uint)Direction::right] = rect.x + rect.w - point.x;
+//					distances[(uint)Direction::left] = point.x - rect.x;
+//					distances[(uint)Direction::up] = point.y - rect.y;
+//					distances[(uint)Direction::down] = rect.y + rect.h - point.y;
+//
+//					int shorter_distance = -1;
+//
+//					for (uint i = 0; i < (uint)Direction::unknown; ++i)
+//					{
+//						if (shorter_distance == -1 && distances[i] < 2147483647)
+//						{
+//							shorter_distance = i;
+//						}
+//						else if (distances[i] < distances[(uint)shorter_distance])
+//						{
+//							shorter_distance = i;
+//						}
+//					}
+//
+//					switch ((Direction)shorter_distance)
+//					{
+//					case Direction::right:
+//						collider->rect.x = rect.x + rect.w;
+//						break;
+//					case Direction::left:
+//						collider->rect.x = rect.x - collider->rect.w;
+//						break;
+//					case Direction::up:
+//						collider->rect.y = rect.y - collider->rect.h;
+//						break;
+//					case Direction::down:
+//						collider->rect.x = rect.y + rect.h;
+//						break;
+//					}
+//					ret = true;
+//				}
+//			}
+//		}
+//	}
+//	return ret;
+//}
+

@@ -65,6 +65,9 @@ bool  Enemy::FollowPath( float dt)
 
 	position.x += velocity_to_follow.x * 100.0f * dt;
 	position.y += velocity_to_follow.y * 100.0f * dt;
+	main_collider->SetPos(position.x - main_collider->rect.w / 2, position.y - main_collider->rect.h / 2);
+
+	App->collision->CheckOverlap(p2List<Direction>(), main_collider, COLLIDER_WALL, position , velocity_to_follow);
 
 	if (position.x > node_in_world.x - 10 && position.x < node_in_world.x + 10 && position.y > node_in_world.y - 10 && position.y < node_in_world.y + 10)
 	{

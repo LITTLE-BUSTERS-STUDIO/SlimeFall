@@ -34,15 +34,15 @@ j1Player::j1Player(fPoint pos, Entity_Info info) : Entity(pos, info)
 	speed_attack = player_properties->speed_attack;
 
 	// Colliders ------------------------------------------
-	ground_detector = App->collision->AddCollider(collider_rect, COLLIDER_PLAYER, App->entity_manager);
-
 	if (god_mode)
-		player_collider = App->collision->AddCollider(collider_rect, COLLIDER_GOD, App->entity_manager);
+	{
+		collider = App->collision->AddCollider(collider_rect, COLLIDER_GOD, App->entity_manager);
+	}
 	else
-		player_collider = App->collision->AddCollider(collider_rect, COLLIDER_PLAYER, App->entity_manager);
-
-	colliders.add(player_collider);
-	colliders.add(ground_detector);
+	{
+		collider = App->collision->AddCollider(collider_rect, COLLIDER_PLAYER, App->entity_manager);
+	}
+	colliders.add(collider);
 
 	// Textures ------------------------------------------
 	tex_player = App->tex->Load(player_properties->path_tex_player.GetString());
@@ -95,12 +95,12 @@ bool j1Player::HandleInput()
 		{
 			if (god_mode)
 			{
-				player_collider->type = COLLIDER_PLAYER;
+				collider->type = COLLIDER_PLAYER;
 				god_mode = false;
 			}
 			else
 			{
-				player_collider->type = COLLIDER_GOD;
+				collider->type = COLLIDER_GOD;
 				god_mode = true;
 			}
 		}
@@ -143,7 +143,7 @@ bool j1Player::HandleInput()
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN && current_state == State::jumping && attack == false)
 	{
 		attack = true;
-		player_collider->type = COLLIDER_ATTACK;
+		collider->type = COLLIDER_ATTACK;
 		current_state = State::attack;
 		App->audio->PlayFx(fx_attack);
 
@@ -179,7 +179,6 @@ bool j1Player::HandleInput()
 
 	if (apply_invulnerability && Invulnerability(0.3F))
 		apply_invulnerability = false;
-
 
 	//Random Jump Fx
 	if (on_ground && current_state == State::jumping)
@@ -226,7 +225,6 @@ bool j1Player::Update(float dt)
 		return true;
 	}
 	
-
 	// God Mode movement =======================================
 	if (god_mode)
 	{
@@ -248,21 +246,35 @@ bool j1Player::Update(float dt)
 	{
 		acceleration.y = gravity;
 		check_fall = false;
-		
 	}
 	else
 	{
 		acceleration.y = 0;
 	}
 	
+
 	velocity += {acceleration.x *dt, acceleration.y *dt};
-	position += {velocity.x * dt, velocity.y *dt} ;
+	position += {velocity.x *dt, velocity.y *dt};
 
-	player_collider->SetPos(position.x - collider_rect.w / 2, position.y - collider_rect.h / 2);
-	ground_detector->SetPos(position.x - collider_rect.w / 2, position.y);
-
+	collider->SetPos(position.x - collider_rect.w / 2, position.y - collider_rect.h / 2);
 	on_ground = false;
 
+	p2List<Direction> directions;
+	App->collision->CheckOverlap(directions, collider, COLLIDER_WALL, position, velocity);
+
+	if (directions.count() > 0)
+	{
+		for (p2List_item<Direction> * item = directions.start; item; item = item->next)
+		{
+			if (item->data == Direction::down)
+			{
+				check_fall = true;
+				on_ground = true;
+				collider->type = COLLIDER_PLAYER;
+			}
+		}
+		collider->SetPos(position.x - collider_rect.w / 2, position.y - collider_rect.h / 2);
+	}
 	return true;
 }
 
@@ -307,7 +319,7 @@ bool j1Player::Draw()
 		flip_x = false;
 		if (god_mode)
 		{
-			player_collider->type = COLLIDER_PLAYER;
+			collider->type = COLLIDER_PLAYER;
 			god_mode = false;
 		}
 			
@@ -358,6 +370,7 @@ bool j1Player::Reset( fPoint pos)
 	BROFILER_CATEGORY("Player Reset", Profiler::Color::LightGray);
 
 	position = pos;
+	collider->SetPos(pos.x, pos.y);
 	velocity.x = 0;
 	velocity.y = 0;
 	acceleration.x = 0;
@@ -366,9 +379,9 @@ bool j1Player::Reset( fPoint pos)
 	current_state = State::jumping;
 	jumping_anim.Reset();
 
-	if (player_collider != nullptr && player_collider->type != COLLIDER_GOD)
+	if (collider != nullptr && collider->type != COLLIDER_GOD)
 	{
-		player_collider->type = COLLIDER_PLAYER;
+		collider->type = COLLIDER_PLAYER;
 	}
 	return true;
 }
@@ -414,19 +427,19 @@ bool j1Player::Load(pugi::xml_node& node)
 
 	if (collider_string == "collider_player")
 	{
-		player_collider->type = COLLIDER_TYPE::COLLIDER_PLAYER;
+		collider->type = COLLIDER_TYPE::COLLIDER_PLAYER;
 	}
 	else if (collider_string == "collider_none")
 	{
-		player_collider->type = COLLIDER_TYPE::COLLIDER_NONE;
+		collider->type = COLLIDER_TYPE::COLLIDER_NONE;
 	}
 	else if (collider_string == "collider_god")
 	{
-		player_collider->type = COLLIDER_TYPE::COLLIDER_GOD;
+		collider->type = COLLIDER_TYPE::COLLIDER_GOD;
 	}
 	else if (collider_string == "collider_attack")
 	{
-		player_collider->type = COLLIDER_TYPE::COLLIDER_ATTACK;
+		collider->type = COLLIDER_TYPE::COLLIDER_ATTACK;
 	}
 
 	return ret;
@@ -478,7 +491,7 @@ bool j1Player::Save(pugi::xml_node& node) const
 	state_node.append_attribute("current_state") = state_string.GetString();
 
 	p2SString collider_string;
-	switch (player_collider->type)
+	switch (collider->type)
 	{
 	case COLLIDER_TYPE::COLLIDER_PLAYER:
 		collider_string.create("collider_player");
@@ -508,61 +521,30 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 
 	bool ret = true;
 
-	// Switch all collider types
-	if (c1 == player_collider)
+	switch (c2->type)
 	{
-		Direction direction; 
+	case COLLIDER_DEATH:
+		current_state = State::dead;
+		collider->type = COLLIDER_NONE;
+		break;
+	case COLLIDER_NEXT_LEVEL:
+		App->current_level->NextPhase();
+		break;
+	case COLLIDER_ENEMY:
 
-		switch (c2->type)
+		if (current_state == State::attack)
 		{
-		case COLLIDER_WALL:
-
-			direction = App->collision->ResolveOverlap(c1, c2, position, velocity);
-
-			if (direction == Direction::down)
-			{
-				check_fall = true;
-				on_ground = true;
-				break;
-			}
-
-			player_collider->SetPos((int)position.x - player_collider->rect.w / 2, (int)position.y - player_collider->rect.h / 2);
-			ground_detector->SetPos((int)position.x - player_collider->rect.w / 2, (int)position.y );
-			player_collider->type = COLLIDER_PLAYER;
-
-			break;
-		case COLLIDER_DEATH:
-			current_state = State::dead;
-			player_collider->type = COLLIDER_NONE;
-			break;
-		case COLLIDER_NEXT_LEVEL:
-			App->current_level->NextPhase();
-			break;
-		case COLLIDER_ENEMY:
-
-			if (current_state == State::attack)
-			{
-				on_ground = true;
-				apply_invulnerability = true;
-				attack_tremble = true;
-				break;
-			}
-			current_state = State::dead;
-			player_collider->type = COLLIDER_NONE;
+			on_ground = true;
+			apply_invulnerability = true;
+			attack_tremble = true;
 			break;
 		}
+		current_state = State::dead;
+		collider->type = COLLIDER_NONE;
+		break;
 	}
-	
-	if (c1 == ground_detector && check_fall && player_collider->type != COLLIDER_NONE) {
-		on_ground = true;
-	}
-
 	return ret;
 }
-
-
-
-
 
 bool j1Player::Invulnerability(float time)
 {
@@ -573,12 +555,12 @@ bool j1Player::Invulnerability(float time)
 	// Timer
 	if (timer_invulnerability.ReadSec() > time)
 	{
-		player_collider->type = COLLIDER_PLAYER;
+		collider->type = COLLIDER_PLAYER;
 		apply_timer = true;
 		return true;
 	}
 	else
-		player_collider->type = COLLIDER_GOD;
+		collider->type = COLLIDER_GOD;
 	
 	return apply_timer = false;
 }

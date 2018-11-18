@@ -27,7 +27,6 @@ bool Enemy_Bat::Update(float dt)
 		FollowPath(dt);
 	}
 
-
 	if (main_collider)
 	{
 		main_collider->SetPos(position.x - main_collider->rect.w / 2, position.y - main_collider->rect.h / 2);
@@ -42,16 +41,11 @@ bool Enemy_Bat::Draw()
 	{
 		iPoint pos = App->map->MapToWorld(last_path.At(i)->x, last_path.At(i)->y);
 		App->render->DrawQuad({ pos.x, pos.y ,16,16 }, 0, 0, 0, 200);
-
 	}
 	return true;
 }
 
 bool Enemy_Bat::OnCollision(Collider* c1, Collider* c2)
 {
-	if (main_collider == c1 && c2->type == COLLIDER_TYPE::COLLIDER_WALL) 
-	{
-      	App->collision->ResolveOverlap(c1, c2, position, velocity);
-	}
 	return true;
 }
