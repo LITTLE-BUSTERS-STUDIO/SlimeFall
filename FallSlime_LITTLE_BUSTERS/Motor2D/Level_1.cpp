@@ -57,7 +57,6 @@ bool Level_1::Start()
 {
 	BROFILER_CATEGORY("Level1 Start", Profiler::Color::MediumAquaMarine);
 
-	LoadPhase(1);
 	App->audio->PlayMusic(music_path.GetString());
 	background_parallax1 = App->tex->Load(background_path1.GetString());
 	background_parallax2 = App->tex->Load(background_path2.GetString());

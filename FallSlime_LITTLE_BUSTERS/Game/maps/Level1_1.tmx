@@ -73,13 +73,7 @@
   <properties>
    <property name="type" value="enemies"/>
   </properties>
-  <object id="411" name="test" x="871.666" y="267">
-   <point/>
-  </object>
-  <object id="424" name="test" x="469" y="214">
-   <point/>
-  </object>
-  <object id="425" name="test" x="1127" y="196">
+  <object id="425" name="bat" x="326.515" y="154.455">
    <point/>
   </object>
  </objectgroup>

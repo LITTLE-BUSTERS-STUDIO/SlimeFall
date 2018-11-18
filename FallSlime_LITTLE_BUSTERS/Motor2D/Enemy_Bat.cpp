@@ -13,33 +13,24 @@
 
 Enemy_Bat::Enemy_Bat(fPoint position, Entity_Info info) :Enemy( position, info)
 {
-	//path_interval_time = 500;
-//detection_ratio = 20;
-	target = (Entity*) App->entity_manager->GetPlayer();
-	/*path_timer.Start();*/
-
-	Enemy_Properties* enemy_properties = (Enemy_Properties *)info.properties;
+	Enemy_Bat_Properties* properties = (Enemy_Bat_Properties *)info.properties;
+	target = (Entity*)App->entity_manager->GetPlayer();
 
 	// Textures ------------------------------------------
-	tex_smoke = App->tex->Load(enemy_properties->path_tex_smoke.GetString());
-	tex_bat = App->tex->Load(enemy_properties->path_tex_bat.GetString());
-
+	tex_smoke = properties->smoke_tex;
+	tex_bat = properties->bat_tex;
 	// Animations ----------------------------------------
-	smoke_anim = enemy_properties->smoke_anim;
-	bat_anim = enemy_properties->bat_anim;
-
+	bat_anim = properties->bat_anim;
+	smoke_anim = properties->smoke_anim;
 }
 
 Enemy_Bat::~Enemy_Bat()
 {
-	App->tex->UnLoad(tex_smoke);
-	App->tex->UnLoad(tex_bat);
 
 }
 
 bool Enemy_Bat::Update(float dt)
 {
-
 	velocity = { 100,100 };
 
 	if (CheckTargetRatio())
@@ -145,7 +136,6 @@ bool Enemy_Bat::OnCollision(Collider* c1, Collider* c2)
 		case COLLIDER_ATTACK:
 			current_state = Enemy_Bat_State::dead;
 			break;
-
 		default:
 			break;
 		}

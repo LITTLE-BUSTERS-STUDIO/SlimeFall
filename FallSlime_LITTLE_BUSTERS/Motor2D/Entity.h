@@ -14,7 +14,7 @@ class Properties
 {
 public:
 	Properties() {}
-	~Properties() {}
+	virtual ~Properties() {}
 
 	p2SString            name;
 	SDL_Rect             collider_rect;
@@ -24,60 +24,77 @@ public:
 class Player_Properties : public Properties
 {
 public:
-
 	//------------Valeues-------------------
-	float			  gravity;
-	float			  speed_ground;
-	float			  speed_air;
-	float			  speed_jump;
-	float			  speed_gummy_jump;
-	float             speed_attack;
+	float			    gravity;
+	float			    speed_ground;
+	float			    speed_air;
+	float			    speed_jump;
+	float			    speed_gummy_jump;
+	float               speed_attack;
 
 	//-----------Animations-----------------
-	Animation         jumping_anim;
-	Animation		  death_anim;
-	Animation		  attack_anim;
-
-	//Animation		  bat_anim;
-	//Animation       smoke_anim;
-	Animation         skeleton_attack_anim;
-	Animation         skeleton_dead_anim;
-	Animation         skeleton_walking_anim;
-
+	Animation           jumping_anim;
+	Animation		    death_anim;
+	Animation		    attack_anim;
 
 	//-----------Textures-------------------
-	p2SString         path_tex_player;
-	p2SString         path_death_splash;
-	p2SString         path_attack_splash;
-
-	//p2SString       path_tex_bat;
-	//p2SString       path_tex_smoke;
-	p2SString         path_tex_skeleton;
-
+	SDL_Texture*        player_tex;
+	SDL_Texture*        death_tex;
+	SDL_Texture*        attack_tex;
+	
 	//------------Sfx----------------------
-	p2SString         path_jump_fx1;
-	p2SString         path_jump_fx2;
-	p2SString         path_jump_fx3;
-	p2SString         path_jump_fx4;
-	p2SString         path_jump_fx5;
-	p2SString         path_death_fx;
-	p2SString         path_attack_fx;
+	int                 id_jump_fx1;
+	int                 id_jump_fx2;
+	int                 id_jump_fx3;
+	int                 id_jump_fx4;
+	int                 id_jump_fx5;
+	int                 id_death_fx;
+	int                 id_attack_fx;
 };
 
 class Enemy_Properties : public Properties
 {
 public:
+
 	int               detection_ratio;
 	float             path_interval_time;
-
-	//-----------Animations-----------------
-	Animation         smoke_anim;
-	Animation		  bat_anim;
-
-	//-----------Textures-------------------
-	p2SString         path_tex_smoke;
-	p2SString         path_tex_bat;
 };
+
+class Enemy_Bat_Properties : public Enemy_Properties
+{
+public:
+	//-----------Animations-----------------
+	Animation		  bat_anim;
+	Animation         smoke_anim;
+	//-----------Textures-----------------
+	SDL_Texture       *bat_tex;
+	SDL_Texture       *smoke_tex;
+
+};
+
+class Enemy_Skeleton_Properties : public Enemy_Properties
+{
+public:
+	//-----------Animations-----------------
+	Animation         skeleton_attack_anim;
+	Animation         skeleton_dead_anim;
+	Animation         skeleton_walking_anim;
+	//-----------Textures-----------------
+	SDL_Texture*      skeleton_tex;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 class Entity_Info
@@ -101,6 +118,9 @@ public:
 	    spawn_rect.x = spawn_position.x - properties->spawn_rect.w / 2;
 		spawn_rect.y = spawn_position.y - properties->spawn_rect.h / 2;
 	}
+
+
+
 };
 
 class Entity
@@ -110,6 +130,7 @@ public:
 
 	virtual ~Entity();
 	// Virtual methods ================================
+
 	virtual bool HandleInput() { return true; };
 
 	virtual bool Update(float dt) { return true; };
@@ -131,7 +152,8 @@ public:
 	// Variables ======================================
 	p2SString             name;
 	int                   id;
-	bool                  active;
+	bool                  active = true;
+	Entity_Info          *info;
 
 	fPoint                position;
 	fPoint                velocity;

@@ -14,8 +14,10 @@ class Enemy : public Entity
 public:
 
 	Enemy(fPoint position, Entity_Info info);
+	~Enemy();
 
 	// Common methods ===============================
+
 	bool UpdateLogic();   // Update only the path
 
 	bool FollowPath(float dt);

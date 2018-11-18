@@ -54,8 +54,6 @@ public:
 
 	j1Player* GetPlayer();
 
-
-
 private:
 
 	bool CreateEntity(const Entity_Info& info);
@@ -67,7 +65,6 @@ private:
 	p2List<Entity_Info>         entities_info;          // Entities to spawn added in LoadMap (objectgroup entities)
 	p2List<Entity*>				entities;				// Active entities
 	j1Player*                   player = nullptr;
-
 	//// Entities Properties ================================
 	p2List<Properties *>        properties_list; 
 };
