@@ -38,22 +38,10 @@ public:
 	Animation		  death_anim;
 	Animation		  attack_anim;
 
-	//Animation		  bat_anim;
-	//Animation         smoke_anim;
-	Animation         skeleton_attack_anim;
-	Animation         skeleton_dead_anim;
-	Animation         skeleton_walking_anim;
-
-
 	//-----------Textures-------------------
 	p2SString         path_tex_player;
 	p2SString         path_death_splash;
 	p2SString         path_attack_splash;
-
-	//p2SString         path_tex_bat;
-	//p2SString         path_tex_smoke;
-	p2SString         path_tex_skeleton;
-
 
 	//------------Sfx----------------------
 	p2SString         path_jump_fx1;
@@ -74,10 +62,14 @@ public:
 	//-----------Animations-----------------
 	Animation         smoke_anim;
 	Animation		  bat_anim;
+	Animation         skeleton_attack_anim;
+	Animation         skeleton_dead_anim;
+	Animation         skeleton_walking_anim;
 
 	//-----------Textures-------------------
 	p2SString         path_tex_smoke;
 	p2SString         path_tex_bat;
+	p2SString         path_tex_skeleton;
 };
 
 

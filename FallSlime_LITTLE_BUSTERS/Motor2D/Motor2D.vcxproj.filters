@@ -225,5 +225,11 @@
     <Xml Include="..\Game\animations\player_death_animation.xml">
       <Filter>Desenvolupament  ========\Modules\XML_Documents\Animations</Filter>
     </Xml>
+    <Xml Include="..\Game\animations\skeleton_animation.xml">
+      <Filter>Desenvolupament  ========\Modules\XML_Documents\Animations</Filter>
+    </Xml>
+    <Xml Include="..\Game\animations\enemy_bat_animation.xml">
+      <Filter>Desenvolupament  ========\Modules\XML_Documents\Animations</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

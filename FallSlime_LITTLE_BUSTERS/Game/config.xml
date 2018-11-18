@@ -72,7 +72,6 @@
                <attack path ="animations/player_attack_animation.xml"/>
                <enemy_bat path ="animations/enemy_bat_animation.xml"/>
                <smoke path ="animations/smoke_animation.xml"/>
-               <enemy_skeleton path ="animations/skeleton_animation.xml"/>
              </animations>
              <textures>
                <jumping path ="textures/player_animation.png"/>
@@ -80,7 +79,6 @@
                <attack path ="textures/player_attack.png"/>
                <enemy_bat path ="textures/Enemy_bat.png"/>
                <smoke path ="textures/Smoke.png"/>
-               <enemy_skeleton path ="textures/Skeleton.png"/>
              </textures>
              <sfx>
                <death path ="audio/fx/death.wav"/>
@@ -105,6 +103,16 @@
        <textures>
          <enemy_bat path ="textures/Enemy_bat.png"/>
          <smoke path ="textures/Smoke.png"/>
+       </textures>
+     </enemy>
+     <enemy name ="skeleton">
+       <collider width ="20" height="20"/>
+       <spawn_margin width ="40" height="40"/>
+       <animations>
+         <enemy_skeleton path ="animations/skeleton_animation.xml"/>
+       </animations>
+       <textures>
+         <enemy_skeleton path ="textures/Skeleton.png"/>
        </textures>
      </enemy>
    </enemies>

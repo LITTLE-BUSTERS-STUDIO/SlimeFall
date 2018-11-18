@@ -48,9 +48,13 @@ private:
 	int margin_flip;
 
 	//-----------Textures-------------------
-	
+	SDL_Texture      *tex_skeleton = nullptr;
+
 	//----------Animations-----------------
-	
+	Animation         skeleton_attack_anim;
+	Animation         skeleton_dead_anim;
+	Animation         skeleton_walking_anim;
+
 
 
 };

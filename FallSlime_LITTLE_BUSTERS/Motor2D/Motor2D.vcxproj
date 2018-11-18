@@ -139,9 +139,11 @@
     <None Include="..\Game\maps\Level1_2.tmx" />
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="..\Game\animations\enemy_bat_animation.xml" />
     <Xml Include="..\Game\animations\player_animation.xml" />
     <Xml Include="..\Game\animations\player_attack_animation.xml" />
     <Xml Include="..\Game\animations\player_death_animation.xml" />
+    <Xml Include="..\Game\animations\skeleton_animation.xml" />
     <Xml Include="..\Game\config.xml" />
     <Xml Include="..\Game\save_game.xml" />
   </ItemGroup>
