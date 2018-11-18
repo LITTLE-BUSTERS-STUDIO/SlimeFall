@@ -15,21 +15,15 @@ Enemy_Skeleton::Enemy_Skeleton(fPoint position, Entity_Info info) :Enemy(positio
 {
 	target = (Entity*)App->entity_manager->GetPlayer();
 
-	Enemy_Properties* enemy_properties = (Enemy_Properties *)info.properties;
-
-	//// Textures ------------------------------------------
-	//tex_skeleton = App->tex->Load(enemy_properties->path_tex_skeleton.GetString());
-
-	//// Animations ------------------------------skeleton_attack_anim = player_properties->skeleton_attack_anim;
-	//skeleton_walking_anim = enemy_properties->skeleton_walking_anim;
-	//skeleton_dead_anim = enemy_properties->skeleton_dead_anim;
-	//skeleton_attack_anim = enemy_properties->skeleton_attack_anim;
-	
+	Enemy_Skeleton_Properties* enemy_properties = (Enemy_Skeleton_Properties *)info.properties;
+	tex_skeleton = enemy_properties->skeleton_tex;
+	skeleton_attack_anim = enemy_properties->skeleton_attack_anim;
+	skeleton_dead_anim = enemy_properties->skeleton_dead_anim;
+	skeleton_walking_anim = enemy_properties->skeleton_walking_anim;
 }
 
 Enemy_Skeleton::~Enemy_Skeleton()
 {
-	App->tex->UnLoad(tex_skeleton);
 }
 
 bool Enemy_Skeleton::Update(float dt)
