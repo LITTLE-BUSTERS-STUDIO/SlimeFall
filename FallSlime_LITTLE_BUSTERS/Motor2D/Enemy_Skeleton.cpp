@@ -43,6 +43,11 @@ bool Enemy_Skeleton::Update(float dt)
 	target = (Entity*)App->entity_manager->GetPlayer();
 	velocity = { 100,100 };
 
+	if (current_state == Enemy_Skeleton_State::dead)
+	{
+		return true;
+	}
+
 	if (CheckTargetRatio())
 	{
 		UpdateLogic();
