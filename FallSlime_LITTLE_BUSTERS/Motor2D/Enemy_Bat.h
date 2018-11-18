@@ -29,7 +29,7 @@ public:
 
 	bool Draw();
 
-	bool Reset();
+	bool Reset(Entity_Info  info);
 
 	bool OnCollision(Collider* c1, Collider* c2) ;
 

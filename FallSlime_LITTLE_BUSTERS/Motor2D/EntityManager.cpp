@@ -212,17 +212,12 @@ bool EntityManager::PreUpdate()
 	SDL_Rect camera = App->render->camera;
 	int scale = App->win->GetScale();
 
-	for (p2List_item<Entity*> *item = entities.start; item; item = item->next)
-	{
-		// TODO: Despawn entities
-	}
-
 	// Spawn entities ===============================
 
 	for (p2List_item<Entity_Info> *item = entities_info.start ; item; item = item->next )
 	{
 
-		if (item->data.spawned)
+		if (item->data.entity == nullptr || item->data.entity->active )
 		{
 			continue;
 		}
@@ -232,12 +227,7 @@ bool EntityManager::PreUpdate()
 		if (((camera.x / scale < pos.x) && (pos.x < (camera.x + camera.w) / scale)
 			&& (camera.y / scale < pos.y ) && (pos.y < (camera.y + camera.h) / scale)))
 		{
-			if (item->data.entity)
-			{
-				item->data.entity->active = true;
-				item->data.spawned = true;
-			}
-			
+				item->data.entity->Active();
 		}
 	}
 
@@ -428,9 +418,17 @@ bool EntityManager::Save(pugi::xml_node& node) const
 
 bool EntityManager::ResetAll()
 {
-	for (p2List_item<Entity*> *item = entities.start; item; item = item->next)
+	for (p2List_item<Entity_Info> *item = entities_info.start; item; item = item->next)
 	{
-		item->data->Reset();
+		Entity* entity = item->data.entity;
+		if (entity == nullptr || entity->name == "player")
+		{
+			continue;
+		}
+
+		entity->Reset(item->data);
+		entity->position = item->data.position;
+		entity->active = false;
 	}
 	return true;
 }

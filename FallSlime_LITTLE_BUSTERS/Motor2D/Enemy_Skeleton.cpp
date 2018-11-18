@@ -37,6 +37,7 @@ Enemy_Skeleton::~Enemy_Skeleton()
 
 bool Enemy_Skeleton::Update(float dt)
 {
+	target = (Entity*)App->entity_manager->GetPlayer();
 	velocity = { 100,100 };
 
 	if (CheckTargetRatio())
@@ -123,15 +124,9 @@ bool Enemy_Skeleton::Draw()
 	return true;
 }
 
-bool Enemy_Skeleton::Reset(fPoint pos)
+bool Enemy_Skeleton::Reset(Entity_Info info )
 {
 	BROFILER_CATEGORY("Enemy_Bat Reset", Profiler::Color::LightGray);
-
-	position = pos;
-	velocity.x = 0;
-	velocity.y = 0;
-	acceleration.x = 0;
-	acceleration.y = 0;
 
 	return true;
 }

@@ -84,8 +84,9 @@ bool j1Scene::PreUpdate()
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
+		App->entity_manager->ResetAll();
 		App->entity_manager->GetPlayer()->reset = true;
-		App->render->reset = true;
+		App->render->reset = true; 
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)

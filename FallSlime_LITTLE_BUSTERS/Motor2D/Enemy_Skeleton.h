@@ -30,13 +30,14 @@ public:
 
 	bool Draw();
 
-	bool Enemy_Skeleton::Reset(fPoint pos);
+	bool Reset(Entity_Info  info);
 
 	bool OnCollision(Collider* c1, Collider* c2);
 
 	bool FollowPath(float dt);
 
 public:
+
 	// States ================================
 	Enemy_Skeleton_State	current_state = Enemy_Skeleton_State::walking;
 	// Collision =============================
