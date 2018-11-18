@@ -16,17 +16,18 @@
 
 Enemy_Skeleton::Enemy_Skeleton(fPoint position, Entity_Info info) :Enemy(position, info)
 {
+	Enemy_Skeleton_Properties* properties = (Enemy_Skeleton_Properties *)info.properties;
+
 	target = (Entity*)App->entity_manager->GetPlayer();
 
-	Enemy_Properties* enemy_properties = (Enemy_Properties *)info.properties;
 
-	//// Textures ------------------------------------------
-	//tex_skeleton = App->tex->Load(enemy_properties->path_tex_skeleton.GetString());
+	// Textures ------------------------------------------
+	tex_skeleton = properties->skeleton_tex;
 
-	//// Animations ------------------------------
-	//skeleton_walking_anim = enemy_properties->skeleton_walking_anim;
-	//skeleton_dead_anim = enemy_properties->skeleton_dead_anim;
-	//skeleton_attack_anim = enemy_properties->skeleton_attack_anim;
+	// Animations ------------------------------
+	skeleton_walking_anim = properties->skeleton_walking_anim;
+	skeleton_dead_anim = properties->skeleton_dead_anim;
+	skeleton_attack_anim = properties->skeleton_attack_anim;
 
 }
 
@@ -64,17 +65,31 @@ bool Enemy_Skeleton::Draw()
 	}
 
 	SDL_Rect frame;
-	SDL_Texture* texture = nullptr;
+	SDL_Texture* texture = tex_skeleton;
 	
 	switch ((Enemy_Skeleton_State)current_state)
 	{
 	case Enemy_Skeleton_State::walking:
-
+		if (skeleton_walking_anim.GetFrameValue() > 9)
+		{
+			frame = skeleton_walking_anim.GetCurrentFrame();
+			skeleton_walking_anim.Reset();
+		}
+		frame = skeleton_walking_anim.GetCurrentFrame();
 		break;
+
 	case Enemy_Skeleton_State::attack:
+		//frame = skeleton_attack_anim.GetCurrentFrame();
 		break;
 
 	case Enemy_Skeleton_State::dead:
+		if (skeleton_dead_anim.GetFrameValue() > 20)
+		{
+			current_state = Enemy_Skeleton_State::walking;
+			frame = skeleton_dead_anim.GetCurrentFrame();
+			skeleton_dead_anim.Reset();
+		}
+		frame = skeleton_dead_anim.GetCurrentFrame();
 		break;
 
 	default:
@@ -89,18 +104,22 @@ bool Enemy_Skeleton::Draw()
 	if (skeleton_walking_anim.GetFrameValue() > 20)
 		skeleton_walking_anim.Reset();
 
-	App->render->Blit(tex_skeleton, 300, 140, &skeleton_dead_anim.GetCurrentFrame());
-	App->render->Blit(tex_skeleton, 350, 140, &skeleton_walking_anim.GetCurrentFrame());
-	App->render->Blit(tex_skeleton, 400, 140, &skeleton_attack_anim.GetCurrentFrame());
 
 
 	if (position.x < App->entity_manager->GetPlayer()->position.x)
-		flip_x = true;
-	else
+	{
+		margin_flip = main_collider->rect.w - main_collider->rect.w / 2;
 		flip_x = false;
+	}
+	else
+	{
+		flip_x = true;
+		margin_flip = main_collider->rect.w + main_collider->rect.w / 2;
+	}
+
 		
 	
-	//App->render->Blit(texture, position.x , position.y, &frame, flip_x);
+	App->render->Blit(texture, position.x - margin_flip, position.y - main_collider->rect.h *3/2 + 5, &frame, flip_x);
 	return true;
 }
 

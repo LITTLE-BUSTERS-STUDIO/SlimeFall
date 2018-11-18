@@ -80,7 +80,7 @@ public:
 	Animation         skeleton_dead_anim;
 	Animation         skeleton_walking_anim;
 	//-----------Textures-----------------
-	SDL_Texture*      skeleton_tex;
+	SDL_Texture      *skeleton_tex;
 };
 
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="100" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="72" nextobjectid="448">
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="100" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="72" nextobjectid="451">
  <tileset firstgid="1" name="Basic_tileset" tilewidth="16" tileheight="16" tilecount="60" columns="10">
   <image source="Basic_tileset.png" width="160" height="96"/>
   <terraintypes>
@@ -74,6 +74,12 @@
    <property name="type" value="enemies"/>
   </properties>
   <object id="440" name="skeleton" x="608.477" y="252.614">
+   <point/>
+  </object>
+  <object id="448" name="bat" x="331" y="117">
+   <point/>
+  </object>
+  <object id="450" name="skeleton" x="288.091" y="221.364">
    <point/>
   </object>
  </objectgroup>
