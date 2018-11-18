@@ -118,23 +118,21 @@ bool Enemy_Bat::Draw()
 	if(current_state == Enemy_State::dead)
 		margin_flip = main_collider->rect.w;
 
-
+	// Draw =================================================
 	App->render->Blit(texture, position.x - margin_flip, position.y - main_collider->rect.h, &frame, flip_x);
 	return true;
 }
 
-bool Enemy_Bat::Reset(fPoint pos)
+bool Enemy_Bat::Reset()
 {
 	BROFILER_CATEGORY("Enemy_Bat Reset", Profiler::Color::LightGray);
 
-	position = pos;
+	//position = pos;
 	velocity.x = 0;
 	velocity.y = 0;
 	acceleration.x = 0;
 	acceleration.y = 0;
 	bat_anim.Reset();
-
-
 	return true;
 }
 

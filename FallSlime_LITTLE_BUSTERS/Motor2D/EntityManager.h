@@ -38,21 +38,23 @@ public:
 
 	bool OnCollision(Collider*, Collider*);
 
-	bool Reset(fPoint pos);
-
 	bool CreatePlayer(fPoint spawn_pos);
+
 	bool CreateEnemy(fPoint spawn_pos);
-	//bool ResetAll();
+
+	bool ResetAll();
 
 	//bool ResetEntity (Entity * entity);
+
+	// Entities ========================================
+
+	bool LoadEntitiesInfo(pugi::xml_node& node);
 
 	// Player =========================================
 
 	j1Player* GetPlayer();
 
-	// Enemies ========================================
 
-	bool LoadEntitiesInfo(pugi::xml_node& node);
 
 private:
 
