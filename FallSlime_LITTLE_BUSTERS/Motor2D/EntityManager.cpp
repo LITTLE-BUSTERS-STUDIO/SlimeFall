@@ -6,6 +6,8 @@
 #include "j1Window.h"
 #include "j1Textures.h"
 #include "j1Collision.h"
+#include "j1Audio.h"
+#include "j1Scene.h"
 #include "Brofiler/Brofiler.h"
 
 // Entities Headers =======================
@@ -29,93 +31,141 @@ bool EntityManager::Awake(pugi::xml_node& node)
 {
 	BROFILER_CATEGORY("EntityManager Awake", Profiler::Color::GreenYellow);
 
-	// Load properties =====================================================
-
-	// Players ///////////////////////////////////////////
-	pugi::xml_node enemy_node = node.child("players").child("player");
-
-	Player_Properties*  player_properties = new Player_Properties();
-
-	player_properties->name.create(enemy_node.attribute("name").as_string(""));
-
-	pugi::xml_node collider_node = enemy_node.child("collider");
-	player_properties->collider_rect = { 0 , 0 , collider_node.attribute("width").as_int(0) , collider_node.attribute("height").as_int(0) };
-
-	pugi::xml_node spawn_margin = enemy_node.child("spawn_margin");
-	player_properties->spawn_rect = { 0 , 0 , spawn_margin.attribute("width").as_int(0) , spawn_margin.attribute("height").as_int(0) };
-
-	// Values ======================
-
-	player_properties->gravity = enemy_node.child("physics").attribute("gravity").as_float(0);
-	player_properties->speed_ground = enemy_node.child("physics").attribute("speed_ground").as_float(0);
-	player_properties->speed_air = enemy_node.child("physics").attribute("speed_air").as_float(0);
-	player_properties->speed_jump = enemy_node.child("physics").attribute("speed_jump").as_float(0);
-	player_properties->speed_gummy_jump = enemy_node.child("physics").attribute("speed_gummy_jump").as_float(0);
-	player_properties->speed_attack = enemy_node.child("physics").attribute("speed_attack").as_float(0);
-
-	// Assets ======================
-
-	//----------Textures---------------------------
-	player_properties->path_tex_player.create(enemy_node.child("textures").child("jumping").attribute("path").as_string(""));
-	player_properties->path_death_splash.create(enemy_node.child("textures").child("death").attribute("path").as_string(""));
-	player_properties->path_attack_splash.create(enemy_node.child("textures").child("attack").attribute("path").as_string(""));
-
-	//----------Animations-------------------------
-	player_properties->jumping_anim.LoadAnimation(p2SString(enemy_node.child("animations").child("jumping").attribute("path").as_string("")), "pink_slime");
-	player_properties->death_anim.LoadAnimation(p2SString(enemy_node.child("animations").child("death").attribute("path").as_string("")), "pink_splash");
-	player_properties->attack_anim.LoadAnimation(p2SString(enemy_node.child("animations").child("attack").attribute("path").as_string("")), "pink_attack");
-
-	//-----------------Sfx-----------------------
-	player_properties->path_jump_fx1.create(enemy_node.child("sfx").child("jump1").attribute("path").as_string(""));
-	player_properties->path_jump_fx2.create(enemy_node.child("sfx").child("jump2").attribute("path").as_string(""));
-	player_properties->path_jump_fx3.create(enemy_node.child("sfx").child("jump3").attribute("path").as_string(""));
-	player_properties->path_jump_fx4.create(enemy_node.child("sfx").child("jump4").attribute("path").as_string(""));
-	player_properties->path_jump_fx5.create(enemy_node.child("sfx").child("jump5").attribute("path").as_string(""));
-	player_properties->path_death_fx.create(enemy_node.child("sfx").child("death").attribute("path").as_string(""));
-	player_properties->path_attack_fx.create(enemy_node.child("sfx").child("attack").attribute("path").as_string(""));
-
-	//=================================================================
-
-	properties_list.add(player_properties);
-
-	// Enemies //////////////////////////////////////////////
-
-	for (pugi::xml_node enemy_node = node.child("enemies").child("enemy"); enemy_node; enemy_node = enemy_node.next_sibling("enemy"))
-	{
-
-		Enemy_Properties*  enemy_properties = new Enemy_Properties();
-		enemy_properties->name.create(enemy_node.attribute("name").as_string(""));
-
-		// Assets ======================
-
-		//----------Textures---------------------------
-		enemy_properties->path_tex_bat.create(enemy_node.child("textures").child("enemy_bat").attribute("path").as_string(""));
-		enemy_properties->path_tex_smoke.create(enemy_node.child("textures").child("smoke").attribute("path").as_string(""));
-		enemy_properties->path_tex_skeleton.create(enemy_node.child("textures").child("enemy_skeleton").attribute("path").as_string(""));
-
-		//----------Animations-------------------------
-		enemy_properties->bat_anim.LoadAnimation(p2SString(enemy_node.child("animations").child("enemy_bat").attribute("path").as_string("")), "enemy_bat");
-		enemy_properties->smoke_anim.LoadAnimation(p2SString(enemy_node.child("animations").child("smoke").attribute("path").as_string("")), "smoke");
-		enemy_properties->skeleton_attack_anim.LoadAnimation(p2SString(enemy_node.child("animations").child("enemy_skeleton").attribute("path").as_string("")), "skeleton_attack");
-		enemy_properties->skeleton_dead_anim.LoadAnimation(p2SString(enemy_node.child("animations").child("enemy_skeleton").attribute("path").as_string("")), "skeleton_dead");
-		enemy_properties->skeleton_walking_anim.LoadAnimation(p2SString(enemy_node.child("animations").child("enemy_skeleton").attribute("path").as_string("")), "skeleton_walking");
-
-		pugi::xml_node collider_node = enemy_node.child("collider");
-		enemy_properties->collider_rect = { 0 , 0 , collider_node.attribute("width").as_int(0) , collider_node.attribute("height").as_int(0) };
-
-		pugi::xml_node spawn_margin = enemy_node.child("spawn_margin");
-		enemy_properties->spawn_rect = { 0 , 0 , spawn_margin.attribute("width").as_int(0) , spawn_margin.attribute("height").as_int(0) };
-
-		properties_list.add(enemy_properties);
-	}
-	// Objects ///////////////////////////////////////////////
-
 	return true;
 }
 
 bool EntityManager::Start()
 {
+	BROFILER_CATEGORY("EntityManager Start", Profiler::Color::GreenYellow);
+
 	LOG("Loading Entity Manager");
+
+	pugi::xml_document doc;
+	doc.load_file("entities.xml");
+	pugi::xml_node node = doc.child("entities");
+
+	// ===========================================================================================
+	// -------------------------------------- Player ---------------------------------------------
+	// ===========================================================================================
+
+
+	Player_Properties*  player_properties = new Player_Properties();
+
+	pugi::xml_node player_node = node.child("player");
+	player_properties->name.create(player_node.attribute("name").as_string(""));
+
+	pugi::xml_node collider_node = player_node.child("collider");
+	player_properties->collider_rect = { 0 , 0 , collider_node.attribute("width").as_int(0) , collider_node.attribute("height").as_int(0) };
+
+	pugi::xml_node spawn_margin_node = player_node.child("spawn_margin");
+	player_properties->spawn_rect = { 0 , 0 , spawn_margin_node.attribute("width").as_int(0) , spawn_margin_node.attribute("height").as_int(0) };
+
+	//============== Variables ===================
+	pugi::xml_node variables_node = player_node.child("variables");
+
+	player_properties->gravity = variables_node.attribute("gravity").as_float(0);
+	player_properties->speed_ground = variables_node.attribute("speed_ground").as_float(0);
+	player_properties->speed_air = variables_node.attribute("speed_air").as_float(0);
+	player_properties->speed_jump = variables_node.attribute("speed_jump").as_float(0);
+	player_properties->speed_gummy_jump = variables_node.attribute("speed_gummy_jump").as_float(0);
+	player_properties->speed_attack = variables_node.attribute("speed_attack").as_float(0);
+
+	//============== Textures ===================
+	pugi::xml_node textures_node = player_node.child("textures");
+
+	player_properties->player_tex = App->tex->Load(textures_node.child("jumping").attribute("path").as_string(""));
+	player_properties->death_tex = App->tex->Load(textures_node.child("death").attribute("path").as_string(""));
+	player_properties->attack_tex = App->tex->Load(textures_node.child("attack").attribute("path").as_string(""));
+
+	//============== Animations =================
+	pugi::xml_node animations_node = player_node.child("animations");
+
+	player_properties->jumping_anim.LoadAnimation(p2SString(animations_node.child("jumping").attribute("path").as_string("")), "pink_slime");
+	player_properties->death_anim.LoadAnimation(p2SString(animations_node.attribute("path").as_string("")), "pink_splash");
+	player_properties->attack_anim.LoadAnimation(p2SString(animations_node.attribute("path").as_string("")), "pink_attack");
+
+	//=============== Sfx ======================
+	pugi::xml_node sfx_node = player_node.child("sfx");
+
+	player_properties->id_jump_fx1 = App->audio->LoadFx(sfx_node.child("jump1").attribute("path").as_string(""));
+	player_properties->id_jump_fx2 = App->audio->LoadFx(sfx_node.child("jump2").attribute("path").as_string(""));
+	player_properties->id_jump_fx3 = App->audio->LoadFx(sfx_node.child("jump3").attribute("path").as_string(""));
+	player_properties->id_jump_fx4 = App->audio->LoadFx(sfx_node.child("jump4").attribute("path").as_string(""));
+	player_properties->id_jump_fx5 = App->audio->LoadFx(sfx_node.child("jump5").attribute("path").as_string(""));
+	player_properties->id_death_fx = App->audio->LoadFx(sfx_node.child("death").attribute("path").as_string(""));
+	player_properties->id_attack_fx = App->audio->LoadFx(sfx_node.child("attack").attribute("path").as_string(""));
+
+	properties_list.add(player_properties);
+
+	// ===========================================================================================
+	// -------------------------------------- Enemies ---------------------------------------------
+	// ===========================================================================================
+
+	for (pugi::xml_node enemy_node = node.child("enemy"); enemy_node; enemy_node = enemy_node.next_sibling("enemy") )
+	{
+		Enemy_Properties*  enemy_properties = nullptr;
+
+		name.create(enemy_node.attribute("name").as_string(""));
+		collider_node = enemy_node.child("collider");
+		spawn_margin_node = enemy_node.child("spawn_margin");
+		variables_node = enemy_node.child("variables");
+		textures_node = enemy_node.child("textures");
+		animations_node = enemy_node.child("animations");
+		sfx_node = enemy_node.child("sfx");
+
+		if (name == "bat")
+		{
+			enemy_properties = new Enemy_Bat_Properties();
+			Enemy_Bat_Properties * properties = (Enemy_Bat_Properties*)enemy_properties;
+
+			//============== Variables ===================
+
+			//============== Textures ===================
+			properties->bat_tex = App->tex->Load(textures_node.child("enemy_bat").attribute("path").as_string(""));
+			properties->smoke_tex = App->tex->Load(textures_node.child("smoke").attribute("path").as_string(""));
+
+			//============== Animations =================
+			properties->bat_anim.LoadAnimation(p2SString(animations_node.child("enemy_bat").attribute("path").as_string("")), "enemy_bat");
+			properties->smoke_anim.LoadAnimation(p2SString(animations_node.child("smoke").attribute("path").as_string("")), "smoke");
+
+			//=============== Sfx ======================
+
+		}
+
+		else if (name == "skeleton")
+		{
+			enemy_properties = new Enemy_Skeleton_Properties();
+			Enemy_Skeleton_Properties * properties = (Enemy_Skeleton_Properties*)enemy_properties;
+
+			//============== Variables ===================
+
+			//============== Textures ===================
+			properties->skeleton_tex = App->tex->Load(textures_node.child("enemy_skeleton").attribute("path").as_string(""));
+			//============== Animations =================
+			properties->skeleton_attack_anim.LoadAnimation(p2SString(enemy_node.child("animations").child("enemy_skeleton").attribute("path").as_string("")), "skeleton_attack");
+			properties->skeleton_dead_anim.LoadAnimation(p2SString(enemy_node.child("animations").child("enemy_skeleton").attribute("path").as_string("")), "skeleton_dead");
+			properties->skeleton_walking_anim.LoadAnimation(p2SString(enemy_node.child("animations").child("enemy_skeleton").attribute("path").as_string("")), "skeleton_walking");
+			//=============== Sfx ======================
+		}
+
+		if (enemy_properties == nullptr)
+		{
+			LOG("Enemie %s couldn't be loaded", name.GetString());
+			return false;
+		}
+
+		//================================= Common atributes ==========================================
+		enemy_properties->name = name;
+		enemy_properties->collider_rect = { 0 , 0 , collider_node.attribute("width").as_int(0) , collider_node.attribute("height").as_int(0) };
+		enemy_properties->spawn_rect = { 0 , 0 , spawn_margin_node.attribute("width").as_int(0) , collider_node.attribute("height").as_int(0) };
+		//============== Variables ===================
+		enemy_properties->detection_ratio = variables_node.attribute("detection_ratio").as_int(0);
+		enemy_properties->path_interval_time = variables_node.attribute("path_interval_time").as_uint(0);
+
+		properties_list.add(enemy_properties);
+	}
+
+	App->current_level->LoadPhase(1); //TODO: Create levels manager
 
 	return true;
 }
@@ -141,12 +191,13 @@ bool EntityManager::CleanUp()
 	// Remove all entities =====================================
 	LOG("Freeing all entities");
 
-	p2List_item<Entity*>* item_2 = entities.start;
-
-	while (item_2 != NULL)
+	p2List_item<Entity*>* entities_item = entities.start;
+	
+	while (entities_item != NULL)
 	{
-		RELEASE(item_2->data);
-		item_2 = item_2->next;
+		entities_item->data->colliders.clear();
+		RELEASE(entities_item->data);
+		entities_item = entities_item->next;
 	}
 	
 	entities.clear();
@@ -239,7 +290,7 @@ bool EntityManager::CreateEntity(const Entity_Info& info)
 
 	Entity* entity = nullptr;
 
-	if (info.name == "test") 
+	if (info.name == "bat") 
 	{
 		entity = new Enemy_Bat( info.position, info);
 	}
@@ -250,7 +301,7 @@ bool EntityManager::CreateEntity(const Entity_Info& info)
 
 	if (entity != nullptr) 
 	{
-		LOG("Entity %s created", info.name.GetString());
+		LOG("Entity %s created at Position  x: %.1f  y: %.1f", info.name.GetString() , info.position.x, info.position.y);
 	}
 	else 
 	{
@@ -267,13 +318,14 @@ bool EntityManager::CreatePlayer(fPoint spawn_pos)
 {
 	BROFILER_CATEGORY("EntityManager CreatePlayer", Profiler::Color::LightBlue);
 
-    LOG("Entity Player created");
+
 
 	Entity* entity = nullptr;
 
 	if (player == nullptr)
 	{
 		Entity_Info info( spawn_pos, GetProperties(p2SString("player")) );
+		LOG("Player created at Position x: %.1f  y: %.1f", info.position.x, info.position.y);
 		entity = player = new j1Player( info.position, info);
 		entities.add(entity);
 	}
@@ -338,7 +390,7 @@ bool EntityManager::Save(pugi::xml_node& node) const
 	return true;
 }
 
-bool EntityManager::ResetAll( )
+bool EntityManager::ResetAll()
 {
 	for (p2List_item<Entity*> *item = entities.start; item; item = item->next)
 	{

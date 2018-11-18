@@ -31,8 +31,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	audio = new j1Audio();
 	map = new j1Map();
 	level_1 = new Level_1();
-	fade_to_black = new j1FadeToBlack();
 	entity_manager = new EntityManager();
+	fade_to_black = new j1FadeToBlack();
 	path_finding = new j1PathFinding();
 
 	AddModule(input);

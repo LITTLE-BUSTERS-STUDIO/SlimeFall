@@ -23,7 +23,10 @@ Enemy::Enemy(fPoint position, Entity_Info info) :Entity(position, info)
 
 }
 
+Enemy::~Enemy()
+{
 
+}
 bool Enemy::UpdateLogic() 
 {
 	if (  path_timer.Read() > path_interval_time ) 
@@ -63,6 +66,7 @@ bool  Enemy::FollowPath( float dt)
 
 	fPoint velocity_to_follow;
 	iPoint node_in_world;
+
 	node_in_world = App->map->MapToWorld(current_point.x, current_point.y);
 	velocity_to_follow.x = (float)node_in_world.x  - position.x ;
 	velocity_to_follow.y = (float)node_in_world.y - position.y ;
@@ -70,7 +74,7 @@ bool  Enemy::FollowPath( float dt)
 	velocity_to_follow.Normalize();
 
 	previous_position = position;
-	position.x += velocity_to_follow.x * 100.0f * dt;
+	position.x += velocity_to_follow.x * 100.0f * dt; 
 	position.y += velocity_to_follow.y * 100.0f * dt;
 	main_collider->SetPos(position.x - main_collider->rect.w / 2, position.y - main_collider->rect.h / 2);
 

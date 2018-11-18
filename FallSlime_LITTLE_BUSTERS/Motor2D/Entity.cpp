@@ -7,7 +7,8 @@
 
 Entity::Entity(fPoint position, Entity_Info info) : position( position)
 {
-	
+	this->info = &info;
+	info.position.x = 3;
 }
 
 Entity::~Entity()

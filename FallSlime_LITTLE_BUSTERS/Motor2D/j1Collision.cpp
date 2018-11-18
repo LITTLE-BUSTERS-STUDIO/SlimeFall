@@ -237,15 +237,20 @@ bool j1Collision:: CleanUp()
 	LOG("Freeing all colliders");
 
 	// Remove all colliders =====================
-	p2List_item<Collider*>* item;
-	item = colliders.start;
-
-	while (item != NULL)
+	int count = 0;
+	for (p2List_item<Collider*>* item = colliders.start; item; item = item->next)
 	{
-		RELEASE(item->data);
-		item = item->next;
+		if (item->data)
+		{
+			++count;
+			delete item->data;
+			item->data = nullptr;
+		}
+
 	}
-	
+
+	LOG("Deleted %i colliders", count);
+
 	colliders.clear();
 	return true;
 }
@@ -253,8 +258,8 @@ bool j1Collision:: CleanUp()
 Collider * j1Collision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback)
 {
 	Collider* collider = new Collider(rect, type, callback);
-	colliders.add(collider);
-	return  collider;
+	
+	return  colliders.add(collider)->data;
 }
 
 bool Collider::CheckCollision(const SDL_Rect& r) const
@@ -319,19 +324,19 @@ Direction j1Collision::SolveOverlap(Collider *dynamic_col, Collider *static_col,
 	{
 	case Direction::right:
 		position.x = (float)rigid.x - (float)dynamic.w / 2.0f;
-	/*	velocity.x = 0;*/
+		velocity.x = 0;
 		break;
 	case Direction::left:
 		position.x = (float)rigid.x + (float)rigid.w + (float)dynamic.w / 2.0f;
-		//velocity.x = 0;
+		velocity.x = 0;
 		break;
 	case Direction::up:
 		position.y = (float)rigid.y + (float)rigid.h + (float)dynamic.h / 2.0f;
-		//velocity.y = 0;
+		velocity.y = 0;
 		break;
 	case Direction::down:
 		position.y = (float)rigid.y - (float)dynamic.h / 2.0f;
-		//velocity.y = 0;
+		velocity.y = 0;
 		break;
 	}
 	return (Direction)offset_direction;

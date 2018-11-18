@@ -24,7 +24,7 @@ class Enemy_Skeleton : public Enemy
 public:
 	Enemy_Skeleton(fPoint position, Entity_Info info);
 
-	virtual ~Enemy_Skeleton();
+	~Enemy_Skeleton();
 
 	bool Update(float dt);
 
@@ -33,6 +33,8 @@ public:
 	bool Enemy_Skeleton::Reset(fPoint pos);
 
 	bool OnCollision(Collider* c1, Collider* c2);
+
+	bool FollowPath(float dt);
 
 public:
 	// States ================================

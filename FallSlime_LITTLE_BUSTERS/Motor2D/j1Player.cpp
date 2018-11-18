@@ -47,9 +47,10 @@ j1Player::j1Player(fPoint pos, Entity_Info info) : Entity(pos, info)
 	colliders.add(collider);
 
 	// Textures ------------------------------------------
-	tex_player = App->tex->Load(player_properties->path_tex_player.GetString());
-	death_splash = App->tex->Load(player_properties->path_death_splash.GetString());
-	attack_splash = App->tex->Load(player_properties->path_attack_splash.GetString());
+
+	tex_player = player_properties->player_tex;
+	death_splash = player_properties->death_tex;
+	attack_splash = player_properties->attack_tex;
 
 	// Animations ----------------------------------------
 	jumping_anim = player_properties->jumping_anim;
@@ -57,23 +58,12 @@ j1Player::j1Player(fPoint pos, Entity_Info info) : Entity(pos, info)
 	attack_anim = player_properties->attack_anim;
 
 	// Sfx ----------------------------------------------
-	id_death_fx = App->audio->LoadFx(player_properties->path_death_fx.GetString());
-	fx_jump1 = App->audio->LoadFx(player_properties->path_jump_fx1.GetString());
-	fx_jump2 = App->audio->LoadFx(player_properties->path_jump_fx2.GetString());
-	fx_jump3 = App->audio->LoadFx(player_properties->path_jump_fx3.GetString());
-	fx_jump4 = App->audio->LoadFx(player_properties->path_jump_fx4.GetString());
-	fx_jump5 = App->audio->LoadFx(player_properties->path_jump_fx5.GetString());
-	fx_attack = App->audio->LoadFx(player_properties->path_attack_fx.GetString());
+
 }
 
 j1Player::~j1Player()
 {
-	App->tex->UnLoad(tex_player);
-	App->tex->UnLoad(death_splash);
-	App->tex->UnLoad(attack_splash);
 
-	//App->tex->UnLoad(tex_bat);
-	//App->tex->UnLoad(tex_smoke);
 }
 
 bool j1Player::HandleInput()
