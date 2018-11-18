@@ -15,6 +15,7 @@ bool j1Scene::LoadPhase(uint phase_number, bool spawn)
 	BROFILER_CATEGORY("Scene LoadPhase", Profiler::Color::LimeGreen);
 
 	App->fade_to_black->FadeToBlack(0.5f);
+
 	p2List_item<Phase*>* item = nullptr;
 	bool ret = true;
 	if (phase_number <= 0)
@@ -37,6 +38,7 @@ bool j1Scene::LoadPhase(uint phase_number, bool spawn)
 		return false;
 	}
 
+	App->entity_manager->UnloadEntities();
 	App->map->CleanUp();
 	ret = App->map->Load(item->data->map_path.GetString());
 

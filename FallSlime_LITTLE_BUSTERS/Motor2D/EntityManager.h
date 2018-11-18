@@ -45,6 +45,7 @@ public:
 	// Entities ========================================
 
 	bool LoadEntities(pugi::xml_node& node);
+	bool UnloadEntities();
 
 	// Player =========================================
 
