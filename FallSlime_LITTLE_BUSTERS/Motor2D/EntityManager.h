@@ -44,7 +44,7 @@ public:
 
 	// Entities ========================================
 
-	bool LoadEntitiesInfo(pugi::xml_node& node);
+	bool LoadEntities(pugi::xml_node& node);
 
 	// Player =========================================
 
@@ -52,7 +52,7 @@ public:
 
 private:
 
-	Entity* CreateEntity(const Entity_Info& info);
+	Entity* CreateEntity( Entity_Info& info);
 
 	Properties* GetProperties(const p2SString name) const;
 
