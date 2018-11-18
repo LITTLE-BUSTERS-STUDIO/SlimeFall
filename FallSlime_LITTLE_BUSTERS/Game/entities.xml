@@ -39,7 +39,7 @@
         <smoke path ="textures/Smoke.png"/>
       </textures>
       <sfx>
-        <death path ="bat_death.wav"/>
+        <death path ="audio/fx/bat_death.wav"/>
       </sfx>
     </enemy>
 
@@ -54,7 +54,7 @@
         <enemy_skeleton path ="textures/Skeleton.png"/>
       </textures>
       <sfx>
-        <death path ="skeleton_death.wav"/>
+        <death path ="audio/fx/skeleton_death.wav"/>
       </sfx>
     </enemy>
 

@@ -219,8 +219,7 @@ bool EntityManager::PreUpdate()
 
 	for (p2List_item<Entity_Info> *item = entities_info.start ; item; item = item->next )
 	{
-
-		if (item->data.entity == nullptr || item->data.entity->active )
+		if (item->data.entity == nullptr || item->data.entity->active || item->data.spawned)
 		{
 			continue;
 		}
@@ -230,7 +229,8 @@ bool EntityManager::PreUpdate()
 		if (((camera.x / scale < pos.x) && (pos.x < (camera.x + camera.w) / scale)
 			&& (camera.y / scale < pos.y ) && (pos.y < (camera.y + camera.h) / scale)))
 		{
-				item->data.entity->Active();
+			item->data.spawned = true;
+			item->data.entity->Active();
 		}
 	}
 

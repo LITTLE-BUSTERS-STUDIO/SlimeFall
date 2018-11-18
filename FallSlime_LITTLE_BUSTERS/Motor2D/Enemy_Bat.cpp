@@ -84,14 +84,17 @@ bool Enemy_Bat::Draw()
 	case Enemy_Bat_State::dead:
 		if (smoke_anim.GetFrameValue() > 9)
 		{
-			App->audio->PlayFx(fx_bat_death);
 			current_state = Enemy_Bat_State::flying;
 			frame = smoke_anim.GetCurrentFrame();
 			texture = tex_smoke;
 			smoke_anim.Reset();
+ 			Desactive();
 		}
 		frame = smoke_anim.GetCurrentFrame();
 		texture = tex_smoke;
+		if (smoke_anim.GetFrameValue() <= 1)
+			App->audio->PlayFx(fx_bat_death);
+		
 		break;
 
 	default:

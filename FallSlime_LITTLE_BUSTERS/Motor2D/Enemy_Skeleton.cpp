@@ -96,6 +96,8 @@ bool Enemy_Skeleton::Draw()
 			current_state = Enemy_Skeleton_State::walking;
 			frame = skeleton_idle_anim.GetCurrentFrame();
 			skeleton_idle_anim.Reset();
+			if (skeleton_idle_anim.GetFrameValue() >= 9)
+				Desactive();
 		}
 		frame = skeleton_idle_anim.GetCurrentFrame();
 
@@ -105,12 +107,14 @@ bool Enemy_Skeleton::Draw()
 	case Enemy_Skeleton_State::dead:
 		if (skeleton_dead_anim.GetFrameValue() > 18)
 		{
-			App->audio->PlayFx(fx_skaleton_death);
 			current_state = Enemy_Skeleton_State::walking;
 			frame = skeleton_dead_anim.GetCurrentFrame();
 			skeleton_dead_anim.Reset();
 		}
 		frame = skeleton_dead_anim.GetCurrentFrame();
+		if (skeleton_dead_anim.GetFrameValue() <= 1)
+			App->audio->PlayFx(fx_skaleton_death);
+
 		break;
 
 	default:
