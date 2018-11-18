@@ -1,5 +1,5 @@
-#ifndef __Enemy_Test_H__
-#define __Enemy_Test_H__
+#ifndef __Enemy_Bat_H__
+#define __Enemy_Bat_H__
 
 #include "j1Module.h"
 #include "Animation.h"
@@ -11,7 +11,7 @@ struct SDL_Texture;
 struct Collider;
 struct Entity_Info;
 
-enum class Enemy_State
+enum class Enemy_Bat_State
 {
 	flying,
 	dead
@@ -35,7 +35,8 @@ public:
 
 public:
 	// States ================================
-	Enemy_State		  current_state = Enemy_State::flying;
+	Enemy_Bat_State				current_state = Enemy_Bat_State::flying;
+
 	// Collision =============================
 	Collider		  *enemy_collider = nullptr;
 
@@ -56,5 +57,5 @@ private:
 
 };
 
-#endif // __Enemy_Test_H__
+#endif // __Enemy_Bat_H__
 

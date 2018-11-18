@@ -11,7 +11,8 @@
 // Entities Headers =======================
 #include "Entity.h"
 #include "j1Player.h"
-#include "Enemy_Test.h"
+#include "Enemy_Bat.h"
+#include "Enemy_Skeleton.h"
 // ========================================
 
 EntityManager::EntityManager()
