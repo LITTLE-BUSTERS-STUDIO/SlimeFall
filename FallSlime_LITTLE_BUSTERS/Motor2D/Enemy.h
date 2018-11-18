@@ -20,7 +20,7 @@ public:
 
 	bool UpdateLogic();   // Update only the path
 
-	bool FollowPath(float dt);
+	virtual bool FollowPath(float dt);
 
 	bool CheckTargetRatio();
 

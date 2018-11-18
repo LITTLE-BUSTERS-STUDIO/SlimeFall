@@ -1,9 +1,12 @@
 #include "Enemy_Skeleton.h"
+#include "j1Window.h"
 #include "j1App.h"
 #include "EntityManager.h"
 #include "j1Collision.h"
 #include "j1Textures.h"
 #include "j1Player.h"
+#include "j1PathFinding.h"
+#include "p2Log.h"
 
 #include "j1Map.h"
 #include "j1Render.h"
@@ -15,11 +18,16 @@ Enemy_Skeleton::Enemy_Skeleton(fPoint position, Entity_Info info) :Enemy(positio
 {
 	target = (Entity*)App->entity_manager->GetPlayer();
 
-	Enemy_Skeleton_Properties* enemy_properties = (Enemy_Skeleton_Properties *)info.properties;
-	tex_skeleton = enemy_properties->skeleton_tex;
-	skeleton_attack_anim = enemy_properties->skeleton_attack_anim;
-	skeleton_dead_anim = enemy_properties->skeleton_dead_anim;
-	skeleton_walking_anim = enemy_properties->skeleton_walking_anim;
+	Enemy_Properties* enemy_properties = (Enemy_Properties *)info.properties;
+
+	//// Textures ------------------------------------------
+	//tex_skeleton = App->tex->Load(enemy_properties->path_tex_skeleton.GetString());
+
+	//// Animations ------------------------------
+	//skeleton_walking_anim = enemy_properties->skeleton_walking_anim;
+	//skeleton_dead_anim = enemy_properties->skeleton_dead_anim;
+	//skeleton_attack_anim = enemy_properties->skeleton_attack_anim;
+
 }
 
 Enemy_Skeleton::~Enemy_Skeleton()
@@ -36,13 +44,16 @@ bool Enemy_Skeleton::Update(float dt)
 		FollowPath(dt);
 	}
 
-	if (main_collider)
-	{
-		main_collider->SetPos(position.x - main_collider->rect.w / 2, position.y - main_collider->rect.h / 2);
-	}
+	iPoint check_ground;
+
+	check_ground.x = position.x;
+	check_ground.y = position.y + 2;
+	if(App->path_finding->IsWalkable(check_ground))
+
 
 	return true;
 }
+
 
 bool Enemy_Skeleton::Draw()
 {
@@ -102,12 +113,87 @@ bool Enemy_Skeleton::Reset(fPoint pos)
 	velocity.y = 0;
 	acceleration.x = 0;
 	acceleration.y = 0;
-	//bat_anim.Reset();
 
 	return true;
 }
 
 
+bool Enemy_Skeleton::FollowPath(float dt)
+{
+	if (!last_path.Count() > 0)
+	{
+		return false;
+	}
+
+	if (new_path)
+	{
+		last_path.Pop(current_point);
+		last_path.Pop(current_point);
+		new_path = false;
+	}
+
+	fPoint velocity_to_follow;
+	iPoint node_in_world;
+
+	node_in_world = App->map->MapToWorld(current_point.x, current_point.y);
+
+	iPoint check_ground_right;
+	//iPoint check_ground_left;
+
+	check_ground_right.x = node_in_world.x /*+ main_collider->rect.w*/;
+	check_ground_right.y = node_in_world.y + main_collider->rect.h + 30;
+
+	//check_ground_left.x = node_in_world.x;
+	//check_ground_left.y = node_in_world.y + main_collider->rect.h - 100;
+
+	check_ground_right = App->map->WorldToMap(check_ground_right.x, check_ground_right.y);
+	//check_ground_left = App->map->WorldToMap(check_ground_left.x, check_ground_left.y);
+
+	//LOG("%f   %f", check_ground_left.x, check_ground_left.y);
+	/*LOG("position %i   %i", node_in_world.x, node_in_world.y);
+	LOG("collider %i   %i", main_collider->rect.w, main_collider->rect.h);*/
+
+	if (node_in_world.x > position.x && !App->path_finding->IsWalkable(check_ground_right))
+	{
+		velocity_to_follow.x = 50;
+		LOG("RIGHT");
+	}
+	
+
+	else if (node_in_world.x < position.x && !App->path_finding->IsWalkable(check_ground_right))
+	{
+		LOG("LEFT");
+		velocity_to_follow.x = -50;
+
+	}
+
+	else
+	{
+		velocity_to_follow.x = 0;
+		check_ground_right.y = node_in_world.y + main_collider->rect.h;
+		LOG("IDLE");
+
+	}
+
+	position.x += velocity_to_follow.x  * dt;
+
+	main_collider->SetPos(position.x - main_collider->rect.w / 2, position.y - main_collider->rect.h / 2);
+
+	p2List<Direction> directions;
+	App->collision->CheckOverlap(directions, main_collider, COLLIDER_WALL, position, velocity_to_follow);
+
+	main_collider->SetPos(position.x - main_collider->rect.w / 2, position.y - main_collider->rect.h / 2);
+
+	if (position.x > node_in_world.x - 10 && position.x < node_in_world.x + 10)
+	{
+		if (last_path.Count())
+		{
+			last_path.Pop(current_point);
+		}
+	}
+
+	return true;
+}
 
 bool Enemy_Skeleton::OnCollision(Collider* c1, Collider* c2)
 {

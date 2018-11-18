@@ -37,9 +37,6 @@ public:
 	// States ================================
 	Enemy_Bat_State				current_state = Enemy_Bat_State::flying;
 
-	// Collision =============================
-	Collider		  *enemy_collider = nullptr;
-
 private:
 	//Bool ===================================
 	bool              flip_x = false;
