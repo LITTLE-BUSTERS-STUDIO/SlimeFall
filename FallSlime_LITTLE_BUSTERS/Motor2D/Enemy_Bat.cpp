@@ -18,9 +18,6 @@ Enemy_Bat::Enemy_Bat(fPoint position, Entity_Info info) :Enemy( position, info)
 	target = (Entity*) App->entity_manager->GetPlayer();
 	/*path_timer.Start();*/
 
-
-
-
 	Enemy_Properties* enemy_properties = (Enemy_Properties *)info.properties;
 
 	// Textures ------------------------------------------
@@ -74,9 +71,9 @@ bool Enemy_Bat::Draw()
 	smoke_anim.speed = 15.0F;
 	bat_anim.speed = 10.0F;
 
-	switch ((Enemy_State)current_state)
+	switch ((Enemy_Bat_State)current_state)
 	{
-	case Enemy_State::flying:
+	case Enemy_Bat_State::flying:
 		if (bat_anim.GetFrameValue() > 9)
 		{
 			frame = bat_anim.GetCurrentFrame();
@@ -87,10 +84,10 @@ bool Enemy_Bat::Draw()
 		texture = tex_bat;
 		break;
 
-	case Enemy_State::dead:
+	case Enemy_Bat_State::dead:
 		if (smoke_anim.GetFrameValue() > 9)
 		{
-			current_state = Enemy_State::flying;
+			current_state = Enemy_Bat_State::flying;
 			frame = smoke_anim.GetCurrentFrame();
 			texture = tex_smoke;
 			smoke_anim.Reset();
@@ -115,7 +112,7 @@ bool Enemy_Bat::Draw()
 		margin_flip = main_collider->rect.w;
 	}
 	
-	if(current_state == Enemy_State::dead)
+	if(current_state == Enemy_Bat_State::dead)
 		margin_flip = main_collider->rect.w;
 
 
@@ -148,7 +145,7 @@ bool Enemy_Bat::OnCollision(Collider* c1, Collider* c2)
 		switch (c2->type)
 		{
 		case COLLIDER_ATTACK:
-			current_state = Enemy_State::dead;
+			current_state = Enemy_Bat_State::dead;
 			break;
 
 		default:

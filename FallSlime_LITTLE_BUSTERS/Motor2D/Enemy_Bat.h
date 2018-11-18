@@ -11,7 +11,7 @@ struct SDL_Texture;
 struct Collider;
 struct Entity_Info;
 
-enum class Enemy_State
+enum class Enemy_Bat_State
 {
 	flying,
 	dead
@@ -35,7 +35,7 @@ public:
 
 public:
 	// States ================================
-	Enemy_State				current_state = Enemy_State::flying;
+	Enemy_Bat_State				current_state = Enemy_Bat_State::flying;
 	// Collision =============================
 	Collider				*enemy_collider = nullptr;
 
