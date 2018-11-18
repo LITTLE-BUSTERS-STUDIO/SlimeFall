@@ -96,14 +96,6 @@ public:
 	}
 };
 
-enum class EntityType 
-{
-	Player,
-	Enemy,
-	Object,
-	Unknown
-};
-
 class Entity
 {
 public:
@@ -119,22 +111,26 @@ public:
 
 	virtual bool OnCollision(Collider* c1, Collider* c2) { return true; };
 
-	// Save & Load =====================================
 	virtual bool Load(pugi::xml_node&) { return true; };
 
 	virtual bool Save(pugi::xml_node&) const { return true; };
+
+	virtual bool Reset() { return true; };
 
 	// Common methods ==================================
 
 	bool FindCollider(Collider *collider) const;
 
+	// Variables ======================================
 	p2SString             name;
+	int                   id;
+	bool                  active;
+
 	fPoint                position;
 	fPoint                velocity;
 	fPoint                acceleration;
 
 	p2List<Collider*>     colliders;
-	EntityType            type = EntityType::Unknown;
 };
 
 #endif // __Entity_H__

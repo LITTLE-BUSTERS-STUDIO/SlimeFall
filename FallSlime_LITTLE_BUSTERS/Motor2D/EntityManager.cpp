@@ -27,7 +27,7 @@ EntityManager::~EntityManager()
 
 bool EntityManager::Awake(pugi::xml_node& node)
 {
-	BROFILER_CATEGORY("EntityManager Update", Profiler::Color::GreenYellow);
+	BROFILER_CATEGORY("EntityManager Awake", Profiler::Color::GreenYellow);
 
 	// Load properties =====================================================
 
@@ -124,17 +124,31 @@ bool EntityManager::CleanUp()
 {
 	BROFILER_CATEGORY("EntityManager CleanUp", Profiler::Color::HoneyDew);
 
-	LOG("Freeing all entities");
+	LOG("Freeing all entities info");
+	// Remove all entities info =================================
+	entities_info.clear();
 
-	// Remove all entities ======================================
-	p2List_item<Entity*>* item = entities.start;
-
+	LOG("Freeing all Properties");
+	// Remove all properties  ==================================
+	p2List_item<Properties*>* item = properties_list.start;
 	while (item != NULL)
 	{
 		RELEASE(item->data);
 		item = item->next;
 	}
-	// Remove all entities info =================================
+	properties_list.clear();
+
+	// Remove all entities =====================================
+	LOG("Freeing all entities");
+
+	p2List_item<Entity*>* item_2 = entities.start;
+
+	while (item_2 != NULL)
+	{
+		RELEASE(item_2->data);
+		item_2 = item_2->next;
+	}
+	
 	entities.clear();
 
 	return true;
@@ -324,8 +338,12 @@ bool EntityManager::Save(pugi::xml_node& node) const
 	return true;
 }
 
-bool EntityManager::Reset(fPoint pos)
+bool EntityManager::ResetAll( )
 {
+	for (p2List_item<Entity*> *item = entities.start; item; item = item->next)
+	{
+		item->data->Reset();
+	}
 	return true;
 }
 
