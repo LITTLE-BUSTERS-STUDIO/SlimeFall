@@ -2,7 +2,7 @@
 
 ### Summarized
 
-* Enemyes added
+* Enemies added
 
 ### Added
 

@@ -64,6 +64,27 @@ See also our organization, Little Busters[https://github.com/LITTLE-BUSTERS-STUD
 
 And finnaly take a look at, Ric's github  https://github.com/d0n3val
 
+##Authors Creations
+#Marc Galvez: 
+* God Mode free flying
+* Special Attack mechanic 
+* Camera Tremble when player kill an enemy
+* Camera follow smooth
+* Fade to black
+* Invulnerability function
+* Load parallax improved fot low quality Laptop
+* Brofiler added
+* F11 to change cap frames ON/OFF
+* Animations Enemies: Bat, Skeleton
+* Enemy Bat vs Player Logic
+* Enemy Skeleton vs Player Logic
+* Trello planification
+* Changelog and Readme
+* UML Entity System
+*
+
+
+
 ## Program used
 * [Microsoft Visual Studio 2017](https://visualstudio.microsoft.com/es/vs/)
 * [Tiled v1.2.0](https://www.mapeditor.org/)
