@@ -4,6 +4,7 @@
 #include "j1Collision.h"
 #include "j1Textures.h"
 #include "j1Player.h"
+#include "j1Audio.h"
 
 #include "j1Map.h"
 #include "j1Render.h"
@@ -21,6 +22,9 @@ Enemy_Bat::Enemy_Bat(fPoint position, Entity_Info info) :Enemy( position, info)
 	// Animations ----------------------------------------
 	bat_anim = properties->bat_anim;
 	smoke_anim = properties->smoke_anim;
+	// Sfx ----------------------------------------------
+	fx_bat_death = properties->id_bat_death_fx;
+
 }
 
 Enemy_Bat::~Enemy_Bat()
@@ -78,6 +82,7 @@ bool Enemy_Bat::Draw()
 	case Enemy_Bat_State::dead:
 		if (smoke_anim.GetFrameValue() > 9)
 		{
+			App->audio->PlayFx(fx_bat_death);
 			current_state = Enemy_Bat_State::flying;
 			frame = smoke_anim.GetCurrentFrame();
 			texture = tex_smoke;

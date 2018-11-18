@@ -1,7 +1,7 @@
 ﻿# Game Tittle: Slime Fall
 
 ## Current Version
-v1.1
+v1.3
 
 ## Description
 This is a Platform Game about a jumping slime. Reach the end if you can!
@@ -17,7 +17,7 @@ Extract .zip files inside a folder and open the .exe file.
 #### Controls:
 * **A** - Move player to the left
 * **D** - Move player to the right
-* **SPACE** - Charged Jump (gummy jump). Also, respawn if slime is dead
+* **SPACE** - Charged Jump (gummy jump). Also, respawn if slime is dead.
 * **LSHIFT** - Special Attack
 
 ##### Debug functionality:
@@ -41,15 +41,18 @@ Extract .zip files inside a folder and open the .exe file.
 * Set Volume Music Up/Down/Mute
 * Slime constant mechanic jummping
 * Charged jump mechanic (gummy jump)
-* Animations with Tiled v1.2.0
+* Load Animations with Tiled v1.2.0
 * Random SFx Jump (4 slime sounds)
-* Camera pulling, all tilesets out of camera despawn
+
 
 ### Innovation features A2:
 * Camera follow is now smooth
 * Camera Tremble when player kill an enemy
 * Special Attack mechanic
 * God Mode free flying
+* Camera pulling, all tilesets out of camera despawn
+* Load Entities with tiled v1.2.0
+
 
 ## Authors & Links
 * **Alejandro Gamarra (alejandro61299)** - *As a Lead Programer & QA* https://github.com/alejandro61299

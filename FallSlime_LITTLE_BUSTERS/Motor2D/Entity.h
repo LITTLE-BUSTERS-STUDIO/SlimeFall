@@ -66,9 +66,14 @@ public:
 	//-----------Animations-----------------
 	Animation		  bat_anim;
 	Animation         smoke_anim;
+
 	//-----------Textures-----------------
 	SDL_Texture       *bat_tex;
 	SDL_Texture       *smoke_tex;
+
+	//------------Sfx----------------------
+	int                id_bat_death_fx;
+
 
 };
 
@@ -79,8 +84,14 @@ public:
 	Animation         skeleton_attack_anim;
 	Animation         skeleton_dead_anim;
 	Animation         skeleton_walking_anim;
+	Animation         skeleton_idle_anim;
+
 	//-----------Textures-----------------
 	SDL_Texture      *skeleton_tex;
+
+	//------------Sfx----------------------
+	int               id_skeleton_death_fx;
+
 };
 
 class Entity;
