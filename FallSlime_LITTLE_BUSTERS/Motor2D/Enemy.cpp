@@ -90,7 +90,7 @@ bool  Enemy::FollowPath( float dt)
 	if ((int)previous_position.x == (int)position.x && (int)previous_position.y == (int)position.y)
 	{
 		if (velocity_to_follow.y > 0)
-			error_margin.y -= 2s;
+			error_margin.y -= 2;
 		else if (velocity_to_follow.y < 0)
 			error_margin.y += 2;
 		if (velocity_to_follow.x > 0)
