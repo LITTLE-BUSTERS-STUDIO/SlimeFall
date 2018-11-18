@@ -67,7 +67,6 @@ bool Enemy_Bat::Draw()
 	{
 		iPoint pos = App->map->MapToWorld(last_path.At(i)->x, last_path.At(i)->y);
 		App->render->DrawQuad({ pos.x, pos.y ,16,16 }, 0, 0, 0, 200);
-
 	}
 
 	SDL_Rect frame;
@@ -143,18 +142,11 @@ bool Enemy_Bat::Reset(fPoint pos)
 
 bool Enemy_Bat::OnCollision(Collider* c1, Collider* c2)
 {
-	BROFILER_CATEGORY("Enemy_bat OnCollision", Profiler::Color::LightGreen);
-
-
-	Direction bat_direction;
 
 	if (c1 == main_collider)
 	{
 		switch (c2->type)
 		{
-		case COLLIDER_WALL:
-			App->collision->ResolveOverlap(c1, c2, position, velocity);
-			break;
 		case COLLIDER_ATTACK:
 			current_state = Enemy_State::dead;
 			break;
@@ -163,7 +155,5 @@ bool Enemy_Bat::OnCollision(Collider* c1, Collider* c2)
 			break;
 		}
 	}
-	
-	
 	return true;
 }

@@ -74,8 +74,7 @@ private:
 	bool                check_fall = false;
 	bool                flip_x = false;
 	// Collision ================================
-	Collider           *ground_detector = nullptr;
-	Collider           *player_collider = nullptr;
+	Collider           *collider = nullptr;
 	SDL_Rect            collider_rect;
 
 	// Abilities ================================

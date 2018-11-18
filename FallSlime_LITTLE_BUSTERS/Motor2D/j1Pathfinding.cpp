@@ -297,12 +297,10 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination ,p
 			// Backtrack to create the final path
 			path.Clear();
 			for (PathNode* node = (PathNode*)closed.list.end; node; node = (PathNode*)node->parent)
-			/*for (PathNode* node = &current_node->data  ; node ; node = node->parent)*/
 			{
 				path.PushBack(node->pos);
 			}
 			//path.Flip();
-
 			return path.Count();
 		}
 

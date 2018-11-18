@@ -58,13 +58,16 @@ bool  Enemy::FollowPath( float dt)
 	iPoint node_in_world;
 	node_in_world = App->map->MapToWorld(current_point.x, current_point.y);
 
-	velocity_to_follow.x = (float)node_in_world.x - position.x;
-	velocity_to_follow.y = (float)node_in_world.y - position.y;
+	velocity_to_follow.x = (float)node_in_world.x + 8.0f- position.x;
+	velocity_to_follow.y = (float)node_in_world.y + 8.0f - position.y;
 
 	velocity_to_follow.Normalize();
 
 	position.x += velocity_to_follow.x * 100.0f * dt;
 	position.y += velocity_to_follow.y * 100.0f * dt;
+	main_collider->SetPos(position.x - main_collider->rect.w / 2, position.y - main_collider->rect.h / 2);
+
+	App->collision->CheckOverlap(p2List<Direction>(), main_collider, COLLIDER_WALL, position , velocity_to_follow);
 
 	if (position.x > node_in_world.x - 10 && position.x < node_in_world.x + 10 && position.y > node_in_world.y - 10 && position.y < node_in_world.y + 10)
 	{
