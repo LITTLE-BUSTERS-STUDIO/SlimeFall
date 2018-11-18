@@ -24,6 +24,8 @@ public:
 
 	bool CheckTargetRatio();
 
+	bool  DrawPath();
+
 	bool  Active();
 
 	bool  Desactive();

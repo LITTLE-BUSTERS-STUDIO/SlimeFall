@@ -105,7 +105,8 @@ bool EntityManager::Start()
 	{
 		Enemy_Properties*  enemy_properties = nullptr;
 
-		name.create(enemy_node.attribute("name").as_string(""));
+		p2SString name(enemy_node.attribute("name").as_string(""));
+
 		collider_node = enemy_node.child("collider");
 		spawn_margin_node = enemy_node.child("spawn_margin");
 		variables_node = enemy_node.child("variables");
@@ -416,6 +417,21 @@ bool EntityManager::Save(pugi::xml_node& node) const
 		node_entity = node.append_child(item->data->name.GetString());
 		item->data->Save(node_entity);
 	}
+
+	pugi::xml_node node_info;
+
+	for (p2List_item<Entity_Info> *item = entities_info.start; item; item = item->next)
+	{
+		node_info = node.append_child("Enemy_Info");
+
+		node_info.append_attribute("name") = item->data.name.GetString();
+		node_info.append_attribute("id") = item->data.id;
+		node_info.append_attribute("x") = item->data.position.x;
+		node_info.append_attribute("x") = item->data.position.y;
+		node_info.append_attribute("spawned") = item->data.spawned;
+	}
+
+
 	return true;
 }
 
@@ -428,7 +444,7 @@ bool EntityManager::ResetAll()
 		{
 			continue;
 		}
-
+		item->data.spawned = false;
 		entity->Reset(item->data);
 		entity->position = item->data.position;
 		entity->active = false;

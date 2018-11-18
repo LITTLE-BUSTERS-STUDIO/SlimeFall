@@ -5,6 +5,7 @@
 #include "j1Collision.h"
 #include "j1Map.h"
 #include "p2Log.h"
+#include "j1Render.h"
 #include "Brofiler/Brofiler.h"
 
 #define MAX_DETECTION_RATIO 400
@@ -143,5 +144,19 @@ bool  Enemy::Desactive()
 	}
 
 	active = false;
+	return true;
+}
+
+bool Enemy::DrawPath()
+{
+	if (App->render->draw_pathfinding)
+	{
+		for (uint i = 0; i < last_path.Count(); ++i)
+		{
+			iPoint pos = App->map->MapToWorld(last_path.At(i)->x, last_path.At(i)->y);
+			App->render->DrawQuad({ pos.x, pos.y ,16,16 }, 0, 0, 0, 200);
+		}
+	}
+
 	return true;
 }

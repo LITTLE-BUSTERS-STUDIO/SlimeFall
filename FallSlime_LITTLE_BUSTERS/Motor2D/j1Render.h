@@ -61,7 +61,7 @@ public:
 	bool	free_camera_y = true;
 	bool	debug_border = false;
 	bool	debug_middle = false;
-	bool	draw_pathfinding = true;
+	bool	draw_pathfinding = false;
 	bool    vsync;
 	//XML vars
 	int		zoom ;

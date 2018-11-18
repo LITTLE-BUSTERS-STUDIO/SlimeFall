@@ -36,6 +36,11 @@ bool Enemy_Bat::Update(float dt)
 {
 	target = (Entity*)App->entity_manager->GetPlayer();
 
+	if (current_state == Enemy_Bat_State::dead)
+	{
+		return true;
+	}
+
 	if (CheckTargetRatio())
 	{
 		UpdateLogic();
@@ -54,12 +59,7 @@ bool Enemy_Bat::Update(float dt)
 
 bool Enemy_Bat::Draw()
 {
-
-	for (uint i = 0; i < last_path.Count(); ++i)
-	{
-		iPoint pos = App->map->MapToWorld(last_path.At(i)->x, last_path.At(i)->y);
-		App->render->DrawQuad({ pos.x, pos.y ,16,16 }, 0, 0, 0, 200);
-	}
+	DrawPath();
 
 	SDL_Rect frame;
 	SDL_Texture* texture = nullptr;
@@ -80,6 +80,7 @@ bool Enemy_Bat::Draw()
 		break;
 
 	case Enemy_Bat_State::dead:
+		main_collider->type = COLLIDER_NONE;
 		if (smoke_anim.GetFrameValue() > 9)
 		{
 			current_state = Enemy_Bat_State::flying;
