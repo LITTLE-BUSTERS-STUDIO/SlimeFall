@@ -140,7 +140,11 @@ public:
 
 	virtual bool Save(pugi::xml_node&) const { return true; };
 
-	virtual bool Reset() { return true; };
+	virtual bool Reset(Entity_Info  info) { return true; };
+
+	virtual bool Active() { return true; };
+
+	virtual bool Desactive() { return true; };
 
 	// Common methods ==================================
 

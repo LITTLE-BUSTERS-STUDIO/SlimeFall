@@ -27,7 +27,7 @@
     </player>
 
     <enemy name ="bat">
-      <variables detection_ratio="0" path_interval_time="0"/>
+      <variables detection_ratio="300" path_interval_time="200"/>
       <collider width ="20" height="20"/>
       <spawn_margin width ="40" height="40"/>
       <animations>
@@ -44,7 +44,7 @@
     </enemy>
 
     <enemy name ="skeleton">
-      <variables detection_ratio="0" path_interval_time="0"/>
+      <variables detection_ratio="300" path_interval_time="300"/>
       <collider width ="20" height="20"/>
       <spawn_margin width ="40" height="40"/>
       <animations>

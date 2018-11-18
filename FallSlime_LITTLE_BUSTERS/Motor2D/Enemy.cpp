@@ -11,16 +11,18 @@
 
 Enemy::Enemy(fPoint position, Entity_Info info) :Entity(position, info)
 {
-	main_collider = App->collision->AddCollider(info.properties->collider_rect, COLLIDER_ENEMY, App->entity_manager);
+	Enemy_Properties* properties = (Enemy_Properties*)info.properties;
+
+	main_collider = App->collision->AddCollider(info.properties->collider_rect, COLLIDER_NONE, App->entity_manager);
 	colliders.add(main_collider);
+
+	main_collider->SetPos(position.x - info.properties->collider_rect.w/2 , position.y - info.properties->collider_rect.h / 2);
 
 	iPoint pos = { (int)position.x, (int)position.y};
 	current_point = App->map->WorldToMap(pos.x, pos.y);
 	
-	velocity = { 40, 40  };
-	path_interval_time = 400u;
-	detection_ratio = 300;
-
+	path_interval_time = properties->path_interval_time;
+	detection_ratio = properties->detection_ratio;
 }
 
 Enemy::~Enemy()
@@ -121,3 +123,25 @@ bool Enemy::CheckTargetRatio()
 	return target_detected = ret;
 }
 
+
+bool  Enemy::Active()
+{
+	if (main_collider)
+	{
+		main_collider->type = COLLIDER_ENEMY;
+	}
+
+	active = true;
+	return true;
+}
+
+bool  Enemy::Desactive()
+{
+	if (main_collider)
+	{
+		main_collider->type = COLLIDER_NONE;
+	}
+
+	active = false;
+	return true;
+}

@@ -24,6 +24,10 @@ public:
 
 	bool CheckTargetRatio();
 
+	bool  Active();
+
+	bool  Desactive();
+
 	// Variables  ===================================
 
 	Collider*             main_collider = nullptr;

@@ -35,7 +35,6 @@ Enemy_Bat::~Enemy_Bat()
 bool Enemy_Bat::Update(float dt)
 {
 	target = (Entity*)App->entity_manager->GetPlayer();
-	velocity = { 100,100 };
 
 	if (CheckTargetRatio())
 	{
@@ -119,7 +118,7 @@ bool Enemy_Bat::Draw()
 	return true;
 }
 
-bool Enemy_Bat::Reset()
+bool Enemy_Bat::Reset(Entity_Info  info)
 {
 	BROFILER_CATEGORY("Enemy_Bat Reset", Profiler::Color::LightGray);
 
