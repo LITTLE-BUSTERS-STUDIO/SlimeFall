@@ -81,9 +81,20 @@ And finnaly take a look at, Ric's github  https://github.com/d0n3val
 * Trello planification
 * Changelog and Readme
 * UML Entity System
-*
 
-
+#Alejandro Gamarra : 
+* Debug pathfinding draw && Walkablemap draw 
+* A* algorithm && pathfinding new methods
+* Enemy Bat (flyer enemy)
+* Entity Manager 
+* Entity && Entity_Info Class 
+* Entities Properties System && Classes
+* Adapt Player Module to Player Entity
+* New solve collision overlap method
+* Limit Blit Draw and improve Map Draw
+* Framerate Cap 
+* Fix several bugs 
+* Organize code 
 
 ## Program used
 * [Microsoft Visual Studio 2017](https://visualstudio.microsoft.com/es/vs/)
