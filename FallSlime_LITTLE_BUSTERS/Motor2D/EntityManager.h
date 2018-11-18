@@ -40,11 +40,7 @@ public:
 
 	bool CreatePlayer(fPoint spawn_pos);
 
-	bool CreateEnemy(fPoint spawn_pos);
-
 	bool ResetAll();
-
-	//bool ResetEntity (Entity * entity);
 
 	// Entities ========================================
 
@@ -56,7 +52,7 @@ public:
 
 private:
 
-	bool CreateEntity(const Entity_Info& info);
+	Entity* CreateEntity(const Entity_Info& info);
 
 	Properties* GetProperties(const p2SString name) const;
 

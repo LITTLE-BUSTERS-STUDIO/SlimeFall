@@ -81,8 +81,8 @@ bool EntityManager::Start()
 	pugi::xml_node animations_node = player_node.child("animations");
 
 	player_properties->jumping_anim.LoadAnimation(p2SString(animations_node.child("jumping").attribute("path").as_string("")), "pink_slime");
-	player_properties->death_anim.LoadAnimation(p2SString(animations_node.attribute("path").as_string("")), "pink_splash");
-	player_properties->attack_anim.LoadAnimation(p2SString(animations_node.attribute("path").as_string("")), "pink_attack");
+	player_properties->death_anim.LoadAnimation(p2SString(animations_node.child("death").attribute("path").as_string("")), "pink_splash");
+	player_properties->attack_anim.LoadAnimation(p2SString(animations_node.child("attack").attribute("path").as_string("")), "pink_attack");
 
 	//=============== Sfx ======================
 	pugi::xml_node sfx_node = player_node.child("sfx");
@@ -236,10 +236,12 @@ bool EntityManager::PreUpdate()
 		}
 	}
 
-	for (p2List_item<Entity*> *item = entities.start; item; item = item->next)
+
+	for (p2List_item<Entity*> *item = entities.start;  item && item->data->active; item = item->next)
 	{
 		item->data->HandleInput();
 	}
+
 
 	return true;
 }
@@ -248,7 +250,7 @@ bool EntityManager::Update(float dt)
 {
 	BROFILER_CATEGORY("EntityManager Update", Profiler::Color::Lavender);
 
-	for (p2List_item<Entity*> *item = entities.start; item ; item = item->next)
+	for (p2List_item<Entity*> *item = entities.start; item && item->data->active; item = item->next)
 	{
 		item->data->Update(dt);
 	}
@@ -260,7 +262,7 @@ bool EntityManager::PostUpdate(float dt)
 {
 	BROFILER_CATEGORY("EntityManager PostUpdate", Profiler::Color::LavenderBlush);
 
-	for (p2List_item<Entity*> *item = entities.start; item; item = item->next)
+	for (p2List_item<Entity*> *item = entities.start;  item && item->data->active ; item = item->next)
 	{
 		item->data->Draw();
 	}
@@ -284,7 +286,7 @@ bool EntityManager::LoadEntitiesInfo(pugi::xml_node& node)
 	return ret;
 }
 
-bool EntityManager::CreateEntity(const Entity_Info& info)
+Entity* EntityManager::CreateEntity(const Entity_Info& info)
 {
 	BROFILER_CATEGORY("EntityManager CreateEntity", Profiler::Color::LemonChiffon);
 
@@ -302,23 +304,19 @@ bool EntityManager::CreateEntity(const Entity_Info& info)
 	if (entity != nullptr) 
 	{
 		LOG("Entity %s created at Position  x: %.1f  y: %.1f", info.name.GetString() , info.position.x, info.position.y);
+		entities.add(entity);
 	}
 	else 
 	{
 		LOG("Entity could't be created");
-		return false;
 	}
-		
-	entities.add(entity);
 
-	return true;
+	return entity;
 }
 
 bool EntityManager::CreatePlayer(fPoint spawn_pos)
 {
 	BROFILER_CATEGORY("EntityManager CreatePlayer", Profiler::Color::LightBlue);
-
-
 
 	Entity* entity = nullptr;
 
@@ -333,28 +331,10 @@ bool EntityManager::CreatePlayer(fPoint spawn_pos)
 	return true;
 }
 
-bool EntityManager::CreateEnemy(fPoint spawn_pos)
-{
-	BROFILER_CATEGORY("EntityManager CreateEnemy", Profiler::Color::LightBlue);
-
-	LOG("Entity Enemy created");
-
-	Entity* entity = nullptr;
-
-	if (player == nullptr)
-	{
-		Entity_Info info(spawn_pos, GetProperties(p2SString("enemy")));
-		entity = player = new j1Player(info.position, info);
-		entities.add(entity);
-	}
-
-	return true;
-}
-
 
 bool EntityManager::OnCollision(Collider* c1, Collider* c2)
 {
-	for (p2List_item<Entity*> *item = entities.start; item; item = item->next)
+	for (p2List_item<Entity*> *item = entities.start; item && item->data->active; item = item->next)
 	{
 		if (item->data->FindCollider(c1))
 		{
