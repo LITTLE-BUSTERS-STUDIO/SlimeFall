@@ -70,6 +70,9 @@
     <ClCompile Include="Enemy_Bat.cpp">
       <Filter>Desenvolupament  ========\Modules\Entities\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Desenvolupament  ========\Modules\Gameplay</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Scene.h">
@@ -161,6 +164,9 @@
     </ClInclude>
     <ClInclude Include="Enemy_Skeleton.h">
       <Filter>Desenvolupament  ========\Modules\Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Desenvolupament  ========\Modules\Gameplay</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
