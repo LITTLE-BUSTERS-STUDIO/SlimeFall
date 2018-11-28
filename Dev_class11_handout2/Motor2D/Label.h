@@ -7,8 +7,6 @@
 #include "p2Point.h"
 #include "SDL\include\SDL_pixels.h"
 
-#define DEFAULT_FONT "fonts/open_sans/OpenSans-Regular.ttf"
-#define DEFAULT_FONT_SIZE 12
 
 struct SDL_Texture;
 struct _TTF_Font;
@@ -41,6 +39,7 @@ public:
 	_TTF_Font*			default;
 	_TTF_Font*			font;
 	p2SString		    text;
+
 };
 
 
