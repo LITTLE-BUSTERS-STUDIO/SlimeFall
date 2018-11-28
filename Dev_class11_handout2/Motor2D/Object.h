@@ -25,4 +25,4 @@ public:
 
 };
 
-#endif // __Entity_H__
+#endif // __Object_H__

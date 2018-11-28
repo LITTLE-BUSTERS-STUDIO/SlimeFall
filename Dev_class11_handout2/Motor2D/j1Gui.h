@@ -48,7 +48,7 @@ public:
 
 	// ----------------------------------------------------------------------------
 
-	const SDL_Texture* GetAtlas() const;
+	SDL_Texture* GetAtlas();
 
 private:
 
