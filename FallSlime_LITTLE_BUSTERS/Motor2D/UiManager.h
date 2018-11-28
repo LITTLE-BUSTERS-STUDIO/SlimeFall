@@ -31,8 +31,6 @@ private:
 
 	bool CheckClick();
 
-	bool CreateObject();
-
 	bool DeleteObject();
 
 public:

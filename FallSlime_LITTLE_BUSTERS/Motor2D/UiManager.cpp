@@ -54,10 +54,6 @@ bool UiManager::CheckClick()
 	return true;
 }
 
-bool UiManager::CreateObject()
-{
-	return true;
-}
 
 bool UiManager::DeleteObject()
 {
