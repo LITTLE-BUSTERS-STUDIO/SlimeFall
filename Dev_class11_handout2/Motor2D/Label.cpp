@@ -9,7 +9,6 @@ Label::Label(iPoint position, p2SString text, _TTF_Font* font): Object(position)
 	this->font = font;
 }
 
-// Destructor
 Label::~Label()
 {
 
@@ -26,11 +25,6 @@ bool Label::Draw()
 	return false;
 }
 
-// Called before quitting
-bool Label::CleanUp()
-{
-	return true;
-}
 
 
 

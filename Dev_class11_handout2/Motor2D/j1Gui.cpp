@@ -69,7 +69,7 @@ bool j1Gui::CleanUp()
 
 Label* j1Gui::CreateLabel(iPoint position, p2SString text, _TTF_Font* font)
 {
-	/*Label* object = new Label();*/
+	Label* object = new Label(position, text, font);
 	
 }
 

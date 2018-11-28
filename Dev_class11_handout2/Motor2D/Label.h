@@ -21,22 +21,13 @@ public:
 	// Destructor
 	virtual ~Label();
 
-
 	// Set the text
 	void SetText();
 
 	// Draw label
 	bool Draw();
 
-	// Called before quitting
-	bool CleanUp();
-
-
-
 public:
-
-	p2List<_TTF_Font*>	fonts;
-	_TTF_Font*			default;
 	_TTF_Font*			font;
 	p2SString		    text;
 
