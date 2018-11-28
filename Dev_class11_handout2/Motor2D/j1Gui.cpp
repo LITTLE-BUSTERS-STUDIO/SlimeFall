@@ -7,6 +7,10 @@
 #include "j1Input.h"
 #include "j1Gui.h"
 
+#include "Object.h"
+#include "Label.h"
+#include "Image.h"
+
 j1Gui::j1Gui() : j1Module()
 {
 	name.create("gui");

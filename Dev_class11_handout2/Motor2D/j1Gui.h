@@ -13,6 +13,7 @@
 class Object;
 class Label;
 class Image;
+class _TTF_Font;
 
 enum class Object_Type
 {

@@ -11,7 +11,9 @@ Label::Label(iPoint position, p2SString text, _TTF_Font* font): Object(position)
 
 // Destructor
 Label::~Label()
-{}
+{
+
+}
 
 void Label::SetText()
 {

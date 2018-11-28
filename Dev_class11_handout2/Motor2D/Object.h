@@ -10,34 +10,18 @@ struct SDL_Texture;
 
 class Object
 {
-public:
-	//------------Valeues-------------------
-	
-
-	//-----------Animations-----------------
-
-
-	//-----------Textures-------------------
-
-
-	//------------Sfx----------------------
 
 public:
 	Object(iPoint position);
 	
 	virtual ~Object();
 
-	p2SString             name;
 	iPoint                position;
-	Animation			  anim;
+	Animation			  animation;
 	SDL_Rect			  section;
-	SDL_Texture*		  tex;
-
 
 	// Virtual methods ================================
 	virtual bool Draw() { return true; };
-
-
 
 };
 
