@@ -10,7 +10,9 @@ Label::Label(iPoint position, p2SString text, _TTF_Font* font): Object(position)
 
 // Destructor
 Label::~Label()
-{}
+{
+
+}
 
 // Called before quitting
 bool Label::CleanUp()
