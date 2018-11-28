@@ -43,11 +43,17 @@
     <ClCompile Include="j1PerfTimer.cpp">
       <Filter>Desenvolupament  ========\Tools</Filter>
     </ClCompile>
-    <ClCompile Include="j1Fonts.cpp">
-      <Filter>Desenvolupament  ========\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="j1Gui.cpp">
-      <Filter>Desenvolupament  ========\Modules</Filter>
+      <Filter>Desenvolupament  ========\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Fonts.cpp">
+      <Filter>Desenvolupament  ========\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Label.cpp">
+      <Filter>Desenvolupament  ========\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Desenvolupament  ========\GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -111,14 +117,20 @@
     <ClInclude Include="j1PerfTimer.h">
       <Filter>Desenvolupament  ========\Tools</Filter>
     </ClInclude>
-    <ClInclude Include="j1Fonts.h">
+    <ClInclude Include="Animation.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
     <ClInclude Include="j1Gui.h">
-      <Filter>Desenvolupament  ========\Modules</Filter>
+      <Filter>Desenvolupament  ========\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="Animation.h">
-      <Filter>Desenvolupament  ========\Modules</Filter>
+    <ClInclude Include="j1Fonts.h">
+      <Filter>Desenvolupament  ========\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Label.h">
+      <Filter>Desenvolupament  ========\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Desenvolupament  ========\GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +151,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Tools\PuguiXML">
       <UniqueIdentifier>{7cb78d67-17cc-45eb-af97-e2106becce7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\GUI">
+      <UniqueIdentifier>{8baff86a-39e6-4c8a-a8eb-2f91c927d4e5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -23,7 +23,7 @@ public:
 	//------------Sfx----------------------
 
 public:
-	Object(iPoint position, SDL_Rect section);
+	Object(iPoint position);
 	
 	virtual ~Object();
 

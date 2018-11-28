@@ -45,6 +45,8 @@ public:
 
 	Image* CreateImage(iPoint position, Animation animation);
 
+	// ----------------------------------------------------------------------------
+
 	const SDL_Texture* GetAtlas() const;
 
 private:
@@ -57,5 +59,14 @@ private:
 	Object* selected = nullptr;
 	bool show_cursor = false;
 };
+
+//private:
+//
+//	bool UpdateMouseIcon();
+//
+//	bool CheckClick();
+//
+//	bool DeleteObject();
+
 
 #endif // __j1GUI_H__

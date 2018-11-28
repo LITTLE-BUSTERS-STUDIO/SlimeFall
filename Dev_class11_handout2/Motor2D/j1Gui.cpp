@@ -63,3 +63,13 @@ const SDL_Texture* j1Gui::GetAtlas() const
 
 // class Gui ---------------------------------------------------
 
+Label* j1Gui::CreateLabel(iPoint position, p2SString text, _TTF_Font* font)
+{
+	/*Label* object = new Label();*/
+	
+}
+
+Image* j1Gui::CreateImage(iPoint position, Animation animation)
+{
+
+}
