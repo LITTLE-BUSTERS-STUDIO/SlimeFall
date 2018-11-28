@@ -6,8 +6,9 @@
 #include "Brofiler/Brofiler.h"
 #include "Object.h"
 
-Object::Object(iPoint position, SDL_Rect section)
+Object::Object(iPoint position)
 {
+	this->position = position;
 }
 
 Object::~Object()
