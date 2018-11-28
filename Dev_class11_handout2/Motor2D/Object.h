@@ -6,7 +6,8 @@
 #include "p2List.h"
 
 struct SDL_Texture;
-class Label;
+
+
 class Object
 {
 public:
@@ -22,13 +23,16 @@ public:
 	//------------Sfx----------------------
 
 public:
-	Object(iPoint position);
+	Object(iPoint position, SDL_Rect section);
 	
 	virtual ~Object();
 
+	p2SString             name;
 	iPoint                position;
-	Animation			  animation;
+	Animation			  anim;
 	SDL_Rect			  section;
+	SDL_Texture*		  tex;
+
 
 	// Virtual methods ================================
 	virtual bool Draw() { return true; };
@@ -37,4 +41,4 @@ public:
 
 };
 
-#endif // __Object_H__
+#endif // __Entity_H__
