@@ -4,6 +4,7 @@
 
 Object::Object(iPoint position)
 {
+	this->position = position;
 }
 
 Object::~Object()

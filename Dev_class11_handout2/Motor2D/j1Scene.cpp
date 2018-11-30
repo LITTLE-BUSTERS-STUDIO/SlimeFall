@@ -51,9 +51,9 @@ bool j1Scene::Start()
 	Animation animation;
 	animation.PushBack({ 485, 829, 328, 103 });
 
-	_TTF_Font * font = App->font->Load("fonts/open_sans/OpenSans-Regular.ttf",10);
-    banner = App->gui->CreateImage(iPoint( 200, 500) , animation);
-	label = App->gui->CreateLabel(iPoint(200, 400),p2SString ("Hello World") ,font );
+	_TTF_Font * font = App->font->Load("fonts/open_sans/OpenSans-Bold.ttf", 12);
+    banner = App->gui->CreateImage(iPoint( 0, 0) , animation);
+	label = App->gui->CreateLabel(iPoint(0, -75),p2SString ("Hello World") ,font );
 
 	return true;
 }
@@ -153,8 +153,8 @@ bool j1Scene::PostUpdate()
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
-	label->Draw();
 	banner->Draw();
+	label->Draw();
 
 	return ret;
 }

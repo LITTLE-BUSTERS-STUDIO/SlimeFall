@@ -8,6 +8,7 @@ Image::Image(iPoint position, Animation animation, SDL_Texture * texture): Objec
 	this->texture = texture;
 }
 
+
 Image::~Image()
 {
 
