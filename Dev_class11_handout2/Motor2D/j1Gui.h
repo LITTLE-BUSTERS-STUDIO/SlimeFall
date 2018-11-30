@@ -67,6 +67,7 @@ private:
 	p2List<Object*> objects_list;
 	Object* selected = nullptr;
 	bool show_cursor = false;
+	bool debug = false;
 };
 
 

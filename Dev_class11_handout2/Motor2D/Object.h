@@ -19,6 +19,7 @@ public:
 	iPoint                position;
 	Animation			  animation;
 	SDL_Rect			  section;
+	SDL_Texture         * texture = nullptr;
 
 	// Virtual methods ================================
 	virtual bool Draw() { return true; };

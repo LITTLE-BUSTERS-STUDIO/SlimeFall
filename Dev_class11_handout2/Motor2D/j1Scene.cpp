@@ -52,8 +52,8 @@ bool j1Scene::Start()
 	animation.PushBack({ 485, 829, 328, 103 });
 
 	_TTF_Font * font = App->font->Load("fonts/open_sans/OpenSans-Bold.ttf", 12);
-    banner = App->gui->CreateImage(iPoint( 0, 0) , animation);
-	label = App->gui->CreateLabel(iPoint(0, -75),p2SString ("Hello World") ,font );
+    banner = App->gui->CreateImage(iPoint( 300, 300) , animation);
+	label = App->gui->CreateLabel(iPoint( 300,230),p2SString ("Hello World") ,font );
 
 	return true;
 }

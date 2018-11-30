@@ -17,7 +17,9 @@ Image::~Image()
 bool Image::Draw()
 {
 	SDL_Rect anim_rect = animation.GetCurrentFrame();
-	App->render->Blit( texture ,  position.x - anim_rect.w/2 , position.y - anim_rect.h / 2, &anim_rect);
+	section.w = anim_rect.w;
+	section.h = anim_rect.h;
+	App->render->Blit( texture ,  position.x - section.w/2 , position.y - section.h / 2, &section, 0.0f);
 	return true;
 }
 

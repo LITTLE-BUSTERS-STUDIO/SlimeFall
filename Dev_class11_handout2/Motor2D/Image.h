@@ -18,7 +18,6 @@ public:
 
 private:
 
-	SDL_Texture* texture = nullptr;
 };
 
 #endif // _Image_H__
