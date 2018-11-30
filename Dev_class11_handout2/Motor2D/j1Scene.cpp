@@ -9,7 +9,10 @@
 #include "j1Map.h"
 #include "j1PathFinding.h"
 #include "j1Gui.h"
+#include "j1Fonts.h"
 #include "j1Scene.h"
+#include "Label.h"
+#include "Image.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -45,6 +48,12 @@ bool j1Scene::Start()
 	debug_tex = App->tex->Load("maps/path2.png");
 
 	// TODO 3: Create the banner (rect {485, 829, 328, 103}) and the text "Hello World"
+	Animation animation;
+	animation.PushBack({ 485, 829, 328, 103 });
+
+	_TTF_Font * font = App->font->Load("fonts/open_sans/OpenSans-Regular.ttf",10);
+    banner = App->gui->CreateImage(iPoint( 200, 500) , animation);
+	label = App->gui->CreateLabel(iPoint(200, 400),p2SString ("Hello World") ,font );
 
 	return true;
 }
@@ -143,6 +152,9 @@ bool j1Scene::PostUpdate()
 
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
+
+	label->Draw();
+	banner->Draw();
 
 	return ret;
 }

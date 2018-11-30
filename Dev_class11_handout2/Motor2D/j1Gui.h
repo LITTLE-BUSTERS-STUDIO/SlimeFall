@@ -3,6 +3,7 @@
 
 #include "j1Module.h"
 #include "Animation.h"
+#include "SDL_ttf/include/SDL_ttf.h"
 
 #define CURSOR_WIDTH 2
 
@@ -13,7 +14,6 @@
 class Object;
 class Label;
 class Image;
-class _TTF_Font;
 
 enum class Object_Type
 {
@@ -44,7 +44,7 @@ public:
 
 	Label* CreateLabel(iPoint position, p2SString text, _TTF_Font* font );
 
-	Image* CreateImage(iPoint position, Animation animation);
+	Image* CreateImage(iPoint position, Animation animation, SDL_Texture* texture = nullptr);
 
 	// ----------------------------------------------------------------------------
 

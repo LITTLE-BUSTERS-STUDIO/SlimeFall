@@ -3,6 +3,7 @@
 #include "Label.h"
 #include "j1Fonts.h"
 
+
 Label::Label(iPoint position, p2SString text, _TTF_Font* font): Object(position)
 {
 	this->text = text;
@@ -14,8 +15,9 @@ Label::~Label()
 
 }
 
-void Label::SetText()
+void Label::SetText(p2SString text)
 {
+	text.create(text.GetString());
 }
 
 bool Label::Draw()

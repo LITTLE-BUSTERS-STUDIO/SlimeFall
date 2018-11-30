@@ -5,12 +5,7 @@
 #include "Object.h"
 #include "j1Gui.h"
 #include "p2Point.h"
-#include "SDL\include\SDL_pixels.h"
-
-
-struct SDL_Texture;
-struct _TTF_Font;
-
+#include "SDL_ttf/include/SDL_ttf.h"
 
 class Label : public Object
 {
@@ -22,13 +17,13 @@ public:
 	virtual ~Label();
 
 	// Set the text
-	void SetText();
+	void SetText(p2SString text);
 
 	// Draw label
 	bool Draw();
 
 public:
-	_TTF_Font*			font;
+	_TTF_Font*			font = nullptr;
 	p2SString		    text;
 
 };

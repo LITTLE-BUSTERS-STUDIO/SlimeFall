@@ -10,11 +10,15 @@ class Image: public Object
 
 public:
 
-	Image (iPoint position, Animation animation);
+	Image (iPoint position, Animation animation, SDL_Texture * texture = nullptr);
 
 	virtual ~Image();
 
 	bool Draw();
+
+private:
+
+	SDL_Texture* texture = nullptr;
 };
 
 #endif // _Image_H__

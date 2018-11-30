@@ -6,10 +6,10 @@
 #include "j1Fonts.h"
 #include "j1Input.h"
 #include "j1Gui.h"
-
 #include "Object.h"
 #include "Label.h"
 #include "Image.h"
+#include "SDL_ttf/include/SDL_ttf.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -56,6 +56,16 @@ bool j1Gui::CleanUp()
 {
 	LOG("Freeing GUI");
 
+	p2List_item<Object*>* object;
+	object = objects_list.start;
+
+	while (object != NULL)
+	{
+		RELEASE(object->data);
+		object = object->next;
+	}
+	objects_list.clear();
+
 	return true;
 }
 
@@ -70,10 +80,25 @@ bool j1Gui::CleanUp()
 Label* j1Gui::CreateLabel(iPoint position, p2SString text, _TTF_Font* font)
 {
 	Label* object = new Label(position, text, font);
-	
+	objects_list.add(object);
+	return object;
+
 }
 
-Image* j1Gui::CreateImage(iPoint position, Animation animation)
+Image* j1Gui::CreateImage(iPoint position, Animation animation, SDL_Texture* texture)
 {
+	SDL_Texture* tex = nullptr;
 
+	if (texture == nullptr)
+	{
+		tex = atlas;
+	}
+	else
+	{
+		tex = texture;
+	}
+
+	Image* object = new Image(position, animation, tex);
+	objects_list.add(object);
+	return object;
 }
