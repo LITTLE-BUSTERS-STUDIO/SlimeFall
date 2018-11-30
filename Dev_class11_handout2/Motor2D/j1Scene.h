@@ -2,10 +2,13 @@
 #define __j1SCENE_H__
 
 #include "j1Module.h"
+#include "Animation.h"
 
 struct SDL_Texture;
 class Image;
 class Label;
+class Button_Input;
+
 
 class j1Scene : public j1Module
 {
@@ -38,6 +41,11 @@ private:
 	SDL_Texture* debug_tex;
 	Image* banner = nullptr;
 	Label* label = nullptr;
+	Button_Input* button = nullptr;
+	//Test
+	Animation animation_button;
+
+
 };
 
 #endif // __j1SCENE_H__

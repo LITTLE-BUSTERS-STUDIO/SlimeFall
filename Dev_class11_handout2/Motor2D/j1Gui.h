@@ -14,6 +14,7 @@
 class Object;
 class Label;
 class Image;
+class Button_Input;
 
 enum class Object_Type
 {
@@ -21,6 +22,13 @@ enum class Object_Type
 	label
 };
 
+//enum Button_States {
+//	ENABLE,
+//	DISABLE,
+//	HOVE_IN,
+//	CLICKED
+//
+//};
 
 class j1Gui : public j1Module
 {
@@ -46,6 +54,8 @@ public:
 
 	Image* CreateImage(iPoint position, Animation animation, SDL_Texture* texture = nullptr);
 
+	Button_Input* CreateButton(iPoint position, Animation animation, SDL_Texture* texture = nullptr);
+
 	// ----------------------------------------------------------------------------
 
 	SDL_Texture* GetAtlas();
@@ -67,6 +77,9 @@ private:
 	p2List<Object*> objects_list;
 	Object* selected = nullptr;
 	bool show_cursor = false;
+
+	//Button_States current_state;
+
 };
 
 

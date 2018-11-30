@@ -1,5 +1,5 @@
-#ifndef _Image_H__
-#define _Image_H__
+#ifndef _IMAGE_H__
+#define _IMAGE_H__
 
 #include "p2Point.h"
 #include "Animation.h"
@@ -21,5 +21,5 @@ private:
 	SDL_Texture* texture = nullptr;
 };
 
-#endif // _Image_H__
+#endif // _IMAGE_H__
 

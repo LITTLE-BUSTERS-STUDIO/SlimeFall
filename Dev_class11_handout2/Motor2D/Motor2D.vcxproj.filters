@@ -58,6 +58,9 @@
     <ClCompile Include="Image.cpp">
       <Filter>Desenvolupament  ========\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="Button_Input.cpp">
+      <Filter>Desenvolupament  ========\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -136,6 +139,9 @@
       <Filter>Desenvolupament  ========\GUI</Filter>
     </ClInclude>
     <ClInclude Include="Image.h">
+      <Filter>Desenvolupament  ========\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Button_Input.h">
       <Filter>Desenvolupament  ========\GUI</Filter>
     </ClInclude>
   </ItemGroup>

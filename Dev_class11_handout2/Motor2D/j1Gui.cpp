@@ -9,6 +9,7 @@
 #include "Object.h"
 #include "Label.h"
 #include "Image.h"
+#include "Button_Input.h"
 #include "SDL_ttf/include/SDL_ttf.h"
 
 j1Gui::j1Gui() : j1Module()
@@ -100,5 +101,24 @@ Image* j1Gui::CreateImage(iPoint position, Animation animation, SDL_Texture* tex
 
 	Image* object = new Image(position, animation, tex);
 	objects_list.add(object);
+	return object;
+}
+
+Button_Input* j1Gui::CreateButton(iPoint position, Animation animation, SDL_Texture * texture)
+{
+	SDL_Texture* tex = nullptr;
+
+	if (texture == nullptr)
+	{
+		tex = atlas;
+	}
+	else
+	{
+		tex = texture;
+	}
+
+	Button_Input* object = new Button_Input(position, animation, tex);
+	objects_list.add(object);
+
 	return object;
 }

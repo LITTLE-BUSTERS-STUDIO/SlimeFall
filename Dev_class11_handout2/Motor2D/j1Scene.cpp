@@ -13,6 +13,7 @@
 #include "j1Scene.h"
 #include "Label.h"
 #include "Image.h"
+#include "Button_Input.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -48,12 +49,22 @@ bool j1Scene::Start()
 	debug_tex = App->tex->Load("maps/path2.png");
 
 	// TODO 3: Create the banner (rect {485, 829, 328, 103}) and the text "Hello World"
-	Animation animation;
-	animation.PushBack({ 485, 829, 328, 103 });
+	Animation animation_image;
+
+	animation_image.PushBack({ 485, 829, 328, 103 });
+	Animation animation_button1;
+	//Animation animation_button2;
+	//Animation animation_button3;
+	animation_button1.PushBack({ 0,113,229,69 });
+	/*animation_button2.PushBack({ 411,169,229,69 });
+	animation_button3.PushBack({ 642,169,229,69 });*/
 
 	_TTF_Font * font = App->font->Load("fonts/open_sans/OpenSans-Bold.ttf", 12);
-    banner = App->gui->CreateImage(iPoint( 0, 0) , animation);
-	label = App->gui->CreateLabel(iPoint(0, -75),p2SString ("Hello World") ,font );
+    banner = App->gui->CreateImage(iPoint( 0, 0) , animation_image);
+	label = App->gui->CreateLabel(iPoint(0, -75),p2SString ("Hello World"), font);
+	
+	button = App->gui->CreateButton(iPoint(0, 75), animation_button1);
+
 
 	return true;
 }
@@ -92,7 +103,8 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {
 	// Gui ---
-	
+
+
 	// -------
 	if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 		App->LoadGame("save_game.xml");
@@ -155,6 +167,7 @@ bool j1Scene::PostUpdate()
 
 	banner->Draw();
 	label->Draw();
+	button->Draw();
 
 	return ret;
 }
