@@ -52,6 +52,14 @@ public:
 
 private:
 
+	bool UpdateMouseIcon();
+
+	bool CheckOnHover();
+
+	bool CheckOnClick();
+
+	bool DeleteObject();
+
 	// ---------------------------------------
 	SDL_Texture* atlas;
 	p2SString atlas_file_name;
@@ -61,13 +69,6 @@ private:
 	bool show_cursor = false;
 };
 
-//private:
-//
-//	bool UpdateMouseIcon();
-//
-//	bool CheckClick();
-//
-//	bool DeleteObject();
 
 
 #endif // __j1GUI_H__
