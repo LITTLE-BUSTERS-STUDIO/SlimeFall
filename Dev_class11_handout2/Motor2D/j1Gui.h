@@ -60,6 +60,8 @@ public:
 
 	SDL_Texture* GetAtlas();
 
+	bool debug = false;
+
 private:
 
 	bool UpdateMouseIcon();

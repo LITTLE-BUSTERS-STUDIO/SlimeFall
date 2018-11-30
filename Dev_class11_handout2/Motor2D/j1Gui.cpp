@@ -43,12 +43,41 @@ bool j1Gui::Start()
 // Update all guis
 bool j1Gui::PreUpdate()
 {
+	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
+		debug = !debug;
+
+	// Detect hover on ============================================
+	SDL_Rect rect;
+	int x, y;
+	App->input->GetMousePosition(x, y);
+
+	LOG("MOUSE X: %i Y: %i", x, y);
+
+	for (p2List_item<Object*> * item = objects_list.start; item; item = item->next)
+	{
+		rect.x = item->data->position.x - item->data->section.w / 2;
+		rect.y = item->data->position.y - item->data->section.h / 2;
+		rect.w = item->data->section.w;
+		rect.h = item->data->section.h;
+
+		if (x > rect.x && x < rect.x + rect.w && y > rect.y && y < rect.y + rect.h)
+		{
+			item->data->hover_on = true;
+		}
+		else
+		{
+			item->data->hover_on = false;
+		}
+	}
+	// Detect click ===============================================
+
 	return true;
 }
 
 // Called after all Updates
 bool j1Gui::PostUpdate()
 {
+
 	return true;
 }
 

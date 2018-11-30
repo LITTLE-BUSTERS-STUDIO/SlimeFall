@@ -7,7 +7,7 @@
 
 Label::Label(iPoint position, p2SString text, _TTF_Font* font): Object(position)
 {
-	this->text = text;
+	SetText(text);
 	this->font = font;
 }
 
@@ -19,17 +19,19 @@ Label::~Label()
 void Label::SetText(p2SString text)
 {
 	text.create(text.GetString());
+
+	App->font->CalcSize(text.GetString(), section.w, section.h, font);
+	section.x = section.y = 0;
+	
+	SDL_Color color = { 255, 255, 255, 255 };
+	texture = App->font->Print(text.GetString(), color, font);
+
 }
 
 bool Label::Draw()
 {
-	SDL_Rect rect;
-	App->font->CalcSize(text.GetString(), rect.w, rect.h, font);
-	rect.x = rect.y = 0;
-
-	SDL_Color color = { 255, 255, 255, 255 };
-	SDL_Texture * texture = App->font->Print(text.GetString(), color, font);
-	App->render->Blit(texture, position.x- rect.w/2, position.y - rect.h / 2, &rect);
+	App->render->Blit(texture, position.x- section.w/2, position.y - section.h / 2, &section, 0.0f);
+	DegubDraw();
 	return false;
 }
 
