@@ -3,9 +3,10 @@
 #include "Object.h"
 #include "j1Gui.h"
 
-Object::Object(iPoint position)
+Object::Object(iPoint position/*, j1Module* listener*/)
 {
 	this->position = position;
+	this->listener = listener;
 }
 
 Object::~Object()
@@ -23,7 +24,15 @@ bool Object::DegubDraw()
 		rect.w = section.w;
 		rect.h = section.h;
 
-		App->render->DrawQuad(rect, 255, 0, 0, 100);
+		if (hover_on)
+		{
+			App->render->DrawQuad(rect, 255, 0, 0, 100, true, false);
+		}
+		else
+		{
+			App->render->DrawQuad(rect, 255, 100, 40, 100, true, false);
+		}
+	
 	}
 	return true;
 }
