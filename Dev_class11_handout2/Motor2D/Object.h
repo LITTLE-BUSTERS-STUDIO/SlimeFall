@@ -24,6 +24,7 @@ public:
 	// Virtual methods ================================
 	virtual bool Draw() { return true; };
 
+	bool DegubDraw();
 };
 
 #endif // __Object_H__

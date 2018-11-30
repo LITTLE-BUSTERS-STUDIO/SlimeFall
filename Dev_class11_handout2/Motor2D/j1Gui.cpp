@@ -42,25 +42,15 @@ bool j1Gui::Start()
 // Update all guis
 bool j1Gui::PreUpdate()
 {
+	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
+		debug = !debug;
+
 	return true;
 }
 
 // Called after all Updates
 bool j1Gui::PostUpdate()
 {
-	if (debug)
-	{
-		SDL_Rect rect;
-		for (p2List_item<Object*>* item = objects_list.start; item; item = item->next)
-		{
-			rect.x = item->data->position.x - item->data->section.w / 2;
-			rect.y = item->data->position.y - item->data->section.h / 2;
-			rect.w = item->data->section.w;
-			rect.h = item->data->section.h;
-
-			App->render->DrawQuad(rect, 255, 0 , 0 , 100);
-		}
-	}
 
 	return true;
 }

@@ -31,6 +31,7 @@ void Label::SetText(p2SString text)
 bool Label::Draw()
 {
 	App->render->Blit(texture, position.x- section.w/2, position.y - section.h / 2, &section, 0.0f);
+	DegubDraw();
 	return false;
 }
 
