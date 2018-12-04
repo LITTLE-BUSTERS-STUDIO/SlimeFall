@@ -5,7 +5,7 @@
 #include "j1Fonts.h"
 
 
-Label::Label(iPoint position, p2SString text, _TTF_Font* font): Object(position)
+Label::Label(iPoint position, p2SString text, _TTF_Font* font, Gui_Listener* listener): Object(position, listener)
 {
 	SetText(text);
 	this->font = font;

@@ -3,7 +3,7 @@
 #include "Object.h"
 #include "j1Gui.h"
 
-Object::Object(iPoint position/*, j1Module* listener*/)
+Object::Object(iPoint position, Gui_Listener *listener)
 {
 	this->position = position;
 	this->listener = listener;

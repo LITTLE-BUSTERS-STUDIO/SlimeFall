@@ -10,7 +10,7 @@ class Button_Input : public Object
 
 public:
 
-	Button_Input(iPoint position, Animation animation, SDL_Texture * texture = nullptr);
+	Button_Input(iPoint position, Animation animation, SDL_Texture * texture = nullptr, Gui_Listener * listener = nullptr);
 
 	virtual ~Button_Input();
 

@@ -44,6 +44,8 @@ public:
 
 	bool PreUpdate();
 
+	bool Update(float dt);
+
 	bool PostUpdate();
 
 	bool CleanUp();
@@ -85,6 +87,9 @@ private:
 class Gui_Listener
 {
 public:
+	Gui_Listener()
+	{}
+
 	virtual bool OnHover(Object* object) { return true; }
 };
 

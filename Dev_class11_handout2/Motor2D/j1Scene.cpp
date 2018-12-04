@@ -178,3 +178,20 @@ bool j1Scene::CleanUp()
 
 	return true;
 }
+
+bool j1Scene::OnHover(Object* object)
+{
+	if (label == object)
+	{
+		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+		{
+			label->SetText(p2SString("BOI"));
+		}
+		else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
+		{
+			label->SetText(p2SString("Hello World"));
+		}
+	}
+
+	return true;
+}

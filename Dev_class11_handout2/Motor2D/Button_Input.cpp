@@ -4,7 +4,7 @@
 #include  "p2Log.h"
 
 
-Button_Input::Button_Input(iPoint position, Animation animation, SDL_Texture * texture) : Object(position)
+Button_Input::Button_Input(iPoint position, Animation animation, SDL_Texture * texture, Gui_Listener* listener) : Object(position, listener)
 {
 	this->animation = animation;
 	this->texture = texture;

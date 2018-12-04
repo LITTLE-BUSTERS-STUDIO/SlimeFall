@@ -5,7 +5,6 @@
 #include "j1Textures.h"
 #include "j1Fonts.h"
 #include "j1Input.h"
-#include "j1Gui.h"
 #include "Object.h"
 #include "Label.h"
 #include "Image.h"
@@ -74,6 +73,24 @@ bool j1Gui::PreUpdate()
 	return true;
 }
 
+bool j1Gui::Update(float dt)
+{
+	for (p2List_item<Object*> * item = objects_list.start; item; item = item->next)
+	{
+		if (item->data->hover_on)
+		{
+			if (item->data->listener)
+			{
+				item->data->listener->OnHover(item->data);
+			}
+			else
+				LOG("OnHover failed, listener was nullptr");
+			
+		}
+	}
+
+	return true;
+}
 // Called after all Updates
 bool j1Gui::PostUpdate()
 {

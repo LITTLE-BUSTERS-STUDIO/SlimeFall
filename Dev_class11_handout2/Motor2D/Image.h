@@ -10,7 +10,7 @@ class Image: public Object
 
 public:
 
-	Image (iPoint position, Animation animation, SDL_Texture * texture = nullptr);
+	Image (iPoint position, Animation animation, SDL_Texture * texture = nullptr,  Gui_Listener* listener = nullptr);
 
 	virtual ~Image();
 

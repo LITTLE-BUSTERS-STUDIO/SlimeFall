@@ -3,14 +3,16 @@
 
 #include "j1Module.h"
 #include "Animation.h"
+#include "j1Gui.h"
 
 struct SDL_Texture;
 class Image;
+class Object;
 class Label;
 class Button_Input;
+class Gui_Listener;
 
-
-class j1Scene : public j1Module
+class j1Scene : public j1Module , public Gui_Listener
 {
 public:
 
@@ -36,6 +38,8 @@ public:
 
 	// Called before quitting
 	bool CleanUp();
+
+	bool OnHover(Object* object);
 
 private:
 	SDL_Texture* debug_tex;

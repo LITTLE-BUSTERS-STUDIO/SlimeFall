@@ -2,7 +2,7 @@
 #include "j1Render.h"
 #include "j1Gui.h"
 
-Image::Image(iPoint position, Animation animation, SDL_Texture * texture): Object(position)
+Image::Image(iPoint position, Animation animation, SDL_Texture * texture, Gui_Listener* listener): Object(position, listener)
 {
 	this->animation = animation;
 	this->texture = texture;

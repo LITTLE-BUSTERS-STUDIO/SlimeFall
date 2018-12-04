@@ -11,7 +11,7 @@ class Label : public Object
 {
 public:
 
-	Label(iPoint position, p2SString text, _TTF_Font* font);
+	Label(iPoint position, p2SString text, _TTF_Font* font, Gui_Listener* listener = nullptr);
 
 	// Destructor
 	virtual ~Label();

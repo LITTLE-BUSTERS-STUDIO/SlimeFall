@@ -13,7 +13,7 @@ class Object
 {
 
 public:
-	Object(iPoint position /*, j1Module *listener*/);
+	Object(iPoint position , Gui_Listener *listener);
 	
 	virtual ~Object();
 
