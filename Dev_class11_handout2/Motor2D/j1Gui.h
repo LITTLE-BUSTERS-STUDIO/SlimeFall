@@ -68,8 +68,6 @@ private:
 
 	bool CheckOnHover();
 
-	bool CheckOnClick();
-
 	bool DeleteObject();
 
 	// ---------------------------------------
@@ -82,6 +80,12 @@ private:
 
 	//Button_States current_state;
 
+};
+
+class Gui_Listener
+{
+public:
+	virtual bool OnHover(Object* object) { return true; }
 };
 
 

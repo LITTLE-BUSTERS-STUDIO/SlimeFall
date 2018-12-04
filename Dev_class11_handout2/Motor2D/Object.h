@@ -7,7 +7,7 @@
 #include "j1Module.h"
 
 struct SDL_Texture;
-class j1Module;
+class Gui_Listener;
 
 class Object
 {
@@ -29,7 +29,7 @@ public:
 	Animation			  animation;
 	SDL_Rect			  section;
 	SDL_Texture         * texture = nullptr;
-	j1Module            * listener = nullptr;
+	Gui_Listener        * listener = nullptr;
 };
 
 #endif // __Object_H__
