@@ -30,7 +30,7 @@ bool Button_Input::Draw()
 		break;
 	case Button_State::pushed:
 		anim_rect = button_animation.pushed_rect;
-		if (!hover_on)
+		if (!hover_on) //TO DO: Change this hardcoded!!!
 			current_state = Button_State::normal;
 		break;
 	default:
