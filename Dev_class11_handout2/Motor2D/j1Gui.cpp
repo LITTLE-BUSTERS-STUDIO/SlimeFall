@@ -124,15 +124,15 @@ bool j1Gui::CleanUp()
 
 // class Gui ---------------------------------------------------
 
-Label* j1Gui::CreateLabel(iPoint position, p2SString text, _TTF_Font* font)
+Label* j1Gui::CreateLabel(iPoint position, p2SString text, _TTF_Font* font, Gui_Listener* listener)
 {
-	Label* object = new Label(position, text, font);
+	Label* object = new Label(position, text, font, listener);
 	objects_list.add(object);
 	return object;
 
 }
 
-Image* j1Gui::CreateImage(iPoint position, Animation animation, SDL_Texture* texture)
+Image* j1Gui::CreateImage(iPoint position, Animation animation, SDL_Texture* texture, Gui_Listener* listener)
 {
 	SDL_Texture* tex = nullptr;
 
@@ -145,12 +145,12 @@ Image* j1Gui::CreateImage(iPoint position, Animation animation, SDL_Texture* tex
 		tex = texture;
 	}
 
-	Image* object = new Image(position, animation, tex);
+	Image* object = new Image(position, animation, tex, listener);
 	objects_list.add(object);
 	return object;
 }
 
-Button_Input* j1Gui::CreateButton(iPoint position, Animation animation, SDL_Texture * texture)
+Button_Input* j1Gui::CreateButton(iPoint position, Animation animation, SDL_Texture * texture, Gui_Listener* listener)
 {
 	SDL_Texture* tex = nullptr;
 
@@ -163,7 +163,7 @@ Button_Input* j1Gui::CreateButton(iPoint position, Animation animation, SDL_Text
 		tex = texture;
 	}
 
-	Button_Input* object = new Button_Input(position, animation, tex);
+	Button_Input* object = new Button_Input(position, animation, tex, listener);
 	objects_list.add(object);
 
 	return object;

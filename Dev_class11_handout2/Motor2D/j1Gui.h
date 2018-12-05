@@ -15,6 +15,7 @@ class Object;
 class Label;
 class Image;
 class Button_Input;
+class Gui_Listener;
 
 enum class Object_Type
 {
@@ -52,11 +53,11 @@ public:
 
 	// Creation functions ---------------------------------------------------------
 
-	Label* CreateLabel(iPoint position, p2SString text, _TTF_Font* font );
+	Label* CreateLabel(iPoint position, p2SString text, _TTF_Font* font , Gui_Listener* listener = nullptr);
 
-	Image* CreateImage(iPoint position, Animation animation, SDL_Texture* texture = nullptr);
+	Image* CreateImage(iPoint position, Animation animation, SDL_Texture* texture = nullptr, Gui_Listener* listener = nullptr);
 
-	Button_Input* CreateButton(iPoint position, Animation animation, SDL_Texture* texture = nullptr);
+	Button_Input* CreateButton(iPoint position, Animation animation, SDL_Texture* texture = nullptr, Gui_Listener* listener = nullptr);
 
 	// ----------------------------------------------------------------------------
 

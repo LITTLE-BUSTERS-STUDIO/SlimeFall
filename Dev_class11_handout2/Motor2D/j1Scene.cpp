@@ -61,7 +61,7 @@ bool j1Scene::Start()
 
 	_TTF_Font * font = App->font->Load("fonts/open_sans/OpenSans-Bold.ttf", 12);
     banner = App->gui->CreateImage(iPoint( 500, 500) , animation_image);
-	label = App->gui->CreateLabel(iPoint(500, 530),p2SString ("Hello World"), font);
+	label = App->gui->CreateLabel(iPoint(500, 530),p2SString ("Hello World"), font, this);
 	button = App->gui->CreateButton(iPoint(500, 600), animation_button1);
 
 
