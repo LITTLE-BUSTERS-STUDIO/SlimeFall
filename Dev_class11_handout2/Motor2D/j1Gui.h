@@ -65,6 +65,8 @@ public:
 
 	bool debug = false;
 
+	iPoint selected_offset;
+
 private:
 
 	bool UpdateMouseIcon();

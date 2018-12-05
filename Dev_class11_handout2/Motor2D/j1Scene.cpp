@@ -54,7 +54,7 @@ bool j1Scene::Start()
 	Button_Animation animation_button1({ 0,113,229,69 }, { 411,169,229,69 }, { 642,169,229,69 });
 
 	_TTF_Font * font = App->font->Load("fonts/open_sans/OpenSans-Bold.ttf", 12);
-    banner = App->gui->CreateImage(iPoint( 500, 500) , animation_image);
+    banner = App->gui->CreateImage(iPoint( 500, 500) , animation_image, nullptr, this);
 	label = App->gui->CreateLabel(iPoint(500, 530),p2SString ("Hello World"), font, this);
 	button = App->gui->CreateButton(iPoint(500, 600), animation_button1, nullptr, this);
 
@@ -191,6 +191,27 @@ bool j1Scene::OnHover(Object* object)
 	{
 	    button->ChangeState();
 	}
+
+	if (banner == object)
+	{
+		iPoint mouse_pos;
+		App->input->GetMousePosition(mouse_pos.x, mouse_pos.y);
+
+		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+		{
+			App->gui->selected_offset.x = mouse_pos.x - banner->position.x;
+			App->gui->selected_offset.y = mouse_pos.y - banner->position.y;
+		}
+	    if ( App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
+		{
+			
+			//banner->position = mouse_pos;
+			banner->position.x = mouse_pos.x - App->gui->selected_offset.x;
+			banner->position.y = mouse_pos.y - App->gui->selected_offset.y;
+		}
+
+	}
+
 
 	return true;
 }
