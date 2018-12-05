@@ -11,6 +11,7 @@ class Object;
 class Label;
 class Button_Input;
 class Gui_Listener;
+class Button_Animation;
 
 class j1Scene : public j1Module , public Gui_Listener
 {

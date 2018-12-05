@@ -150,7 +150,7 @@ Image* j1Gui::CreateImage(iPoint position, Animation animation, SDL_Texture* tex
 	return object;
 }
 
-Button_Input* j1Gui::CreateButton(iPoint position, Animation animation, SDL_Texture * texture, Gui_Listener* listener)
+Button_Input* j1Gui::CreateButton(iPoint position, Button_Animation animation, SDL_Texture * texture, Gui_Listener* listener)
 {
 	SDL_Texture* tex = nullptr;
 

@@ -76,6 +76,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Button_Input.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="j1Fonts.cpp" />

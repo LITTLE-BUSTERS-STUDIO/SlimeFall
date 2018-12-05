@@ -48,21 +48,15 @@ bool j1Scene::Start()
 
 	debug_tex = App->tex->Load("maps/path2.png");
 
-	// TODO 3: Create the banner (rect {485, 829, 328, 103}) and the text "Hello World"
 	Animation animation_image;
 
 	animation_image.PushBack({ 485, 829, 328, 103 });
-	Animation animation_button1;
-	Animation animation_button2;
-	Animation animation_button3;
-	animation_button1.PushBack({ 0,113,229,69 });
-	animation_button2.PushBack({ 411,169,229,69 });
-	animation_button3.PushBack({ 642,169,229,69 });
+	Button_Animation animation_button1({ 0,113,229,69 }, { 411,169,229,69 }, { 642,169,229,69 });
 
 	_TTF_Font * font = App->font->Load("fonts/open_sans/OpenSans-Bold.ttf", 12);
     banner = App->gui->CreateImage(iPoint( 500, 500) , animation_image);
 	label = App->gui->CreateLabel(iPoint(500, 530),p2SString ("Hello World"), font, this);
-	button = App->gui->CreateButton(iPoint(500, 600), animation_button1);
+	button = App->gui->CreateButton(iPoint(500, 600), animation_button1, nullptr, this);
 
 
 	return true;
@@ -191,6 +185,11 @@ bool j1Scene::OnHover(Object* object)
 		{
 			label->SetText(p2SString("Hello World"));
 		}
+	}
+
+	if (button == object)
+	{
+	    button->ChangeState();
 	}
 
 	return true;
