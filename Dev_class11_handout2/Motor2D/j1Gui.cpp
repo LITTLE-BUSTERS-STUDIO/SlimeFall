@@ -14,6 +14,7 @@
 j1Gui::j1Gui() : j1Module()
 {
 	name.create("gui");
+	screen = new Object({ 0,0 }, nullptr);
 }
 
 // Destructor
@@ -206,6 +207,7 @@ bool j1Gui::CleanUp()
 Label* j1Gui::CreateLabel(iPoint position, p2SString text, _TTF_Font* font, Gui_Listener* listener)
 {
 	Label* object = new Label(position, text, font, listener);
+	//object->SetAnchor(screen, false);
 	objects_list.add(object);
 	return object;
 

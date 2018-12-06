@@ -80,7 +80,7 @@ private:
 	// Objects ---------------------------------------------
 	p2List<Object*> objects_list;
 
-	Object root;
+	Object* screen = nullptr;
 
 	Object* clicked_object = nullptr;
 
