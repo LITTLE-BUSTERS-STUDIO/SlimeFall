@@ -42,6 +42,8 @@ public:
 
 	bool OnHover(Object* object);
 
+	bool OutHover(Object* object);
+
 private:
 	SDL_Texture* debug_tex;
 	Image* banner = nullptr;

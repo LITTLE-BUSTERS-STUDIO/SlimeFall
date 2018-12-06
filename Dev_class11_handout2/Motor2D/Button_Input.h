@@ -24,8 +24,6 @@ public:
 
 	bool Draw();
 
-	bool ChangeState();
-
 private:
 
 	SDL_Texture * texture = nullptr;

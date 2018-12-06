@@ -2,6 +2,7 @@
 #include "j1Render.h"
 #include "Object.h"
 #include "j1Gui.h"
+#include "p2Log.h"
 
 Object::Object(iPoint position, Gui_Listener *listener)
 {
@@ -13,26 +14,49 @@ Object::~Object()
 {
 }
 
-bool Object::DegubDraw()
+iPoint Object::GetPosition() const
 {
-	if (App->gui->debug)
+	return position;
+}
+
+void Object::SetPosition(const iPoint position) 
+{
+	this->position = position;
+}
+
+bool Object::SetAnchor(Object * anchor, bool transform_to_relative)
+{
+	if (anchor == nullptr)
 	{
-		SDL_Rect rect;
-
-		rect.x = position.x - section.w / 2;
-		rect.y = position.y - section.h / 2;
-		rect.w = section.w;
-		rect.h = section.h;
-
-		if (hover_on)
-		{
-			App->render->DrawQuad(rect, 255, 0, 0, 100, true, false);
-		}
-		else
-		{
-			App->render->DrawQuad(rect, 255, 100, 40, 100, true, false);
-		}
-	
+		LOG("Failed SetAnchor");
+		return false;
 	}
+
+	// Set Parent =================================
+	anchor_parent = anchor;
+
+	if (transform_to_relative)
+	{
+		position = position - anchor_parent->position;
+	}
+
+	// Add to parent sons =========================
+	anchor_parent->GetAnchorSons()->add(this);
+
 	return true;
+}
+
+p2List<Object*>* Object::GetAnchorSons() 
+{
+	return &anchor_sons;
+}
+
+Object * Object::GetAnchorParent()
+{
+	return anchor_parent;
+}
+
+void Object::IsDraggable(const bool is_draggable)
+{
+	this->is_draggable = is_draggable;
 }

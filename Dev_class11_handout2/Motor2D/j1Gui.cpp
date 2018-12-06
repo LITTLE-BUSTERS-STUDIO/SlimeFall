@@ -45,12 +45,11 @@ bool j1Gui::PreUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
 		debug = !debug;
 
-	// Detect hover on ============================================
-	SDL_Rect rect;
-	int x, y;
-	App->input->GetMousePosition(x, y);
+	 App->input->GetMousePosition(cursor_position.x, cursor_position.y);
 
-	LOG("MOUSE X: %i Y: %i", x, y);
+	// Hover States ============================================
+
+	SDL_Rect rect;
 
 	for (p2List_item<Object*> * item = objects_list.start; item; item = item->next)
 	{
@@ -59,42 +58,122 @@ bool j1Gui::PreUpdate()
 		rect.w = item->data->section.w;
 		rect.h = item->data->section.h;
 
-		if (x > rect.x && x < rect.x + rect.w && y > rect.y && y < rect.y + rect.h)
+		if (cursor_position.x > rect.x && cursor_position.x < rect.x + rect.w && cursor_position.y > rect.y && cursor_position.y < rect.y + rect.h)
 		{
-			item->data->hover_on = true;
+			if (item->data->hover_state == HoverState::None)
+				item->data->hover_state = HoverState::On;
+			else
+				item->data->hover_state = HoverState::Repeat;
 		}
 		else
 		{
-			item->data->hover_on = false;
+			if (item->data->hover_state == HoverState::On || item->data->hover_state == HoverState::Repeat)
+				item->data->hover_state = HoverState::Out;
+			else
+				item->data->hover_state = HoverState::None;
 		}
 	}
-	// Detect click ===============================================
+
+	// Click States ============================================
+	
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	{
+		SelectClickedObject();
+	}
+	else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT && clicked_object)
+	{
+		click_state = ClickState::Repeat;
+	}
+	else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP && clicked_object)
+	{
+		click_state = ClickState::Out;
+	}
+	else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_IDLE && clicked_object)
+	{
+		click_state = ClickState::None;
+		clicked_object = nullptr;
+	}
+
+
+
+
 
 	return true;
 }
 
 bool j1Gui::Update(float dt)
 {
-	for (p2List_item<Object*> * item = objects_list.start; item; item = item->next)
+	//Draggable ================================================
+
+	if (clicked_object && clicked_object->is_draggable)
 	{
-		if (item->data->hover_on)
+		switch (click_state)
 		{
-			if (item->data->listener)
-			{
-				item->data->listener->OnHover(item->data);
-			}
-			else
-				LOG("OnHover failed, listener was nullptr");
-			
+		case ClickState::On:
+			App->gui->SetCursorOffset(cursor_position - clicked_object->GetPosition());
+			break;
+		case ClickState::Repeat:
+			clicked_object->SetPosition(cursor_position - App->gui->GetCursorOffset());
+			break;
+		case ClickState::Out:
+			App->gui->SetCursorOffset({0,0});
+			break;
 		}
 	}
 
+	for (p2List_item<Object*> * item = objects_list.start; item; item = item->next)
+	{
+		if (!item->data->listener)
+		{
+			LOG("Object callback failed, listener was nullptr");
+			continue;
+		}
+
+		switch (item->data->hover_state)
+		{
+		case HoverState::On:
+			item->data->listener->OnHover(item->data);
+			break;
+		case HoverState::Out:
+			item->data->listener->OutHover(item->data);
+			break;
+		case HoverState::Repeat:
+			item->data->listener->OnHover(item->data);
+			break;
+		}
+	}
 	return true;
 }
+
 // Called after all Updates
 bool j1Gui::PostUpdate()
 {
+	for (p2List_item<Object*> * item = objects_list.start; item; item = item->next)
+	{
+		item->data->Draw();
+	}
 
+	if (App->gui->debug)
+	{
+		SDL_Rect rect;
+
+		for (p2List_item<Object*> * item = objects_list.start; item; item = item->next)
+		{
+			rect.x = item->data->position.x - item->data->section.w / 2;
+			rect.y = item->data->position.y - item->data->section.h / 2;
+			rect.w = item->data->section.w;
+			rect.h = item->data->section.h;
+
+			if (item->data->hover_state == HoverState::On || item->data->hover_state == HoverState::Repeat)
+			{
+				App->render->DrawQuad(rect, 255, 0, 0, 100, true, false);
+			}
+			else
+			{
+				App->render->DrawQuad(rect, 255, 100, 40, 100, true, false);
+			}
+		}
+	}
 	return true;
 }
 
@@ -117,7 +196,7 @@ bool j1Gui::CleanUp()
 }
 
 // const getter for atlas
- SDL_Texture* j1Gui::GetAtlas() 
+ SDL_Texture* j1Gui::GetAtlas() const 
 {
 	return atlas;
 }
@@ -167,4 +246,60 @@ Button_Input* j1Gui::CreateButton(iPoint position, Button_Animation animation, S
 	objects_list.add(object);
 
 	return object;
+}
+
+Object * j1Gui::GetClickedObject()
+{
+	return clicked_object;
+}
+
+iPoint j1Gui::GetCursorOffset() const
+{
+	return cursor_offset;
+}
+
+void j1Gui::SetCursorOffset(const iPoint offset)
+{
+	cursor_offset = offset;
+}
+
+bool j1Gui::SelectClickedObject()
+{
+	p2List<Object*> clicked_objects;
+
+	for (p2List_item<Object*> * item = objects_list.start; item; item = item->next)
+	{
+		if (item->data->hover_state == HoverState::On || item->data->hover_state == HoverState::Repeat)
+		{
+			clicked_objects.add(item->data);
+		}
+	}
+
+	// Select nearest object -------------------------------
+	if (clicked_objects.count() > 0)
+	{
+		Object* nearest_object = nullptr;
+		int nearest_object_position = -1;
+
+		for (p2List_item<Object*> * item = clicked_objects.start; item; item = item->next)
+		{
+			int count = 0;
+			for (Object* iterator = item->data; iterator; iterator = iterator->anchor_parent)
+			{
+				++count;
+			}
+
+			if (count > nearest_object_position)
+			{
+				nearest_object_position = count;
+				nearest_object = item->data;
+			}
+
+		}
+
+		clicked_object = nearest_object;
+		click_state = ClickState::On;
+	}
+
+	return true;
 }

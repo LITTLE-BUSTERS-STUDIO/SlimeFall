@@ -55,9 +55,12 @@ bool j1Scene::Start()
 
 	_TTF_Font * font = App->font->Load("fonts/open_sans/OpenSans-Bold.ttf", 12);
     banner = App->gui->CreateImage(iPoint( 500, 500) , animation_image, nullptr, this);
+	banner->IsDraggable(true);
 	label = App->gui->CreateLabel(iPoint(500, 530),p2SString ("Hello World"), font, this);
+	label->IsDraggable(true);
+	label->SetAnchor(banner, false);
 	button = App->gui->CreateButton(iPoint(500, 600), animation_button1, nullptr, this);
-
+	button->IsDraggable(true);
 
 	return true;
 }
@@ -158,9 +161,7 @@ bool j1Scene::PostUpdate()
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
-	banner->Draw();
-	label->Draw();
-	button->Draw();
+
 
 	return ret;
 }
@@ -177,41 +178,22 @@ bool j1Scene::OnHover(Object* object)
 {
 	if (label == object)
 	{
-		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
-		{
-			label->SetText(p2SString("BOI"));
-		}
-		else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
-		{
-			label->SetText(p2SString("Hello World"));
-		}
-	}
-
-	if (button == object)
-	{
-	    button->ChangeState();
+		label->SetText(p2SString("Hello Booooi"));
 	}
 
 	if (banner == object)
 	{
-		iPoint mouse_pos;
-		App->input->GetMousePosition(mouse_pos.x, mouse_pos.y);
-
-		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
-		{
-			App->gui->selected_offset.x = mouse_pos.x - banner->position.x;
-			App->gui->selected_offset.y = mouse_pos.y - banner->position.y;
-		}
-	    if ( App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
-		{
-			
-			//banner->position = mouse_pos;
-			banner->position.x = mouse_pos.x - App->gui->selected_offset.x;
-			banner->position.y = mouse_pos.y - App->gui->selected_offset.y;
-		}
 
 	}
+	return true;
+}
 
+bool  j1Scene::OutHover(Object* object)
+{
+	if (label == object)
+	{
+		label->SetText(p2SString("Hello World"));
+	}
 
 	return true;
 }
