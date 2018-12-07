@@ -33,6 +33,8 @@ public:
 
 	void SetPosition(const iPoint position);
 
+	void SetRelativePosition(const iPoint position);
+
 	bool SetAnchor(Object* anchor, bool transform_to_relative);
 
 	p2List<Object*>* GetAnchorSons(); 
@@ -47,6 +49,7 @@ public:
 protected:
 
 	iPoint                position;
+	iPoint                relative_position;
 	Animation			  animation;
 	SDL_Rect			  section;
 	SDL_Texture         * texture = nullptr;

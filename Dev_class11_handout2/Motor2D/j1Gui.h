@@ -54,6 +54,8 @@ public:
 	// Object functions ----------------------------------------------------------
 	Object*  GetClickedObject();
 
+	Object* GetScreen();
+
 	bool DeleteObject(Object* object);
 
 	// Cursor functions ----------------------------------------------------------
@@ -67,6 +69,10 @@ public:
 private:
 
 	bool SelectClickedObject();
+
+	void DrawGui(Object* object); // Recursive function to draw gui as a tree
+
+	void UpdateGuiPositions(Object* object, iPoint cumulated_position);
 
 private:
 

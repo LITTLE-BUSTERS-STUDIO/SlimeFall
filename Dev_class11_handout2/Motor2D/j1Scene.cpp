@@ -54,13 +54,17 @@ bool j1Scene::Start()
 	Button_Animation animation_button1({ 0,113,229,69 }, { 411,169,229,69 }, { 642,169,229,69 });
 
 	_TTF_Font * font = App->font->Load("fonts/open_sans/OpenSans-Bold.ttf", 12);
+
     banner = App->gui->CreateImage(iPoint( 500, 500) , animation_image, nullptr, this);
 	banner->IsDraggable(true);
-	label = App->gui->CreateLabel(iPoint(500, 530),p2SString ("Hello World"), font, this);
+	
+	button_1 = App->gui->CreateButton(iPoint(500, 600), animation_button1, nullptr, this);
+	button_1->SetAnchor(banner, true);
+	button_1->IsDraggable(true);
+
+	label = App->gui->CreateLabel(iPoint(500, 530), p2SString("Hello World"), font, this);
 	label->IsDraggable(true);
-	label->SetAnchor(banner, false);
-	button = App->gui->CreateButton(iPoint(500, 600), animation_button1, nullptr, this);
-	button->IsDraggable(true);
+	label->SetAnchor(button_1, true);
 
 	return true;
 }
@@ -161,8 +165,6 @@ bool j1Scene::PostUpdate()
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
-
-
 	return ret;
 }
 
@@ -181,10 +183,7 @@ bool j1Scene::OnHover(Object* object)
 		label->SetText(p2SString("Hello Booooi"));
 	}
 
-	if (banner == object)
-	{
 
-	}
 	return true;
 }
 

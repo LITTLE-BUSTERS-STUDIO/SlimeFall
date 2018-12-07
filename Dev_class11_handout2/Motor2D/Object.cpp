@@ -24,21 +24,40 @@ void Object::SetPosition(const iPoint position)
 	this->position = position;
 }
 
+void Object::SetRelativePosition(const iPoint relative_position)
+{
+	this->relative_position = relative_position;
+}
+
 bool Object::SetAnchor(Object * anchor, bool transform_to_relative)
 {
 	if (anchor == nullptr)
 	{
-		LOG("Failed SetAnchor");
+		LOG("Failed SetAnchor, anchor was nullptr");
 		return false;
+	}
+	// Delete previous parent =====================
+	if (anchor_parent)
+	{
+		p2List<Object*> *sons = anchor_parent->GetAnchorSons();
+		int object_index = sons->find(this);
+
+		if (object_index != -1)
+		{
+			sons->del(sons->At(object_index));
+			anchor_parent = nullptr;
+		}
+		else
+		{
+			LOG("Failed SetAnchor, object as son not found");
+			return false;
+		}
 	}
 
 	// Set Parent =================================
 	anchor_parent = anchor;
 
-	if (transform_to_relative)
-	{
-		position = position - anchor_parent->position;
-	}
+	relative_position = position - anchor_parent->position;
 
 	// Add to parent sons =========================
 	anchor_parent->GetAnchorSons()->add(this);

@@ -48,7 +48,7 @@ private:
 	SDL_Texture* debug_tex;
 	Image* banner = nullptr;
 	Label* label = nullptr;
-	Button_Input* button = nullptr;
+	Button_Input* button_1 = nullptr;
 	//Test
 	Animation animation_button;
 

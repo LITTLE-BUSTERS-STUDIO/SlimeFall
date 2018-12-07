@@ -94,11 +94,6 @@ bool j1Gui::PreUpdate()
 		click_state = ClickState::None;
 		clicked_object = nullptr;
 	}
-
-
-
-
-
 	return true;
 }
 
@@ -115,6 +110,7 @@ bool j1Gui::Update(float dt)
 			break;
 		case ClickState::Repeat:
 			clicked_object->SetPosition(cursor_position - App->gui->GetCursorOffset());
+			clicked_object->SetRelativePosition(clicked_object->GetPosition() - clicked_object->GetAnchorParent()->GetPosition());
 			break;
 		case ClickState::Out:
 			App->gui->SetCursorOffset({0,0});
@@ -143,38 +139,16 @@ bool j1Gui::Update(float dt)
 			break;
 		}
 	}
+
+	UpdateGuiPositions(screen, { 0,0 });
+
 	return true;
 }
 
 // Called after all Updates
 bool j1Gui::PostUpdate()
 {
-	for (p2List_item<Object*> * item = objects_list.start; item; item = item->next)
-	{
-		item->data->Draw();
-	}
-
-	if (App->gui->debug)
-	{
-		SDL_Rect rect;
-
-		for (p2List_item<Object*> * item = objects_list.start; item; item = item->next)
-		{
-			rect.x = item->data->position.x - item->data->section.w / 2;
-			rect.y = item->data->position.y - item->data->section.h / 2;
-			rect.w = item->data->section.w;
-			rect.h = item->data->section.h;
-
-			if (item->data->hover_state == HoverState::On || item->data->hover_state == HoverState::Repeat)
-			{
-				App->render->DrawQuad(rect, 255, 0, 0, 100, true, false);
-			}
-			else
-			{
-				App->render->DrawQuad(rect, 255, 100, 40, 100, true, false);
-			}
-		}
-	}
+	DrawGui(screen);
 	return true;
 }
 
@@ -202,12 +176,12 @@ bool j1Gui::CleanUp()
 	return atlas;
 }
 
-// class Gui ---------------------------------------------------
+// Creation methods =================================================================
 
 Label* j1Gui::CreateLabel(iPoint position, p2SString text, _TTF_Font* font, Gui_Listener* listener)
 {
 	Label* object = new Label(position, text, font, listener);
-	//object->SetAnchor(screen, false);
+	object->SetAnchor(screen, false);
 	objects_list.add(object);
 	return object;
 
@@ -227,6 +201,7 @@ Image* j1Gui::CreateImage(iPoint position, Animation animation, SDL_Texture* tex
 	}
 
 	Image* object = new Image(position, animation, tex, listener);
+	object->SetAnchor(screen, false);
 	objects_list.add(object);
 	return object;
 }
@@ -245,14 +220,22 @@ Button_Input* j1Gui::CreateButton(iPoint position, Button_Animation animation, S
 	}
 
 	Button_Input* object = new Button_Input(position, animation, tex, listener);
+	object->SetAnchor(screen, false);
 	objects_list.add(object);
 
 	return object;
 }
 
+// ====================================================================================
+
 Object * j1Gui::GetClickedObject()
 {
 	return clicked_object;
+}
+
+Object * j1Gui::GetScreen()
+{
+	return screen;
 }
 
 iPoint j1Gui::GetCursorOffset() const
@@ -304,4 +287,43 @@ bool j1Gui::SelectClickedObject()
 	}
 
 	return true;
+}
+
+void j1Gui::DrawGui(Object * object)
+{
+	object->Draw();
+
+	if (App->gui->debug)
+	{
+		SDL_Rect rect;
+		rect.x = object->position.x - object->section.w / 2;
+		rect.y = object->position.y - object->section.h / 2;
+		rect.w = object->section.w;
+		rect.h = object->section.h;
+
+		if (object->hover_state == HoverState::On || object->hover_state == HoverState::Repeat)
+		{
+			App->render->DrawQuad(rect, 255, 0, 0, 100, true, false);
+		}
+		else
+		{
+			App->render->DrawQuad(rect, 255, 100, 40, 100, true, false);
+		}
+	}
+
+	for (p2List_item<Object*> *item = object->anchor_sons.start; item; item = item->next)
+	{
+		DrawGui(item->data);
+	}
+}
+
+void j1Gui::UpdateGuiPositions(Object * object, iPoint cumulated_position)
+{
+	cumulated_position += object->relative_position;
+	object->position = cumulated_position;
+
+	for (p2List_item<Object*> *item = object->anchor_sons.start; item; item = item->next)
+	{
+		UpdateGuiPositions(item->data, cumulated_position);
+	}
 }
