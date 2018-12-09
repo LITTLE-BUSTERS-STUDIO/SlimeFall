@@ -181,48 +181,25 @@ bool j1Gui::CleanUp()
 Label* j1Gui::CreateLabel(iPoint position, p2SString text, _TTF_Font* font, Gui_Listener* listener)
 {
 	Label* object = new Label(position, text, font, listener);
-	object->SetAnchor(screen, false);
+	object->SetAnchor(screen);
 	objects_list.add(object);
 	return object;
 
 }
 
-Image* j1Gui::CreateImage(iPoint position, Animation animation, SDL_Texture* texture, Gui_Listener* listener)
+Image* j1Gui::CreateImage(iPoint position, Animation animation, Gui_Listener* listener)
 {
-	SDL_Texture* tex = nullptr;
-
-	if (texture == nullptr)
-	{
-		tex = atlas;
-	}
-	else
-	{
-		tex = texture;
-	}
-
-	Image* object = new Image(position, animation, tex, listener);
-	object->SetAnchor(screen, false);
+	Image* object = new Image(position, animation, atlas, listener);
+	object->SetAnchor(screen);
 	objects_list.add(object);
 	return object;
 }
 
-Button_Input* j1Gui::CreateButton(iPoint position, Button_Animation animation, SDL_Texture * texture, Gui_Listener* listener)
+Button_Input* j1Gui::CreateButton(iPoint position, Button_Animation animation, Gui_Listener* listener)
 {
-	SDL_Texture* tex = nullptr;
-
-	if (texture == nullptr)
-	{
-		tex = atlas;
-	}
-	else
-	{
-		tex = texture;
-	}
-
-	Button_Input* object = new Button_Input(position, animation, tex, listener);
-	object->SetAnchor(screen, false);
+	Button_Input* object = new Button_Input(position, animation, atlas, listener);
+	object->SetAnchor(screen);
 	objects_list.add(object);
-
 	return object;
 }
 

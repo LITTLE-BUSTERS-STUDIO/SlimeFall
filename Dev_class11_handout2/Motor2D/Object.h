@@ -35,7 +35,7 @@ public:
 
 	void SetRelativePosition(const iPoint position);
 
-	bool SetAnchor(Object* anchor, bool transform_to_relative);
+	bool SetAnchor(Object* anchor);
 
 	p2List<Object*>* GetAnchorSons(); 
 

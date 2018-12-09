@@ -55,16 +55,16 @@ bool j1Scene::Start()
 
 	_TTF_Font * font = App->font->Load("fonts/open_sans/OpenSans-Bold.ttf", 12);
 
-    banner = App->gui->CreateImage(iPoint( 500, 500) , animation_image, nullptr, this);
+    banner = App->gui->CreateImage(iPoint( 500, 500) , animation_image, this);
 	banner->IsDraggable(true);
 	
-	button_1 = App->gui->CreateButton(iPoint(500, 600), animation_button1, nullptr, this);
-	button_1->SetAnchor(banner, true);
+	button_1 = App->gui->CreateButton(iPoint(500, 600), animation_button1, this);
+	button_1->SetAnchor(banner);
 	button_1->IsDraggable(true);
 
-	label = App->gui->CreateLabel(iPoint(500, 530), p2SString("Hello World"), font, this);
+	label = App->gui->CreateLabel(iPoint(500, 530), "Hello World", font, this);
 	label->IsDraggable(true);
-	label->SetAnchor(button_1, true);
+	label->SetAnchor(button_1);
 
 	return true;
 }
@@ -180,7 +180,7 @@ bool j1Scene::OnHover(Object* object)
 {
 	if (label == object)
 	{
-		label->SetText(p2SString("Hello Booooi"));
+		label->SetText("Hello Booooi");
 	}
 
 
@@ -191,7 +191,7 @@ bool  j1Scene::OutHover(Object* object)
 {
 	if (label == object)
 	{
-		label->SetText(p2SString("Hello World"));
+		label->SetText("Hello World");
 	}
 
 	return true;

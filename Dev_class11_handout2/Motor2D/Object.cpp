@@ -29,7 +29,7 @@ void Object::SetRelativePosition(const iPoint relative_position)
 	this->relative_position = relative_position;
 }
 
-bool Object::SetAnchor(Object * anchor, bool transform_to_relative)
+bool Object::SetAnchor(Object * anchor)
 {
 	if (anchor == nullptr)
 	{
