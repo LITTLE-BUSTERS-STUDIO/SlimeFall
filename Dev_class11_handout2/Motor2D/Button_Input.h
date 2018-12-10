@@ -24,11 +24,16 @@ public:
 
 	bool Draw();
 
+	bool SetLabel(/*Position position ,*/p2SString text/* , Color color ,*/);
+
 private:
 
 	SDL_Texture * texture = nullptr;
 	Button_State current_state = Button_State::normal;
 	Button_Animation button_animation;
+
+	// Components =================================
+	Label* label = nullptr;
 };
 
 #endif // _BUTTON_INPUT_H__

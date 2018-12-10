@@ -108,8 +108,11 @@ public:
 	{}
 
 	virtual bool OnHover(Object* object) { return true; }
+	virtual bool RepeatHover(Object* object) { return true; }
 	virtual bool OutHover(Object* object) { return true; }
+
 	virtual bool OnClick(Object* object) { return true; }
+	virtual bool RepeatClcik(Object* object) { return true; }
 	virtual bool OutClick(Object* object) { return true; }
 };
 

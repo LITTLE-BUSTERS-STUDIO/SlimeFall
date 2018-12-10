@@ -99,7 +99,7 @@ bool j1Gui::PreUpdate()
 
 bool j1Gui::Update(float dt)
 {
-	//Draggable ================================================
+	// Draggable ================================================
 
 	if (clicked_object && clicked_object->is_draggable)
 	{
@@ -117,6 +117,25 @@ bool j1Gui::Update(float dt)
 			break;
 		}
 	}
+	// Click Callbacks =============================================
+
+	if (clicked_object && clicked_object->listener)
+	{
+		switch (click_state)
+		{
+		case ClickState::On:
+			clicked_object->listener->OnClick(clicked_object);
+			break;
+		case ClickState::Repeat:
+			
+			break;
+		case ClickState::Out:
+		
+			break;
+		}
+	}
+
+	// Hover Callbacks =============================================
 
 	for (p2List_item<Object*> * item = objects_list.start; item; item = item->next)
 	{
@@ -256,9 +275,6 @@ bool j1Gui::SelectClickedObject()
 				nearest_object_position = count;
 				nearest_object = item->data;
 			}
-
-		}
-
 		clicked_object = nearest_object;
 		click_state = ClickState::On;
 	}
