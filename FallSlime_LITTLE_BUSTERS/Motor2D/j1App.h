@@ -20,6 +20,8 @@ class j1Player;
 class j1FadeToBlack;
 class EntityManager;
 class j1PathFinding;
+class j1Gui;
+class j1Fonts;
 
 class j1App
 {
@@ -92,23 +94,28 @@ private:
 
 public:
 
-	// Modules
-	j1Window*			win;
-	j1Input*			input;
-	j1Render*			render;
-	j1Textures*			tex;
-	j1Audio*			audio;
-	j1Scene*			scene;
-	j1Map*				map;
-	j1Collision*        collision;
-	j1FadeToBlack*		fade_to_black;
-	j1PathFinding*      path_finding;
-	EntityManager *     entity_manager;
+	// Modules =================================
+	j1Window*			win = nullptr;
+	j1Input*			input = nullptr;
+	j1Render*			render = nullptr;
+	j1Textures*			tex = nullptr;
+	j1Audio*			audio = nullptr;
+	j1Fonts*            font = nullptr;
+	j1Scene*			scene = nullptr;
+	j1Map*				map = nullptr;
+	j1Gui*              gui = nullptr;
+	j1Collision*        collision = nullptr;
+	j1FadeToBlack*		fade_to_black = nullptr;
+	j1PathFinding*      path_finding = nullptr;
+	EntityManager *     entity_manager = nullptr;
 
-	// Levels
+	// Scene ==================================
 	j1Scene*            level_1;
-	j1Scene*            level_2;
-	j1Scene*            current_level;
+	j1Scene*            current_scene;
+
+	// Framerate ==============================
+	bool					apply_cap_frames = true;
+	j1Timer					timer;
 
 private:
 
@@ -125,6 +132,8 @@ private:
 	p2SString			load_game;
 	mutable p2SString	save_game;
 
+
+	// Framerate =======================================
 	j1PerfTimer             perfect_frame_time;
 	j1Timer					frame_time;
 	j1Timer					start_time;
@@ -134,13 +143,6 @@ private:
 	uint64					frame_count = 0;
 	int					    framerate_cap = 0;
 	float                   dt = 0.00F;
-
-public:
-
-	bool					apply_cap_frames = true;
-	j1Timer					timer;
-
-
 };
 
 extern j1App* App;

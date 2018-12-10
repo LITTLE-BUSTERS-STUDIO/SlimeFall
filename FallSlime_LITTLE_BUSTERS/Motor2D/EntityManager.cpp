@@ -169,7 +169,7 @@ bool EntityManager::Start()
 		properties_list.add(enemy_properties);
 	}
 
-	App->current_level->LoadPhase(1);
+	App->current_scene->LoadPhase(1);
 
 	return true;
 }

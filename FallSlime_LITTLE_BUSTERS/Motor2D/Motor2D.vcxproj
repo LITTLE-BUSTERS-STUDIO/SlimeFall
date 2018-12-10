@@ -76,11 +76,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Button_Input.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Enemy_Skeleton.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Enemy_Bat.cpp" />
+    <ClCompile Include="Image.cpp" />
+    <ClCompile Include="j1Fonts.cpp" />
+    <ClCompile Include="j1Gui.cpp" />
+    <ClCompile Include="Label.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="j1FadeToBlack.cpp" />
     <ClCompile Include="j1Main.cpp" />
@@ -104,11 +109,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Button_Input.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Enemy_Skeleton.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Enemy_Bat.h" />
+    <ClInclude Include="Image.h" />
+    <ClInclude Include="j1Fonts.h" />
+    <ClInclude Include="j1Gui.h" />
+    <ClInclude Include="Label.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="j1Collision.h" />
     <ClInclude Include="j1FadeToBlack.h" />
