@@ -73,6 +73,9 @@
     <ClCompile Include="Object.cpp">
       <Filter>Desenvolupament  ========\Modules\Gameplay</Filter>
     </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>Desenvolupament  ========\Modules\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Scene.h">
@@ -167,6 +170,9 @@
     </ClInclude>
     <ClInclude Include="Object.h">
       <Filter>Desenvolupament  ========\Modules\Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.h">
+      <Filter>Desenvolupament  ========\Modules\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
