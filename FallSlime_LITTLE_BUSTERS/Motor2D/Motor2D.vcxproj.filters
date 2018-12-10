@@ -91,6 +91,9 @@
     <ClCompile Include="Object.cpp">
       <Filter>Modules\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Modules\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Scene.h">
@@ -203,6 +206,9 @@
     </ClInclude>
     <ClInclude Include="Object.h">
       <Filter>Modules\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Modules\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

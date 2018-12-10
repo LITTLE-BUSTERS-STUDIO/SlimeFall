@@ -41,7 +41,7 @@ bool EntityManager::Start()
 	LOG("Loading Entity Manager");
 
 	pugi::xml_document doc;
-	doc.load_file("entities.xml");
+	doc.load_file("data/entities.xml");
 	pugi::xml_node node = doc.child("entities");
 
 	// ===========================================================================================

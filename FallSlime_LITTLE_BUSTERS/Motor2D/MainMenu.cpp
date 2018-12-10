@@ -15,12 +15,10 @@ MainMenu::MainMenu() : j1Scene()
 	name.create("main_menu");
 }
 
-// Destructor
 MainMenu::~MainMenu()
 {}
 
 
-// Called before render is available
 bool MainMenu::Awake(pugi::xml_node& config)
 {
 	BROFILER_CATEGORY("MainMenu Awake", Profiler::Color::Maroon);
@@ -32,7 +30,6 @@ bool MainMenu::Awake(pugi::xml_node& config)
 	return ret;
 }
 
-// Called before the first frame
 bool MainMenu::Start()
 {
 	BROFILER_CATEGORY("MainMenu Start", Profiler::Color::MediumAquaMarine);
@@ -42,7 +39,6 @@ bool MainMenu::Start()
 	return true;
 }
 
-// Called each loop iteration
 bool MainMenu::Update(float dt)
 {
 	BROFILER_CATEGORY("MainMenu Update", Profiler::Color::MediumBlue);
@@ -50,7 +46,6 @@ bool MainMenu::Update(float dt)
 	return true;
 }
 
-// Called each loop iteration
 bool MainMenu::PostUpdate(float dt)
 {
 	BROFILER_CATEGORY("MainMenu PostUpdate", Profiler::Color::MediumOrchid);
@@ -62,7 +57,6 @@ bool MainMenu::PostUpdate(float dt)
 	return ret;
 }
 
-// Called before quitting
 bool MainMenu::CleanUp()
 {
 	BROFILER_CATEGORY("Level1 CleanUp", Profiler::Color::MediumPurple);
