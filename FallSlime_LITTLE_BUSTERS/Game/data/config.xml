@@ -14,7 +14,7 @@
     <level1_2 width="2600" high ="1000"/>
     <debug_border_margin value="4"/>
     <smooth_speed value="10"/>
-    <tremble value="8"/>
+    <tremble value="12"/>
   </renderer>
 
   <audio>
