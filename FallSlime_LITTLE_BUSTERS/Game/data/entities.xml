@@ -1,7 +1,6 @@
   <entities>
     
     <player name ="player">
-
       <collider width="20" height="20"/>
       <variables gravity ="1100" speed_air ="150.0" speed_ground ="0" speed_jump ="400" speed_gummy_jump ="180" speed_attack="600.0" />
       <animations>
@@ -23,7 +22,6 @@
         <death path ="audio/fx/death.wav"/>
         <attack path ="audio/fx/attack.wav"/>
       </sfx>
-
     </player>
 
     <enemy name ="bat">
@@ -57,6 +55,27 @@
         <death path ="audio/fx/skeleton_death.wav"/>
       </sfx>
     </enemy>
+    
+    <coin name ="coin">
 
+      <collider width="20" height="20"/>
+      <variables speed_coin ="600.0" />
+      <animations>
+        <anim_coin path ="animations/coin_animation.xml"/>
+      </animations>
+      <textures>
+        <tex_coin path ="textures/Coin.png"/>
+      </textures>
+      <sfx>
+        <jump1 path ="audio/fx/jump1.wav"/>
+        <jump2 path ="audio/fx/jump2.wav"/>
+        <jump3 path ="audio/fx/jump3.wav"/>
+        <jump4 path ="audio/fx/jump4.wav"/>
+        <jump5 path ="audio/fx/jump5.wav"/>
+        <death path ="audio/fx/death.wav"/>
+        <attack path ="audio/fx/attack.wav"/>
+      </sfx>
+
+    </coin>
 
   </entities>
