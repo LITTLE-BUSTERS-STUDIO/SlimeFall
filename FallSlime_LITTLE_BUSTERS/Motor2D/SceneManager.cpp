@@ -17,9 +17,6 @@
 
 #include "Brofiler/Brofiler.h"
 
-
-
-
 SceneManager::SceneManager() : j1Module()
 {
 	name.create("scene_manager");
@@ -32,16 +29,11 @@ bool SceneManager::Awake(pugi::xml_node& config)
 {
 	BROFILER_CATEGORY("Scene Manager Awake", Profiler::Color::Maroon);
 
-	LOG("Loading Scene Manager "); // All scenes information
+	LOG("Loading Scene Manager "); 
 
-	pugi::xml_document doc;
-	doc.load_file("data/scenes.xml");
-	pugi::xml_node node = doc.child("scenes");
-
-	current_scene = new Level_1;
-	level = (Level_1*)current_scene;
-	level->Awake(node.child(level->name.GetString()));
-
+	scenes_doc.load_file("data/scenes.xml");
+	pugi::xml_node node = scenes_doc.child("scenes");
+	default_scene_str.create(scenes_doc.child("scenes").child("default_scene").attribute("name").as_string(""));
 
 	return true;
 }
@@ -49,8 +41,6 @@ bool SceneManager::Awake(pugi::xml_node& config)
 bool SceneManager::Start()
 {
 	BROFILER_CATEGORY("Scene Manager Start", Profiler::Color::MediumAquaMarine);
-	level->Start();
-
 	return true;
 }
 
@@ -58,19 +48,19 @@ bool SceneManager::PreUpdate()
 {
 	BROFILER_CATEGORY("Scene PreUpdate", Profiler::Color::Linen);
 
+	if (default_scene_loaded == false)
+	{
+		LoadScene(default_scene_str);
+		default_scene_loaded = true;
+	}
+
 	if (current_scene == nullptr)
 	{
 		return true;
 	}
 	else
 	{
-		level->PreUpdate();
-	}
-
-	if (default_phase_loaded == false)
-	{
-		LoadPhase(current_scene->default_phase);
-		default_phase_loaded = true;
+		current_scene->PreUpdate();
 	}
 
 	// Assigment keys =======================================
@@ -109,7 +99,7 @@ bool SceneManager::Update(float dt)
 	}
 	else
 	{
-		level->Update(dt);
+		current_scene->Update(dt);
 	}
 	return true;
 }
@@ -125,7 +115,7 @@ bool SceneManager::PostUpdate(float dt)
 	}
 	else
 	{
-		level->PostUpdate(dt);
+		current_scene->PostUpdate();
 	}
 	return ret;
 }
@@ -136,6 +126,7 @@ bool SceneManager::CleanUp()
 
 	LOG("Freeing Scene Manager");
 
+	UnloadScene();
 
 	return true;
 }
@@ -163,20 +154,92 @@ bool SceneManager::LoadScene(p2SString name)
 {
 	UnloadScene();
 
-	current_scene = new Level_1;
+	j1Scene* scene_to_load = nullptr;
 
-	return false;
+	pugi::xml_node node_to_send;
+
+	// Search scene name on document scenes.xml =============
+
+	p2SString scene_name;
+
+	for (pugi::xml_node node = scenes_doc.child("scenes").child("scene"); node; node = node.next_sibling("scene"))
+	{
+		scene_name.create(node.attribute("name").as_string(""));
+
+		if (scene_name == name.GetString())
+		{
+			node_to_send = node;
+		}
+	}
+
+	if (node_to_send == NULL)
+	{
+		LOG("Error Loading scene with name: %s not found on scenes.xml", name.GetString());
+		return false;
+	}
+
+	// Create scene ========================================   // Add here all scene names 
+
+	if (name == "level_1")
+	{
+		scene_to_load = new Level_1();
+	}
+	else if (name == "main_menu")
+	{
+
+	}
+	
+	if (scene_to_load == nullptr)
+	{
+		LOG("Scene %s class not found. Add scene in LoadScene");
+		return false;
+	}
+
+	// Load phases ==========================================
+
+	scene_to_load->default_phase = node_to_send.attribute("default_phase").as_uint(0u);  // Default scene
+
+	for (pugi::xml_node node = node_to_send.child("phase"); node; node = node.next_sibling("phase"))
+	{
+		Phase* item = new Phase;
+		item->id = node.attribute("id").as_uint(0u);
+		item->map_path.create(node.attribute("map_path").as_string(""));
+		scene_to_load->phases.add(item);
+		LOG("Added phase id: %u with map path : %s", item->id, item->map_path.GetString());
+	}
+
+	// Current scene =======================================
+	current_scene = scene_to_load;
+	current_scene->LoadScene(node_to_send);
+	LoadPhase(scene_to_load->default_phase);
+
+	return true;
 }
 
 bool SceneManager::UnloadScene()
 {
-	if (current_scene)
+	if (!current_scene)
 	{
-		current_scene->CleanUp();
-		delete current_scene;
+		LOG("Could not unload scene: Current scene is nullptr");
+		return false;
 	}
+	// Unload scene ==========================
+	current_scene->UnloadScene();
 
-	return false;
+	// Unload phases ==========================
+	p2List_item<Phase*>* item;
+	item = current_scene->phases.start;
+	while (item != NULL)
+	{
+		RELEASE(item->data);
+		item = item->next;
+	}
+	current_scene->phases.clear();
+
+	// Delete scene ==========================
+	delete current_scene;
+
+	return true;
 }
 
 bool SceneManager::LoadPhase(uint phase_number, bool spawn)

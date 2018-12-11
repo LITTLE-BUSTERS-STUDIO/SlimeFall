@@ -13,10 +13,11 @@ struct Parallax {
 };
 
 struct Phase {
-	uint id;
-	p2SString map_path;
+	uint       id;
+	p2SString  map_path;
+	int        phase_width;
+	int        phase_hight;
 };
-
 
 class j1Scene
 {
@@ -26,15 +27,17 @@ public:
 
 	virtual ~j1Scene() {}
 
-	virtual bool Start() {return true; }
-
 	virtual bool PreUpdate() { return true; };
 
 	virtual bool Update(float dt) { return true; }
 
-	virtual bool PostUpdate(float dt) { return true; }
+	virtual bool PostUpdate() { return true; }
 
-	virtual bool CleanUp() { return true; }
+	//Scene Load & Unload ===============
+
+	virtual bool LoadScene(pugi::xml_node& node) { return true; }
+
+	virtual bool UnloadScene() { return true; }
 
 protected:
 
@@ -43,6 +46,7 @@ protected:
 	uint               default_phase;
 
 private:
+
 	friend SceneManager;
 };
 

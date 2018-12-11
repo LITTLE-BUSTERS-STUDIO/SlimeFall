@@ -44,6 +44,15 @@
   <map>
     <folder>maps/</folder>
   </map>
+
+  <scene_manager>
+    <document path="data/scenes.xml"/>
+  </scene_manager>
+
+  <entity_manager>
+    <document path="data/entities.xml"/>
+  </entity_manager>
+  
 </config>
 
  
