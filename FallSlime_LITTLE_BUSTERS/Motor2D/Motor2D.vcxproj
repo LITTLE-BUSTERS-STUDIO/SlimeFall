@@ -160,8 +160,10 @@
     <Xml Include="..\Game\animations\player_attack_animation.xml" />
     <Xml Include="..\Game\animations\player_death_animation.xml" />
     <Xml Include="..\Game\animations\skeleton_animation.xml" />
-    <Xml Include="..\Game\config.xml" />
-    <Xml Include="..\Game\save_game.xml" />
+    <Xml Include="..\Game\data\config.xml" />
+    <Xml Include="..\Game\data\entities.xml" />
+    <Xml Include="..\Game\data\save_game.xml" />
+    <Xml Include="..\Game\data\scenes.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

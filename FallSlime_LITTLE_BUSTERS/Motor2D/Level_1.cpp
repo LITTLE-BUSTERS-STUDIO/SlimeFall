@@ -44,12 +44,6 @@ bool Level_1::LoadScene(pugi::xml_node& node)
 	parallax_speed_2 = node.child("parallax_speed").attribute("medium").as_float(0.0f);
 	parallax_speed_3 = node.child("parallax_speed").attribute("high").as_float(0.0f);
 
-
-
-	// =============================================================================
-
-
-
 	for (uint i = 0; i < 4; i++)
 	{
 		parallax1[i].rect_parallax.x = background_width * i;
@@ -112,9 +106,9 @@ bool Level_1::PostUpdate()
 // Called before quitting
 bool Level_1::UnloadScene()
 {
-	BROFILER_CATEGORY("Level_1 CleanUp", Profiler::Color::MediumPurple);
+	BROFILER_CATEGORY("Level_1 Unload", Profiler::Color::MediumPurple);
 
-	LOG("Freeing scene");
+	LOG("Freeing level_1");
 	App->tex->UnLoad(paralax_tex_1);
 	App->tex->UnLoad(paralax_tex_2);
 	App->tex->UnLoad(paralax_tex_3);

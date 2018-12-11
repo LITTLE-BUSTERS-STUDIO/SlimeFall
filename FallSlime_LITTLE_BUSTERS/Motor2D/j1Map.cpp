@@ -532,8 +532,6 @@ bool j1Map::LoadColliders(pugi::xml_node& object_node, CollidersGroup* group)
 	group->colls = new Collider*[group->num_colliders];
 	uint counter = 0u;
 
-	LOG("Added %i colliders", group->num_colliders);
-
 	for (pugi::xml_node object_data = object_node.child("object"); object_data; object_data = object_data.next_sibling("object"))
 	{
 		SDL_Rect rect;
@@ -545,7 +543,8 @@ bool j1Map::LoadColliders(pugi::xml_node& object_node, CollidersGroup* group)
 		++counter;
 	}
 
-	LOG("Added colliders %s----", object_node.attribute("name").as_string());
+	LOG("Added %i %s", group->num_colliders, object_node.attribute("name").as_string());
+
 	return ret;
 }
 
