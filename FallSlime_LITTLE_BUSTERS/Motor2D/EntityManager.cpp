@@ -187,11 +187,6 @@ bool EntityManager::Start()
 	coin_properties->spawn_rect = { 0 , 0 , spawn_margin_node.attribute("width").as_int(0) , spawn_margin_node.attribute("height").as_int(0) };
 
 	//============== Variables ===================
-	pugi::xml_node variables_node = coin_node.child("variables");
-
-	coin_properties->speed_coin = variables_node.attribute("gravity").as_float(0);
-
-
 	//============== Textures ===================
 	pugi::xml_node textures_node = coin_node.child("textures");
 
