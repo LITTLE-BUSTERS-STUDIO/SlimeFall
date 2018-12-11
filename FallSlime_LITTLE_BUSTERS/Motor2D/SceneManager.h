@@ -31,29 +31,32 @@ public:
 
 	j1Scene* GetCurrentScene();
 
-	// Load & Save scene ==================================
-
+	// Load & Save game ====================================
 	bool Load(pugi::xml_node& node);
 
 	bool Save(pugi::xml_node& node) const;
 
+	// Load & Save scene ==================================
 	bool LoadScene(p2SString name);
 
 	bool UnloadScene();
 
-	// Load/ Unload phases and its map  ====================
+	// Load & Unload phases and its map  ====================
 
 	bool LoadPhase(uint phase_number, bool spawn = true);
 
 	bool NextPhase();
 
-
 private:
 
-	j1Scene*     current_scene = nullptr;
-	uint         current_phase = 0;
-	bool         default_phase_loaded = false;
-	Level_1* level;
+	j1Scene*                 current_scene = nullptr;
+	uint                     current_phase = 0u;
+	p2SString                default_scene_str;
+	bool                     default_scene_loaded = false;
+
+	// Document scenes.xml ==================
+	pugi::xml_document       scenes_doc;
+
 };
 
 #endif // __SCENE_MANAGER_H__

@@ -19,7 +19,7 @@
 
 EntityManager::EntityManager()
 {
-	name.create("entities");
+	name.create("entity_manager");
 }
 
 EntityManager::~EntityManager()
@@ -30,8 +30,8 @@ EntityManager::~EntityManager()
 bool EntityManager::Awake(pugi::xml_node& node)
 {
 	BROFILER_CATEGORY("EntityManager Awake", Profiler::Color::GreenYellow);
-
-
+	
+	
 
 	return true;
 }
@@ -192,9 +192,8 @@ bool EntityManager::CleanUp()
 	}
 	properties_list.clear();
 
-	// Remove all entities =====================================
 	LOG("Freeing all entities");
-
+	// Remove all entities =====================================
 	p2List_item<Entity*>* entities_item = entities.start;
 	
 	while (entities_item != NULL)
@@ -203,7 +202,6 @@ bool EntityManager::CleanUp()
 		RELEASE(entities_item->data);
 		entities_item = entities_item->next;
 	}
-	
 	entities.clear();
 
 	return true;
