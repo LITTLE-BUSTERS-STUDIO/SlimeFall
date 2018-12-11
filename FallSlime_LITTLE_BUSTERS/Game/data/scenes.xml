@@ -4,9 +4,10 @@
   </main_menu>
 
   <level_1 phases ="3" default_phase ="1">
-
-    <phase id ="1" map_path ="Level1_1.tmx"/>
-    <phase id= "2" map_path ="Level1_2.tmx"/>
+    
+    <phase id ="1" map_path ="Level1_Tutorial.tmx"/>
+    <phase id ="2" map_path ="Level1_1.tmx"/>
+    <phase id= "3" map_path ="Level1_2.tmx"/>
     
     <music path="audio/music/Level1.ogg"/>
     <background1 path="textures/Parallax1.png"/>
