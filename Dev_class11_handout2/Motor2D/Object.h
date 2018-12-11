@@ -9,6 +9,14 @@
 struct SDL_Texture;
 class Gui_Listener;
 
+enum class HoverState
+{
+	On,
+	Out,
+	Repeat,
+	None
+};
+
 class Object
 {
 
@@ -20,16 +28,40 @@ public:
 	// Virtual methods ================================
 	virtual bool Draw() { return true; };
 
-	bool DegubDraw();
+	// Common methods =================================
+	iPoint GetPosition() const;
+
+	void SetPosition(const iPoint position);
+
+	void SetRelativePosition(const iPoint position);
+
+	bool SetAnchor(Object* anchor);
+
+	p2List<Object*>* GetAnchorSons(); 
+
+	Object* GetAnchorParent();
+
+	void IsDraggable(const bool is_draggable);
 
 	// Variables ======================================
-	bool hover_on = false;
+	HoverState hover_state = HoverState::None;
+
+protected:
 
 	iPoint                position;
+	iPoint                relative_position;
 	Animation			  animation;
 	SDL_Rect			  section;
 	SDL_Texture         * texture = nullptr;
 	Gui_Listener        * listener = nullptr;
+
+	Object              * anchor_parent = nullptr;
+	p2List<Object*>       anchor_sons;
+
+	// Properties --------------------------------------
+	bool is_draggable = false;
+
+	friend class j1Gui;
 };
 
 #endif // __Object_H__

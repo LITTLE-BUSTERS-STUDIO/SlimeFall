@@ -19,7 +19,10 @@ class j1Map;
 class j1Player;
 class j1FadeToBlack;
 class EntityManager;
+class SceneManager;
 class j1PathFinding;
+class j1Gui;
+class j1Fonts;
 
 class j1App
 {
@@ -91,56 +94,56 @@ private:
 
 
 public:
-
-	// Modules
-	j1Window*			win;
-	j1Input*			input;
-	j1Render*			render;
-	j1Textures*			tex;
-	j1Audio*			audio;
-	j1Scene*			scene;
-	j1Map*				map;
-	j1Collision*        collision;
-	j1FadeToBlack*		fade_to_black;
-	j1PathFinding*      path_finding;
-	EntityManager *     entity_manager;
-
-	// Levels
+	// Modules =================================
+	j1Window*			win = nullptr;
+	j1Input*			input = nullptr;
+	j1Render*			render = nullptr;
+	j1Textures*			tex = nullptr;
+	j1Audio*			audio = nullptr;
+	j1Fonts*            font = nullptr;
+	j1Scene*			scene = nullptr;
+	j1Map*				map = nullptr;
+	j1Gui*              gui = nullptr;
+	j1Collision*        collision = nullptr;
+	j1FadeToBlack*		fade_to_black = nullptr;
+	j1PathFinding*      path_finding = nullptr;
+	EntityManager *     entity_manager = nullptr;
+	SceneManager *      scene_manager = nullptr;
+	// Scene ==================================
 	j1Scene*            level_1;
-	j1Scene*            level_2;
-	j1Scene*            current_level;
+	j1Scene*            current_scene;
+
+	// Framerate ==============================
+	bool			    apply_cap_frames = true;
+	j1Timer				timer;
 
 private:
 
 	p2List<j1Module*>	modules;
-	uint				frames;
 	int					argc;
 	char**				args;
 
 	p2SString			title;
 	p2SString			organization;
 
-	mutable bool		want_to_save;
-	bool				want_to_load;
+	mutable bool		want_to_save = false;
+	bool				want_to_load = false;
 	p2SString			load_game;
 	mutable p2SString	save_game;
 
-	j1PerfTimer             perfect_frame_time;
-	j1Timer					frame_time;
-	j1Timer					start_time;
-	j1Timer					last_sec_frame_time;
-	uint					last_sec_frame_count = 0;
-	uint					prev_last_sec_frame_count = 0;
-	uint64					frame_count = 0;
-	int					    framerate_cap = 0;
-	float                   dt = 0.00F;
 
-public:
+	// Framerate =======================================
+	uint				frames = 0;
+	uint64				frame_count = 0;
+	int					framerate_cap = 0;
+	float               dt = 0.00F;
+	uint				last_sec_frame_count = 0;
+	uint				prev_last_sec_frame_count = 0;
 
-	bool					apply_cap_frames = true;
-	j1Timer					timer;
-
-
+	j1Timer				last_sec_frame_time;
+	j1PerfTimer         perfect_frame_time;
+	j1Timer				frame_time;
+	j1Timer				start_time;
 };
 
 extern j1App* App;

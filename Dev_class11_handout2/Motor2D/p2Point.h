@@ -39,24 +39,36 @@ public:
 	}
 
 	// Math ------------------------------------------------
-	p2Point operator -(const p2Point &v) const
+	p2Point operator -(const p2Point &v) 
 	{
-		p2Vector2 r;
+		//x = x - v.x;
+		//y = y - v.y;
 
-		r.x = x - v.x;
-		r.y = y - v.y;
+		p2Point<TYPE> point;
+		point.x = x - v.x;
+		point.y = y - v.y;
 
-		return(r);
+		return point;
 	}
 
-	p2Point operator + (const p2Point &v) const
+	p2Point& operator + (const p2Point &v)
 	{
-		p2Vector2 r;
+		//x = x + v.x;
+		//y = y + v.y;
 
-		r.x = x + v.x;
-		r.y = y + v.y;
+		p2Point<TYPE> point;
+		point.x = x + v.x;
+		point.y = y + v.y;
 
-		return(r);
+		return point;
+	}
+
+	p2Point&  operator * (const TYPE &v)
+	{
+		x *= v;
+		y *= v;
+
+		return (*this);
 	}
 
 	const p2Point& operator -=(const p2Point &v)
@@ -126,6 +138,24 @@ public:
 	{
 		return abs(v.x - x) + abs(v.y - y);
 	}
+
+	void Normalize() {
+		float module = sqrt(x * x + y * y);
+		x = x / module;
+		y = y / module;
+	}
+
+	p2Point Normalized() {
+
+		p2Point normalized;
+		float module = sqrtf(x * x + y * y);
+		float norm_x, norm_x;
+		norm_x = x / module;
+		norm_x = x / module;
+
+		return p2Point(norm_x, norm_y)
+	}
+
 };
 
 typedef p2Point<int> iPoint;

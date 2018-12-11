@@ -54,10 +54,17 @@ bool j1Scene::Start()
 	Button_Animation animation_button1({ 0,113,229,69 }, { 411,169,229,69 }, { 642,169,229,69 });
 
 	_TTF_Font * font = App->font->Load("fonts/open_sans/OpenSans-Bold.ttf", 12);
-    banner = App->gui->CreateImage(iPoint( 500, 500) , animation_image);
-	label = App->gui->CreateLabel(iPoint(500, 530),p2SString ("Hello World"), font, this);
-	button = App->gui->CreateButton(iPoint(500, 600), animation_button1, nullptr, this);
 
+    banner = App->gui->CreateImage(iPoint( 500, 500) , animation_image, this);
+	banner->IsDraggable(true);
+	
+	button_1 = App->gui->CreateButton(iPoint(500, 600), animation_button1, this);
+	button_1->SetAnchor(banner);
+	button_1->IsDraggable(true);
+
+	label = App->gui->CreateLabel(iPoint(500, 530), "Hello World", font, this);
+	label->IsDraggable(true);
+	label->SetAnchor(button_1);
 
 	return true;
 }
@@ -158,10 +165,6 @@ bool j1Scene::PostUpdate()
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
-	banner->Draw();
-	label->Draw();
-	button->Draw();
-
 	return ret;
 }
 
@@ -177,19 +180,18 @@ bool j1Scene::OnHover(Object* object)
 {
 	if (label == object)
 	{
-		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
-		{
-			label->SetText(p2SString("BOI"));
-		}
-		else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
-		{
-			label->SetText(p2SString("Hello World"));
-		}
+		label->SetText("Hello Booooi");
 	}
 
-	if (button == object)
+
+	return true;
+}
+
+bool  j1Scene::OutHover(Object* object)
+{
+	if (label == object)
 	{
-	    button->ChangeState();
+		label->SetText("Hello World");
 	}
 
 	return true;

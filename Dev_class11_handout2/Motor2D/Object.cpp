@@ -2,6 +2,7 @@
 #include "j1Render.h"
 #include "Object.h"
 #include "j1Gui.h"
+#include "p2Log.h"
 
 Object::Object(iPoint position, Gui_Listener *listener)
 {
@@ -13,26 +14,68 @@ Object::~Object()
 {
 }
 
-bool Object::DegubDraw()
+iPoint Object::GetPosition() const
 {
-	if (App->gui->debug)
+	return position;
+}
+
+void Object::SetPosition(const iPoint position) 
+{
+	this->position = position;
+}
+
+void Object::SetRelativePosition(const iPoint relative_position)
+{
+	this->relative_position = relative_position;
+}
+
+bool Object::SetAnchor(Object * anchor)
+{
+	if (anchor == nullptr)
 	{
-		SDL_Rect rect;
+		LOG("Failed SetAnchor, anchor was nullptr");
+		return false;
+	}
+	// Delete previous parent =====================
+	if (anchor_parent)
+	{
+		p2List<Object*> *sons = anchor_parent->GetAnchorSons();
+		int object_index = sons->find(this);
 
-		rect.x = position.x - section.w / 2;
-		rect.y = position.y - section.h / 2;
-		rect.w = section.w;
-		rect.h = section.h;
-
-		if (hover_on)
+		if (object_index != -1)
 		{
-			App->render->DrawQuad(rect, 255, 0, 0, 100, true, false);
+			sons->del(sons->At(object_index));
+			anchor_parent = nullptr;
 		}
 		else
 		{
-			App->render->DrawQuad(rect, 255, 100, 40, 100, true, false);
+			LOG("Failed SetAnchor, object as son not found");
+			return false;
 		}
-	
 	}
+
+	// Set Parent =================================
+	anchor_parent = anchor;
+
+	relative_position = position - anchor_parent->position;
+
+	// Add to parent sons =========================
+	anchor_parent->GetAnchorSons()->add(this);
+
 	return true;
+}
+
+p2List<Object*>* Object::GetAnchorSons() 
+{
+	return &anchor_sons;
+}
+
+Object * Object::GetAnchorParent()
+{
+	return anchor_parent;
+}
+
+void Object::IsDraggable(const bool is_draggable)
+{
+	this->is_draggable = is_draggable;
 }

@@ -14,14 +14,15 @@
 #include "Level_1.h"
 #include "j1FadeToBlack.h"
 #include "EntityManager.h"
+#include "SceneManager.h"
+#include "j1Gui.h"
 #include "j1PathFinding.h"
+#include "j1Fonts.h"
 #include "Brofiler/Brofiler.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 {
-	frames = 0;
-	want_to_save = want_to_load = false;
 
 	input = new j1Input();
 	win = new j1Window();
@@ -29,29 +30,32 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	tex = new j1Textures();
 	collision = new j1Collision();
 	audio = new j1Audio();
+	font = new j1Fonts();
 	map = new j1Map();
 	level_1 = new Level_1();
 	entity_manager = new EntityManager();
+	scene_manager = new SceneManager();
+	gui = new j1Gui();
 	fade_to_black = new j1FadeToBlack();
 	path_finding = new j1PathFinding();
 
+	// Add modules ================================================
 	AddModule(input);
 	AddModule(win);
 	AddModule(tex);
 	AddModule(audio);
+	AddModule(font);
 	AddModule(map);
-	// Levels ===========================
-	AddModule(level_1);
-	// ==================================
-	AddModule(entity_manager);
-	AddModule(path_finding);
-	// Colission needs to be always before render
-	AddModule(collision);
-	AddModule(fade_to_black);
-	// Render last to swap buffer
-	AddModule(render);
 
-	current_level = level_1;
+	AddModule(level_1);
+
+	AddModule(path_finding);       // 1 Draw path im debug
+	AddModule(entity_manager);     // 3 Draw entities
+	AddModule(collision);          // 4 Draw colliders  // Colission needs to be always before render
+	AddModule(scene_manager);      // 5 Change scene and fadetoblack
+	AddModule(render);             // Render last to swap buffer
+
+	current_scene = level_1;
 }
 
 // Destructor
@@ -84,8 +88,8 @@ bool j1App::Awake()
 
 	bool ret = false;
 	
-	save_game.create("save_game.xml");
-	load_game.create("save_game.xml");
+	save_game.create("data/save_game.xml");
+	load_game.create("data/save_game.xml");
 	config = LoadConfig(config_file);
 
 	if(config.empty() == false)
@@ -158,7 +162,7 @@ pugi::xml_node j1App::LoadConfig(pugi::xml_document& config_file) const
 {
 	pugi::xml_node ret;
 
-	pugi::xml_parse_result result = config_file.load_file("config.xml");
+	pugi::xml_parse_result result = config_file.load_file("data/config.xml");
 
 	if(result == NULL)
 		LOG("Could not load map xml file config.xml. pugi error: %s", result.description());
