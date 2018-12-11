@@ -315,6 +315,8 @@ bool  EntityManager::UnloadEntities()
 		{
 			colliders->data->to_delete = true;
 		}
+		
+		item->data->colliders.clear();
 
 		p2List_item<Entity*>* iterator = item->next;
 

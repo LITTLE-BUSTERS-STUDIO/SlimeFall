@@ -51,6 +51,7 @@ struct CollidersGroup
 
 	~CollidersGroup()
 	{
+		delete [] colls;
 		colls = nullptr;
 	}
 };
