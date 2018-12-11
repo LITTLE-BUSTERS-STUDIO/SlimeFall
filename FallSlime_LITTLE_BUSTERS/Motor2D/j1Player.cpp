@@ -5,7 +5,7 @@
 #include "j1Textures.h"
 #include "j1Audio.h"
 #include "j1Render.h"
-#include "j1Scene.h"
+#include "SceneManager.h"
 #include "j1Window.h"
 #include "j1Collision.h"
 #include "j1Player.h"
@@ -506,7 +506,7 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 		collider->type = COLLIDER_NONE;
 		break;
 	case COLLIDER_NEXT_LEVEL:
-		App->current_scene->NextPhase();
+		App->scene_manager->NextPhase();
 		break;
 	case COLLIDER_ENEMY:
 

@@ -33,17 +33,21 @@ bool j1Render::Awake(pugi::xml_node& config)
 
 	zoom = config.child("debug").attribute("zoom").as_uint(1u);
 	max_zoom = config.child("debug").attribute("max_zoom").as_uint(1u);
-
-	phase1_width = config.child("level1_1").attribute("width").as_int(0);
-	phase1_high = config.child("level1_1").attribute("high").as_int(0);
-	phase2_width = config.child("level1_2").attribute("width").as_int(0);
-	phase2_high = config.child("level1_2").attribute("high").as_int(0);
 	vsync = config.child("vsync").attribute("value").as_bool(true);
 	margin = config.child("debug_border_margin").attribute("value").as_int(0);
 	smooth_speed = config.child("smooth_speed").attribute("value").as_uint(0U);
 	tremble = config.child("tremble").attribute("value").as_uint(0U);
 
-	// load flags
+	// hard code ====================================================================
+	phase1_width = config.child("level1_1").attribute("width").as_int(0);
+	phase1_high = config.child("level1_1").attribute("high").as_int(0);
+	phase2_width = config.child("level1_2").attribute("width").as_int(0);
+	phase2_high = config.child("level1_2").attribute("high").as_int(0);
+	// =============================================================================
+
+
+	// Load flags ====================================
+
 	Uint32 flags = SDL_RENDERER_ACCELERATED;
 	if (vsync)
 	{
@@ -59,9 +63,8 @@ bool j1Render::Awake(pugi::xml_node& config)
 	}
 	else
 	{
-
 		camera.w = App->win->screen_surface->w;
-		camera.h = App->win->screen_surface->h;
+			camera.h = App->win->screen_surface->h;
 		camera.x = 0;
 		camera.y = 0;
 	}
@@ -131,6 +134,11 @@ bool j1Render::PreUpdate()
 bool j1Render::Update(float dt)
 {	
 	BROFILER_CATEGORY("Render Update", Profiler::Color::DarkRed);
+
+	if (App->entity_manager->GetPlayer() == nullptr)
+	{
+		return true;
+	}
 
 	if (reset)
 	{

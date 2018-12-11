@@ -11,6 +11,7 @@
 #include "EntityManager.h"
 #include "Brofiler/Brofiler.h"
 
+
 Level_1::Level_1() : j1Scene()
 {
 	name.create("level_1");
@@ -27,11 +28,21 @@ bool Level_1::Awake(pugi::xml_node& config)
 	BROFILER_CATEGORY("Level1 Awake", Profiler::Color::Maroon);
 
 	LOG("Loading Level 1");
+
 	bool ret = true;
 	music_path = config.child("music").attribute("path").as_string("");
+	default_phase = config.attribute("default_phase").as_uint(0u);
+
 	background_path1 = config.child("background1").attribute("path").as_string("");
 	background_path2 = config.child("background2").attribute("path").as_string("");
 	background_path3 = config.child("background3").attribute("path").as_string("");
+	background_width = config.child("background_dimension").attribute("width").as_uint(0u);
+	background_high = config.child("background_dimension").attribute("high").as_uint(0u);
+	max_background_layers = config.child("max_background_layers").attribute("value").as_uint(0u);
+	background_startpos = config.child("background_startpos").attribute("value").as_uint(0u);
+	parallax_speed_1 = config.child("parallax_speed").attribute("low").as_float(0.0f);
+	parallax_speed_2 = config.child("parallax_speed").attribute("medium").as_float(0.0f);
+	parallax_speed_3 = config.child("parallax_speed").attribute("high").as_float(0.0f);
 
 	for (pugi::xml_node node = config.child("phase"); node; node = node.next_sibling("phase"))
 	{
@@ -40,15 +51,6 @@ bool Level_1::Awake(pugi::xml_node& config)
 		item->map_path.create(node.attribute("map_path").as_string(""));
 		phases.add(item);
 	}
-	current_phase = config.attribute("current_phase").as_uint(0u);
-
-	background_width = config.child("background_dimension").attribute("width").as_uint(0u);
-	background_high = config.child("background_dimension").attribute("high").as_uint(0u);
-	max_background_layers = config.child("max_background_layers").attribute("value").as_uint(0u);
-	background_startpos = config.child("background_startpos").attribute("value").as_uint(0u);
-	parallax_speed_1 = config.child("parallax_speed").attribute("low").as_float(0.0f);
-	parallax_speed_2 = config.child("parallax_speed").attribute("medium").as_float(0.0f);
-	parallax_speed_3 = config.child("parallax_speed").attribute("high").as_float(0.0f);
 	return ret;
 }
 
@@ -89,22 +91,6 @@ bool Level_1::Update(float dt)
 {
 	BROFILER_CATEGORY("Level1 Update", Profiler::Color::MediumBlue);
 
-	int x, y;
-
-	App->input->GetMousePosition(x, y);
-	iPoint map_coordinates(x / App->map->data.tile_width, y / App->map->data.tile_height);
-	iPoint map_coordinates_pixel(x, y);
-
-	//Title=======================================================================================
-	//p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:%d, %d Pixel: %d, %d Camera: %d, %d",
-	//	App->map->data.width, App->map->data.height,
-	//	App->map->data.tile_width, App->map->data.tile_height,
-	//	App->map->data.tilesets.count(),
-	//	map_coordinates.x, map_coordinates.y,
-	//	map_coordinates_pixel.x + App->render->camera.x, map_coordinates_pixel.y + App->render->camera.y,
-	//	App->render->camera.x, App->render->camera.y);
-
-	//App->win->SetTitle(title.GetString());
 
 	return true;
 }
