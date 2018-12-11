@@ -17,12 +17,10 @@ Level_1::Level_1() : j1Scene()
 	name.create("level_1");
 }
 
-// Destructor
 Level_1::~Level_1()
 {}
 
 
-// Called before render is available
 bool Level_1::Awake(pugi::xml_node& config)
 {
 	BROFILER_CATEGORY("Level1 Awake", Profiler::Color::Maroon);
@@ -54,7 +52,6 @@ bool Level_1::Awake(pugi::xml_node& config)
 	return ret;
 }
 
-// Called before the first frame
 bool Level_1::Start()
 {
 	BROFILER_CATEGORY("Level1 Start", Profiler::Color::MediumAquaMarine);
@@ -64,7 +61,6 @@ bool Level_1::Start()
 	background_parallax2 = App->tex->Load(background_path2.GetString());
 	background_parallax3 = App->tex->Load(background_path3.GetString());
 
-	//Parallax
 	for (uint i = 0; i < 4; i++)
 	{
 		parallax1[i].rect_parallax.x = background_width * i;
@@ -86,7 +82,6 @@ bool Level_1::Start()
 	return true;
 }
 
-// Called each loop iteration
 bool Level_1::Update(float dt)
 {
 	BROFILER_CATEGORY("Level1 Update", Profiler::Color::MediumBlue);
@@ -95,7 +90,6 @@ bool Level_1::Update(float dt)
 	return true;
 }
 
-// Called each loop iteration
 bool Level_1::PostUpdate(float dt)
 {
 	BROFILER_CATEGORY("Level1 PostUpdate", Profiler::Color::MediumOrchid);
