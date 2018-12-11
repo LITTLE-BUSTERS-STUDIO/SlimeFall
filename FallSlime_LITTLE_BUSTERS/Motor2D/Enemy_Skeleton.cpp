@@ -195,8 +195,6 @@ bool Enemy_Skeleton::FollowPath(float dt)
 	{
 		velocity_to_follow.x = 0;
 		check_ground.y = node_in_world.y + main_collider->rect.h;
-		LOG("IDLE");
-
 	}
 
 	if (velocity_to_follow.x != 0 && current_state != Enemy_Skeleton_State::dead)

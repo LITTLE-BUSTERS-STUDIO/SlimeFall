@@ -32,9 +32,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	audio = new j1Audio();
 	font = new j1Fonts();
 	map = new j1Map();
-	level_1 = new Level_1();
-	entity_manager = new EntityManager();
 	scene_manager = new SceneManager();
+	entity_manager = new EntityManager();
 	gui = new j1Gui();
 	fade_to_black = new j1FadeToBlack();
 	path_finding = new j1PathFinding();
@@ -46,22 +45,17 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(font);
 	AddModule(map);
-
-	AddModule(level_1);
-
+	AddModule(scene_manager);      // 5 Change scene and fadetoblack
 	AddModule(path_finding);       // 1 Draw path im debug
 	AddModule(entity_manager);     // 3 Draw entities
 	AddModule(collision);          // 4 Draw colliders  // Colission needs to be always before render
-	AddModule(scene_manager);      // 5 Change scene and fadetoblack
 	AddModule(render);             // Render last to swap buffer
-
-	current_scene = level_1;
 }
 
 // Destructor
 j1App::~j1App()
 {
-	// release modules
+	// Release modules ==================================
 	p2List_item<j1Module*>* item = modules.end;
 
 	while(item != NULL)
@@ -69,14 +63,16 @@ j1App::~j1App()
 		RELEASE(item->data);
 		item = item->prev;
 	}
-
 	modules.clear();
 }
 
 void j1App::AddModule(j1Module* module)
 {
-	module->Init();
-	modules.add(module);
+	if (module)
+	{
+		module->Init();
+		modules.add(module);
+	}
 }
 
 // Called before render is available
@@ -187,7 +183,6 @@ void j1App::PrepareUpdate()
 	}
 
 	perfect_frame_time.ReadMs();
-	//frame_time.Start();
 	perfect_frame_time.Start();
 }
 

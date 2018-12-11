@@ -101,7 +101,6 @@ public:
 	j1Textures*			tex = nullptr;
 	j1Audio*			audio = nullptr;
 	j1Fonts*            font = nullptr;
-	j1Scene*			scene = nullptr;
 	j1Map*				map = nullptr;
 	j1Gui*              gui = nullptr;
 	j1Collision*        collision = nullptr;
@@ -109,9 +108,6 @@ public:
 	j1PathFinding*      path_finding = nullptr;
 	EntityManager *     entity_manager = nullptr;
 	SceneManager *      scene_manager = nullptr;
-	// Scene ==================================
-	j1Scene*            level_1;
-	j1Scene*            current_scene;
 
 	// Framerate ==============================
 	bool			    apply_cap_frames = true;

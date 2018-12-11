@@ -44,22 +44,6 @@
   <map>
     <folder>maps/</folder>
   </map>
-
-  <level_1 phases ="3" current_phase="2">
-    <music path="audio/music/Level1.ogg"/>
-    <background1 path="textures/Parallax1.png"/>
-    <background2 path="textures/Parallax2.png"/>
-    <background3 path="textures/Parallax3.png"/>
-    <background path="textures/Parallax.png"/>
-    <phase id ="1" map_path ="Level1_1.tmx"/>
-    <phase id= "2" map_path ="Level1_2.tmx"/>
-    <phase id ="3" map_path ="Level1_3.tmx"/>
-    <max_background_layers value="4"/>
-    <background_startpos value ="-300"/>
-    <background_dimension width="928" high="793"/>
-    <parallax_speed low="0.2" medium="0.3" high="0.4"/>
-  </level_1>
-
 </config>
 
  

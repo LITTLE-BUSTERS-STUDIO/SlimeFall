@@ -12,22 +12,16 @@ public:
 
 	Level_1();
 
-	// Destructor
 	virtual ~Level_1();
 
-	// Called before render is available
 	 bool Awake(pugi::xml_node&);
 
-	// Called before the first frame
 	bool Start();
 
-	// Called each loop iteration
 	 bool Update(float dt);
 
-	// Called before all Updates
 	 bool PostUpdate(float dt);
 
-	// Called before quitting
 	 bool CleanUp();
 
 private:
@@ -40,13 +34,10 @@ private:
 	SDL_Texture * background_parallax2 = nullptr;
 	SDL_Texture * background_parallax3 = nullptr;
 	SDL_Texture * background_parallax = nullptr;
-	
 	Parallax parallax1[4];
 	Parallax parallax2[4];
 	Parallax parallax3[3];
-
 	Parallax parallax[11];
-	
 
 public:
 	uint		phase1_width;

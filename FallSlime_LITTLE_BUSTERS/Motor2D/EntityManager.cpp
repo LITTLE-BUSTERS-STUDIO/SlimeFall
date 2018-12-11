@@ -31,6 +31,8 @@ bool EntityManager::Awake(pugi::xml_node& node)
 {
 	BROFILER_CATEGORY("EntityManager Awake", Profiler::Color::GreenYellow);
 
+
+
 	return true;
 }
 
@@ -101,7 +103,7 @@ bool EntityManager::Start()
 	// -------------------------------------- Enemies ---------------------------------------------
 	// ===========================================================================================
 
-	for (pugi::xml_node enemy_node = node.child("enemy"); enemy_node; enemy_node = enemy_node.next_sibling("enemy") )
+	for (pugi::xml_node enemy_node = node.child("enemy"); enemy_node; enemy_node = enemy_node.next_sibling("enemy"))
 	{
 		Enemy_Properties*  enemy_properties = nullptr;
 
@@ -168,8 +170,6 @@ bool EntityManager::Start()
 
 		properties_list.add(enemy_properties);
 	}
-
-	App->current_scene->LoadPhase(1);
 
 	return true;
 }
