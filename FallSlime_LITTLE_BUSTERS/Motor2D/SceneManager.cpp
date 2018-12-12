@@ -188,11 +188,11 @@ bool SceneManager::LoadScene(p2SString name)
 
 	if (name == "level_1")
 	{
-		scene_to_load = new Level_1();
+		scene_to_load = new Level_1;
 	}
 	else if (name == "main_menu")
 	{
-		scene_to_load = new MainMenu();
+		scene_to_load = new MainMenu;
 	}
 	
 	if (scene_to_load == nullptr)
@@ -219,8 +219,9 @@ bool SceneManager::LoadScene(p2SString name)
 
 	// Current scene =======================================
 	current_scene = scene_to_load;
-	current_scene->LoadScene(node_to_send);
-	LoadPhase(current_scene->default_phase);
+
+	scene_to_load->LoadScene(node_to_send);
+	LoadPhase(scene_to_load->default_phase);
 
 	scenes_doc.reset();
 
@@ -240,6 +241,7 @@ bool SceneManager::UnloadScene()
 	// Unload phases ==========================
 	p2List_item<Phase*>* item;
 	item = current_scene->phases.start;
+
 	while (item != NULL)
 	{
 		RELEASE(item->data);
@@ -248,7 +250,11 @@ bool SceneManager::UnloadScene()
 	current_scene->phases.clear();
 
 	// Delete scene ==========================
+	App->entity_manager->UnloadEntities();
+	App->map->CleanUp();
+
 	delete current_scene;
+	current_scene = nullptr;
 
 	return true;
 }
@@ -281,10 +287,6 @@ bool SceneManager::LoadPhase(uint phase_number, bool spawn)
 		LOG("Couldn't load phase %i", phase_number);
 		return false;
 	}
-
-	// Unload old map ===================================
-	App->entity_manager->UnloadEntities();
-	App->map->CleanUp();
 
 	// Load new map  ====================================
 	ret = App->map->Load(item->data->map_path.GetString() );
