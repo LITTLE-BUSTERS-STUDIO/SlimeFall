@@ -4,6 +4,21 @@
 #include "SDL/include/SDL.h"
 #include "p2Point.h"
 #include "j1Module.h"
+#include "j1Timer.h"
+
+#define MAX_ALPHA 255
+#define MIN_ALPHA 0;
+
+class j1Timer;
+
+enum class FadeStates
+{
+	On,
+	Middle,
+	Out,
+	Finish,
+	None
+};
 
 class j1Render : public j1Module
 {
@@ -60,7 +75,12 @@ public:
 
 	bool SetCameraLimits(const int x, const int y);
 
+	// Fade to black methods ============================
+
+	bool FadeToBlack(uint32 time, p2SString scene_to_load);
+
 public:
+
 	bool            reset = false;
 	bool            vsync;
 	SDL_Renderer*	renderer;
@@ -69,6 +89,13 @@ public:
 	SDL_Color		background;
 
 private:
+	// Fade to black ====================================
+	bool           fade_active = false;
+	int            fade_time = 0;
+	j1Timer        fade_timer;
+	FadeStates     fade_state = FadeStates::None;
+	SDL_Rect       fade_rect;
+	float          fade_alpha = 0;
 
 	// Camera ===========================================
 	int            camera_limit_x = 0;

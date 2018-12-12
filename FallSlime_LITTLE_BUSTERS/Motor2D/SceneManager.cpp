@@ -69,8 +69,9 @@ bool SceneManager::PreUpdate()
 		return false;
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-		LoadPhase(1);
-
+	{
+		App->render->FadeToBlack(1000u, p2SString("Level_1"));
+	}
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
 		App->entity_manager->ResetAll();
@@ -255,10 +256,13 @@ bool SceneManager::LoadPhase(uint phase_number, bool spawn)
 
 	p2List_item<Phase*>* item = nullptr;
 	bool ret = true;
+
 	if (phase_number <= 0)
 	{
+		LOG("Couldn't load phase id: %i <= 0 ", phase_number);
 		return true;
 	}
+	// Found phase id =====================================
 
 	for (item = current_scene->phases.start; item; item = item->next)
 	{
@@ -310,11 +314,13 @@ bool SceneManager::NextPhase()
 
 	bool ret = true;
 	ret = LoadPhase(++current_phase);
+
 	if (!ret)
 	{
 		current_phase = 1;
 		LoadPhase(current_phase);
 	}
+
 	return ret;
 }
 
