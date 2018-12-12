@@ -76,10 +76,9 @@ bool Coin::Draw()
 	case Coin_States::disable:
 		main_collider->type = COLLIDER_NONE;
 		
-
 		if (!enable_fx)
 		{
-			//App->audio->PlayFx(fx_pick_up);
+			App->audio->PlayFx(fx_pick_up);
 			enable_fx = true;
 		}
 		break;
