@@ -276,18 +276,17 @@ bool j1Collision::CheckOverlap(p2List<Direction> &directions , Collider *dynamic
 
 bool j1Collision::DeleteCollider(Collider * collider)
 {
-	int index = colliders.find(collider);
-
-	if (index == -1)
+	for (p2List_item<Collider*> * item = colliders.start; item; item = item->next)
 	{
-		LOG("Collider to delete not found");
-		return false;
+		if (item->data == collider)
+		{
+			RELEASE(item->data);
+			colliders.del(item);
+			return true;
+		}
 	}
-	p2List_item<Collider*>* item = colliders.At(index);
-	delete item->data;
-	colliders.del(item);
-
-	return true;
+	LOG("Collider to delete not found");
+	return false;
 }
 
 Direction j1Collision::SolveOverlap(Collider *dynamic_col, Collider *static_col, fPoint &position , fPoint &velocity)

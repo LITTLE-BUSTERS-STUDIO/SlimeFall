@@ -18,8 +18,7 @@ struct MapLayer
 	inline uint Get(int x, int y) const;
 	~MapLayer()
 	{
-		if (tiles != NULL)
-		delete[]  tiles;
+		RELEASE_ARRAY(tiles) ;
 	}
 };
 // ----------------------------------------------------
@@ -51,11 +50,7 @@ struct CollidersGroup
 
 	~CollidersGroup()
 	{
-		if (colls != nullptr)
-		{
-			delete[] colls;
-			colls = nullptr;
-		}
+		RELEASE_ARRAY(colls);
 	}
 };
 

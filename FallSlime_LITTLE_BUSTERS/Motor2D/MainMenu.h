@@ -14,8 +14,6 @@ public:
 
 	MainMenu();
 
-	virtual ~MainMenu();
-
 	bool Update(float dt);
 
 	bool PostUpdate();

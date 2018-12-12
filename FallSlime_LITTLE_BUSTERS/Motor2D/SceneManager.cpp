@@ -31,10 +31,11 @@ bool SceneManager::Awake(pugi::xml_node& config)
 
 	LOG("Loading Scene Manager "); 
 
-	scenes_doc.load_file(config.child("document").attribute("path").as_string(""));
-	pugi::xml_node node = scenes_doc.child("scenes");
+	scene_doc_path.create(config.child("document").attribute("path").as_string(""));
+	pugi::xml_document scenes_doc;
+	scenes_doc.load_file(scene_doc_path.GetString());
 	default_scene_str.create(scenes_doc.child("scenes").child("default_scene").attribute("name").as_string(""));
-
+	scenes_doc.reset();
 	return true;
 }
 
@@ -156,6 +157,9 @@ bool SceneManager::LoadScene(p2SString name)
 {
 	UnloadScene();
 
+	pugi::xml_document scenes_doc;
+	scenes_doc.load_file(scene_doc_path.GetString());
+
 	j1Scene* scene_to_load = nullptr;
 
 	pugi::xml_node node_to_send;
@@ -217,6 +221,8 @@ bool SceneManager::LoadScene(p2SString name)
 	current_scene = scene_to_load;
 	current_scene->LoadScene(node_to_send);
 	LoadPhase(current_scene->default_phase);
+
+	scenes_doc.reset();
 
 	return true;
 }

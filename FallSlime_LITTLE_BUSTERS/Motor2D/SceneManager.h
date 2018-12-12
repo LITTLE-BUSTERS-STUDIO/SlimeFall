@@ -55,8 +55,8 @@ private:
 	bool                     default_scene_loaded = false;
 
 	// Document scenes.xml ==================
-	pugi::xml_document       scenes_doc;
-
+	//pugi::xml_document       scenes_doc;
+	p2SString                scene_doc_path;
 };
 
 #endif // __SCENE_MANAGER_H__

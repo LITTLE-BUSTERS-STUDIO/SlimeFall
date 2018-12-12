@@ -12,8 +12,6 @@ public:
 
 	Level_1();
 
-	virtual ~Level_1();
-
 	 bool Update(float dt);
 
 	 bool PostUpdate();

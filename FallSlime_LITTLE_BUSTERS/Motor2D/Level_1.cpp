@@ -17,9 +17,6 @@ Level_1::Level_1() : j1Scene()
 	name.create("level_1");
 }
 
-Level_1::~Level_1()
-{}
-
 
 bool Level_1::LoadScene(pugi::xml_node& node)
 {

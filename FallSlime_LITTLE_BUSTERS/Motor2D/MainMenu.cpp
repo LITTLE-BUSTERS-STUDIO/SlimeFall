@@ -16,8 +16,6 @@ MainMenu::MainMenu() : j1Scene()
 	name.create("main_menu");
 }
 
-MainMenu::~MainMenu()
-{}
 
 bool MainMenu::Update(float dt)
 {

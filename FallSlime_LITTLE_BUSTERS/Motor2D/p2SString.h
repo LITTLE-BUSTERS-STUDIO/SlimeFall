@@ -362,6 +362,7 @@ private:
 
 	void Alloc(unsigned int requiered_memory)
 	{
+		/*delete []str;*/
 		size = requiered_memory;
 		str = new char[size];
 	}

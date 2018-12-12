@@ -121,7 +121,7 @@ bool j1Render::Update(float dt)
 	if (fade_active)
 	{
 		int time = fade_timer.Read();
-		LOG("%i", time);
+
 		switch (fade_state)
 		{
 		case FadeStates::None:
@@ -155,8 +155,6 @@ bool j1Render::Update(float dt)
 			fade_active = false;
 			break;
 		}
-
-		LOG("Fade alpha: %i", fade_alpha);
 	}
 
 	// Camera Update =========================================================
