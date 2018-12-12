@@ -87,9 +87,6 @@ bool Coin::Draw()
 		break;
 	}
 
-
-
-	
 	App->render->Blit(texture, (int)position.x - frame.w / 2, (int)position.y - frame.h / 2, &frame);
 
 	return true;
@@ -118,9 +115,11 @@ bool Coin::OnCollision(Collider* c1, Collider* c2)
 		{
 		case COLLIDER_ATTACK:
 			current_state = Coin_States::disable;
+			coin_counter++;
 			break;
 		case COLLIDER_PLAYER:
 			current_state = Coin_States::disable;
+			coin_counter++;
 			break;
 		default:
 			break;
