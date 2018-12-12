@@ -237,7 +237,7 @@ bool j1Map::Load(const char* file_name)
 		data.tilesets.add(set);
 	}
 
-	// Load layer info ------------------------------------------------------
+	// Load layers info ------------------------------------------------------
 	for (pugi::xml_node layer = map_node.child("layer"); layer && ret; layer = layer.next_sibling("layer"))
 	{
 		MapLayer* set = new MapLayer();
@@ -279,13 +279,18 @@ bool j1Map::Load(const char* file_name)
 		{
 			App->entity_manager->LoadEntities(object_group);
 		}
+		// Enemies ----------------------------------------------
+		else if (type == "objects")
+		{
+
+		}
 		// Initial position -------------------------------------
 		else if (type == "initial_position")
 		{
 			data.initial_position = { object_group.child("object").attribute("x").as_float(0.0f),  object_group.child("object").attribute("y").as_float(0.0f) };
 		}
 		// Static images ----------------------------------------
-		else if (type == "images")
+		else if (type == "animations")
 		{
 
 		}
