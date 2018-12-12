@@ -8,21 +8,19 @@
 
   <renderer>
     <vsync value="false"/>
-    <debug zoom="1" max_zoom="4"/>
+    <debug zoom="1" max_zoom="3"/>
     <blit margin="30"/>
-    <level1_1 width="2600" high ="1000"/>
-    <level1_2 width="2600" high ="1000"/>
     <debug_border_margin value="4"/>
     <smooth_speed value="10"/>
     <tremble value="12"/>
   </renderer>
 
   <audio>
+    <mute value="true"/>
     <fade_time default="1.0"/>
     <volume_music default="40"/>
     <volume_sfx default ="40"/>
     <max_volume value="100"/>
-    <mute value="true"/>
   </audio>
 
   <input>

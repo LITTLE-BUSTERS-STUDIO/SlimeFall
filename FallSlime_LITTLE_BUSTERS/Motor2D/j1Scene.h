@@ -13,10 +13,10 @@ struct Parallax {
 };
 
 struct Phase {
-	uint       id;
+	uint       id = 0;
 	p2SString  map_path;
-	int        phase_width;
-	int        phase_hight;
+	int        x_limit = 0;
+	int        y_limit = 0;
 };
 
 class j1Scene

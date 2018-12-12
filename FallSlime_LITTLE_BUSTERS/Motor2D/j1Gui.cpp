@@ -44,10 +44,8 @@ bool j1Gui::PreUpdate()
 		debug = !debug;
 
 	 App->input->GetMousePosition(cursor_position.x, cursor_position.y);
-	 //cursor_position.x *= App->win->GetScale();
-	 //cursor_position.y *= App->win->GetScale();
-	// Hover States ============================================
 
+	// Hover States ============================================
 	SDL_Rect rect;
 
 	for (p2List_item<Object*> * item = objects_list.start; item; item = item->next)

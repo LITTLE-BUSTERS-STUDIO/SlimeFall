@@ -63,7 +63,7 @@ bool SceneManager::PreUpdate()
 		current_scene->PreUpdate();
 	}
 
-	// Assigment keys =======================================
+	// Debug keys =======================================
 
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		return false;
@@ -93,6 +93,7 @@ bool SceneManager::PreUpdate()
 bool SceneManager::Update(float dt)
 {
 	BROFILER_CATEGORY("Scene Manager Update", Profiler::Color::MediumBlue);
+
 	if (current_scene == nullptr)
 	{
 		return true;
@@ -101,6 +102,7 @@ bool SceneManager::Update(float dt)
 	{
 		current_scene->Update(dt);
 	}
+
 	return true;
 }
 
@@ -109,6 +111,7 @@ bool SceneManager::PostUpdate()
 	BROFILER_CATEGORY("Scene Manager PostUpdate", Profiler::Color::MediumOrchid);
 
 	bool ret = true;
+
 	if (current_scene == nullptr)
 	{
 		return true;
@@ -117,6 +120,7 @@ bool SceneManager::PostUpdate()
 	{
 		current_scene->PostUpdate();
 	}
+
 	return ret;
 }
 
@@ -203,8 +207,11 @@ bool SceneManager::LoadScene(p2SString name)
 	{
 		Phase* item = new Phase;
 		item->id = node.attribute("id").as_uint(0u);
+		item->x_limit = node.attribute("x_limit").as_uint(0u);
+		item->y_limit = node.attribute("y_limit").as_uint(0u);
 		item->map_path.create(node.attribute("map_path").as_string(""));
 		scene_to_load->phases.add(item);
+
 		LOG("Added phase id: %u with map path : %s", item->id, item->map_path.GetString());
 	}
 
@@ -268,13 +275,18 @@ bool SceneManager::LoadPhase(uint phase_number, bool spawn)
 		return false;
 	}
 
+	// Unload old map ===================================
 	App->entity_manager->UnloadEntities();
 	App->map->CleanUp();
+
+	// Load new map  ====================================
 	ret = App->map->Load(item->data->map_path.GetString() );
 
+	// Hardcode =========================================
 	if (ret)
 	{
 		current_phase = phase_number;
+		App->render->SetCameraLimits(item->data->x_limit, item->data->y_limit);
 
 		if (spawn)
 		{

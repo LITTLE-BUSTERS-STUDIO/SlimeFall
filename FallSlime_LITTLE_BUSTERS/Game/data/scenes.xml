@@ -4,7 +4,7 @@
 
   <scene name ="main_menu" default_phase ="1">
 
-    <phase id ="1" map_path ="Intro.tmx"/>
+    <phase id ="1" x_limit ="0" y_limit="0" map_path ="Intro.tmx" />
 
     <music path="audio/music/Level1.ogg"/>
     <background1 path="textures/Parallax1.png"/>
@@ -20,9 +20,9 @@
 
   <scene name ="level_1"  default_phase ="1">
 
-    <phase id ="1" map_path ="Level_1_Tutorial.tmx"/>
-    <phase id ="2" map_path ="Level_1_1.tmx"/>
-    <phase id= "3" map_path ="Level_1_2.tmx"/>
+    <phase id ="1" x_limit ="2600" y_limit="1000" map_path ="Level_1_Tutorial.tmx"/>
+    <phase id ="2" x_limit ="2600" y_limit="1000" map_path ="Level_1_1.tmx"/>
+    <phase id= "3" x_limit ="2600" y_limit="1000" map_path ="Level_1_2.tmx"/>
 
     <music path="audio/music/Level1.ogg"/>
     <background1 path="textures/Parallax1.png"/>

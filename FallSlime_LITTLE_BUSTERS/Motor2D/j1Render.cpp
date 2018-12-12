@@ -38,14 +38,6 @@ bool j1Render::Awake(pugi::xml_node& config)
 	smooth_speed = config.child("smooth_speed").attribute("value").as_uint(0U);
 	tremble = config.child("tremble").attribute("value").as_uint(0U);
 
-	// hard code ====================================================================
-	phase1_width = config.child("level1_1").attribute("width").as_int(0);
-	phase1_high = config.child("level1_1").attribute("high").as_int(0);
-	phase2_width = config.child("level1_2").attribute("width").as_int(0);
-	phase2_high = config.child("level1_2").attribute("high").as_int(0);
-	// =============================================================================
-
-
 	// Load flags ====================================
 
 	Uint32 flags = SDL_RENDERER_ACCELERATED;
@@ -125,7 +117,8 @@ bool j1Render::Update(float dt)
 {	
 	BROFILER_CATEGORY("Render Update", Profiler::Color::DarkRed);
 
-	if (App->entity_manager->GetPlayer() == nullptr)
+	// Camera Update =========================================================
+	if (App->entity_manager->GetPlayer() == nullptr || camera_follow_player == false)
 	{
 		return true;
 	}
@@ -147,16 +140,16 @@ bool j1Render::Update(float dt)
 
 			free_camera_x = false;
 		}
-		else if (camera.x + camera.w > phase1_width)
+		else if (camera.x + camera.w > camera_limit_x)
 		{
-			camera.x = phase1_width - camera.w;
+			camera.x = camera_limit_x - camera.w;
 			free_camera_x = false;
 		}
 
 		if (!free_camera_x)
 			smoth_position.x = camera.x;
 	}
-	else if ((int)App->win->GetScale() * (int)player_position.x > camera.w / 2 && (int)App->win->GetScale() *(int)player_position.x < phase1_width - camera.w / 2)
+	else if ((int)App->win->GetScale() * (int)player_position.x > camera.w / 2 && (int)App->win->GetScale() *(int)player_position.x < camera_limit_x - camera.w / 2)
 		free_camera_x = true;
 
 	//Camera_x Follow Player
@@ -170,22 +163,21 @@ bool j1Render::Update(float dt)
 	//Camera_y hit screen---------------------------------------
 	if (free_camera_y)
 	{
-
 		if (camera.y < 0) 
 		{
 			camera.y = 0;
 			free_camera_y = false;
 		}
-		else if (camera.y + camera.h > phase1_high)
+		else if (camera.y + camera.h > camera_limit_y)
 		{
-			camera.y = phase1_high - camera.h;
+			camera.y = camera_limit_y - camera.h;
 			free_camera_y = false;
 		}
 
 		if (!free_camera_y)
 			smoth_position.y = camera.y;
 	}
-	else if ((int)App->win->GetScale() * (int)player_position.y > (camera.h / 2) && (int)App->win->GetScale() * (int)player_position.y < phase1_high - camera.h / 2)
+	else if ((int)App->win->GetScale() * (int)player_position.y > (camera.h / 2) && (int)App->win->GetScale() * (int)player_position.y < camera_limit_y - camera.h / 2)
 		free_camera_y = true;
 
 	//Camera_y Follow Player
@@ -225,6 +217,7 @@ bool j1Render::PostUpdate()
 	
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
+
 	return true;
 }
 
@@ -241,7 +234,6 @@ bool j1Render::CleanUp()
 // Load Game State
 bool j1Render::Load(pugi::xml_node& data)
 {
-
 	camera.x = data.child("camera_position").attribute("x").as_int(0);
 	camera.y = data.child("camera_position").attribute("y").as_int(0);
 
@@ -296,6 +288,14 @@ bool j1Render::CameraTremble()
 	}
 	index_tremble++;
 	return false;
+}
+
+bool j1Render::SetCameraLimits(const int x, const int y)
+{
+	camera_limit_x = x;
+	camera_limit_y = y;
+
+	return true;
 }
 
 void j1Render::SetViewPort(const SDL_Rect& rect)
@@ -482,5 +482,6 @@ bool j1Render::CameraReset() {
 	smoth_position.y = 0;
 	free_camera_x = false;
 	free_camera_y = false;
+
     return true;
 }
