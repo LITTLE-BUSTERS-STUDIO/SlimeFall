@@ -52,19 +52,7 @@ public:
 	int                 id_attack_fx;
 };
 
-class Coin_Properties : public Properties
-{
-public:
-	//------------Valeues-------------------
-	//-----------Animations-----------------
-	Animation		    anim_coin;
 
-	//-----------Textures-------------------
-	SDL_Texture*        tex_coin;
-
-	//------------Sfx----------------------
-	int                 pick_up_coin_fx;
-};
 class Enemy_Properties : public Properties
 {
 public:
@@ -105,6 +93,20 @@ public:
 	//------------Sfx----------------------
 	int               id_skeleton_death_fx;
 
+};
+
+class Coin_Properties : public Enemy_Properties
+{
+public:
+	//------------Valeues-------------------
+	//-----------Animations-----------------
+	Animation		    anim_coin;
+
+	//-----------Textures-------------------
+	SDL_Texture*        tex_coin;
+
+	//------------Sfx----------------------
+	int                 pick_up_coin_fx;
 };
 
 class Entity;

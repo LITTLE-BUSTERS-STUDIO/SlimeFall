@@ -9,21 +9,24 @@
 #include "j1Timer.h"
 
 struct SDL_Texture;
+struct Collider;
+struct Entity_Info;
 
 
-
-class Coin : public Entity
+class Coin : public Enemy
 {
 public:
 
 	Coin(fPoint pos, Entity_Info info);
 
-	virtual ~Coin();
+	~Coin();
 
 
 	bool Update(float dt);
 
 	bool Draw();
+
+	bool Reset(Entity_Info  info);
 
 	bool OnCollision(Collider* c1, Collider* c2);
 

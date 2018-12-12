@@ -56,7 +56,7 @@
       </sfx>
     </enemy>
     
-    <coin name ="coin">
+    <enemy name ="coin">
       <collider width="20" height="20"/>
       <spawn_margin width ="40" height="40"/>
       <animations>
@@ -69,6 +69,6 @@
         <pick_up path ="audio/fx/Coin.wav"/>
       </sfx>
 
-    </coin>
+    </enemy>
 
   </entities>
