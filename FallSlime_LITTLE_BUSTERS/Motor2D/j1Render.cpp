@@ -116,6 +116,47 @@ bool j1Render::PreUpdate()
 bool j1Render::Update(float dt)
 {	
 	BROFILER_CATEGORY("Render Update", Profiler::Color::DarkRed);
+	
+	// Fade to black =========================================================
+	if (fade_active)
+	{
+		int time = fade_timer.Read();
+		LOG("%i", time);
+		switch (fade_state)
+		{
+		case FadeStates::None:
+			fade_timer.Start();
+			fade_state = FadeStates::On;
+			break;
+		case FadeStates::On:
+			fade_alpha = (time * 255) / (fade_time *0.5f);
+			if (time > (fade_time* 0.5f))
+			{
+				fade_alpha = MAX_ALPHA;
+				fade_state = FadeStates::Middle;
+			}
+			break;
+		case FadeStates::Middle:
+			fade_timer.Start();
+			fade_state = FadeStates::Out;
+			break;
+		case FadeStates::Out:
+			fade_alpha = MAX_ALPHA - (time * MAX_ALPHA - fade_time *0.5f) / (fade_time*0.5f);
+			if (time > fade_time* 0.5f)
+			{
+				fade_alpha = 0;
+				fade_state = FadeStates::Finish;
+			}
+			break;
+
+		case FadeStates::Finish:
+			fade_state = FadeStates::None;
+			fade_active = false;
+			break;
+		}
+
+		LOG("Fade alpha: %i", fade_alpha);
+	}
 
 	// Camera Update =========================================================
 	if (App->entity_manager->GetPlayer() == nullptr || camera_follow_player == false)
@@ -131,7 +172,7 @@ bool j1Render::Update(float dt)
 
 	fPoint player_position(App->entity_manager->GetPlayer()->position);
 
-	//Camera_x hit screen---------------------------------------
+	// Camera_x hit screen---------------------------------------
 	if (free_camera_x)
 	{
 	    if (camera.x <= 0)
@@ -152,7 +193,7 @@ bool j1Render::Update(float dt)
 	else if ((int)App->win->GetScale() * (int)player_position.x > camera.w / 2 && (int)App->win->GetScale() *(int)player_position.x < camera_limit_x - camera.w / 2)
 		free_camera_x = true;
 
-	//Camera_x Follow Player
+	// Camera_x Follow Player
 	if (free_camera_x)
 	{
 		player_position.x = -((int)player_position.x * (int)App->win->GetScale() - camera.w / 2);
@@ -160,7 +201,7 @@ bool j1Render::Update(float dt)
 		camera.x = smoth_position.x;
 	}
 
-	//Camera_y hit screen---------------------------------------
+	// Camera_y hit screen---------------------------------------
 	if (free_camera_y)
 	{
 		if (camera.y < 0) 
@@ -180,7 +221,7 @@ bool j1Render::Update(float dt)
 	else if ((int)App->win->GetScale() * (int)player_position.y > (camera.h / 2) && (int)App->win->GetScale() * (int)player_position.y < camera_limit_y - camera.h / 2)
 		free_camera_y = true;
 
-	//Camera_y Follow Player
+	// Camera_y Follow Player
 	if (free_camera_y)
 	{
 		player_position.y = -((int)player_position.y * (int)App->win->GetScale() - camera.h / 2);
@@ -188,7 +229,7 @@ bool j1Render::Update(float dt)
 		camera.y = smoth_position.y;
 	}
 
-	//Camera tremble
+	//   Camera tremble
 	if (App->entity_manager->GetPlayer()->attack_tremble)
 		CameraTremble();
 	
@@ -199,25 +240,32 @@ bool j1Render::PostUpdate()
 {
 	BROFILER_CATEGORY("Render PostUpdate", Profiler::Color::DarkSalmon);
 
-	//Quad borders DEBUG
+	//Quad borders debug =========================
 	int borderWidth = margin * zoom;
 	int scale = App->win->GetScale();
 
 	if (debug_border)
 	{
 		// Up border
-		App->render->DrawQuad({ camera.x / scale - borderWidth - margin , camera.y / scale - borderWidth - margin, camera.w / scale + borderWidth * 2 + margin * 2, borderWidth }, 255, 255, 255, 255);
+		DrawQuad({ camera.x / scale - borderWidth - margin , camera.y / scale - borderWidth - margin, camera.w / scale + borderWidth * 2 + margin * 2, borderWidth }, 255, 255, 255, 255);
 		// Down border
-		App->render->DrawQuad({ camera.x / scale - borderWidth - margin , (camera.y + camera.h) / scale + margin, camera.w / scale + borderWidth * 2 + margin * 2, borderWidth }, 255, 255, 255, 255);
+		DrawQuad({ camera.x / scale - borderWidth - margin , (camera.y + camera.h) / scale + margin, camera.w / scale + borderWidth * 2 + margin * 2, borderWidth }, 255, 255, 255, 255);
 		// Left border
-		App->render->DrawQuad({ camera.x / scale - borderWidth - margin, camera.y / scale - margin , borderWidth, camera.h / scale + margin * 2 }, 255, 255, 255, 255);
+		DrawQuad({ camera.x / scale - borderWidth - margin, camera.y / scale - margin , borderWidth, camera.h / scale + margin * 2 }, 255, 255, 255, 255);
 		// Right border
-		App->render->DrawQuad({ (camera.x + camera.w) / scale + margin, camera.y / scale - margin , borderWidth , camera.h / scale + margin * 2 }, 255, 255, 255, 255);
+		DrawQuad({ (camera.x + camera.w) / scale + margin, camera.y / scale - margin , borderWidth , camera.h / scale + margin * 2 }, 255, 255, 255, 255);
 	}
 	
+
+	//Fade to black =============================
+	if (fade_active)
+	{
+		DrawQuad({ 0, 0, camera.w, camera.h }, 0, 0, 0, fade_alpha, true, true);
+	}
+
+
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
-
 	return true;
 }
 
@@ -295,6 +343,18 @@ bool j1Render::SetCameraLimits(const int x, const int y)
 	camera_limit_x = x;
 	camera_limit_y = y;
 
+	return true;
+}
+
+bool j1Render::FadeToBlack(uint32 time,  p2SString scene_to_load)
+{
+	if (fade_active)
+	{
+		return false;
+	}
+
+	fade_time = time;
+	fade_active = true;
 	return true;
 }
 
