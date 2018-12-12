@@ -15,6 +15,7 @@
 #include "j1Player.h"
 #include "Enemy_Bat.h"
 #include "Enemy_Skeleton.h"
+#include "Coin.h"
 // ========================================
 
 EntityManager::EntityManager()
@@ -169,6 +170,44 @@ bool EntityManager::Start()
 		properties_list.add(enemy_properties);
 	}
 
+	// ===========================================================================================
+	// -------------------------------------- Coin ---------------------------------------------
+	// ===========================================================================================
+	for (pugi::xml_node coin_node = node.child("coin"); coin_node; coin_node = coin_node.next_sibling("coin"))
+	{
+		Coin_Properties*  coin_properties = new Coin_Properties();
+
+		//pugi::xml_node coin_node = node.child("coin");
+		coin_properties->name.create(coin_node.attribute("name").as_string(""));
+
+		pugi::xml_node collider_node = coin_node.child("collider");
+		coin_properties->collider_rect = { 0 , 0 , collider_node.attribute("width").as_int(0) , collider_node.attribute("height").as_int(0) };
+
+		pugi::xml_node spawn_margin_node = coin_node.child("spawn_margin");
+		coin_properties->spawn_rect = { 0 , 0 , spawn_margin_node.attribute("width").as_int(0) , spawn_margin_node.attribute("height").as_int(0) };
+
+		//============== Variables ==================
+
+		//============== Textures ===================
+		pugi::xml_node textures_node = coin_node.child("textures");
+
+		coin_properties->tex_coin = App->tex->Load(textures_node.child("tex_coin").attribute("path").as_string(""));
+
+
+		//============== Animations =================
+		pugi::xml_node animations_node = coin_node.child("animations");
+
+		coin_properties->anim_coin.LoadAnimation(p2SString(animations_node.child("anim_coin").attribute("path").as_string("")), "coin");
+
+
+		//=============== Sfx ======================
+		pugi::xml_node sfx_node = coin_node.child("sfx");
+
+		coin_properties->pick_up_coin_fx = App->audio->LoadFx(sfx_node.child("pick_up").attribute("path").as_string(""));
+
+		properties_list.add(coin_properties);
+	}
+	
 	return true;
 }
 
@@ -347,7 +386,10 @@ Entity* EntityManager::CreateEntity(Entity_Info& info)
 	{
 		entity = new Enemy_Skeleton( info.position, info);
 	}
-
+	else if (info.name == "coin")
+	{
+		entity = new Coin(info.position, info);
+	}
 	if (entity != nullptr) 
 	{
 		LOG("Entity %s created at Position  x: %.1f  y: %.1f", info.name.GetString() , info.position.x, info.position.y);

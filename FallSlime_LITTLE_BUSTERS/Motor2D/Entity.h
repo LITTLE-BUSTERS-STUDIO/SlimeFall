@@ -52,6 +52,21 @@ public:
 	int                 id_attack_fx;
 };
 
+class Coin_Properties : public Properties
+{
+public:
+	//------------Valeues-------------------
+	float               speed_coin;
+
+	//-----------Animations-----------------
+	Animation		    anim_coin;
+
+	//-----------Textures-------------------
+	SDL_Texture*        tex_coin;
+
+	//------------Sfx----------------------
+	int                 pick_up_coin_fx;
+};
 class Enemy_Properties : public Properties
 {
 public:
