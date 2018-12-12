@@ -135,7 +135,7 @@ bool j1Gui::Update(float dt)
 
 	for (p2List_item<Object*> * item = objects_list.start; item; item = item->next)
 	{
-		if (!item->data->listener)
+		if (item->data->listener == nullptr)
 		{
 			LOG("Object callback failed, listener was nullptr");
 			continue;

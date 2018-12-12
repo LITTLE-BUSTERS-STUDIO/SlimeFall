@@ -137,6 +137,7 @@ bool j1Render::Update(float dt)
 			}
 			break;
 		case FadeStates::Middle:
+			App->scene_manager->LoadScene("level_1");
 			fade_timer.Start();
 			fade_state = FadeStates::Out;
 			break;
