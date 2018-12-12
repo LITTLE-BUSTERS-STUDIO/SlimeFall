@@ -70,7 +70,7 @@ bool SceneManager::PreUpdate()
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
-		App->render->FadeToBlack(1000u, p2SString("Level_1"));
+		App->render->FadeToBlack(1000u, p2SString("level_1"));
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
@@ -84,9 +84,6 @@ bool SceneManager::PreUpdate()
 
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->LoadGame();
-
-	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
-		LoadPhase(2);
 
 	return true;
 }
@@ -226,7 +223,7 @@ bool SceneManager::LoadScene(p2SString name)
 
 bool SceneManager::UnloadScene()
 {
-	if (!current_scene)
+	if (current_scene == nullptr)
 	{
 		LOG("Could not unload scene: Current scene is nullptr");
 		return false;
