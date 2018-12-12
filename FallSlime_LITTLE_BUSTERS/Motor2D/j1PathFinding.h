@@ -26,9 +26,8 @@ public:
 
 	bool PreUpdate();
 
-	bool PostUpdate(float dt);
+	bool PostUpdate();
 
-	// Called before quitting
 	bool CleanUp();
 
 	// Sets up the walkability map

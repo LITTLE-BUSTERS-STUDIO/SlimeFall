@@ -95,7 +95,7 @@
       <Filter>Modules\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Coin.cpp">
-      <Filter>Modules\Entities</Filter>
+      <Filter>Modules\Entities\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -214,7 +214,7 @@
       <Filter>Modules\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Coin.h">
-      <Filter>Modules\Entities</Filter>
+      <Filter>Modules\Entities\Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -253,6 +253,9 @@
     </Filter>
     <Filter Include="Modules\GUI">
       <UniqueIdentifier>{54e101e2-2bea-474e-a2a0-4b81fc33ae51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Entities\Objects">
+      <UniqueIdentifier>{1158331c-a840-4c52-a9c9-df75c37ca9d4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

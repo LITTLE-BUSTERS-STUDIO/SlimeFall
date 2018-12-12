@@ -14,7 +14,7 @@
 #include "j1Scene.h"
 
 #include "Level_1.h"
-
+#include "MainMenu.h"
 #include "Brofiler/Brofiler.h"
 
 SceneManager::SceneManager() : j1Module()
@@ -104,7 +104,7 @@ bool SceneManager::Update(float dt)
 	return true;
 }
 
-bool SceneManager::PostUpdate(float dt)
+bool SceneManager::PostUpdate()
 {
 	BROFILER_CATEGORY("Scene Manager PostUpdate", Profiler::Color::MediumOrchid);
 
@@ -186,7 +186,7 @@ bool SceneManager::LoadScene(p2SString name)
 	}
 	else if (name == "main_menu")
 	{
-
+		scene_to_load = new MainMenu();
 	}
 	
 	if (scene_to_load == nullptr)

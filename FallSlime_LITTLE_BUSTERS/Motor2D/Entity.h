@@ -152,9 +152,9 @@ public:
 
 	virtual bool OnCollision(Collider* c1, Collider* c2) { return true; };
 
-	virtual bool Load(pugi::xml_node&) { return true; };
+	virtual bool Load(pugi::xml_node& node) { return true; };
 
-	virtual bool Save(pugi::xml_node&) const { return true; };
+	virtual bool Save(pugi::xml_node& node) const { return true; };
 
 	virtual bool Reset(Entity_Info  info) { return true; };
 

@@ -12,7 +12,7 @@ public:
 
 	bool Awake(pugi::xml_node&);
 	bool Start();
-	bool PostUpdate(float dt);
+	bool PostUpdate();
 	bool FadeToBlack(float time = 1.0f);
 	bool IsFading() const;
 

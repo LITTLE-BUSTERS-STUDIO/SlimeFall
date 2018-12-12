@@ -22,8 +22,10 @@ public:
 
 	// Called each loop iteration
 	bool PreUpdate();
+
 	bool Update(float dt);
-	bool PostUpdate(float dt);
+
+	bool PostUpdate();
 
 	// Called before quitting
 	bool CleanUp();
@@ -60,7 +62,6 @@ public:
 	bool	free_camera_x = true;
 	bool	free_camera_y = true;
 	bool	debug_border = false;
-	bool	debug_middle = false;
 	bool	draw_pathfinding = false;
 	bool    vsync;
 	//XML vars

@@ -180,7 +180,7 @@ bool j1Collision::Update(float dt)
 }
 
 // Called before render is available
-bool j1Collision::PostUpdate(float dt)
+bool j1Collision::PostUpdate()
 {
 	BROFILER_CATEGORY("Collision PostUpdate", Profiler::Color::LightSalmon);
 

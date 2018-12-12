@@ -300,7 +300,7 @@ bool EntityManager::Update(float dt)
 	return true;
 }
 
-bool EntityManager::PostUpdate(float dt)
+bool EntityManager::PostUpdate()
 {
 	BROFILER_CATEGORY("EntityManager PostUpdate", Profiler::Color::LavenderBlush);
 

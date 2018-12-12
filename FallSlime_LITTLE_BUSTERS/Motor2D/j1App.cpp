@@ -49,6 +49,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(path_finding);       // 1 Draw path im debug
 	AddModule(entity_manager);     // 3 Draw entities
 	AddModule(collision);          // 4 Draw colliders  // Colission needs to be always before render
+	AddModule(gui);
 	AddModule(render);             // Render last to swap buffer
 }
 
@@ -315,7 +316,7 @@ bool j1App::PostUpdate()
 			continue;
 		}
 
-		ret = item->data->PostUpdate(dt);
+		ret = item->data->PostUpdate();
 	}
 
 	return ret;

@@ -14,8 +14,6 @@ public:
 
 	virtual ~Level_1();
 
-	bool Start();
-
 	 bool Update(float dt);
 
 	 bool PostUpdate();

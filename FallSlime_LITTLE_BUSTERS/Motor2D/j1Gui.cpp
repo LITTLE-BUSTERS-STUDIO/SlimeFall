@@ -1,15 +1,12 @@
 #include "p2Defs.h"
 #include "p2Log.h"
 #include "j1App.h"
+#include "j1Gui.h"
+#include "j1Window.h"
 #include "j1Render.h"
 #include "j1Textures.h"
-#include "j1Fonts.h"
 #include "j1Input.h"
-#include "Object.h"
-#include "Label.h"
-#include "Image.h"
-#include "Button_Input.h"
-#include "SDL_ttf/include/SDL_ttf.h"
+
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -22,12 +19,12 @@ j1Gui::~j1Gui()
 {}
 
 // Called before render is available
-bool j1Gui::Awake(pugi::xml_node& conf)
+bool j1Gui::Awake(pugi::xml_node& config)
 {
 	LOG("Loading GUI atlas");
 	bool ret = true;
 
-	atlas_file_name = conf.child("atlas").attribute("file").as_string("");
+	atlas_file_name = config.child("atlas").attribute("path").as_string("");
 
 	return ret;
 }
@@ -47,7 +44,8 @@ bool j1Gui::PreUpdate()
 		debug = !debug;
 
 	 App->input->GetMousePosition(cursor_position.x, cursor_position.y);
-
+	 //cursor_position.x *= App->win->GetScale();
+	 //cursor_position.y *= App->win->GetScale();
 	// Hover States ============================================
 
 	SDL_Rect rect;
@@ -291,9 +289,13 @@ void j1Gui::DrawGui(Object * object)
 	{
 		SDL_Rect rect;
 		rect.x = object->position.x - object->section.w / 2;
+		rect.x *= App->win->GetScale();
 		rect.y = object->position.y - object->section.h / 2;
+		rect.y *= App->win->GetScale();
 		rect.w = object->section.w;
+		rect.w *= App->win->GetScale();
 		rect.h = object->section.h;
+		rect.h *= App->win->GetScale();
 
 		if (object->hover_state == HoverState::On || object->hover_state == HoverState::Repeat)
 		{

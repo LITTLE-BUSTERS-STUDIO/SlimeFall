@@ -118,16 +118,9 @@ bool j1Render::PreUpdate()
 		}
 	}
 
-	//Debug Middle pointer
-	if (App->input->keyboard[SDL_SCANCODE_F9] == KEY_DOWN) {
-		if(!debug_middle)
-			debug_middle = true;
-		else
-			debug_middle = false;
-	}
-
 	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
 		draw_pathfinding = !draw_pathfinding;
+
 	return true;
 }
 
@@ -213,7 +206,7 @@ bool j1Render::Update(float dt)
 	return true;
 }
 
-bool j1Render::PostUpdate(float dt)
+bool j1Render::PostUpdate()
 {
 	BROFILER_CATEGORY("Render PostUpdate", Profiler::Color::DarkSalmon);
 
@@ -233,12 +226,6 @@ bool j1Render::PostUpdate(float dt)
 		App->render->DrawQuad({ (camera.x + camera.w) / scale + margin, camera.y / scale - margin , borderWidth , camera.h / scale + margin * 2 }, 255, 255, 255, 255);
 	}
 	
-	if (debug_middle)
-	{
-		// Centered point DEBUG
-		App->render->DrawCircle(camera.x + camera.w / 2, camera.y + camera.h / 2, 1, 50, 255, 50, 255);
-	}
-
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
 	return true;

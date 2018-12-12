@@ -59,7 +59,7 @@ bool j1PathFinding::PreUpdate()
 	return true;
 }
 
-bool j1PathFinding::PostUpdate(float dt)
+bool j1PathFinding::PostUpdate()
 {
 	BROFILER_CATEGORY("Pathfinding PostUpdate", Profiler::Color::LightYellow);
 

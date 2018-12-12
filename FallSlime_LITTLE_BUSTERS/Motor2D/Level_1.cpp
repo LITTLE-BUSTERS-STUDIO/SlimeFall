@@ -27,8 +27,6 @@ bool Level_1::LoadScene(pugi::xml_node& node)
 
 	LOG("Loading Level 1");
 
-	bool ret = true;
-
 	music_path = node.child("music").attribute("path").as_string("");
 	App->audio->PlayMusic(music_path.GetString());
 
@@ -62,7 +60,7 @@ bool Level_1::LoadScene(pugi::xml_node& node)
 		parallax3[i].rect_parallax.h = background_high;
 	}
 
-	return ret;
+	return true;
 }
 
 

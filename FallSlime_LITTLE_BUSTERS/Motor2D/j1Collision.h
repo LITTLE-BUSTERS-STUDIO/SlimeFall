@@ -64,7 +64,7 @@ public:
 
 	bool Update(float dt);
 
-	bool PostUpdate(float dt);
+	bool PostUpdate();
 
 	bool CleanUp();
 

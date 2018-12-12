@@ -6,25 +6,26 @@
 	<audio>
 		<volumes music="40" sfx="40" mute="true" />
 	</audio>
+	<fonts />
 	<map />
-	<level_1>
-		<phase current_phase="2" />
-	</level_1>
-	<entities>
-		<player>
-			<position x="94.768898" y="170" />
-			<velocity x="0" y="368.175629" />
-			<conditions apply_jump_speed="false" on_ground="true" check_fall="true" flip_x="false" gummy_jump="false" />
-			<state current_state="boucing" collider_type="collider_player" />
-		</player>
-	</entities>
+	<scene_manager>
+		<phase current_phase="1" />
+	</scene_manager>
 	<pathfinding />
+	<entity_manager>
+		<player>
+			<position x="384" y="52.8848953" />
+			<velocity x="0" y="-36.7291679" />
+			<conditions apply_jump_speed="false" on_ground="false" check_fall="false" flip_x="false" gummy_jump="false" />
+			<state current_state="jumping" collider_type="collider_player" />
+		</player>
+	</entity_manager>
 	<:anonymous />
-	<FadeToBlack />
+	<gui />
 	<renderer>
-		<camera_position x="0" y="0" />
-		<camera_smoth_position x="0" y="0" />
+		<camera_position x="110" y="0" />
+		<camera_smoth_position x="110" y="0" />
 		<debug zoom="1" />
-		<conditions free_camera_x="false" free_camera_y="false" />
+		<conditions free_camera_x="true" free_camera_y="false" />
 	</renderer>
 </game_state>
