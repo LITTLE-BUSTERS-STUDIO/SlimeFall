@@ -365,7 +365,7 @@ Entity* EntityManager::CreateEntity(Entity_Info& info)
 	}
 	else if (info.name == "skeleton") 
 	{
-		entity = new Enemy_Skeleton( info.position, info);
+	entity = new Enemy_Skeleton( info.position, info);
 	}
 	else if (info.name == "coin")
 	{

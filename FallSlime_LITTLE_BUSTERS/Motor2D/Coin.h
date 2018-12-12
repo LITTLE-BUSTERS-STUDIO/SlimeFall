@@ -6,7 +6,6 @@
 #include "p2Point.h"
 #include "Animation.h"
 #include "Entity.h"
-#include "j1Timer.h"
 
 struct SDL_Texture;
 struct Collider;
@@ -32,16 +31,6 @@ public:
 
 
 private:
-	//Debug====================================
-	// Physics= ===================================
-	// States ================================
-	//Bool =====================================
-	// Collision ================================
-	Collider           *collider = nullptr;
-	SDL_Rect            collider_rect;
-
-	// Assets ===================================
-
 	//-----------Textures-------------------
 	SDL_Texture      *tex_coin = nullptr;
 

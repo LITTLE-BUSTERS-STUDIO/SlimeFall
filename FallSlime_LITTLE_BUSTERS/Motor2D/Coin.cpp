@@ -14,7 +14,7 @@
 
 
 
-Coin::Coin(fPoint pos, Entity_Info info) :Enemy(position, info)
+Coin::Coin(fPoint position, Entity_Info info) :Enemy(position, info)
 {
 	Coin_Properties* coin_properties = (Coin_Properties *)info.properties;
 
@@ -55,14 +55,16 @@ bool Coin::Draw()
 
 	SDL_Rect frame;
 	SDL_Texture* texture = nullptr;
-	frame = coin_anim.GetLastFrame();
-	texture = tex_coin;
+	coin_anim.speed = 9;
 	if (coin_anim.GetFrameValue() > 9)
 	{
 		frame = coin_anim.GetCurrentFrame();
 		texture = tex_coin;
 		coin_anim.Reset();
 	}
+
+	frame = coin_anim.GetCurrentFrame();
+	texture = tex_coin;
 	App->render->Blit(texture, (int)position.x - frame.w / 2, (int)position.y - frame.h / 2, &frame);
 
 	return true;
