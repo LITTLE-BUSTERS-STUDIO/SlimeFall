@@ -146,46 +146,46 @@ bool j1Map::CleanUp()
 	LOG("Unloading map");
 
 	// Remove all tilesets
-	p2List_item<TileSet*>* item;
-	item = data.tilesets.start;
+	p2List_item<TileSet*>* tileset;
+	tileset = data.tilesets.start;
 
-	while(item != NULL)
+	while(tileset != NULL)
 	{
-		App->tex->UnLoad(item->data->texture);
-		RELEASE(item->data);
-		item = item->next;
+		App->tex->UnLoad(tileset->data->texture);
+		RELEASE(tileset->data);
+		tileset = tileset->next;
 	}
 	data.tilesets.clear();
 
-	// Remove all layers
-	p2List_item<MapLayer*>* item_2;
-	item_2 = data.layers.start;
+	// Remove all layers =================================
+	p2List_item<MapLayer*>* layer;
+	layer = data.layers.start;
 
-	while (item_2 != NULL)
+	while (layer != NULL)
 	{
-		RELEASE(item_2->data);
-		item_2 = item_2->next;
+		RELEASE(layer->data);
+		layer = layer->next;
 	}
 
 	data.layers.clear();
 
-	// Remove all collider groups
-	p2List_item<CollidersGroup*>* item_3;
-	item_3 = data.coll_groups.start;
+	// Remove all collider groups ========================
+	p2List_item<CollidersGroup*>* colider;
+	colider = data.coll_groups.start;
 
-	while (item_3 != NULL)
+	while (colider != NULL)
 	{
-		for (uint i = 0; i < item_3->data->num_colliders; ++i)
+		for (uint i = 0; i < colider->data->num_colliders; ++i)
 		{
-			if (item_3->data->colls[i] != nullptr)
+			if (colider->data->colls[i] != nullptr)
 			{ 
-				item_3->data->colls[i]->to_delete = true;
-				item_3->data->colls[i] = nullptr;
+				App->collision->DeleteCollider(colider->data->colls[i]);
+				colider->data->colls[i] = nullptr;
 			}
 		} 
 
-		RELEASE(item_3->data);
-		item_3 = item_3->next;
+		RELEASE(colider->data);
+		colider = colider->next;
 	}
 
 	data.coll_groups.clear();
@@ -500,7 +500,7 @@ bool j1Map::LoadLayer(pugi::xml_node& layer_node, MapLayer* layer)
 		}
 
 		App->path_finding->SetMap(layer->width, layer->height, map);
-		delete map;
+		delete [] map;
 	}
 
 	return ret;

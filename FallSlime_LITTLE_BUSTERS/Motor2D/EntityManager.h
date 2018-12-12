@@ -58,12 +58,15 @@ private:
 	Properties* GetProperties(const p2SString name) const;
 
 private:
+	p2SString                   document_path;
 	// Entities ===========================================
 	p2List<Entity_Info>         entities_info;          // Entities to spawn added in LoadMap (objectgroup entities)
 	p2List<Entity*>				entities;				// Active entities
 	j1Player*                   player = nullptr;
 	//// Entities Properties ================================
 	p2List<Properties *>        properties_list; 
+	int                         entity_count = 0;
+	int                         entity_deleted = 0;
 };
 
 #endif // __Enemies_H__

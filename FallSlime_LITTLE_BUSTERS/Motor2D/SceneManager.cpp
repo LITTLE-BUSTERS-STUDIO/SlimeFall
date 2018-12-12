@@ -31,7 +31,7 @@ bool SceneManager::Awake(pugi::xml_node& config)
 
 	LOG("Loading Scene Manager "); 
 
-	scenes_doc.load_file("data/scenes.xml");
+	scenes_doc.load_file(config.child("document").attribute("path").as_string(""));
 	pugi::xml_node node = scenes_doc.child("scenes");
 	default_scene_str.create(scenes_doc.child("scenes").child("default_scene").attribute("name").as_string(""));
 

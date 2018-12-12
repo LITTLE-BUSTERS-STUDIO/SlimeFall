@@ -27,12 +27,11 @@ EntityManager::~EntityManager()
 
 }
 
-bool EntityManager::Awake(pugi::xml_node& node)
+bool EntityManager::Awake(pugi::xml_node& config)
 {
 	BROFILER_CATEGORY("EntityManager Awake", Profiler::Color::GreenYellow);
 	
-	
-
+	document_path.create(config.child("document").attribute("path").as_string(""));
 	return true;
 }
 
@@ -43,13 +42,12 @@ bool EntityManager::Start()
 	LOG("Loading Entity Manager");
 
 	pugi::xml_document doc;
-	doc.load_file("data/entities.xml");
+	doc.load_file(document_path.GetString());
 	pugi::xml_node node = doc.child("entities");
 
 	// ===========================================================================================
 	// -------------------------------------- Player ---------------------------------------------
 	// ===========================================================================================
-
 
 	Player_Properties*  player_properties = new Player_Properties();
 
@@ -311,9 +309,11 @@ bool  EntityManager::UnloadEntities()
 			continue;
 		}
 
+		++entity_deleted;
+
 		for (p2List_item<Collider*>* colliders = item->data->colliders.start; colliders; colliders = colliders->next)
 		{
-			colliders->data->to_delete = true;
+			App->collision->DeleteCollider(colliders->data);
 		}
 		
 		item->data->colliders.clear();
@@ -324,6 +324,9 @@ bool  EntityManager::UnloadEntities()
 		entities.del(item);
 		item = iterator;
 	}
+
+	LOG("Entities deleted: %i  ||   Entities added: %i", entity_deleted, entity_count);
+    entity_deleted = entity_count = 0;
 
 	entities_info.clear();
 
@@ -349,6 +352,7 @@ Entity* EntityManager::CreateEntity(Entity_Info& info)
 	{
 		LOG("Entity %s created at Position  x: %.1f  y: %.1f", info.name.GetString() , info.position.x, info.position.y);
 		entities.add(entity);
+		++entity_count;
 	}
 	else 
 	{

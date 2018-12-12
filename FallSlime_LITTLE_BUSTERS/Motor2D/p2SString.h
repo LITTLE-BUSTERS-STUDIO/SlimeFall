@@ -13,7 +13,7 @@ class p2SString
 {
 private:
 
-	char* str;
+	char* str = nullptr;
 	unsigned int size;
 
 public:
@@ -70,7 +70,7 @@ public:
 	}
 	
 	// Destructor
-	virtual ~p2SString()
+	~p2SString()
 	{
 		if(str != NULL)
 			delete[] str;
@@ -79,6 +79,9 @@ public:
 	const p2SString& create(const char *format, ...)
 	{
 		size = 0;
+
+		if (str != NULL)
+			delete[] str;
 
 		if(format != NULL)
 		{
