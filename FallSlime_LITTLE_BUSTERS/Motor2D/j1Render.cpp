@@ -64,7 +64,7 @@ bool j1Render::Awake(pugi::xml_node& config)
 	else
 	{
 		camera.w = App->win->screen_surface->w;
-			camera.h = App->win->screen_surface->h;
+		camera.h = App->win->screen_surface->h;
 		camera.x = 0;
 		camera.y = 0;
 	}
@@ -117,9 +117,6 @@ bool j1Render::PreUpdate()
 			debug_border = false;
 		}
 	}
-
-	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
-		draw_pathfinding = !draw_pathfinding;
 
 	return true;
 }

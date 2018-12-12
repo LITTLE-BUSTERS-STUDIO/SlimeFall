@@ -34,6 +34,18 @@ bool j1PathFinding::PreUpdate()
 {
 	BROFILER_CATEGORY("Pathfinding PreUpdate", Profiler::Color::LightSlateGray);
 
+	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+	{
+		debug = !debug;
+		origin_selected = false;
+	}
+
+	if (!debug)
+	{
+		return true;
+
+	}
+
 	// Debug pathfing =====================================
 	int x, y;
 	App->input->GetMousePosition(x, y);
@@ -63,19 +75,19 @@ bool j1PathFinding::PostUpdate()
 {
 	BROFILER_CATEGORY("Pathfinding PostUpdate", Profiler::Color::LightYellow);
 
-	if (App->render->draw_pathfinding)
+	if (debug)
 	{
 		//  Draw Walkable map ----------------------------
-		for (int j = 0; j < height; ++j)
-		{
-			for (int i = 0; i < width; ++i)
-			{
-				if (!IsWalkable(iPoint(i, j)))
-				{
-					App->render->DrawQuad({ i * 16, j * 16, 16, 16 }, 255, 255, 255, 100);
-				}
-			}
-		}
+		//for (int j = 0; j < height; ++j)
+		//{
+		//	for (int i = 0; i < width; ++i)
+		//	{
+		//		if (!IsWalkable(iPoint(i, j)))
+		//		{
+		//			App->render->DrawQuad({ i * 16, j * 16, 16, 16 }, 255, 255, 255, 100);
+		//		}
+		//	}
+		//}
 
 		// Draw Final path ------------------------------
 

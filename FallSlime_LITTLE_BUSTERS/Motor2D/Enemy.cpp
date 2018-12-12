@@ -149,7 +149,7 @@ bool  Enemy::Desactive()
 
 bool Enemy::DrawPath()
 {
-	if (App->render->draw_pathfinding)
+	if (App->path_finding->debug)
 	{
 		for (uint i = 0; i < last_path.Count(); ++i)
 		{

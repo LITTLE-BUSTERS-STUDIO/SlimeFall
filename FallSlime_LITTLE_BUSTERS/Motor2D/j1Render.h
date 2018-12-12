@@ -51,36 +51,33 @@ public:
 	bool j1Render::CameraTremble();
 
 public:
-
+	bool            reset = false;
+	bool            vsync;
 	SDL_Renderer*	renderer;
 	SDL_Rect		camera;
 	SDL_Rect		viewport;
 	SDL_Color		background;
 
-public:
-	bool    reset = false;
+private:
+	int     phase1_width;
+	int     phase1_high;
+	int     phase2_width;
+	int     phase2_high;
+
 	bool	free_camera_x = true;
 	bool	free_camera_y = true;
 	bool	debug_border = false;
-	bool	draw_pathfinding = false;
-	bool    vsync;
-	//XML vars
 	int		zoom ;
 	int		max_zoom;
-	int		phase1_width;
-	int		phase1_high;
-	int		phase2_width;
-	int		phase2_high;
 	int		margin;
 
 	uint	smooth_speed;
 	uint	tremble;
 
-	iPoint		smoth_position = { 0,0 };
+	iPoint  smoth_position = { 0,0 };
 
-private:
-	iPoint		camera_flip = { 0,0 };
-	uint		index_tremble = 0;
+	iPoint	camera_flip = { 0,0 };
+	uint	index_tremble = 0;
 };
 
 #endif // __j1RENDER_H__

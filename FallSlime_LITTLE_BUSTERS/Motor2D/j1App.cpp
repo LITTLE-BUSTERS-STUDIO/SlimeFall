@@ -222,6 +222,7 @@ void j1App::FinishUpdate()
 		FramerateCap = "OFF";
 
 	p2SString VsyncCap;
+
 	if (App->render->vsync)
 		VsyncCap = "ON";
 	else
