@@ -26,9 +26,8 @@ public:
 
 	bool PreUpdate();
 
-	bool PostUpdate(float dt);
+	bool PostUpdate();
 
-	// Called before quitting
 	bool CleanUp();
 
 	// Sets up the walkability map
@@ -51,7 +50,10 @@ public:
 	// Utility: return the walkability value of a tile
 	uchar GetTileAt(const iPoint& pos) const;
 
+public:
+	bool	              debug = false;
 private:
+
 	iPoint				  origin;
 	bool				  origin_selected = false;
 	p2DynArray<iPoint>    last_path;

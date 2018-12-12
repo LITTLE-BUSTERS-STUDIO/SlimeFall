@@ -126,6 +126,7 @@ bool j1Input::PreUpdate()
 				mouse_motion_y = event.motion.yrel / scale;
 				mouse_x = event.motion.x / scale;
 				mouse_y = event.motion.y / scale;
+				LOG("MOUSE POS X: %i  Y %i", mouse_x, mouse_y);
 			break;
 		}
 	}

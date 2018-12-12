@@ -49,6 +49,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(path_finding);       // 1 Draw path im debug
 	AddModule(entity_manager);     // 3 Draw entities
 	AddModule(collision);          // 4 Draw colliders  // Colission needs to be always before render
+	AddModule(gui);
 	AddModule(render);             // Render last to swap buffer
 }
 
@@ -221,6 +222,7 @@ void j1App::FinishUpdate()
 		FramerateCap = "OFF";
 
 	p2SString VsyncCap;
+
 	if (App->render->vsync)
 		VsyncCap = "ON";
 	else
@@ -315,7 +317,7 @@ bool j1App::PostUpdate()
 			continue;
 		}
 
-		ret = item->data->PostUpdate(dt);
+		ret = item->data->PostUpdate();
 	}
 
 	return ret;

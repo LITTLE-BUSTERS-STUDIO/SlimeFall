@@ -1,15 +1,12 @@
 #include "p2Defs.h"
 #include "p2Log.h"
 #include "j1App.h"
+#include "j1Gui.h"
+#include "j1Window.h"
 #include "j1Render.h"
 #include "j1Textures.h"
-#include "j1Fonts.h"
 #include "j1Input.h"
-#include "Object.h"
-#include "Label.h"
-#include "Image.h"
-#include "Button_Input.h"
-#include "SDL_ttf/include/SDL_ttf.h"
+
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -22,12 +19,12 @@ j1Gui::~j1Gui()
 {}
 
 // Called before render is available
-bool j1Gui::Awake(pugi::xml_node& conf)
+bool j1Gui::Awake(pugi::xml_node& config)
 {
 	LOG("Loading GUI atlas");
 	bool ret = true;
 
-	atlas_file_name = conf.child("atlas").attribute("file").as_string("");
+	atlas_file_name = config.child("atlas").attribute("path").as_string("");
 
 	return ret;
 }
@@ -49,7 +46,6 @@ bool j1Gui::PreUpdate()
 	 App->input->GetMousePosition(cursor_position.x, cursor_position.y);
 
 	// Hover States ============================================
-
 	SDL_Rect rect;
 
 	for (p2List_item<Object*> * item = objects_list.start; item; item = item->next)

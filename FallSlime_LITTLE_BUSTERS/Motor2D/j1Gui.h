@@ -2,15 +2,15 @@
 #define __j1GUI_H__
 
 #include "j1Module.h"
-#include "Animation.h"
 #include "SDL_ttf/include/SDL_ttf.h"
+#include "Animation.h"
+#include "Object.h"
+#include "Label.h"
+#include "Image.h"
+#include "Button_Input.h"
 
 #define CURSOR_WIDTH 2
 
-class Object;
-class Label;
-class Image;
-class Button_Input;
 class Gui_Listener;
 
 enum class ClickState

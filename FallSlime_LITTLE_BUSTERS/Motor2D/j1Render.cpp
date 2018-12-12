@@ -38,14 +38,6 @@ bool j1Render::Awake(pugi::xml_node& config)
 	smooth_speed = config.child("smooth_speed").attribute("value").as_uint(0U);
 	tremble = config.child("tremble").attribute("value").as_uint(0U);
 
-	// hard code ====================================================================
-	phase1_width = config.child("level1_1").attribute("width").as_int(0);
-	phase1_high = config.child("level1_1").attribute("high").as_int(0);
-	phase2_width = config.child("level1_2").attribute("width").as_int(0);
-	phase2_high = config.child("level1_2").attribute("high").as_int(0);
-	// =============================================================================
-
-
 	// Load flags ====================================
 
 	Uint32 flags = SDL_RENDERER_ACCELERATED;
@@ -64,7 +56,7 @@ bool j1Render::Awake(pugi::xml_node& config)
 	else
 	{
 		camera.w = App->win->screen_surface->w;
-			camera.h = App->win->screen_surface->h;
+		camera.h = App->win->screen_surface->h;
 		camera.x = 0;
 		camera.y = 0;
 	}
@@ -118,16 +110,6 @@ bool j1Render::PreUpdate()
 		}
 	}
 
-	//Debug Middle pointer
-	if (App->input->keyboard[SDL_SCANCODE_F9] == KEY_DOWN) {
-		if(!debug_middle)
-			debug_middle = true;
-		else
-			debug_middle = false;
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
-		draw_pathfinding = !draw_pathfinding;
 	return true;
 }
 
@@ -135,7 +117,8 @@ bool j1Render::Update(float dt)
 {	
 	BROFILER_CATEGORY("Render Update", Profiler::Color::DarkRed);
 
-	if (App->entity_manager->GetPlayer() == nullptr)
+	// Camera Update =========================================================
+	if (App->entity_manager->GetPlayer() == nullptr || camera_follow_player == false)
 	{
 		return true;
 	}
@@ -157,16 +140,16 @@ bool j1Render::Update(float dt)
 
 			free_camera_x = false;
 		}
-		else if (camera.x + camera.w > phase1_width)
+		else if (camera.x + camera.w > camera_limit_x)
 		{
-			camera.x = phase1_width - camera.w;
+			camera.x = camera_limit_x - camera.w;
 			free_camera_x = false;
 		}
 
 		if (!free_camera_x)
 			smoth_position.x = camera.x;
 	}
-	else if ((int)App->win->GetScale() * (int)player_position.x > camera.w / 2 && (int)App->win->GetScale() *(int)player_position.x < phase1_width - camera.w / 2)
+	else if ((int)App->win->GetScale() * (int)player_position.x > camera.w / 2 && (int)App->win->GetScale() *(int)player_position.x < camera_limit_x - camera.w / 2)
 		free_camera_x = true;
 
 	//Camera_x Follow Player
@@ -180,22 +163,21 @@ bool j1Render::Update(float dt)
 	//Camera_y hit screen---------------------------------------
 	if (free_camera_y)
 	{
-
 		if (camera.y < 0) 
 		{
 			camera.y = 0;
 			free_camera_y = false;
 		}
-		else if (camera.y + camera.h > phase1_high)
+		else if (camera.y + camera.h > camera_limit_y)
 		{
-			camera.y = phase1_high - camera.h;
+			camera.y = camera_limit_y - camera.h;
 			free_camera_y = false;
 		}
 
 		if (!free_camera_y)
 			smoth_position.y = camera.y;
 	}
-	else if ((int)App->win->GetScale() * (int)player_position.y > (camera.h / 2) && (int)App->win->GetScale() * (int)player_position.y < phase1_high - camera.h / 2)
+	else if ((int)App->win->GetScale() * (int)player_position.y > (camera.h / 2) && (int)App->win->GetScale() * (int)player_position.y < camera_limit_y - camera.h / 2)
 		free_camera_y = true;
 
 	//Camera_y Follow Player
@@ -213,7 +195,7 @@ bool j1Render::Update(float dt)
 	return true;
 }
 
-bool j1Render::PostUpdate(float dt)
+bool j1Render::PostUpdate()
 {
 	BROFILER_CATEGORY("Render PostUpdate", Profiler::Color::DarkSalmon);
 
@@ -233,14 +215,9 @@ bool j1Render::PostUpdate(float dt)
 		App->render->DrawQuad({ (camera.x + camera.w) / scale + margin, camera.y / scale - margin , borderWidth , camera.h / scale + margin * 2 }, 255, 255, 255, 255);
 	}
 	
-	if (debug_middle)
-	{
-		// Centered point DEBUG
-		App->render->DrawCircle(camera.x + camera.w / 2, camera.y + camera.h / 2, 1, 50, 255, 50, 255);
-	}
-
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
+
 	return true;
 }
 
@@ -257,7 +234,6 @@ bool j1Render::CleanUp()
 // Load Game State
 bool j1Render::Load(pugi::xml_node& data)
 {
-
 	camera.x = data.child("camera_position").attribute("x").as_int(0);
 	camera.y = data.child("camera_position").attribute("y").as_int(0);
 
@@ -314,6 +290,14 @@ bool j1Render::CameraTremble()
 	return false;
 }
 
+bool j1Render::SetCameraLimits(const int x, const int y)
+{
+	camera_limit_x = x;
+	camera_limit_y = y;
+
+	return true;
+}
+
 void j1Render::SetViewPort(const SDL_Rect& rect)
 {
 	SDL_RenderSetViewport(renderer, &rect);
@@ -357,13 +341,17 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
 	}
 
-	if (!((camera.x / scale < x + rect.w) && (x < (camera.x + camera.w) / scale)
-		&& (camera.y / scale < y + rect.h) && (y < (camera.y + camera.h) / scale)))
+
+	if (speed != 0.0f)
 	{
-		return ret;
+		if (!((camera.x / scale < x + rect.w) && (x < (camera.x + camera.w) / scale)
+			&& (camera.y / scale < y + rect.h) && (y < (camera.y + camera.h) / scale)))
+		{
+			return ret;
+		}
+
 	}
 
-	
 	rect.w *= scale;
 	rect.h *= scale;
 
@@ -390,22 +378,33 @@ bool j1Render::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a
 	bool ret = true;
 	int scale = App->win->GetScale();
 
-	if (!((camera.x / scale < rect.x + rect.w) && (rect.x < (camera.x + camera.w) / scale)
-		&& (camera.y / scale < rect.y + rect.h) && (rect.y < (camera.y + camera.h) / scale)))
-	{
-		return ret;
-	}
-
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 	SDL_SetRenderDrawColor(renderer, r, g, b, a);
 
 	SDL_Rect rec(rect);
+
 	if(use_camera)
 	{
 		rec.x = (int)((camera.w * (zoom - 1)) / 2) + (-camera.x + rect.x * scale);
 		rec.y = (int)((camera.h * (zoom - 1)) / 2) + (-camera.y + rect.y * scale);
-		rec.w *= scale;
-		rec.h *= scale;
+	}
+	else
+    {
+		rec.x = rect.x * scale;
+		rec.y = rect.y * scale;
+	}
+
+	rec.w *= scale;
+	rec.h *= scale;
+
+	if (use_camera == true)
+	{
+		if (!((camera.x / scale < rect.x + rect.w) && (rect.x < (camera.x + camera.w) / scale)
+			&& (camera.y / scale < rect.y + rect.h) && (rect.y < (camera.y + camera.h) / scale)))
+		{
+
+			return ret;
+		}
 	}
 
 	int result = (filled) ? SDL_RenderFillRect(renderer, &rec) : SDL_RenderDrawRect(renderer, &rec);
@@ -483,5 +482,6 @@ bool j1Render::CameraReset() {
 	smoth_position.y = 0;
 	free_camera_x = false;
 	free_camera_y = false;
+
     return true;
 }

@@ -98,61 +98,32 @@ bool j1Collision::Update(float dt)
 	BROFILER_CATEGORY("Collision Update", Profiler::Color::LightPink);
 
 	// Remove all colliders scheduled for deletion
-	p2List_item<Collider*>* item = nullptr;
+	p2List_item<Collider*>* collider = colliders.start;
+	p2List_item<Collider*>* iterator = nullptr;
 	p2List_item<Collider*>* item_2 = nullptr;
-	Collider* c1;
-	Collider* c2;
-	item = colliders.start;
+	Collider* c1 = nullptr;
+	Collider* c2 = nullptr;
 
 	int deleted_colliders = 0;
 
-	while (item != NULL)
-	{
-		if (item->data != nullptr && item->data->to_delete == true)
-		{
-		
-			if (item->next == NULL)
-			{
-				RELEASE(item->data);
-				colliders.del(item);
-				item = item->next;
-			}
-			else
-			{
-				RELEASE(item->data);
-				item = item->next;
-				colliders.del(item->prev);
-			}
-			++deleted_colliders;
-		
-		}
-		else
-			item = item->next;
-	}
-	
-	if (deleted_colliders != 0)
-	{
-		LOG("Deleted colliders %i", deleted_colliders);
-	}
+	// Collision detection and callbacks ============================================== 
+	collider = colliders.start;
 
-	// Collision detection and callbacks 
-	item = colliders.start;
-
-	while (item != NULL)
+	while (collider != NULL)
 	{
 		// Skip empty colliders
-		if (item->data == nullptr)
+		if (collider->data == nullptr)
 		{
-			item = item->next;
+			collider = collider->next;
 			continue;
 		}
 
-		c1 = item->data;
+		c1 = collider->data;
 
 
-		if (item != NULL)
+		if (collider != NULL)
 		{
-			item_2 = item->next;
+			item_2 = collider->next;
 		}
 
 
@@ -180,13 +151,13 @@ bool j1Collision::Update(float dt)
 			item_2 = item_2->next;
 		}
 
-		item = item->next;
+		collider = collider->next;
 	}
 	return true;
 }
 
 // Called before render is available
-bool j1Collision::PostUpdate(float dt)
+bool j1Collision::PostUpdate()
 {
 	BROFILER_CATEGORY("Collision PostUpdate", Profiler::Color::LightSalmon);
 
@@ -194,7 +165,6 @@ bool j1Collision::PostUpdate(float dt)
 		debug = !debug;
 	}
 		
-
 	if (debug == false)
 		return true;
 
@@ -258,7 +228,7 @@ bool j1Collision:: CleanUp()
 		if (item->data)
 		{
 			++count;
-			delete item->data;
+			RELEASE(item->data);
 			item->data = nullptr;
 		}
 
@@ -297,6 +267,22 @@ bool j1Collision::CheckOverlap(p2List<Direction> &directions , Collider *dynamic
 			directions.add(SolveOverlap(dynamic_col, item->data, position, velocity));
 		}
 	}
+
+	return true;
+}
+
+bool j1Collision::DeleteCollider(Collider * collider)
+{
+	int index = colliders.find(collider);
+
+	if (index == -1)
+	{
+		LOG("Collider to delete not found");
+		return false;
+	}
+	p2List_item<Collider*>* item = colliders.At(index);
+	delete item->data;
+	colliders.del(item);
 
 	return true;
 }
@@ -353,149 +339,3 @@ Direction j1Collision::SolveOverlap(Collider *dynamic_col, Collider *static_col,
 	}
 	return (Direction)offset_direction;
 }
-
-//bool j1Collision::RayCast(fPoint vector, fPoint origin, Collider* collider, COLLIDER_TYPE type)
-//{
-//	bool ret = false;
-//	float divisions = 5;
-//	vector.x /= divisions;
-//	vector.y /= divisions;
-//	Collider collider_1 = *collider;
-//	SDL_Rect rect;
-//
-//	for (int i = 0; i < divisions ; ++i)
-//	{
-//		collider_1.rect.x += vector.x;
-//		collider_1.rect.y += vector.y;
-//
-//		for (p2List_item<Collider*> * item = colliders.start; item; item = item->next)
-//		{
-//			if (item->data->type == type)
-//			{
-//				rect = item->data->rect;
-//
-//				if (collider_1.CheckCollision(rect))
-//				{
-//					PreventOverlap(collider_1, item->data);
-//					collider->rect.x = collider_1.rect.x;
-//					collider->rect.y = collider_1.rect.y;
-//
-//					return true;
-//				}
-//
-//				
-//			}
-//		}
-//	}
-//	return ret;
-//}
-
-
-//bool j1Collision::PreventOverlap(Collider &dynamic_col, Collider *static_col)
-//{
-//	SDL_Rect dynamic = dynamic_col.rect;
-//	SDL_Rect rigid = static_col->rect;
-//
-//	uint distances[(uint)Direction::unknown];
-//	distances[(uint)Direction::right] = dynamic.x + dynamic.w - rigid.x;
-//	distances[(uint)Direction::left] = rigid.x + rigid.w - dynamic.x;
-//	distances[(uint)Direction::up] = rigid.y + rigid.h - dynamic.y;
-//	distances[(uint)Direction::down] = dynamic.y + dynamic.h - rigid.y;
-//
-//	int shorter_distance = -1;
-//	
-//	for (uint i = 0; i < (uint)Direction::unknown; ++i)
-//	{
-//		if (shorter_distance == -1 && distances[i] < 2147483647)
-//		{
-//			shorter_distance = i;
-//		}
-//		else if (distances[i] < distances[(uint)shorter_distance])
-//		{
-//			shorter_distance = i;
-//		}
-//	}
-//
-//	switch ((Direction)shorter_distance)
-//	{
-//	case Direction::right:
-//		dynamic_col.rect.x = rigid.x - dynamic.w;
-//		break;
-//	case Direction::left:
-//		dynamic_col.rect.x = rigid.x + rigid.w;
-//		break;
-//	case Direction::up:
-//		dynamic_col.rect.y = rigid.y + rigid.h;
-//		break;
-//	case Direction::down:
-//		dynamic_col.rect.y = rigid.y - dynamic.h;
-//		break;
-//	}
-//	return true;
-//}
-
-
-//bool j1Collision::RayCast(fPoint vector, fPoint origin, Collider* collider, COLLIDER_TYPE type)
-//{
-//	bool ret = false;
-//	fPoint point = origin;
-//	float divisions = 5;
-//	vector.x /= divisions;
-//	vector.y /= divisions;
-//	SDL_Rect rect;
-//
-//	for (int i = 0; i < divisions; ++i)
-//	{
-//		point += vector;
-//
-//		for (p2List_item<Collider*> * item = colliders.start; item; item = item->next)
-//		{
-//			if (item->data->type == type)
-//			{
-//				rect = item->data->rect;
-//				if (point.x > rect.x &&  point.x < (rect.x + rect.w) && point.y > rect.y && point.y < (rect.y + rect.h))
-//				{
-//
-//					int distances[(uint)Direction::unknown];
-//					distances[(uint)Direction::right] = rect.x + rect.w - point.x;
-//					distances[(uint)Direction::left] = point.x - rect.x;
-//					distances[(uint)Direction::up] = point.y - rect.y;
-//					distances[(uint)Direction::down] = rect.y + rect.h - point.y;
-//
-//					int shorter_distance = -1;
-//
-//					for (uint i = 0; i < (uint)Direction::unknown; ++i)
-//					{
-//						if (shorter_distance == -1 && distances[i] < 2147483647)
-//						{
-//							shorter_distance = i;
-//						}
-//						else if (distances[i] < distances[(uint)shorter_distance])
-//						{
-//							shorter_distance = i;
-//						}
-//					}
-//
-//					switch ((Direction)shorter_distance)
-//					{
-//					case Direction::right:
-//						collider->rect.x = rect.x + rect.w;
-//						break;
-//					case Direction::left:
-//						collider->rect.x = rect.x - collider->rect.w;
-//						break;
-//					case Direction::up:
-//						collider->rect.y = rect.y - collider->rect.h;
-//						break;
-//					case Direction::down:
-//						collider->rect.x = rect.y + rect.h;
-//						break;
-//					}
-//					ret = true;
-//				}
-//			}
-//		}
-//	}
-//	return ret;
-//}
-

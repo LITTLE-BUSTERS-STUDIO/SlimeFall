@@ -21,7 +21,6 @@ bool Button_Input::Draw()
 {
 	SDL_Rect anim_rect;
 
-
 	if (App->gui->GetClickedObject() == this)
 	{
 		anim_rect = button_animation.pushed_rect;
@@ -38,7 +37,7 @@ bool Button_Input::Draw()
 	section.w = anim_rect.w;
 	section.h = anim_rect.h;
 	
-	App->render->Blit(texture, position.x - section.w / 2, position.y - section.h / 2, &anim_rect, 0.0f);
+	App->render->Blit(texture, position.x - section.w/2 , position.y - section.h/2, &anim_rect, false, 0.0f);
 
 	return true;
 }

@@ -22,24 +22,34 @@ public:
 
 	// Called each loop iteration
 	bool PreUpdate();
+
 	bool Update(float dt);
-	bool PostUpdate(float dt);
+
+	bool PostUpdate();
 
 	// Called before quitting
 	bool CleanUp();
 
 	// Load / Save
 	bool Load(pugi::xml_node&);
+
 	bool Save(pugi::xml_node&) const;
+
 	bool CameraReset();
+
 	iPoint ScreenToWorld(int x, int y) const;
 
 	// Blit
 	void SetViewPort(const SDL_Rect& rect);
+
 	void ResetViewPort();
+
 	bool Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section = NULL, bool flip_x = false, float speed = 1.0f, double angle = 0, int pivot_x = INT_MAX, int pivot_y = INT_MAX) const;
+
 	bool DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool filled = true, bool use_camera = true) const;
+
 	bool DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool use_camera = true) const;
+
 	bool DrawCircle(int x1, int y1, int redius, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool use_camera = true) const;
 
 	// Set background color
@@ -48,38 +58,33 @@ public:
 	// Camera shake
 	bool j1Render::CameraTremble();
 
-public:
+	bool SetCameraLimits(const int x, const int y);
 
+public:
+	bool            reset = false;
+	bool            vsync;
 	SDL_Renderer*	renderer;
 	SDL_Rect		camera;
 	SDL_Rect		viewport;
 	SDL_Color		background;
 
-public:
-	bool    reset = false;
-	bool	free_camera_x = true;
-	bool	free_camera_y = true;
-	bool	debug_border = false;
-	bool	debug_middle = false;
-	bool	draw_pathfinding = false;
-	bool    vsync;
-	//XML vars
-	int		zoom ;
-	int		max_zoom;
-	int		phase1_width;
-	int		phase1_high;
-	int		phase2_width;
-	int		phase2_high;
-	int		margin;
-
-	uint	smooth_speed;
-	uint	tremble;
-
-	iPoint		smoth_position = { 0,0 };
-
 private:
-	iPoint		camera_flip = { 0,0 };
-	uint		index_tremble = 0;
+
+	// Camera ===========================================
+	int            camera_limit_x = 0;
+	int            camera_limit_y = 0;
+	bool           camera_follow_player = false;
+	bool	       free_camera_x = true;
+	bool	       free_camera_y = true;
+	bool	       debug_border = false;
+	int		       zoom = 0;
+	int		       max_zoom = 0;
+	int		       margin = 0;
+	uint	       smooth_speed = 0;
+	uint	       tremble = 0;
+			       
+	iPoint         smoth_position = { 0,0 };
+	uint	       index_tremble = 0;
 };
 
 #endif // __j1RENDER_H__

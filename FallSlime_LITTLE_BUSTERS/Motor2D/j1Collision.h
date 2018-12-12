@@ -27,15 +27,15 @@ enum COLLIDER_TYPE
 	COLLIDER_NEXT_LEVEL,
 	COLLIDER_GOD,
 	COLLIDER_ATTACK,
-	COLLIDER_MAX,
-	COLLIDER_COIN
+	COLLIDER_COIN,
+	COLLIDER_MAX
+
 };
 
 struct Collider
 {
 	SDL_Rect rect;
-	bool to_delete = false;
-	COLLIDER_TYPE type;
+	COLLIDER_TYPE type = COLLIDER_NONE;
 	j1Module* callback = nullptr;
 
 	Collider(SDL_Rect rectangle, COLLIDER_TYPE type, j1Module* callback = nullptr) :
@@ -64,7 +64,7 @@ public:
 
 	bool Update(float dt);
 
-	bool PostUpdate(float dt);
+	bool PostUpdate();
 
 	bool CleanUp();
 
@@ -73,6 +73,8 @@ public:
 	Direction  SolveOverlap(Collider *dynamic_col, Collider *static_col, fPoint &position ,fPoint &velocity);
 
 	bool CheckOverlap(p2List<Direction> &directions, Collider *dynamic_col, COLLIDER_TYPE type, fPoint &position, fPoint &velocity);
+
+	bool DeleteCollider(Collider* collider);
 
 private:
 	p2List<Collider*> colliders;

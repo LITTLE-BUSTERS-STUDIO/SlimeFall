@@ -3,7 +3,6 @@
 
 #include "j1Module.h"
 #include "Object.h"
-#include "j1Gui.h"
 #include "p2Point.h"
 #include "SDL_ttf/include/SDL_ttf.h"
 
