@@ -344,13 +344,17 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
 	}
 
-	if (!((camera.x / scale < x + rect.w) && (x < (camera.x + camera.w) / scale)
-		&& (camera.y / scale < y + rect.h) && (y < (camera.y + camera.h) / scale)))
+
+	if (speed != 0.0f)
 	{
-		return ret;
+		if (!((camera.x / scale < x + rect.w) && (x < (camera.x + camera.w) / scale)
+			&& (camera.y / scale < y + rect.h) && (y < (camera.y + camera.h) / scale)))
+		{
+			return ret;
+		}
+
 	}
 
-	
 	rect.w *= scale;
 	rect.h *= scale;
 
@@ -377,22 +381,33 @@ bool j1Render::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a
 	bool ret = true;
 	int scale = App->win->GetScale();
 
-	if (!((camera.x / scale < rect.x + rect.w) && (rect.x < (camera.x + camera.w) / scale)
-		&& (camera.y / scale < rect.y + rect.h) && (rect.y < (camera.y + camera.h) / scale)))
-	{
-		return ret;
-	}
-
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 	SDL_SetRenderDrawColor(renderer, r, g, b, a);
 
 	SDL_Rect rec(rect);
+
 	if(use_camera)
 	{
 		rec.x = (int)((camera.w * (zoom - 1)) / 2) + (-camera.x + rect.x * scale);
 		rec.y = (int)((camera.h * (zoom - 1)) / 2) + (-camera.y + rect.y * scale);
-		rec.w *= scale;
-		rec.h *= scale;
+	}
+	else
+    {
+		rec.x = rect.x * scale;
+		rec.y = rect.y * scale;
+	}
+
+	rec.w *= scale;
+	rec.h *= scale;
+
+	if (use_camera == true)
+	{
+		if (!((camera.x / scale < rect.x + rect.w) && (rect.x < (camera.x + camera.w) / scale)
+			&& (camera.y / scale < rect.y + rect.h) && (rect.y < (camera.y + camera.h) / scale)))
+		{
+
+			return ret;
+		}
 	}
 
 	int result = (filled) ? SDL_RenderFillRect(renderer, &rec) : SDL_RenderDrawRect(renderer, &rec);

@@ -14,8 +14,8 @@
 	<pathfinding />
 	<entity_manager>
 		<player>
-			<position x="384" y="52.8848953" />
-			<velocity x="0" y="-36.7291679" />
+			<position x="253.800873" y="96.7947845" />
+			<velocity x="0" y="293.030579" />
 			<conditions apply_jump_speed="false" on_ground="false" check_fall="false" flip_x="false" gummy_jump="false" />
 			<state current_state="jumping" collider_type="collider_player" />
 		</player>
@@ -23,9 +23,9 @@
 	<:anonymous />
 	<gui />
 	<renderer>
-		<camera_position x="110" y="0" />
-		<camera_smoth_position x="110" y="0" />
+		<camera_position x="0" y="0" />
+		<camera_smoth_position x="0" y="0" />
 		<debug zoom="1" />
-		<conditions free_camera_x="true" free_camera_y="false" />
+		<conditions free_camera_x="false" free_camera_y="false" />
 	</renderer>
 </game_state>

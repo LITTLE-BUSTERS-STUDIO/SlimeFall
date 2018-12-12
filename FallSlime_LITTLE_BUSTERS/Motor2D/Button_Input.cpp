@@ -21,7 +21,6 @@ bool Button_Input::Draw()
 {
 	SDL_Rect anim_rect;
 
-
 	if (App->gui->GetClickedObject() == this)
 	{
 		anim_rect = button_animation.pushed_rect;
