@@ -40,6 +40,8 @@ private:
 	Coin_States				current_state = Coin_States::enable;
 	//-----------Vars-----------------------
 	bool			  enable_fx = false;
+	uint  			  coin_counter = NULL;
+
 	//-----------Textures-------------------
 	SDL_Texture      *tex_coin = nullptr;
 
