@@ -289,13 +289,9 @@ void j1Gui::DrawGui(Object * object)
 	{
 		SDL_Rect rect;
 		rect.x = object->position.x - object->section.w / 2;
-		rect.x *= App->win->GetScale();
 		rect.y = object->position.y - object->section.h / 2;
-		rect.y *= App->win->GetScale();
 		rect.w = object->section.w;
-		rect.w *= App->win->GetScale();
 		rect.h = object->section.h;
-		rect.h *= App->win->GetScale();
 
 		if (object->hover_state == HoverState::On || object->hover_state == HoverState::Repeat)
 		{
