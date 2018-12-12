@@ -11,6 +11,11 @@ struct SDL_Texture;
 struct Collider;
 struct Entity_Info;
 
+enum class Coin_States
+{
+	enable,
+	disable
+};
 
 class Coin : public Enemy
 {
@@ -31,6 +36,10 @@ public:
 
 
 private:
+
+	Coin_States				current_state = Coin_States::enable;
+	//-----------Vars-----------------------
+	bool			  enable_fx = false;
 	//-----------Textures-------------------
 	SDL_Texture      *tex_coin = nullptr;
 

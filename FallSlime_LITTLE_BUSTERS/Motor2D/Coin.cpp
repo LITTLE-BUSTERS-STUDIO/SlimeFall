@@ -43,7 +43,7 @@ bool Coin::Update(float dt)
 	{
 		main_collider->SetPos(position.x - main_collider->rect.w / 2, position.y - main_collider->rect.h / 2);
 	}
-	
+
 	return true;
 }
 
@@ -55,16 +55,42 @@ bool Coin::Draw()
 
 	SDL_Rect frame;
 	SDL_Texture* texture = nullptr;
-	coin_anim.speed = 9;
-	if (coin_anim.GetFrameValue() > 9)
+	coin_anim.speed = 7;
+
+
+	switch ((Coin_States)current_state)
 	{
+	case Coin_States::enable:
+		main_collider->type = COLLIDER_COIN;
+		if (coin_anim.GetFrameValue() > 6)
+		{
+			frame = coin_anim.GetCurrentFrame();
+			texture = tex_coin;
+			coin_anim.Reset();
+		}
+
 		frame = coin_anim.GetCurrentFrame();
 		texture = tex_coin;
-		coin_anim.Reset();
+		break;
+
+	case Coin_States::disable:
+		main_collider->type = COLLIDER_NONE;
+		
+
+		if (!enable_fx)
+		{
+			//App->audio->PlayFx(fx_pick_up);
+			enable_fx = true;
+		}
+		break;
+
+	default:
+		break;
 	}
 
-	frame = coin_anim.GetCurrentFrame();
-	texture = tex_coin;
+
+
+	
 	App->render->Blit(texture, (int)position.x - frame.w / 2, (int)position.y - frame.h / 2, &frame);
 
 	return true;
@@ -92,6 +118,10 @@ bool Coin::OnCollision(Collider* c1, Collider* c2)
 		switch (c2->type)
 		{
 		case COLLIDER_ATTACK:
+			current_state = Coin_States::disable;
+			break;
+		case COLLIDER_PLAYER:
+			current_state = Coin_States::disable;
 			break;
 		default:
 			break;

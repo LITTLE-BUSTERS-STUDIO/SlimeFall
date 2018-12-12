@@ -208,6 +208,9 @@ bool j1Collision::PostUpdate()
 		case COLLIDER_ATTACK: // pink
 			App->render->DrawQuad(item->data->rect, 199, 21, 133, alpha);
 			break;
+		case COLLIDER_COIN: // yellow
+			App->render->DrawQuad(item->data->rect, 255, 255, 0, alpha);
+			break;
 		}
 		item = item->next;
 	}
