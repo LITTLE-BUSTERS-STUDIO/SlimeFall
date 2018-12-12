@@ -127,7 +127,6 @@ bool Enemy_Skeleton::Draw()
 		break;
 	}
 
-
 	if (position.x < App->entity_manager->GetPlayer()->position.x)
 	{
 		margin_flip = main_collider->rect.w - main_collider->rect.w / 2;
@@ -138,8 +137,6 @@ bool Enemy_Skeleton::Draw()
 		flip_x = true;
 		margin_flip = main_collider->rect.w + main_collider->rect.w / 2;
 	}
-
-		
 	
 	App->render->Blit(texture, position.x - margin_flip, position.y - main_collider->rect.h *3/2 + 5, &frame, flip_x);
 	return true;

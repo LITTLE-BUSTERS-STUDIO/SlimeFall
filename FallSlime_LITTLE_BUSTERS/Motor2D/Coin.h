@@ -6,39 +6,40 @@
 #include "p2Point.h"
 #include "Animation.h"
 #include "Entity.h"
-#include "j1Timer.h"
 
 struct SDL_Texture;
+struct Collider;
+struct Entity_Info;
 
+enum class Coin_States
+{
+	enable,
+	disable
+};
 
-
-class Coin : public Entity
+class Coin : public Enemy
 {
 public:
 
 	Coin(fPoint pos, Entity_Info info);
 
-	virtual ~Coin();
+	~Coin();
 
 
 	bool Update(float dt);
 
 	bool Draw();
 
+	bool Reset(Entity_Info  info);
+
 	bool OnCollision(Collider* c1, Collider* c2);
 
 
 private:
-	//Debug====================================
-	// Physics= ===================================
-	// States ================================
-	//Bool =====================================
-	// Collision ================================
-	Collider           *collider = nullptr;
-	SDL_Rect            collider_rect;
 
-	// Assets ===================================
-
+	Coin_States				current_state = Coin_States::enable;
+	//-----------Vars-----------------------
+	bool			  enable_fx = false;
 	//-----------Textures-------------------
 	SDL_Texture      *tex_coin = nullptr;
 

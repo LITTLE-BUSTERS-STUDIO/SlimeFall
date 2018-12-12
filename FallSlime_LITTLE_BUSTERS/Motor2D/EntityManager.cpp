@@ -152,6 +152,23 @@ bool EntityManager::Start()
 			properties->id_skeleton_death_fx = App->audio->LoadFx(sfx_node.child("death").attribute("path").as_string(""));
 
 		}
+		else if (name == "coin")
+		{
+			// ===========================================================================================
+			// -------------------------------------- Coin ---------------------------------------------
+			// ===========================================================================================
+			enemy_properties = new Coin_Properties();
+			Coin_Properties * properties = (Coin_Properties*)enemy_properties;
+
+			//============== Variables ===================
+
+			//============== Textures ===================
+			properties->tex_coin = App->tex->Load(textures_node.child("tex_coin").attribute("path").as_string(""));
+			//============== Animations =================
+			properties->anim_coin.LoadAnimation(p2SString(enemy_node.child("animations").child("anim_coin").attribute("path").as_string("")), "coin");
+			//=============== Sfx ======================
+			properties->pick_up_coin_fx = App->audio->LoadFx(sfx_node.child("pick_up").attribute("path").as_string(""));
+		}
 
 		if (enemy_properties == nullptr)
 		{
@@ -170,49 +187,7 @@ bool EntityManager::Start()
 		properties_list.add(enemy_properties);
 	}
 
-	// ===========================================================================================
-	// -------------------------------------- Coin ---------------------------------------------
-	// ===========================================================================================
-	for (pugi::xml_node coin_node = node.child("coin"); coin_node; coin_node = coin_node.next_sibling("coin"))
-	{
-		Coin_Properties*  coin_properties = new Coin_Properties();
-
-		//pugi::xml_node coin_node = node.child("coin");
-		coin_properties->name.create(coin_node.attribute("name").as_string(""));
-
-		pugi::xml_node collider_node = coin_node.child("collider");
-		coin_properties->collider_rect = { 0 , 0 , collider_node.attribute("width").as_int(0) , collider_node.attribute("height").as_int(0) };
-
-		pugi::xml_node spawn_margin_node = coin_node.child("spawn_margin");
-		coin_properties->spawn_rect = { 0 , 0 , spawn_margin_node.attribute("width").as_int(0) , spawn_margin_node.attribute("height").as_int(0) };
-
-		//============== Variables ==================
-
-		//============== Textures ===================
-		pugi::xml_node textures_node = coin_node.child("textures");
-
-		coin_properties->tex_coin = App->tex->Load(textures_node.child("tex_coin").attribute("path").as_string(""));
-
-
-		//============== Animations =================
-		pugi::xml_node animations_node = coin_node.child("animations");
-
-		coin_properties->anim_coin.LoadAnimation(p2SString(animations_node.child("anim_coin").attribute("path").as_string("")), "coin");
-
-
-		//=============== Sfx ======================
-		pugi::xml_node sfx_node = coin_node.child("sfx");
-
-		coin_properties->pick_up_coin_fx = App->audio->LoadFx(sfx_node.child("pick_up").attribute("path").as_string(""));
-		
-		if (coin_properties == nullptr)
-		{
-			LOG("Coin %s couldn't be loaded", name.GetString());
-			return false;
-		
-		}
-		properties_list.add(coin_properties);
-	}
+	
 	
 	return true;
 }
@@ -390,7 +365,7 @@ Entity* EntityManager::CreateEntity(Entity_Info& info)
 	}
 	else if (info.name == "skeleton") 
 	{
-		entity = new Enemy_Skeleton( info.position, info);
+	entity = new Enemy_Skeleton( info.position, info);
 	}
 	else if (info.name == "coin")
 	{

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="100" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="82" nextobjectid="488">
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="100" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="82" nextobjectid="489">
  <tileset firstgid="1" name="Basic_tileset" tilewidth="16" tileheight="16" tilecount="60" columns="10">
   <image source="Basic_tileset.png" width="160" height="96"/>
   <terraintypes>
@@ -8113,6 +8113,7 @@
   <object id="480" x="871.42" y="291.444" width="48.6591" height="112.112"/>
   <object id="484" x="151.809" y="274.834" width="64.257" height="141.862"/>
   <object id="485" x="281.809" y="180.001" width="15.0487" height="234.998"/>
+  <object id="488" x="-8.26676" y="-1.08958" width="23.382" height="272.664"/>
  </objectgroup>
  <layer id="80" name="Decorative" width="100" height="40">
   <data>
@@ -16146,7 +16147,7 @@
   <object id="466" name="bat" x="1018" y="277.333">
    <point/>
   </object>
-  <object id="486" name="coin" x="181" y="246.625">
+  <object id="486" name="coin" x="185" y="255.958">
    <point/>
   </object>
  </objectgroup>
