@@ -19,12 +19,12 @@
 
 
 
-j1Player::j1Player(fPoint pos, Entity_Info info) : Entity(pos, info)
+j1Player::j1Player(fPoint position, fPoint spawn_pos, Properties * properties) : Entity( position, spawn_pos, properties)
 {
 	name.create("player");
 
 	// Add components ===================================================================
-	Player_Properties* player_properties = (Player_Properties *)info.properties;
+	Player_Properties* player_properties = (Player_Properties *)properties;
 	collider_rect = player_properties->collider_rect;
 
 	// Values ---------------------------------------------

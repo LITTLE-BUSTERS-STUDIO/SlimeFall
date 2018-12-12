@@ -169,7 +169,7 @@ bool j1Render::Update(float dt)
 		reset = false;
 	}
 
-	fPoint player_position(App->entity_manager->GetPlayer()->position);
+	fPoint player_position(App->entity_manager->GetPlayer()->GetPosition());
 
 	// Camera_x hit screen---------------------------------------
 	if (free_camera_x)

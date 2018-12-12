@@ -22,7 +22,7 @@ enum class Enemy_Skeleton_State
 class Enemy_Skeleton : public Enemy
 {
 public:
-	Enemy_Skeleton(fPoint position, Entity_Info info);
+	Enemy_Skeleton(fPoint position, fPoint spawn_pos, Properties *properties);
 
 	~Enemy_Skeleton();
 
@@ -30,7 +30,7 @@ public:
 
 	bool Draw();
 
-	bool Reset(Entity_Info  info);
+	bool Reset();
 
 	bool OnCollision(Collider* c1, Collider* c2);
 

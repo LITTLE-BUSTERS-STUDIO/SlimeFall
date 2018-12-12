@@ -139,7 +139,7 @@ public:
 class Entity
 {
 public:
-	Entity(fPoint position, Entity_Info info);
+	Entity(fPoint position, fPoint spawn_pos, Properties *properties);
 
 	virtual ~Entity();
 	// Virtual methods ================================
@@ -156,7 +156,7 @@ public:
 
 	virtual bool Save(pugi::xml_node& node) const { return true; };
 
-	virtual bool Reset(Entity_Info  info) { return true; };
+	virtual bool Reset() { return true; };
 
 	virtual bool Active() { return true; };
 
@@ -164,18 +164,29 @@ public:
 
 	// Common methods ==================================
 
+	fPoint GetPosition();
+
+	void  SetPosition(fPoint position);
+
 	bool FindCollider(Collider *collider) const;
 
-	// Variables ======================================
+protected:
+	// Variables =======================================
+	bool                  active = false;
+	bool                  spawned = false;
 	p2SString             name;
 	int                   id;
-	bool                  active = false;
-
+	fPoint                spawn_pos;
+	Properties *          properties = nullptr;
+	// Transform ======================================= 
 	fPoint                position;
 	fPoint                velocity;
 	fPoint                acceleration;
-
+	// Colliders =======================================
 	p2List<Collider*>     colliders;
+
+private:
+	friend EntityManager;
 };
 
 #endif // __Entity_H__

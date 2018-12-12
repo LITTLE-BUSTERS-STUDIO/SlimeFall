@@ -24,7 +24,7 @@ class j1Player : public Entity
 {
 public:
 
-	j1Player(fPoint pos , Entity_Info info);
+	j1Player(fPoint position, fPoint spawn_pos, Properties *properties);
 
 	virtual ~j1Player();
 

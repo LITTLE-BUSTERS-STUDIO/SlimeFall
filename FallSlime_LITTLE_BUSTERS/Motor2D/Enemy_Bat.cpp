@@ -12,18 +12,18 @@
 #include "Brofiler/Brofiler.h"
 
 
-Enemy_Bat::Enemy_Bat(fPoint position, Entity_Info info) :Enemy( position, info)
+Enemy_Bat::Enemy_Bat(fPoint position, fPoint spawn_pos, Properties *properties) :Enemy(position, spawn_pos, properties)
 {
-	Enemy_Bat_Properties* properties = (Enemy_Bat_Properties *)info.properties;
+	Enemy_Bat_Properties* enemy_properties = (Enemy_Bat_Properties *)properties;
 
 	// Textures ------------------------------------------
-	tex_smoke = properties->smoke_tex;
-	tex_bat = properties->bat_tex;
+	tex_smoke = enemy_properties->smoke_tex;
+	tex_bat = enemy_properties->bat_tex;
 	// Animations ----------------------------------------
-	bat_anim = properties->bat_anim;
-	smoke_anim = properties->smoke_anim;
+	bat_anim = enemy_properties->bat_anim;
+	smoke_anim = enemy_properties->smoke_anim;
 	// Sfx ----------------------------------------------
-	fx_bat_death = properties->id_bat_death_fx;
+	fx_bat_death = enemy_properties->id_bat_death_fx;
 
 }
 
@@ -104,7 +104,7 @@ bool Enemy_Bat::Draw()
 	}
 
 
-	if (position.x < App->entity_manager->GetPlayer()->position.x)
+	if (position.x < App->entity_manager->GetPlayer()->GetPosition().x)
 	{
 		flip_x = true;
 		margin_flip = main_collider->rect.w + main_collider->rect.w/2;
@@ -123,7 +123,7 @@ bool Enemy_Bat::Draw()
 	return true;
 }
 
-bool Enemy_Bat::Reset(Entity_Info  info)
+bool Enemy_Bat::Reset()
 {
 	BROFILER_CATEGORY("Enemy_Bat Reset", Profiler::Color::LightGray);
 

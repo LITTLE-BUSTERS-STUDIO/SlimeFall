@@ -28,12 +28,14 @@ Extract .zip files inside a folder and open the .exe file.
 * **F5** - Save Game
 * **F6** - Load Game
 * **F7** - Mute
-* **F8** - View Pathfinding
-* **F9** - View colliders
+* **F8** - Debug gui
+* **F9** - View Pathfinding & colliders
 * **F10** - God Mode
 * **F11** - Cap ON/OFF 30fps
+
 * **PLUS** - Set up music
 * **MINUS** - Set down music
+
 * **2** - Change to level 2
 
 ### Innovation features A1:

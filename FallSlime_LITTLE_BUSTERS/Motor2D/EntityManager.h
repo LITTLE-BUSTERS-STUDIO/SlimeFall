@@ -53,16 +53,15 @@ public:
 
 private:
 
-	Entity* CreateEntity( Entity_Info& info);
+	Entity* CreateEntity(p2SString name, fPoint position, fPoint spawn_pos, Properties* properties);
 
 	Properties* GetProperties(const p2SString name) const;
 
 private:
 	p2SString                   document_path;
 	// Entities ===========================================
-	p2List<Entity_Info>         entities_info;          // Entities to spawn added in LoadMap (objectgroup entities)
-	p2List<Entity*>				entities;				// Active entities
-	j1Player*                   player = nullptr;
+	p2List<Entity*>				entities;				
+	j1Player*                   player = nullptr;       
 	//// Entities Properties ================================
 	p2List<Properties *>        properties_list; 
 	int                         entity_count = 0;

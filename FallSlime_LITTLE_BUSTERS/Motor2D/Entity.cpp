@@ -5,14 +5,24 @@
 #include "j1Collision.h"
 #include "Brofiler/Brofiler.h"
 
-Entity::Entity(fPoint position, Entity_Info info) : position( position)
+Entity::Entity(fPoint position, fPoint spawn_pos, Properties *properties) : position( position) , spawn_pos(spawn_pos), properties(properties)
 {
-	this->position = position;
+
 }
 
 Entity::~Entity()
 {
 
+}
+
+fPoint Entity::GetPosition()
+{
+	return position;
+}
+
+void Entity::SetPosition( fPoint position)
+{
+	this->position = position;
 }
 
 bool Entity::FindCollider( Collider *collider) const

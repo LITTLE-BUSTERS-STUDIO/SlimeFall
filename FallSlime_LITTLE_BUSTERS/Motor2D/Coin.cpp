@@ -6,7 +6,6 @@
 #include "j1Player.h"
 #include "j1Audio.h"
 #include "Coin.h"
-
 #include "j1Map.h"
 #include "j1Render.h"
 
@@ -14,9 +13,9 @@
 
 
 
-Coin::Coin(fPoint position, Entity_Info info) :Enemy(position, info)
+Coin::Coin(fPoint position, fPoint spawn_pos, Properties *properties) :Entity(position, spawn_pos, properties)
 {
-	Coin_Properties* coin_properties = (Coin_Properties *)info.properties;
+	Coin_Properties* coin_properties = (Coin_Properties *)properties;
 
 	// Values ---------------------------------------------
 
@@ -92,7 +91,7 @@ bool Coin::Draw()
 	return true;
 }
 
-bool Coin::Reset(Entity_Info  info)
+bool Coin::Reset()
 {
 	BROFILER_CATEGORY("Coin Reset", Profiler::Color::LightGray);
 

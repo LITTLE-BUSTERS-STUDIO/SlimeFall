@@ -17,11 +17,11 @@ enum class Coin_States
 	disable
 };
 
-class Coin : public Enemy
+class Coin : public Entity
 {
 public:
 
-	Coin(fPoint pos, Entity_Info info);
+	Coin(fPoint position, fPoint spawn_pos, Properties *properties);
 
 	~Coin();
 
@@ -30,18 +30,18 @@ public:
 
 	bool Draw();
 
-	bool Reset(Entity_Info  info);
+	bool Reset();
 
 	bool OnCollision(Collider* c1, Collider* c2);
 
 
 private:
 
-	Coin_States				current_state = Coin_States::enable;
+	Coin_States		  current_state = Coin_States::enable;
 	//-----------Vars-----------------------
 	bool			  enable_fx = false;
 	uint  			  coin_counter = NULL;
-
+	Collider*         main_collider = nullptr;
 	//-----------Textures-------------------
 	SDL_Texture      *tex_coin = nullptr;
 

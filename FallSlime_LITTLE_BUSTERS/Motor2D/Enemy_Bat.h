@@ -21,7 +21,7 @@ enum class Enemy_Bat_State
 class Enemy_Bat: public Enemy
 {
 public:
-	Enemy_Bat(fPoint position, Entity_Info info);
+	Enemy_Bat(fPoint position, fPoint spawn_pos, Properties *properties);
 
 	~Enemy_Bat();
 
@@ -29,7 +29,7 @@ public:
 
 	bool Draw();
 
-	bool Reset(Entity_Info  info);
+	bool Reset();
 
 	bool OnCollision(Collider* c1, Collider* c2) ;
 

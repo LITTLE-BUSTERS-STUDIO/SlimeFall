@@ -11,27 +11,26 @@
 
 #include "j1Map.h"
 #include "j1Render.h"
-
 #include "Brofiler/Brofiler.h"
 
 
-Enemy_Skeleton::Enemy_Skeleton(fPoint position, Entity_Info info) :Enemy(position, info)
+Enemy_Skeleton::Enemy_Skeleton(fPoint position, fPoint spawn_pos, Properties *properties) :Enemy(position, spawn_pos, properties)
 {
-	Enemy_Skeleton_Properties* properties = (Enemy_Skeleton_Properties *)info.properties;
+	Enemy_Skeleton_Properties* enemy_properties = (Enemy_Skeleton_Properties *)properties;
 
 	target = (Entity*)App->entity_manager->GetPlayer();
 
 	// Textures ------------------------------------------
-	tex_skeleton = properties->skeleton_tex;
+	tex_skeleton = enemy_properties->skeleton_tex;
 
 	// Animations ------------------------------
-	skeleton_walking_anim = properties->skeleton_walking_anim;
-	skeleton_dead_anim = properties->skeleton_dead_anim;
-	skeleton_attack_anim = properties->skeleton_attack_anim;
-	skeleton_idle_anim = properties->skeleton_idle_anim;
+	skeleton_walking_anim = enemy_properties->skeleton_walking_anim;
+	skeleton_dead_anim = enemy_properties->skeleton_dead_anim;
+	skeleton_attack_anim = enemy_properties->skeleton_attack_anim;
+	skeleton_idle_anim = enemy_properties->skeleton_idle_anim;
 
 	// Sfx ----------------------------------------------
-	fx_skaleton_death = properties->id_skeleton_death_fx;
+	fx_skaleton_death = enemy_properties->id_skeleton_death_fx;
 }
 
 Enemy_Skeleton::~Enemy_Skeleton()
@@ -127,7 +126,7 @@ bool Enemy_Skeleton::Draw()
 		break;
 	}
 
-	if (position.x < App->entity_manager->GetPlayer()->position.x)
+	if (position.x < App->entity_manager->GetPlayer()->GetPosition().x)
 	{
 		margin_flip = main_collider->rect.w - main_collider->rect.w / 2;
 		flip_x = false;
@@ -142,7 +141,7 @@ bool Enemy_Skeleton::Draw()
 	return true;
 }
 
-bool Enemy_Skeleton::Reset(Entity_Info info )
+bool Enemy_Skeleton::Reset()
 {
 	BROFILER_CATEGORY("Enemy_Skeleton Reset", Profiler::Color::LightGray);
 	current_state = Enemy_Skeleton_State::walking;

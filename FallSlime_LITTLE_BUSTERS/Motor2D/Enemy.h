@@ -13,7 +13,7 @@ class Enemy : public Entity
 {
 public:
 
-	Enemy(fPoint position, Entity_Info info);
+	Enemy(fPoint position, fPoint spawn_pos, Properties *properties);
 	~Enemy();
 
 	// Common methods ===============================

@@ -10,20 +10,20 @@
 
 #define MAX_DETECTION_RATIO 400
 
-Enemy::Enemy(fPoint position, Entity_Info info) :Entity(position, info)
+Enemy::Enemy(fPoint position, fPoint spawn_pos, Properties *properties) :Entity(position, spawn_pos, properties)
 {
-	Enemy_Properties* properties = (Enemy_Properties*)info.properties;
+	Enemy_Properties* enemy_properties = (Enemy_Properties*)properties;
 
-	main_collider = App->collision->AddCollider(info.properties->collider_rect, COLLIDER_NONE, App->entity_manager);
+	main_collider = App->collision->AddCollider(enemy_properties->collider_rect, COLLIDER_NONE, App->entity_manager);
 	colliders.add(main_collider);
 
-	main_collider->SetPos(position.x - info.properties->collider_rect.w/2 , position.y - info.properties->collider_rect.h / 2);
+	main_collider->SetPos(position.x - enemy_properties->collider_rect.w/2 , position.y - enemy_properties->collider_rect.h / 2);
 
 	iPoint pos = { (int)position.x, (int)position.y};
 	current_point = App->map->WorldToMap(pos.x, pos.y);
 	
-	path_interval_time = properties->path_interval_time;
-	detection_ratio = properties->detection_ratio;
+	path_interval_time = enemy_properties->path_interval_time;
+	detection_ratio = enemy_properties->detection_ratio;
 }
 
 Enemy::~Enemy()
@@ -34,7 +34,8 @@ bool Enemy::UpdateLogic()
 {
 	if (  path_timer.Read() > path_interval_time ) 
 	{
-		iPoint map_target (target->position.x, target->position.y);
+		fPoint target_pos(target->GetPosition());
+		iPoint map_target (target_pos.x, target_pos.y);
 		iPoint map_pos(position.x, position.y);
 
 		map_target = App->map->WorldToMap(map_target.x, map_target.y);
@@ -116,7 +117,7 @@ bool Enemy::CheckTargetRatio()
 
 	if (detection_ratio < MAX_DETECTION_RATIO && target)
 	{
-		if (position.DistanceManhattan(App->entity_manager->GetPlayer()->position) < detection_ratio)
+		if (position.DistanceManhattan(App->entity_manager->GetPlayer()->GetPosition()) < detection_ratio)
 		{
 			target_detected = ret = true;
 		}
