@@ -28,10 +28,10 @@ Coin::Coin(fPoint pos, Entity_Info info) : Entity(pos, info)
 
 	// Colliders ------------------------------------------
 	
-	collider = App->collision->AddCollider(collider_rect, COLLIDER_COIN, App->entity_manager);
+	/*collider = App->collision->AddCollider(collider_rect, COLLIDER_COIN, App->entity_manager);
 	
 	colliders.add(collider);
-
+*/
 	// Textures ------------------------------------------
 	tex_coin = coin_properties->tex_coin;
 	
@@ -51,11 +51,9 @@ bool Coin::Update(float dt)
 {
 	BROFILER_CATEGORY("Coin Update", Profiler::Color::LightCyan);
 
-	collider->SetPos(position.x - collider_rect.w / 2, position.y - collider_rect.h / 2);
-
-	p2List<Direction> directions;
+	/*p2List<Direction> directions;
 	App->collision->CheckOverlap(directions, collider, COLLIDER_WALL, position, velocity);
-	//collider->SetPos(position.x - collider_rect.w / 2, position.y - collider_rect.h / 2);
+	collider->SetPos(position.x - collider_rect.w / 2, position.y - collider_rect.h / 2);*/
 	
 	return true;
 }
@@ -71,7 +69,7 @@ bool Coin::Draw()
 	frame = coin_anim.GetLastFrame();
 	texture = tex_coin;
 
-	App->render->Blit(texture, (int)position.x - frame.w / 2, (int)position.y - frame.h / 2, &frame);
+	App->render->Blit(texture, 0, 0, &frame);
 
 	return true;
 }

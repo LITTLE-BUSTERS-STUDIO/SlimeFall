@@ -56,8 +56,6 @@ class Coin_Properties : public Properties
 {
 public:
 	//------------Valeues-------------------
-	float               speed_coin;
-
 	//-----------Animations-----------------
 	Animation		    anim_coin;
 

@@ -95,7 +95,7 @@
       <Filter>Modules\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Coin.cpp">
-      <Filter>Modules\Entities\Objects</Filter>
+      <Filter>Modules\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -214,7 +214,7 @@
       <Filter>Modules\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Coin.h">
-      <Filter>Modules\Entities\Objects</Filter>
+      <Filter>Modules\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -254,17 +254,6 @@
     <Filter Include="Modules\GUI">
       <UniqueIdentifier>{54e101e2-2bea-474e-a2a0-4b81fc33ae51}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Modules\Entities\Objects">
-      <UniqueIdentifier>{1158331c-a840-4c52-a9c9-df75c37ca9d4}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\Game\maps\Level1_1.tmx">
-      <Filter>Modules\XML_Documents\Maps</Filter>
-    </None>
-    <None Include="..\Game\maps\Level1_2.tmx">
-      <Filter>Modules\XML_Documents\Maps</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\Game\animations\player_animation.xml">
@@ -294,5 +283,19 @@
     <Xml Include="..\Game\data\scenes.xml">
       <Filter>Modules\XML_Documents</Filter>
     </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Game\maps\Intro.tmx">
+      <Filter>Modules\XML_Documents\Maps</Filter>
+    </None>
+    <None Include="..\Game\maps\Level_1_1.tmx">
+      <Filter>Modules\XML_Documents\Maps</Filter>
+    </None>
+    <None Include="..\Game\maps\Level_1_2.tmx">
+      <Filter>Modules\XML_Documents\Maps</Filter>
+    </None>
+    <None Include="..\Game\maps\Level_1_Tutorial.tmx">
+      <Filter>Modules\XML_Documents\Maps</Filter>
+    </None>
   </ItemGroup>
 </Project>

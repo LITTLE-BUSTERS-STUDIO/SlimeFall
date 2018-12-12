@@ -204,7 +204,13 @@ bool EntityManager::Start()
 		pugi::xml_node sfx_node = coin_node.child("sfx");
 
 		coin_properties->pick_up_coin_fx = App->audio->LoadFx(sfx_node.child("pick_up").attribute("path").as_string(""));
-
+		
+		if (coin_properties == nullptr)
+		{
+			LOG("Coin %s couldn't be loaded", name.GetString());
+			return false;
+		
+		}
 		properties_list.add(coin_properties);
 	}
 	

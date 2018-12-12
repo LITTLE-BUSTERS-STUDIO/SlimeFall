@@ -1,6 +1,6 @@
 <scenes>
 
-  <default_scene name ="main_menu" />
+  <default_scene name ="level_1" />
 
   <scene name ="main_menu" default_phase ="1">
 
