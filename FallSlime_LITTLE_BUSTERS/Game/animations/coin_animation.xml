@@ -4,7 +4,7 @@
     <property name="loop" type="bool" value="true"/>
   </properties>
  <image source="Coin.png" width="85" height="75"/>
- <tile id="14">
+ <tile id="0">
    <properties>
      <property name="coin" type="bool" value="false"/>
    </properties>

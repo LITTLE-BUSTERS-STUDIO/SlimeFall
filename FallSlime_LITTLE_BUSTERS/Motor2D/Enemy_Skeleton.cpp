@@ -41,7 +41,6 @@ Enemy_Skeleton::~Enemy_Skeleton()
 bool Enemy_Skeleton::Update(float dt)
 {
 	target = (Entity*)App->entity_manager->GetPlayer();
-	velocity = { 100,100 };
 
 	if (current_state == Enemy_Skeleton_State::dead)
 	{
@@ -148,7 +147,7 @@ bool Enemy_Skeleton::Draw()
 
 bool Enemy_Skeleton::Reset(Entity_Info info )
 {
-	BROFILER_CATEGORY("Enemy_Bat Reset", Profiler::Color::LightGray);
+	BROFILER_CATEGORY("Enemy_Skeleton Reset", Profiler::Color::LightGray);
 	current_state = Enemy_Skeleton_State::walking;
 	dead_fx = false;
 	return true;

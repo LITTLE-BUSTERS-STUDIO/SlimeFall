@@ -151,12 +151,6 @@
     <ClInclude Include="SceneManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Game\maps\Level1_1.tmx">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="..\Game\maps\Level1_2.tmx" />
-  </ItemGroup>
-  <ItemGroup>
     <Xml Include="..\Game\animations\enemy_bat_animation.xml" />
     <Xml Include="..\Game\animations\player_animation.xml" />
     <Xml Include="..\Game\animations\player_attack_animation.xml" />
@@ -166,6 +160,12 @@
     <Xml Include="..\Game\data\entities.xml" />
     <Xml Include="..\Game\data\save_game.xml" />
     <Xml Include="..\Game\data\scenes.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Game\maps\Intro.tmx" />
+    <None Include="..\Game\maps\Level_1_1.tmx" />
+    <None Include="..\Game\maps\Level_1_2.tmx" />
+    <None Include="..\Game\maps\Level_1_Tutorial.tmx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
