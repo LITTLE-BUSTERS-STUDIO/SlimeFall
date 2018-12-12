@@ -230,6 +230,39 @@ Object * j1Gui::GetScreen()
 	return screen;
 }
 
+bool j1Gui::DeleteObject(Object * object)
+{
+	if (object == nullptr)
+	{
+		return false;
+	}
+
+	int index = objects_list.find(object);
+
+	if (index == -1)
+	{
+		return false;
+	}
+	p2List_item<Object*> * item = objects_list.At(index);
+
+	if (item->data->anchor_parent != nullptr)
+	{
+		p2List<Object*> *list = item->data->anchor_parent->GetAnchorSons();
+		int son_index = list->find(object);
+		if (son_index != -1)
+		{
+			p2List_item<Object*>* item_son = list->At(son_index);
+			list->del(item_son);
+		}
+	}
+
+	RELEASE(item->data);
+	item->data = nullptr;
+	objects_list.del(item);
+
+	return true;
+}
+
 iPoint j1Gui::GetCursorOffset() const
 {
 	return cursor_offset;
@@ -281,6 +314,7 @@ bool j1Gui::SelectClickedObject()
 
 void j1Gui::DrawGui(Object * object)
 {
+	
 	object->Draw();
 
 	if (App->gui->debug)

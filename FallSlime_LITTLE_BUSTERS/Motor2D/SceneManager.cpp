@@ -216,7 +216,7 @@ bool SceneManager::LoadScene(p2SString name)
 	// Current scene =======================================
 	current_scene = scene_to_load;
 	current_scene->LoadScene(node_to_send);
-	LoadPhase(scene_to_load->default_phase);
+	LoadPhase(current_scene->default_phase);
 
 	return true;
 }

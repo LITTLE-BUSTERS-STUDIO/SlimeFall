@@ -105,7 +105,8 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 bool MainMenu::UnloadScene()
 {
 	BROFILER_CATEGORY("MainMenu Unload", Profiler::Color::Maroon);
-
+	App->gui->DeleteObject(logo);
+	App->gui->DeleteObject(button_start);
 	App->tex->UnLoad(paralax_tex_1);
 	App->tex->UnLoad(paralax_tex_2);
 	App->tex->UnLoad(paralax_tex_3);
