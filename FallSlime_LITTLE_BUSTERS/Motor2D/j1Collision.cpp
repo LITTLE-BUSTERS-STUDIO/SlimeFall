@@ -17,6 +17,7 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_WALL][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_WALL][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_WALL][COLLIDER_ATTACK] = true;
+	matrix[COLLIDER_WALL][COLLIDER_COIN] = false;
 
 
 	matrix[COLLIDER_ENEMY][COLLIDER_WALL] = true;
@@ -26,6 +27,7 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_ENEMY][COLLIDER_GOD] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_ATTACK] = true;
+	matrix[COLLIDER_ENEMY][COLLIDER_COIN] = false;
 
 
 	matrix[COLLIDER_PLAYER][COLLIDER_WALL] = true;
@@ -35,6 +37,7 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_PLAYER][COLLIDER_DEATH] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_ATTACK] = false;
+	matrix[COLLIDER_PLAYER][COLLIDER_COIN] = true;
 
 
 	matrix[COLLIDER_DEATH][COLLIDER_WALL] = false;
@@ -44,6 +47,7 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_DEATH][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_DEATH][COLLIDER_ENEMY] = false;
 	matrix[COLLIDER_DEATH][COLLIDER_ATTACK] = false;
+	matrix[COLLIDER_DEATH][COLLIDER_COIN] = false;
 
  
 	matrix[COLLIDER_NEXT_LEVEL][COLLIDER_WALL] = false;
@@ -53,6 +57,7 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_NEXT_LEVEL][COLLIDER_NEXT_LEVEL] = false;
 	matrix[COLLIDER_NEXT_LEVEL][COLLIDER_ENEMY] = false;
 	matrix[COLLIDER_NEXT_LEVEL][COLLIDER_ATTACK] = true;
+	matrix[COLLIDER_NEXT_LEVEL][COLLIDER_COIN] = false;
 
 
 	matrix[COLLIDER_GOD][COLLIDER_WALL] = true;
@@ -62,6 +67,7 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_GOD][COLLIDER_GOD] = false;
 	matrix[COLLIDER_GOD][COLLIDER_ENEMY] = false;
 	matrix[COLLIDER_GOD][COLLIDER_ATTACK] = false;
+	matrix[COLLIDER_GOD][COLLIDER_COIN] = false;
 	
 	matrix[COLLIDER_ATTACK][COLLIDER_WALL] = true;
 	matrix[COLLIDER_ATTACK][COLLIDER_PLAYER] = false;
@@ -69,8 +75,17 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_ATTACK][COLLIDER_NEXT_LEVEL] = true;
 	matrix[COLLIDER_ATTACK][COLLIDER_GOD] = false;
 	matrix[COLLIDER_ATTACK][COLLIDER_ENEMY] = true;
+	matrix[COLLIDER_ATTACK][COLLIDER_ATTACK] = false;
+	matrix[COLLIDER_ATTACK][COLLIDER_COIN] = true;
 
-
+	matrix[COLLIDER_COIN][COLLIDER_WALL] = false;
+	matrix[COLLIDER_COIN][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_COIN][COLLIDER_DEATH] = false;
+	matrix[COLLIDER_COIN][COLLIDER_NEXT_LEVEL] = false;
+	matrix[COLLIDER_COIN][COLLIDER_GOD] = false;
+	matrix[COLLIDER_COIN][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_COIN][COLLIDER_COIN] = false;
+	matrix[COLLIDER_COIN][COLLIDER_ATTACK] = true;
 }
 
 // Destructor

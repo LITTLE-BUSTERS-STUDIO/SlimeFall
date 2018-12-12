@@ -27,11 +27,6 @@ public:
 
 	bool OnCollision(Collider* c1, Collider* c2);
 
-	// Save & Load =============================
-	bool Load(pugi::xml_node& node);
-
-	bool Save(pugi::xml_node& node) const;
-
 
 private:
 	//Debug====================================

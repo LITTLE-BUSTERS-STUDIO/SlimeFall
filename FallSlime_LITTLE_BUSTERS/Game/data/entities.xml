@@ -59,6 +59,7 @@
     <coin name ="coin">
 
       <collider width="20" height="20"/>
+      <spawn_margin width ="40" height="40"/>
       <animations>
         <anim_coin path ="animations/coin_animation.xml"/>
       </animations>
@@ -66,7 +67,7 @@
         <tex_coin path ="textures/Coin.png"/>
       </textures>
       <sfx>
-        <pick_up path ="audio/fx/coin.wav"/>
+        <pick_up path ="audio/fx/Coin.wav"/>
       </sfx>
 
     </coin>
