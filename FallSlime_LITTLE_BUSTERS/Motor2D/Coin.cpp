@@ -56,11 +56,10 @@ bool Coin::Draw()
 	SDL_Texture* texture = nullptr;
 	coin_anim.speed = 7;
 
-
 	switch ((Coin_States)current_state)
 	{
 	case Coin_States::enable:
-		main_collider->type = COLLIDER_COIN;
+		//main_collider->type = COLLIDER_COIN;
 		if (coin_anim.GetFrameValue() > 6)
 		{
 			frame = coin_anim.GetCurrentFrame();
