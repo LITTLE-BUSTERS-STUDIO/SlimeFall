@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="100" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="72" nextobjectid="435">
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="100" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="72" nextobjectid="437">
  <tileset firstgid="1" name="Basic_tileset" tilewidth="16" tileheight="16" tilecount="60" columns="10">
   <image source="Basic_tileset.png" width="160" height="96"/>
   <terraintypes>
@@ -14524,8 +14524,8 @@
    <tile/>
    <tile gid="17"/>
    <tile gid="18"/>
-   <tile gid="20"/>
-   <tile gid="17"/>
+   <tile gid="19"/>
+   <tile gid="19"/>
    <tile gid="20"/>
    <tile/>
    <tile/>
@@ -14624,8 +14624,8 @@
    <tile/>
    <tile gid="27"/>
    <tile gid="29"/>
-   <tile gid="30"/>
-   <tile gid="27"/>
+   <tile gid="28"/>
+   <tile gid="29"/>
    <tile gid="30"/>
    <tile/>
    <tile/>
@@ -16156,7 +16156,7 @@
   <object id="432" name="skeleton" x="281.666" y="211.333">
    <point/>
   </object>
-  <object id="433" name="coin" x="138" y="214">
+  <object id="433" name="coin" x="376.667" y="236.667">
    <point/>
   </object>
   <object id="435" name="player" x="77" y="224">
