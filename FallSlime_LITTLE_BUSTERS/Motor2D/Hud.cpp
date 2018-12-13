@@ -54,7 +54,6 @@ bool Hud::PreUpdate()
 
 bool Hud::Update(float dt)
 {
-	App->gui->Disable();
 	return true;
 }
 
