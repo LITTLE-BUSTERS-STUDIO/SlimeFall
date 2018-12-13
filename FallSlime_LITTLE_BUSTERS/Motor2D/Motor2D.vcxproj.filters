@@ -97,6 +97,9 @@
     <ClCompile Include="Coin.cpp">
       <Filter>Modules\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Hud.cpp">
+      <Filter>Modules\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Scene.h">
@@ -215,6 +218,9 @@
     </ClInclude>
     <ClInclude Include="Coin.h">
       <Filter>Modules\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Hud.h">
+      <Filter>Modules\GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

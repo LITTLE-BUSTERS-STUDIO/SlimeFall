@@ -83,6 +83,7 @@
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Enemy_Bat.cpp" />
+    <ClCompile Include="Hud.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="j1Fonts.cpp" />
     <ClCompile Include="j1Gui.cpp" />
@@ -118,6 +119,7 @@
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Enemy_Bat.h" />
+    <ClInclude Include="Hud.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="j1Fonts.h" />
     <ClInclude Include="j1Gui.h" />
