@@ -7,6 +7,8 @@
 #include "Animation.h"
 #include "Entity.h"
 #include "j1Timer.h"
+#include "j1Gui.h"
+
 
 struct SDL_Texture;
 
@@ -20,7 +22,7 @@ enum class Player_State
 
 
 
-class j1Player : public Entity
+class j1Player : public Entity, public Gui_Listener
 {
 public:
 
@@ -102,6 +104,10 @@ private:
 	uint		      id_death_fx;
 	uint		      fx_attack;
 	bool			  dead_fx = false;
+	//--------------GUI-----------------------
+	Image *				lives = nullptr;
+	Image *				score = nullptr;
+	Image *				wood_panel = nullptr;
 };
 
 
