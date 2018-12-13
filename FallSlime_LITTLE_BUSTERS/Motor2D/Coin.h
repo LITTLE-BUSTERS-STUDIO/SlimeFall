@@ -34,6 +34,9 @@ public:
 
 	bool OnCollision(Collider* c1, Collider* c2);
 
+	bool Active();
+
+	bool Desactive();
 
 private:
 

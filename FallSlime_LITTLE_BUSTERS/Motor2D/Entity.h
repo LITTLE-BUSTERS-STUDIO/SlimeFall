@@ -95,16 +95,14 @@ public:
 
 };
 
-class Coin_Properties : public Enemy_Properties
+class Coin_Properties : public Properties
 {
 public:
 	//------------Valeues-------------------
 	//-----------Animations-----------------
 	Animation		    anim_coin;
-
 	//-----------Textures-------------------
 	SDL_Texture*        tex_coin;
-
 	//------------Sfx----------------------
 	int                 pick_up_coin_fx;
 };

@@ -1,8 +1,8 @@
   <entities>
     
-    <player name ="player">
-      <collider width="20" height="20"/>
+    <entity name ="player">
       <variables gravity ="1100" speed_air ="150.0" speed_ground ="0" speed_jump ="400" speed_gummy_jump ="180" speed_attack="600.0" />
+      <collider width="20" height="20"/>
       <animations>
         <jumping path ="animations/player_animation.xml"/>
         <death path ="animations/player_death_animation.xml"/>
@@ -22,9 +22,9 @@
         <death path ="audio/fx/death.wav"/>
         <attack path ="audio/fx/attack.wav"/>
       </sfx>
-    </player>
+    </entity>
 
-    <enemy name ="bat">
+    <entity name ="bat">
       <variables detection_ratio="300" path_interval_time="200"/>
       <collider width ="20" height="20"/>
       <spawn_margin width ="40" height="40"/>
@@ -39,9 +39,9 @@
       <sfx>
         <death path ="audio/fx/bat_death.wav"/>
       </sfx>
-    </enemy>
+    </entity>
 
-    <enemy name ="skeleton">
+    <entity name ="skeleton">
       <variables detection_ratio="300" path_interval_time="300"/>
       <collider width ="20" height="20"/>
       <spawn_margin width ="40" height="40"/>
@@ -54,9 +54,9 @@
       <sfx>
         <death path ="audio/fx/skeleton_death.wav"/>
       </sfx>
-    </enemy>
-    
-    <enemy name ="coin">
+    </entity>
+
+    <entity name ="coin">
       <collider width="20" height="20"/>
       <spawn_margin width ="40" height="40"/>
       <animations>
@@ -69,6 +69,6 @@
         <pick_up path ="audio/fx/Coin.wav"/>
       </sfx>
 
-    </enemy>
+    </entity>
 
   </entities>

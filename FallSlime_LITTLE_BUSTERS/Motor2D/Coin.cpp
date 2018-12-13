@@ -145,3 +145,15 @@ bool Coin::OnCollision(Collider* c1, Collider* c2)
 
 	return ret;
 }
+
+bool Coin::Active()
+{
+	active = true;
+	return true;
+}
+
+bool Coin::Desactive()
+{
+	active = false;
+	return true;
+}

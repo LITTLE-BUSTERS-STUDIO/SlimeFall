@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="100" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="72" nextobjectid="435">
  <tileset firstgid="1" name="Basic_tileset" tilewidth="16" tileheight="16" tilecount="60" columns="10">
   <image source="Basic_tileset.png" width="160" height="96"/>
@@ -16157,7 +16156,7 @@
   <object id="432" name="skeleton" x="281.666" y="211.333">
    <point/>
   </object>
-  <object id="433" name="coin" x="816" y="270">
+  <object id="433" name="coin" x="138" y="214">
    <point/>
   </object>
   <object id="435" name="player" x="77" y="224">
