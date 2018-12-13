@@ -9,16 +9,20 @@
 	<fonts />
 	<map />
 	<scene_manager>
-		<phase current_phase="1" />
+		<scene name="level_1" phase="2" />
 	</scene_manager>
 	<pathfinding />
 	<entity_manager>
-		<player>
-			<position x="253.800873" y="96.7947845" />
-			<velocity x="0" y="293.030579" />
+		<entity name="enemy_bat" id="1" x="593" y="168" spawned="true" active="true" />
+		<entity name="enemy_bat" id="2" x="1197" y="392" spawned="false" active="false" />
+		<entity name="enemy_skeleton" id="3" x="679" y="306" spawned="false" active="false" />
+		<entity name="enemy_skeleton" id="4" x="264" y="211" spawned="true" active="true" />
+		<entity name="object_coin" id="5" x="816" y="270" spawned="false" active="false" />
+		<entity name="player" id="6" x="131" y="199" spawned="true" active="true">
+			<velocity x="0" y="262.608124" />
 			<conditions apply_jump_speed="false" on_ground="false" check_fall="false" flip_x="false" gummy_jump="false" />
 			<state current_state="jumping" collider_type="collider_player" />
-		</player>
+		</entity>
 	</entity_manager>
 	<:anonymous />
 	<gui />
@@ -26,6 +30,6 @@
 		<camera_position x="0" y="0" />
 		<camera_smoth_position x="0" y="0" />
 		<debug zoom="1" />
-		<conditions free_camera_x="false" free_camera_y="false" />
+		<conditions free_camera_x="true" free_camera_y="true" />
 	</renderer>
 </game_state>

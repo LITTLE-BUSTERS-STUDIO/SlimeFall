@@ -243,7 +243,7 @@ bool EntityManager::PreUpdate()
 			&& (camera.y / scale < pos.y ) && (pos.y < (camera.y + camera.h) / scale)))
 		{
 			item->data->spawned = true;
-			item->data->active = true;
+			item->data->Active();
 		}
 	}
 
@@ -299,6 +299,7 @@ bool EntityManager::LoadEntities(pugi::xml_node& node)
 	BROFILER_CATEGORY("EntityManager LoadEntitiesInfo", Profiler::Color::LawnGreen);
 
 	bool ret = true;
+	entity_count_id = 0;
 	
 	for (pugi::xml_node object = node.child("object"); object; object = object.next_sibling("object"))
 	{
@@ -325,12 +326,6 @@ bool  EntityManager::UnloadEntities()
 
 	while (item != nullptr)
 	{
-		if (item->data->name == "player")
-		{
-			item = item->next;
-			continue;
-		}
-
 		++entity_deleted;
 
 		for (p2List_item<Collider*>* colliders = item->data->colliders.start; colliders; colliders = colliders->next)
@@ -342,7 +337,15 @@ bool  EntityManager::UnloadEntities()
 
 		p2List_item<Entity*>* iterator = item->next;
 
-		RELEASE(item->data);
+		if (item->data->name == "player")
+		{
+			RELEASE(item->data);
+			player = nullptr;
+		}
+		else
+		{
+			RELEASE(item->data);
+		}
 		entities.del(item);
 		item = iterator;
 	}
@@ -360,6 +363,12 @@ Entity* EntityManager::CreateEntity( p2SString name, fPoint position, fPoint spa
 
 	Entity* entity = nullptr;
 
+	if (name == "player")
+	{
+		entity = player = new j1Player(position, spawn_pos, properties);
+		entity->active = true;
+		entity->spawned = true;
+	}
 	if (name == "bat") 
 	{
 		entity = new Enemy_Bat( position, spawn_pos, properties);
@@ -377,6 +386,8 @@ Entity* EntityManager::CreateEntity( p2SString name, fPoint position, fPoint spa
 		LOG("Entity %s created at Position  x: %.1f  y: %.1f", name.GetString() , position.x, position.y);
 		entities.add(entity);
 		++entity_count;
+		++entity_count_id;
+		entity->id = entity_count_id;
 	}
 	else 
 	{
@@ -385,25 +396,6 @@ Entity* EntityManager::CreateEntity( p2SString name, fPoint position, fPoint spa
 
 	return entity;
 }
-
-bool EntityManager::CreatePlayer(fPoint spawn_pos)
-{
-	BROFILER_CATEGORY("EntityManager CreatePlayer", Profiler::Color::LightBlue);
-
-	Entity* entity = nullptr;
-
-	if (player == nullptr)
-	{
-		LOG("Player created at Position x: %.1f  y: %.1f", spawn_pos.x, spawn_pos.y);
-		entity = player = new j1Player(spawn_pos , spawn_pos, GetProperties(p2SString("player")));
-		entity->active = true;
-		entity->spawned = true;
-		entities.add(entity);
-	}
-	
-	return true;
-}
-
 
 bool EntityManager::OnCollision(Collider* c1, Collider* c2)
 {
@@ -426,38 +418,59 @@ bool EntityManager::OnCollision(Collider* c1, Collider* c2)
 
 bool EntityManager::Load(pugi::xml_node& node)
 {
-	pugi::xml_node node_entity;
-
-	for (p2List_item<Entity*> *item = entities.start; item; item = item->next)
+	
+	for (pugi::xml_node node_entity = node.child("entity"); node_entity;  node_entity = node_entity.next_sibling("entity"))
 	{
-		node_entity = node.child(item->data->name.GetString());
-		item->data->Load(node_entity);
+		int id = node_entity.attribute("id").as_int(0);
+
+		Entity *entity_to_found = nullptr;
+
+		for (p2List_item<Entity*> *item = entities.start; item; item = item->next)
+		{
+			if (id == item->data->id)
+			{
+				entity_to_found = item->data;
+				break;
+			}
+		}
+
+		if (entity_to_found == nullptr)
+		{
+			LOG("Enemy with id : %i not found", id);
+			continue;
+		}
+
+		entity_to_found->position = fPoint(node_entity.attribute("x").as_float(0.0f), node_entity.attribute("y").as_float(0.0f));
+		entity_to_found->spawned = node_entity.attribute("spawned").as_bool(false);
+		entity_to_found->active = node_entity.attribute("active").as_bool(false);
+
+		if (entity_to_found->active == true)
+		{
+			entity_to_found->Active();
+		}
+
+		entity_to_found->Load(node_entity);
 	}
 	return true;
 }
 
 bool EntityManager::Save(pugi::xml_node& node) const
 {
+
 	pugi::xml_node node_entity;
 
 	for (p2List_item<Entity*> *item = entities.start; item; item = item->next)
 	{
-		node_entity = node.append_child(item->data->name.GetString());
+		node_entity = node.append_child("entity");
+
+		node_entity.append_attribute("name") = item->data->name.GetString();
+		node_entity.append_attribute("id") = item->data->id;
+		node_entity.append_attribute("x") = (int)item->data->position.x;
+		node_entity.append_attribute("y") = (int)item->data->position.y;
+		node_entity.append_attribute("spawned") = item->data->spawned;
+		node_entity.append_attribute("active") = item->data->active;
+
 		item->data->Save(node_entity);
-	}
-
-	pugi::xml_node node_info = node.append_child("Entities");
-
-	for (p2List_item<Entity*> *item = entities.start; item; item = item->next)
-	{
-		node_info = node_info.append_child("Entity");
-
-		node_info.append_attribute("name") = item->data->name.GetString();
-		node_info.append_attribute("id") = item->data->id;
-		node_info.append_attribute("x") = item->data->position.x;
-		node_info.append_attribute("x") = item->data->position.y;
-		node_info.append_attribute("spawned") = item->data->spawned;
-		node_info.append_attribute("active") = item->data->active;
 	}
 
 
@@ -468,12 +481,11 @@ bool EntityManager::ResetAll()
 {
 	for (p2List_item<Entity*> *item = entities.start; item; item = item->next)
 	{
-		if (item->data->name == "player")
+		if (item->data->name != "player")
 		{
-			continue;
+			item->data->active = false;
+			item->data->spawned = false;
 		}
-		item->data->active = false;
-		item->data->spawned = false;
 		item->data->position = item->data->spawn_pos;
 		item->data->Reset();
 	}

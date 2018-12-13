@@ -17,6 +17,7 @@ struct Phase {
 	p2SString  map_path;
 	int        x_limit = 0;
 	int        y_limit = 0;
+	bool       camera_follow_player = true;
 };
 
 class j1Scene

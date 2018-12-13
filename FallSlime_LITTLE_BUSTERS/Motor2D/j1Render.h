@@ -75,9 +75,11 @@ public:
 
 	bool SetCameraLimits(const int x, const int y);
 
+	void CameraFollowPlayer(const bool value);
+
 	// Fade to black methods ============================
 
-	bool FadeToBlack(uint32 time, p2SString scene_to_load);
+	bool FadeToBlack(uint32 time);
 
 public:
 

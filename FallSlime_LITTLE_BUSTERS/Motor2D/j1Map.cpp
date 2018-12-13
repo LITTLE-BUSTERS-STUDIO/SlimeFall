@@ -275,19 +275,14 @@ bool j1Map::Load(const char* file_name)
 			data.coll_groups.add(group);
 		}
 		// Enemies ----------------------------------------------
-		else if (type == "enemies")
+		else if (type == "entities")
 		{
 			App->entity_manager->LoadEntities(object_group);
 		}
-		// Enemies ----------------------------------------------
+		// Objects ----------------------------------------------
 		else if (type == "objects")
 		{
 
-		}
-		// Initial position -------------------------------------
-		else if (type == "initial_position")
-		{
-			data.initial_position = { object_group.child("object").attribute("x").as_float(0.0f),  object_group.child("object").attribute("y").as_float(0.0f) };
 		}
 		// Static images ----------------------------------------
 		else if (type == "animations")

@@ -30,6 +30,8 @@ public:
 
 	bool  Desactive();
 
+	bool  Reset();
+
 	// Variables  ===================================
 
 	Collider*             main_collider = nullptr;

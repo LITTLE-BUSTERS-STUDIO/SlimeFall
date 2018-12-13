@@ -51,7 +51,7 @@ bool SceneManager::PreUpdate()
 
 	if (default_scene_loaded == false)
 	{
-		LoadScene(default_scene_str);
+		LoadScene(default_scene_str, -1);
 		default_scene_loaded = true;
 	}
 
@@ -67,24 +67,26 @@ bool SceneManager::PreUpdate()
 	// Debug keys =======================================
 
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	{
 		return false;
-
+	}
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
-		App->render->FadeToBlack(1000u, p2SString("level_1"));
+		ChangeScene("level_1", 1);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
-		App->entity_manager->ResetAll();
-		App->entity_manager->GetPlayer()->reset = true;
-		App->render->reset = true;
+		App->scene_manager->ResetScene();
 	}
-
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+	{
 		App->SaveGame();
-
+	}
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+	{
 		App->LoadGame();
+	}
+	
 
 	return true;
 }
@@ -139,21 +141,44 @@ j1Scene* SceneManager::GetCurrentScene()
 	return current_scene;
 }
 
+bool SceneManager::ResetScene()
+{
+	App->entity_manager->ResetAll();
+	return true;
+}
+
+bool SceneManager::ChangeScene(p2SString name, int phase)
+{
+	if (App->render->FadeToBlack(1000) == true)
+	{
+		scene_to_load = name;
+		phase_to_load = phase;
+	}
+	return true;
+}
+
 bool  SceneManager::Load(pugi::xml_node& node)
 {
-	current_phase = node.child("phase").attribute("current_phase").as_uint(1u);
-	LoadPhase(current_phase, false);
+	pugi::xml_node scene_node = node.child("scene");
+
+	p2SString scene_to_load_name(scene_node.attribute("name").as_string(""));
+	current_phase = scene_node.attribute("phase").as_int(1);
+	LoadScene(scene_to_load_name, current_phase);
+
 	return true;
 }
 
 bool  SceneManager::Save(pugi::xml_node& node) const
 {
-	pugi::xml_node phase_node = node.append_child("phase");
-	phase_node.append_attribute("current_phase") = current_phase;
+	pugi::xml_node scene_node = node.append_child("scene");
+
+	scene_node.append_attribute("name") = current_scene->name.GetString();
+	scene_node.append_attribute("phase") = current_phase;
+
 	return true;
 }
 
-bool SceneManager::LoadScene(p2SString name)
+bool SceneManager::LoadScene(p2SString name, int phase)   // phase = -1 -> default phase
 {
 	UnloadScene();
 
@@ -211,7 +236,9 @@ bool SceneManager::LoadScene(p2SString name)
 		item->id = node.attribute("id").as_uint(0u);
 		item->x_limit = node.attribute("x_limit").as_uint(0u);
 		item->y_limit = node.attribute("y_limit").as_uint(0u);
+		item->camera_follow_player = node.attribute("camera_follow_player").as_bool(true);
 		item->map_path.create(node.attribute("map_path").as_string(""));
+
 		scene_to_load->phases.add(item);
 
 		LOG("Added phase id: %u with map path : %s", item->id, item->map_path.GetString());
@@ -219,9 +246,16 @@ bool SceneManager::LoadScene(p2SString name)
 
 	// Current scene =======================================
 	current_scene = scene_to_load;
-
 	scene_to_load->LoadScene(node_to_send);
-	LoadPhase(scene_to_load->default_phase);
+
+	if (phase == -1)
+	{
+		LoadPhase(scene_to_load->default_phase);
+	}
+	else
+	{
+		LoadPhase(phase);
+	}
 
 	scenes_doc.reset();
 
@@ -259,7 +293,7 @@ bool SceneManager::UnloadScene()
 	return true;
 }
 
-bool SceneManager::LoadPhase(uint phase_number, bool spawn)
+bool SceneManager::LoadPhase(uint phase_number)
 {
 	BROFILER_CATEGORY("Scene LoadPhase", Profiler::Color::LimeGreen);
 
@@ -284,9 +318,12 @@ bool SceneManager::LoadPhase(uint phase_number, bool spawn)
 
 	if (item == NULL)
 	{
-		LOG("Couldn't load phase %i", phase_number);
+		LOG("Couldn't load phase %i not found", phase_number);
 		return false;
 	}
+	// Unload old map  ====================================
+	App->entity_manager->UnloadEntities();
+	App->map->CleanUp();
 
 	// Load new map  ====================================
 	ret = App->map->Load(item->data->map_path.GetString() );
@@ -296,18 +333,7 @@ bool SceneManager::LoadPhase(uint phase_number, bool spawn)
 	{
 		current_phase = phase_number;
 		App->render->SetCameraLimits(item->data->x_limit, item->data->y_limit);
-
-		if (spawn)
-		{
-			if (App->entity_manager->GetPlayer())
-			{
-				App->entity_manager->GetPlayer()->reset = true;
-				App->render->reset = true;
-			}
-			else
-				App->entity_manager->CreatePlayer(App->map->data.initial_position);
-
-		}
+		App->render->CameraFollowPlayer(item->data->camera_follow_player);
 	}
 
 	return ret;

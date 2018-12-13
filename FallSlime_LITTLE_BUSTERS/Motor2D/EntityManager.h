@@ -66,6 +66,7 @@ private:
 	p2List<Properties *>        properties_list; 
 	int                         entity_count = 0;
 	int                         entity_deleted = 0;
+	int                         entity_count_id = 0;
 };
 
 #endif // __Enemies_H__

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="100" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="82" nextobjectid="489">
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="100" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="82" nextobjectid="490">
  <tileset firstgid="1" name="Basic_tileset" tilewidth="16" tileheight="16" tilecount="60" columns="10">
   <image source="Basic_tileset.png" width="160" height="96"/>
   <terraintypes>
@@ -16123,20 +16123,9 @@
    <tile/>
   </data>
  </layer>
- <objectgroup id="73" name="initial_position">
-  <properties>
-   <property name="type" value="initial_position"/>
-  </properties>
-  <object id="433" name="initial_position" x="70.9167" y="263.833">
-   <properties>
-    <property name="Type" value="initial_position"/>
-   </properties>
-   <point/>
-  </object>
- </objectgroup>
  <objectgroup id="74" name="entities">
   <properties>
-   <property name="type" value="enemies"/>
+   <property name="type" value="entities"/>
   </properties>
   <object id="434" name="skeleton" x="661" y="263.5">
    <point/>
@@ -16148,6 +16137,9 @@
    <point/>
   </object>
   <object id="486" name="coin" x="1099.91" y="289.686">
+   <point/>
+  </object>
+  <object id="489" name="player" x="65" y="250.333">
    <point/>
   </object>
  </objectgroup>

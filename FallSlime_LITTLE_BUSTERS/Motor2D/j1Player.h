@@ -45,16 +45,14 @@ public:
 	// Methods ================================ 
 	bool Invulnerability(float);
 
-	bool Reset(fPoint pos);
+	bool Reset();
 
 public :
-	bool			    reset = false;
 	bool				attack_tremble = false;
 
 private:
 	//Debug====================================
 	bool				god_mode = false;
-
 	// Physics= ===================================
 	float		        gravity;
 	float				speed_air;
@@ -62,9 +60,11 @@ private:
 	float				speed_jump;
 	float				speed_gummy_jump;
 	float				speed_attack;
-	// States ================================
+
+	// States ==================================
 	Player_State				current_state = Player_State::jumping;
 	//Bool =====================================
+	
 	bool                gummy_jump = false;
 	bool			    attack = false;
 	bool				apply_jump_speed = false;
