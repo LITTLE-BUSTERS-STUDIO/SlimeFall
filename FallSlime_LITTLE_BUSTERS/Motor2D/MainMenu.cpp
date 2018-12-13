@@ -11,6 +11,9 @@
 #include "j1Gui.h"
 #include "Brofiler/Brofiler.h"
 
+#include "Image.h"
+#include "Button_Input.h"
+
 MainMenu::MainMenu() : j1Scene()
 {
 	name.create("main_menu");
@@ -89,8 +92,9 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 		parallax3[i].rect_parallax.w = background_width;
 		parallax3[i].rect_parallax.h = background_high;
 	}
-	SDL_Rect logo_rect = { 0, 0, 219, 94 };
-	logo = App->gui->CreateImage(iPoint(326, 84), logo_rect, this);
+	Animation logo_anim;
+	logo_anim.PushBack({ 0, 0, 219, 94 });
+	logo = App->gui->CreateImage(iPoint(326, 84), logo_anim, this);
 	logo->IsDraggable(true);
 
 	Button_Definition button_start_anim({ 219 , 0, 87, 25 }, { 219, 25, 87, 25 }, { 219, 50, 87, 25 });

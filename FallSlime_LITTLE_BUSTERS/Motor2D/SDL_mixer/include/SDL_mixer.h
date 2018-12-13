@@ -602,7 +602,7 @@ extern DECLSPEC int SDLCALL Mix_PlayingMusic(void);
 extern DECLSPEC int SDLCALL Mix_SetMusicCMD(const char *command);
 
 /* Synchro value is set by MikMod from modules while playing */
-extern DECLSPEC int SDLCALL Mix_SetSynchroValue(int current_value);
+extern DECLSPEC int SDLCALL Mix_SetSynchroValue(int value);
 extern DECLSPEC int SDLCALL Mix_GetSynchroValue(void);
 
 /* Set/Get/Iterate SoundFonts paths to use by supported MIDI backends */

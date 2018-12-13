@@ -2,17 +2,24 @@
 #include "j1Render.h"
 #include  "p2Log.h"
 #include "j1Input.h"
+#include "j1Gui.h"
 
+#include"Button_Input.h"
 
 Slider::Slider(iPoint position, Slider_Definition definition, SDL_Texture * texture, Gui_Listener* listener) : Object(position, listener)
 {
 	this->definition = definition;
 	this->texture = texture;
 
-	points_distance = definition.point_B - definition.point_A;
+	point_A = position.x - definition.ditance * 0.5f;
+	point_B = position.x - definition.ditance * 0.5f;
 	current_value = definition.default_value;
 
-	App->gui->CreateImage(position, definition.image_draw_rect, this);
+	//button = App->gui->CreateButton(position, definition.button_definition, this);
+
+	int init_button_x = point_A + (current_value* definition.ditance) / 100;
+
+	button->SetPosition(iPoint(init_button_x, position.y));
 }
 
 
@@ -23,42 +30,23 @@ Slider::~Slider()
 
 bool Slider::Draw()
 {
-	App->render->Blit(texture, position.x - section.w / 2, position.y - section.h / 2, &definition.image_draw_rect, false, 0.0f);
-
+	//App->render->Blit(texture, position.x - section.w / 2, position.y - section.h / 2, &definition.rail_draw_rect, false, 0.0f);
+	App->render->DrawLine(point_A, position.y, point_B, position.y, 255 ,255, 255, 255, false);
 	return true;
 }
 
-float Slider::GetValue()
+int Slider::GetValue()
 {
-	return 0.0f;
+	return current_value;
 }
 
-void Slider::SetValue(float current_value)
+void Slider::SetValue(int value)
 {
 }
 
 bool Slider::Update(float dt)
 {
-
-
+	
 	return true;
 }
 
-//bool Slider::OnClick(Object * object)
-//{
-//	button->IsDraggable(true);
-//	return true;
-//}
-//
-//bool Slider::RepeatClcik(Object * object)
-//{
-//	
-//
-//	return true;
-//}
-//
-//bool Slider::OutClick(Object * object)
-//{
-//	button->IsDraggable(false);
-//	return true;
-//}

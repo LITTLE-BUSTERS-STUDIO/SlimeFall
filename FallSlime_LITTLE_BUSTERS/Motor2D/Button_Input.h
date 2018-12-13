@@ -5,9 +5,9 @@
 #include "Animation.h"
 #include "Object.h"
 
-class Button_Definition;
+struct Button_Definition;
 
-class Button_Definition
+struct Button_Definition
 {
 public:
 	Button_Definition() {}

@@ -996,12 +996,12 @@ extern DECLSPEC void SDLCALL SDL_GL_ResetAttributes(void);
 /**
  *  \brief Set an OpenGL window attribute before window creation.
  */
-extern DECLSPEC int SDLCALL SDL_GL_SetAttribute(SDL_GLattr attr, int current_value);
+extern DECLSPEC int SDLCALL SDL_GL_SetAttribute(SDL_GLattr attr, int value);
 
 /**
  *  \brief Get the actual value for an attribute from the current context.
  */
-extern DECLSPEC int SDLCALL SDL_GL_GetAttribute(SDL_GLattr attr, int *current_value);
+extern DECLSPEC int SDLCALL SDL_GL_GetAttribute(SDL_GLattr attr, int *value);
 
 /**
  *  \brief Create an OpenGL context for use with an OpenGL window, and make it

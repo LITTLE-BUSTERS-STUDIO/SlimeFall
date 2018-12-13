@@ -31,7 +31,7 @@
                               \
     }
 
-#define IN_RANGE( current_value, min, max ) ( ((current_value) >= (min) && (current_value) <= (max)) ? 1 : 0 )
+#define IN_RANGE( value, min, max ) ( ((value) >= (min) && (value) <= (max)) ? 1 : 0 )
 #define MIN( a, b ) ( ((a) < (b)) ? (a) : (b) )
 #define MAX( a, b ) ( ((a) > (b)) ? (a) : (b) )
 #define TO_BOOL( a )  ( (a != 0) ? true : false )

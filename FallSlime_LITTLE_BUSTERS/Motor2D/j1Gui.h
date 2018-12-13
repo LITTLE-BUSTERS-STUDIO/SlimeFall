@@ -9,10 +9,17 @@
 #include "Image.h"
 #include "Button_Input.h"
 #include "Checkbox.h"
+#include "p2Point.h"
 
 #define CURSOR_WIDTH 2
 
 class Gui_Listener;
+class Object;
+class Image;
+class Button_Input;
+class Slider;
+class Label;
+struct Button_Definition;
 
 enum class ClickState
 {
@@ -48,11 +55,14 @@ public:
 
 	Label* CreateLabel(iPoint position, p2SString text, _TTF_Font* font , Gui_Listener* listener = nullptr);
 
-	Image* CreateImage(iPoint position, SDL_Rect draw_rect, Gui_Listener* listener = nullptr);
+	Image* CreateImage(iPoint position, Animation animation, Gui_Listener* listener = nullptr);
 
 	Button_Input* CreateButton(iPoint position, Button_Definition animation, Gui_Listener* listener = nullptr);
 
+
 	Checkbox* CreateCheckbox(iPoint position, Button_Definition animation, Gui_Listener* listener = nullptr);
+
+	Slider* CreateSlider(iPoint position, Button_Definition animation, Gui_Listener* listener = nullptr);
 
 	// Object functions ----------------------------------------------------------
 	Object*  GetClickedObject();
