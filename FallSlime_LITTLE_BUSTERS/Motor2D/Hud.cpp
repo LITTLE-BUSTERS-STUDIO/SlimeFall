@@ -4,14 +4,17 @@
 #include "j1Gui.h"
 #include "Hud.h"
 #include "Brofiler/Brofiler.h"
+#include "j1Input.h"
+#include "j1Render.h"
+#include "EntityManager.h"
+#include "j1Textures.h"
 
 Hud::Hud() :j1Module()
 {
 }
 
-bool Hud::Awake(pugi::xml_node &)
+bool Hud::Awake(pugi::xml_node &node)
 {
-
 	return true;
 }
 
@@ -27,7 +30,7 @@ bool Hud::Start()
 	score = App->gui->CreateImage(iPoint(550, 20), score_rect, this);
 	score = App->gui->CreateImage(iPoint(575, 20), score_rect, this);
 	score = App->gui->CreateImage(iPoint(600, 20), score_rect, this);
-
+	
 	SDL_Rect score_locked = { 33, 96, 12, 18 };
 	score = App->gui->CreateImage(iPoint(550, 20), score_locked, this);
 	score = App->gui->CreateImage(iPoint(575, 20), score_locked, this);
@@ -36,12 +39,16 @@ bool Hud::Start()
 	SDL_Rect wood_panel_rect = { 0, 114, 235, 54 };
 	wood_panel = App->gui->CreateImage(iPoint(320, 30), wood_panel_rect, this);
 	wood_panel->IsDraggable(false);
+	SDL_ShowCursor(SDL_DISABLE);
+
 	return true;
 }
 
 bool Hud::PreUpdate()
 {
-
+	int x, y;
+	App->input->GetMousePosition(x, y);
+	App->render->Blit(App->);
 	return true;
 }
 

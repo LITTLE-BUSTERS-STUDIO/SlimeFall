@@ -8,6 +8,7 @@
 #include "Label.h"
 #include "Image.h"
 #include "Button_Input.h"
+#include "Checkbox.h"
 
 #define CURSOR_WIDTH 2
 
@@ -50,6 +51,8 @@ public:
 	Image* CreateImage(iPoint position, SDL_Rect draw_rect, Gui_Listener* listener = nullptr);
 
 	Button_Input* CreateButton(iPoint position, Button_Definition animation, Gui_Listener* listener = nullptr);
+
+	Checkbox* CreateCheckbox(iPoint position, Button_Definition animation, Gui_Listener* listener = nullptr);
 
 	// Object functions ----------------------------------------------------------
 	Object*  GetClickedObject();

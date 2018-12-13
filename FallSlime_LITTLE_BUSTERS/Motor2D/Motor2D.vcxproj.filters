@@ -103,6 +103,9 @@
     <ClCompile Include="Slider.cpp">
       <Filter>Modules\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="Checkbox.cpp">
+      <Filter>Modules\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Scene.h">
@@ -226,6 +229,9 @@
       <Filter>Modules\Gameplay</Filter>
     </ClInclude>
     <ClInclude Include="Slider.h">
+      <Filter>Modules\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Checkbox.h">
       <Filter>Modules\GUI</Filter>
     </ClInclude>
   </ItemGroup>
