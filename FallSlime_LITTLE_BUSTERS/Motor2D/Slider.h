@@ -1,39 +1,47 @@
-#ifndef _BUTTON_INPUT_H__
-#define _BUTTON_INPUT_H__
+#ifndef _SLIDER_H__
+#define _SLIDER_H__
 
 #include "p2Point.h"
 #include "Animation.h"
 #include "Object.h"
+#include "j1Gui.h"
 
-class Button_Definition;
-
-enum class Button_State
+struct Slider_Definition
 {
-	pushed,
-	normal
+	int       point_A = -1;
+	int       point_B = -1;
+	SDL_Rect  draw_rect = {0,0,0,0};
+	float     default_value = 0;
 };
 
-class Button_Input : public Object
+class Slider : public Object, public Gui_Listener
 {
 
 public:
 
-	Button_Input(iPoint position, Button_Definition animation, SDL_Texture * texture, Gui_Listener * listener);
+	Slider(iPoint position, Slider_Definition definition, SDL_Texture * texture, Gui_Listener * listener);
 
-	virtual ~Button_Input();
+	virtual ~Slider();
 
 	bool Draw();
 
-	bool SetLabel(/*Position position ,*/p2SString text/* , Color color ,*/);
+	float GetValue();
+
+	void SetValue(float value);
 
 private:
 
-	SDL_Texture * texture = nullptr;
-	Button_State current_state = Button_State::normal;
-	Button_Definition button_animation;
+	bool OnClick(Object* object);
+	bool RepeatClcik(Object* object);
+	bool OutClick(Object* object);
 
-	// Components =================================
-	//Label* label = nullptr;
+private:
+	Button_Input*       button = nullptr;
+	Slider_Definition   definition;
+	float               value = 0;
+
+private:
+	friend j1Gui;
 };
 
-#endif // _BUTTON_INPUT_H__
+#endif // _SLIDER_H__

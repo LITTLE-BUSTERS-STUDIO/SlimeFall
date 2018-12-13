@@ -50,15 +50,15 @@ protected:
 
 	iPoint                position;
 	iPoint                relative_position;
-	Animation			  animation;
 	SDL_Rect			  section;
 	SDL_Texture         * texture = nullptr;
 	Gui_Listener        * listener = nullptr;
 
+	// Anchors =========================================
 	Object              * anchor_parent = nullptr;
 	p2List<Object*>       anchor_sons;
 
-	// Properties --------------------------------------
+	// Properties ======================================
 	bool is_draggable = false;
 
 	friend class j1Gui;

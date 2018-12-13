@@ -8,6 +8,12 @@ Image::Image(iPoint position, Animation animation, SDL_Texture * texture, Gui_Li
 	this->texture = texture;
 }
 
+Image::Image(iPoint position, SDL_Rect draw_rect, SDL_Texture * texture, Gui_Listener* listener) : Object(position, listener)
+{
+	this->animation.PushBack({ draw_rect });
+	this->texture = texture;
+}
+
 
 Image::~Image()
 {
