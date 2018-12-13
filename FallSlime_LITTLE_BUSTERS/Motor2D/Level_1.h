@@ -3,10 +3,11 @@
 
 #include "j1Module.h"
 #include "j1Scene.h"
+#include "j1Gui.h"
 
 struct SDL_Texture;
 
-class Level_1 : public j1Scene
+class Level_1 : public j1Scene, public Gui_Listener
 {
 public:
 
@@ -23,6 +24,8 @@ public:
 	 bool UnloadScene();
 
 private:
+
+	//-------------VARS----------------------
 	p2SString			music_path;
 	SDL_Texture         *paralax_tex_1 = nullptr;
 	SDL_Texture         *paralax_tex_2 = nullptr;

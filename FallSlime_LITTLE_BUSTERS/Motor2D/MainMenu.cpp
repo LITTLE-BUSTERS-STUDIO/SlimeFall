@@ -55,7 +55,7 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 {
 	BROFILER_CATEGORY("MainMenu Load", Profiler::Color::Maroon);
 
-	LOG("Loading Level 1");
+	LOG("Loading MainMenu");
 
 	music_path = node.child("music").attribute("path").as_string("");
 	App->audio->PlayMusic(music_path.GetString());

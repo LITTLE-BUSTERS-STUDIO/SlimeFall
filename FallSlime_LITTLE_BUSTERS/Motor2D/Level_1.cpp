@@ -10,7 +10,7 @@
 #include "Level_1.h"
 #include "EntityManager.h"
 #include "Brofiler/Brofiler.h"
-
+#include "j1Gui.h"
 
 Level_1::Level_1() : j1Scene()
 {
