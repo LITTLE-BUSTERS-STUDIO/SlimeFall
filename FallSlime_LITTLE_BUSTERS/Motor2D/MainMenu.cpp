@@ -13,6 +13,7 @@
 
 #include "Image.h"
 #include "Button_Input.h"
+#include "Slider.h"
 
 MainMenu::MainMenu() : j1Scene()
 {
@@ -97,9 +98,18 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	logo = App->gui->CreateImage(iPoint(326, 84), logo_anim, this);
 	logo->IsDraggable(true);
 
-	Button_Definition button_start_anim({ 219 , 0, 87, 25 }, { 219, 25, 87, 25 }, { 219, 50, 87, 25 });
-	button_start = App->gui->CreateButton(iPoint(0, 0), button_start_anim, this);
+	Button_Definition button_start_def({ 219 , 0, 87, 25 }, { 219, 25, 87, 25 }, { 219, 50, 87, 25 });
+	button_start = App->gui->CreateButton(iPoint(0, 0), button_start_def, this);
 	button_start->IsDraggable(true);
+
+	Slider_Definition slider_def;
+	slider_def.ditance = 100;
+	slider_def.default_value = 20;
+	//slider_def.button_definition.hover_rect = 0;
+	//slider_def.button_definition.idle_rect = 0;
+	//slider_def.button_definition.pushed_rect = 0;
+	slider = App->gui->CreateSlider(iPoint(360, 180), slider_def, this);
+
 
 	return true;
 }

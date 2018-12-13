@@ -221,9 +221,17 @@ Image* j1Gui::CreateImage(iPoint position, Animation animation, Gui_Listener* li
 	return object;
 }
 
-Button_Input* j1Gui::CreateButton(iPoint position, Button_Definition animation, Gui_Listener* listener)
+Button_Input* j1Gui::CreateButton(iPoint position, Button_Definition definition, Gui_Listener* listener)
 {
-	Button_Input* object = new Button_Input(position, animation, atlas, listener);
+	Button_Input* object = new Button_Input(position, definition, atlas, listener);
+	object->SetAnchor(screen);
+	objects_list.add(object);
+	return object;
+}
+
+Slider * j1Gui::CreateSlider(iPoint position, Slider_Definition definition, Gui_Listener * listener)
+{
+	Slider* object = new Slider(position, definition, atlas, listener);
 	object->SetAnchor(screen);
 	objects_list.add(object);
 	return object;

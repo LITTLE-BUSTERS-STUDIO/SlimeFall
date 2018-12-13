@@ -15,6 +15,7 @@ class Button_Input;
 class Slider;
 class Label;
 struct Button_Definition;
+struct Slider_Definition;
 
 enum class ClickState
 {
@@ -54,7 +55,8 @@ public:
 
 	Button_Input* CreateButton(iPoint position, Button_Definition animation, Gui_Listener* listener = nullptr);
 
-	Slider* CreateSlider(iPoint position, Button_Definition animation, Gui_Listener* listener = nullptr);
+	Slider* CreateSlider(iPoint position, Slider_Definition animation, Gui_Listener* listener = nullptr);
+
 	// Object functions ----------------------------------------------------------
 	Object*  GetClickedObject();
 

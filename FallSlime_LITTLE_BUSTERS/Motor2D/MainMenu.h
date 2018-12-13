@@ -5,7 +5,6 @@
 #include "j1Scene.h"
 #include "j1Gui.h"
 
-class Image;
 struct SDL_Texture;
 
 class MainMenu : public j1Scene , public Gui_Listener
@@ -29,6 +28,7 @@ private:
 	// GUI ============================================
 	Image*              logo = nullptr;
 	Button_Input*       button_start = nullptr;
+	Slider*             slider = nullptr;
 	// Scene ==========================================
 	p2SString			music_path;
 	SDL_Texture         *paralax_tex_1 = nullptr;
