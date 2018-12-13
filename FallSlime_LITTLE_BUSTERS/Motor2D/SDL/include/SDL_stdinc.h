@@ -334,7 +334,7 @@ extern DECLSPEC void *SDLCALL SDL_realloc(void *mem, size_t size);
 extern DECLSPEC void SDLCALL SDL_free(void *mem);
 
 extern DECLSPEC char *SDLCALL SDL_getenv(const char *name);
-extern DECLSPEC int SDLCALL SDL_setenv(const char *name, const char *current_value, int overwrite);
+extern DECLSPEC int SDLCALL SDL_setenv(const char *name, const char *value, int overwrite);
 
 extern DECLSPEC void SDLCALL SDL_qsort(void *base, size_t nmemb, size_t size, int (*compare) (const void *, const void *));
 
@@ -406,12 +406,12 @@ extern DECLSPEC char *SDLCALL SDL_strchr(const char *str, int c);
 extern DECLSPEC char *SDLCALL SDL_strrchr(const char *str, int c);
 extern DECLSPEC char *SDLCALL SDL_strstr(const char *haystack, const char *needle);
 
-extern DECLSPEC char *SDLCALL SDL_itoa(int current_value, char *str, int radix);
-extern DECLSPEC char *SDLCALL SDL_uitoa(unsigned int current_value, char *str, int radix);
-extern DECLSPEC char *SDLCALL SDL_ltoa(long current_value, char *str, int radix);
-extern DECLSPEC char *SDLCALL SDL_ultoa(unsigned long current_value, char *str, int radix);
-extern DECLSPEC char *SDLCALL SDL_lltoa(Sint64 current_value, char *str, int radix);
-extern DECLSPEC char *SDLCALL SDL_ulltoa(Uint64 current_value, char *str, int radix);
+extern DECLSPEC char *SDLCALL SDL_itoa(int value, char *str, int radix);
+extern DECLSPEC char *SDLCALL SDL_uitoa(unsigned int value, char *str, int radix);
+extern DECLSPEC char *SDLCALL SDL_ltoa(long value, char *str, int radix);
+extern DECLSPEC char *SDLCALL SDL_ultoa(unsigned long value, char *str, int radix);
+extern DECLSPEC char *SDLCALL SDL_lltoa(Sint64 value, char *str, int radix);
+extern DECLSPEC char *SDLCALL SDL_ulltoa(Uint64 value, char *str, int radix);
 
 extern DECLSPEC int SDLCALL SDL_atoi(const char *str);
 extern DECLSPEC double SDLCALL SDL_atof(const char *str);

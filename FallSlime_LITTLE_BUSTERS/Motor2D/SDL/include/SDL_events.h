@@ -282,7 +282,7 @@ typedef struct SDL_JoyAxisEvent
     Uint8 padding1;
     Uint8 padding2;
     Uint8 padding3;
-    Sint16 current_value;       /**< The axis value (range: -32768 to 32767) */
+    Sint16 value;       /**< The axis value (range: -32768 to 32767) */
     Uint16 padding4;
 } SDL_JoyAxisEvent;
 
@@ -311,7 +311,7 @@ typedef struct SDL_JoyHatEvent
     Uint32 timestamp;
     SDL_JoystickID which; /**< The joystick instance id */
     Uint8 hat;          /**< The joystick hat index */
-    Uint8 current_value;        /**< The hat position value.
+    Uint8 value;        /**< The hat position value.
                          *   \sa ::SDL_HAT_LEFTUP ::SDL_HAT_UP ::SDL_HAT_RIGHTUP
                          *   \sa ::SDL_HAT_LEFT ::SDL_HAT_CENTERED ::SDL_HAT_RIGHT
                          *   \sa ::SDL_HAT_LEFTDOWN ::SDL_HAT_DOWN ::SDL_HAT_RIGHTDOWN
@@ -359,7 +359,7 @@ typedef struct SDL_ControllerAxisEvent
     Uint8 padding1;
     Uint8 padding2;
     Uint8 padding3;
-    Sint16 current_value;       /**< The axis value (range: -32768 to 32767) */
+    Sint16 value;       /**< The axis value (range: -32768 to 32767) */
     Uint16 padding4;
 } SDL_ControllerAxisEvent;
 

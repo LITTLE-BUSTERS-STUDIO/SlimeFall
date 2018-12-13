@@ -41,9 +41,9 @@ public:
 		return current_frame;
 	}
 
-	void SetFrameValue(float current_value)
+	void SetFrameValue(float value)
 	{
-	   current_frame = current_value;
+	   current_frame = value;
 	}
 
 	SDL_Rect& GetCurrentFrame()

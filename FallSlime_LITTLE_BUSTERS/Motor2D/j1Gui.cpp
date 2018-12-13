@@ -208,9 +208,9 @@ Label* j1Gui::CreateLabel(iPoint position, p2SString text, _TTF_Font* font, Gui_
 
 }
 
-Image* j1Gui::CreateImage(iPoint position, SDL_Rect draw_rect, Gui_Listener* listener)
+Image* j1Gui::CreateImage(iPoint position, Animation animation, Gui_Listener* listener)
 {
-	Image* object = new Image(position, draw_rect, atlas, listener);
+	Image* object = new Image(position, animation, atlas, listener);
 	object->SetAnchor(screen);
 	objects_list.add(object);
 	return object;

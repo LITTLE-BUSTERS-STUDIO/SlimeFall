@@ -8,11 +8,6 @@ Slider::Slider(iPoint position, Slider_Definition definition, SDL_Texture * text
 {
 	this->definition = definition;
 	this->texture = texture;
-
-	points_distance = definition.point_B - definition.point_A;
-	current_value = definition.default_value;
-
-	App->gui->CreateImage(position, definition.image_draw_rect, this);
 }
 
 
@@ -23,7 +18,7 @@ Slider::~Slider()
 
 bool Slider::Draw()
 {
-	App->render->Blit(texture, position.x - section.w / 2, position.y - section.h / 2, &definition.image_draw_rect, false, 0.0f);
+	App->render->Blit(texture, position.x - section.w / 2, position.y - section.h / 2, &definition.draw_rect, false, 0.0f);
 
 	return true;
 }
@@ -33,14 +28,12 @@ float Slider::GetValue()
 	return 0.0f;
 }
 
-void Slider::SetValue(float current_value)
+void Slider::SetValue(float value)
 {
 }
 
 bool Slider::Update(float dt)
 {
-
-
 	return true;
 }
 

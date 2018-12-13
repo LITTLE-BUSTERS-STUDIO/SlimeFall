@@ -339,9 +339,9 @@ bool j1Render::SetCameraLimits(const int x, const int y)
 	return true;
 }
 
-void j1Render::CameraFollowPlayer(const bool current_value)
+void j1Render::CameraFollowPlayer(const bool value)
 {
-	camera_follow_player = current_value;
+	camera_follow_player = value;
 }
 
 bool j1Render::FadeToBlack(uint32 time)
