@@ -98,9 +98,15 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	logo = App->gui->CreateImage(iPoint(326, 84), logo_anim, this);
 	logo->IsDraggable(true);
 
-	Button_Definition button_start_def({ 219 , 0, 87, 25 }, { 219, 25, 87, 25 }, { 219, 50, 87, 25 });
-	button_start = App->gui->CreateButton(iPoint(0, 0), button_start_def, this);
-	button_start->IsDraggable(true);
+	Button_Definition button_rectangle({ 219 , 0, 122, 36 }, { 219, 36, 122, 36 }, { 219, 72, 122, 36 });
+
+	button_play = App->gui->CreateButton(iPoint(0, 0), button_rectangle, this);
+	button_play->IsDraggable(true);
+
+	Button_Definition button_quad({ 343 ,0, 42,45 }, { 343 ,45, 42,45 }, { 343 ,90, 42,45 });
+
+	button_settings = App->gui->CreateButton(iPoint(40, 40), button_quad, this);
+	button_settings->IsDraggable(true);
 
 	Slider_Definition slider_def;
 	slider_def.ditance = 100;
@@ -111,6 +117,8 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	slider = App->gui->CreateSlider(iPoint(360, 180), slider_def, this);
 
 
+
+
 	return true;
 }
 
@@ -118,7 +126,7 @@ bool MainMenu::UnloadScene()
 {
 	BROFILER_CATEGORY("MainMenu Unload", Profiler::Color::Maroon);
 	App->gui->DeleteObject(logo);
-	App->gui->DeleteObject(button_start);
+	App->gui->DeleteObject(button_play);
 	App->tex->UnLoad(paralax_tex_1);
 	App->tex->UnLoad(paralax_tex_2);
 	App->tex->UnLoad(paralax_tex_3);

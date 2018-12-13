@@ -27,8 +27,19 @@ private:
 
 	// GUI ============================================
 	Image*              logo = nullptr;
-	Button_Input*       button_start = nullptr;
+
+	Button_Input*       button_play = nullptr;
+	Button_Input*       button_continue = nullptr;
+	Button_Input*       button_exit = nullptr;
+	Button_Input*       button_credits = nullptr;
+	Button_Input*       button_settings = nullptr;
+
 	Slider*             slider = nullptr;
+	
+
+
+
+
 	// Scene ==========================================
 	p2SString			music_path;
 	SDL_Texture         *paralax_tex_1 = nullptr;
