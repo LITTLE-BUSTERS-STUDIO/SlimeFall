@@ -32,18 +32,21 @@ void Slider::SetValue(float value)
 {
 }
 
-bool Slider::OnClick(Object * object)
-{
-	return false;
-}
-
-bool Slider::RepeatClcik(Object * object)
-{
-
-	return true;
-}
-
-bool Slider::OutClick(Object * object)
-{
-	return false;
-}
+//bool Slider::OnClick(Object * object)
+//{
+//	button->IsDraggable(true);
+//	return true;
+//}
+//
+//bool Slider::RepeatClcik(Object * object)
+//{
+//	
+//
+//	return true;
+//}
+//
+//bool Slider::OutClick(Object * object)
+//{
+//	button->IsDraggable(false);
+//	return true;
+//}

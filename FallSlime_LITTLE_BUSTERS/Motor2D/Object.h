@@ -26,6 +26,8 @@ public:
 	virtual ~Object();
 
 	// Virtual methods ================================
+	virtual bool Update(float dt) { return true; }
+
 	virtual bool Draw() { return true; };
 
 	// Common methods =================================

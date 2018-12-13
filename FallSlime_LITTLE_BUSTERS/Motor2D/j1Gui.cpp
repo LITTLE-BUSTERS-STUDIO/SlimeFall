@@ -155,6 +155,12 @@ bool j1Gui::Update(float dt)
 		}
 	}
 
+	// Update objects ==============================================
+	for (p2List_item<Object*> * item = objects_list.start; item; item = item->next)
+	{
+		item->data->Update(dt);
+	}
+
 	UpdateGuiPositions(screen, { 0,0 });
 
 	return true;

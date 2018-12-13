@@ -8,8 +8,9 @@
 
 struct Slider_Definition
 {
-	int       point_A = -1;
-	int       point_B = -1;
+	int       point_A = 0;
+	int       point_B = 0;
+	int       fixed_y = 0;
 	SDL_Rect  draw_rect = {0,0,0,0};
 	float     default_value = 0;
 };
@@ -30,10 +31,10 @@ public:
 	void SetValue(float value);
 
 private:
-
-	bool OnClick(Object* object);
-	bool RepeatClcik(Object* object);
-	bool OutClick(Object* object);
+	bool Update(float dt);
+	//bool OnClick(Object* object);
+	//bool RepeatClcik(Object* object);
+	//bool OutClick(Object* object);
 
 private:
 	Button_Input*       button = nullptr;
