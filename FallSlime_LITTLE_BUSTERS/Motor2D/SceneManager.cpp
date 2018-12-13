@@ -236,7 +236,9 @@ bool SceneManager::LoadScene(p2SString name, int phase)   // phase = -1 -> defau
 		item->id = node.attribute("id").as_uint(0u);
 		item->x_limit = node.attribute("x_limit").as_uint(0u);
 		item->y_limit = node.attribute("y_limit").as_uint(0u);
+		item->camera_follow_player = node.attribute("camera_follow_player").as_bool(true);
 		item->map_path.create(node.attribute("map_path").as_string(""));
+
 		scene_to_load->phases.add(item);
 
 		LOG("Added phase id: %u with map path : %s", item->id, item->map_path.GetString());
@@ -316,7 +318,7 @@ bool SceneManager::LoadPhase(uint phase_number)
 
 	if (item == NULL)
 	{
-		LOG("Couldn't load phase %i", phase_number);
+		LOG("Couldn't load phase %i not found", phase_number);
 		return false;
 	}
 	// Unload old map  ====================================
@@ -331,6 +333,7 @@ bool SceneManager::LoadPhase(uint phase_number)
 	{
 		current_phase = phase_number;
 		App->render->SetCameraLimits(item->data->x_limit, item->data->y_limit);
+		App->render->CameraFollowPlayer(item->data->camera_follow_player);
 	}
 
 	return ret;
