@@ -97,6 +97,7 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	Button_Animation button_start_anim({ 219 , 0, 87, 25 }, { 219, 25, 87, 25 }, { 219, 50, 87, 25 });
 	button_start = App->gui->CreateButton(iPoint(0, 0), button_start_anim, this);
 	button_start->IsDraggable(true);
+
 	return true;
 }
 

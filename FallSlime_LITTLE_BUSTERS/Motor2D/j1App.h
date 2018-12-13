@@ -23,6 +23,7 @@ class SceneManager;
 class j1PathFinding;
 class j1Gui;
 class j1Fonts;
+class Hud;
 
 class j1App
 {
@@ -108,6 +109,7 @@ public:
 	j1PathFinding*      path_finding = nullptr;
 	EntityManager *     entity_manager = nullptr;
 	SceneManager *      scene_manager = nullptr;
+	Hud *				hud = nullptr;
 
 	// Framerate ==============================
 	bool			    apply_cap_frames = true;

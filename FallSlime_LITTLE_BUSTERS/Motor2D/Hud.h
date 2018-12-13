@@ -2,36 +2,32 @@
 #define __Hud_H__
 
 #include "j1Module.h"
-#include "p2List.h"
-#include "p2Point.h"
 #include "Animation.h"
-#include "Entity.h"
-#include "j1Timer.h"
-#include "j1Gui.h"
-
 
 struct SDL_Texture;
 
-
-
-class Hud : public Gui_Listener
+class Hud : public j1Module, public Gui_Listener
 {
 public:
-
 	Hud();
 
-	virtual ~Hud();
+	bool Awake(pugi::xml_node&);
 
-	
+	bool Start();
+
+	bool PreUpdate();
+
 	bool Update(float dt);
 
-	bool Draw();
+	bool PostUpdate();
 
+	bool CleanUp();
 
-public:
-	bool			    reset = false;
+	bool Load(pugi::xml_node&);
+
+	bool Save(pugi::xml_node&) const;
+
 private:
-
 	//--------------GUI-----------------------
 	Image *				lives = nullptr;
 	Image *				score = nullptr;
@@ -40,5 +36,5 @@ private:
 };
 
 
-#endif // !__j1Player_H__
+#endif // !__Hud_H__
 

@@ -18,6 +18,7 @@
 #include "j1Gui.h"
 #include "j1PathFinding.h"
 #include "j1Fonts.h"
+#include "Hud.h"
 #include "Brofiler/Brofiler.h"
 
 // Constructor
@@ -37,6 +38,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	gui = new j1Gui();
 	fade_to_black = new j1FadeToBlack();
 	path_finding = new j1PathFinding();
+	hud = new Hud();
 
 	// Add modules ================================================
 	AddModule(input);
@@ -45,12 +47,13 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(font);
 	AddModule(map);
-	AddModule(scene_manager);      // 5 Change scene and fadetoblack
-	AddModule(path_finding);       // 1 Draw path im debug
-	AddModule(entity_manager);     // 3 Draw entities
-	AddModule(collision);          // 4 Draw colliders  // Colission needs to be always before render
+	AddModule(scene_manager);      
+	AddModule(path_finding);       
+	AddModule(entity_manager);     
+	AddModule(collision);          
 	AddModule(gui);
-	AddModule(render);             // Render last to swap buffer
+	AddModule(hud);
+	AddModule(render);             
 }
 
 // Destructor

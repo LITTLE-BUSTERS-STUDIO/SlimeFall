@@ -67,7 +67,7 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_GOD][COLLIDER_GOD] = false;
 	matrix[COLLIDER_GOD][COLLIDER_ENEMY] = false;
 	matrix[COLLIDER_GOD][COLLIDER_ATTACK] = false;
-	matrix[COLLIDER_GOD][COLLIDER_COIN] = false;
+	matrix[COLLIDER_GOD][COLLIDER_COIN] = true;
 	
 	matrix[COLLIDER_ATTACK][COLLIDER_WALL] = true;
 	matrix[COLLIDER_ATTACK][COLLIDER_PLAYER] = false;
@@ -82,7 +82,7 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_COIN][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_COIN][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_COIN][COLLIDER_NEXT_LEVEL] = false;
-	matrix[COLLIDER_COIN][COLLIDER_GOD] = false;
+	matrix[COLLIDER_COIN][COLLIDER_GOD] = true;
 	matrix[COLLIDER_COIN][COLLIDER_ENEMY] = false;
 	matrix[COLLIDER_COIN][COLLIDER_COIN] = false;
 	matrix[COLLIDER_COIN][COLLIDER_ATTACK] = true;

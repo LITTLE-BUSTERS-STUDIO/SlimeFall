@@ -48,7 +48,7 @@ public:
 
 	SDL_Rect& GetCurrentFrame()
 	{
-		current_frame += speed * App->GetDeltaTime(); //Active dt
+		current_frame += speed * App->GetDeltaTime();
 
 
 		if (current_frame >= last_frame)
