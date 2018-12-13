@@ -18,7 +18,7 @@ class Button_Input : public Object
 
 public:
 
-	Button_Input(iPoint position, Button_Definition animation, SDL_Texture * texture , Gui_Listener * listener);
+	Button_Input(iPoint position, Button_Definition animation, SDL_Texture * texture, Gui_Listener * listener);
 
 	virtual ~Button_Input();
 
@@ -37,4 +37,3 @@ private:
 };
 
 #endif // _BUTTON_INPUT_H__
-

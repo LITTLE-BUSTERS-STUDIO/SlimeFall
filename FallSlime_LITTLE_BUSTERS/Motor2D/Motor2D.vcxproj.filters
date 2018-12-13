@@ -98,6 +98,9 @@
       <Filter>Modules\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Hud.cpp">
+      <Filter>Modules\Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="Slider.cpp">
       <Filter>Modules\GUI</Filter>
     </ClCompile>
   </ItemGroup>
@@ -220,6 +223,9 @@
       <Filter>Modules\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Hud.h">
+      <Filter>Modules\Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="Slider.h">
       <Filter>Modules\GUI</Filter>
     </ClInclude>
   </ItemGroup>

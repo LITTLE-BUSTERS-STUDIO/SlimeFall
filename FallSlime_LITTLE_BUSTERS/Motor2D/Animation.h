@@ -125,11 +125,11 @@ public:
 	}
 };
 
-class Button_Animation
+class Button_Definition
 {
 public:
-	Button_Animation() {}
-	Button_Animation(SDL_Rect idle_rect, SDL_Rect hover_rect, SDL_Rect pushed_rect)
+	Button_Definition() {}
+	Button_Definition(SDL_Rect idle_rect, SDL_Rect hover_rect, SDL_Rect pushed_rect)
 	{
 		this->idle_rect = idle_rect;
 		this->hover_rect = hover_rect;

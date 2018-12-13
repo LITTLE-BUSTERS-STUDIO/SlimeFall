@@ -5,7 +5,7 @@
 #include "j1Input.h"
 
 
-Button_Input::Button_Input(iPoint position, Button_Animation button_animation, SDL_Texture * texture, Gui_Listener* listener) : Object(position, listener)
+Button_Input::Button_Input(iPoint position, Button_Definition button_animation, SDL_Texture * texture, Gui_Listener* listener) : Object(position, listener)
 {
 	this->button_animation = button_animation;
 	this->texture = texture;
