@@ -4,15 +4,18 @@
 #include "j1Gui.h"
 #include "Hud.h"
 #include "Brofiler/Brofiler.h"
+#include "j1Input.h"
+#include "j1Render.h"
+#include "EntityManager.h"
+#include "j1Textures.h"
 #include "Image.h"
 
 Hud::Hud() :j1Module()
 {
 }
 
-bool Hud::Awake(pugi::xml_node &)
+bool Hud::Awake(pugi::xml_node &node)
 {
-
 	return true;
 }
 
@@ -26,6 +29,7 @@ bool Hud::Start()
 	lives = App->gui->CreateImage(iPoint(105, 20), anim_lives, this);
 	lives->IsDraggable(false);
 
+
 	Animation anim_score;
 	anim_score.PushBack({ 19, 96, 12, 18 });
 	score = App->gui->CreateImage(iPoint(550, 20), anim_score, this);
@@ -35,7 +39,7 @@ bool Hud::Start()
 
 	Animation anim_score_locked;
 	anim_score_locked.PushBack({ 33, 96, 12, 18 });
-	score = App->gui->CreateImage(iPoint(550, 20), anim_score_locked, this);
+	//score = App->gui->CreateImage(iPoint(550, 20), anim_score_locked, this);
 	score = App->gui->CreateImage(iPoint(575, 20), anim_score_locked, this);
 	score = App->gui->CreateImage(iPoint(600, 20), anim_score_locked, this);
 	score->IsDraggable(false);
@@ -44,12 +48,16 @@ bool Hud::Start()
 	anim_wood_panel.PushBack({ 0, 114, 235, 54 });
 	wood_panel = App->gui->CreateImage(iPoint(320, 30), anim_wood_panel, this);
 	wood_panel->IsDraggable(false);
+	/*SDL_ShowCursor(SDL_DISABLE);*/
+
 	return true;
 }
 
 bool Hud::PreUpdate()
 {
-
+	int x, y;
+	App->input->GetMousePosition(x, y);
+	//App->render->Blit(App->);
 	return true;
 }
 

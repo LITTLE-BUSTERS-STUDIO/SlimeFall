@@ -33,6 +33,7 @@ private:
 	Image *				score = nullptr;
 	Image *				wood_panel = nullptr;
 	uint				hp;
+	SDL_Texture*		tex_cursor;
 };
 
 

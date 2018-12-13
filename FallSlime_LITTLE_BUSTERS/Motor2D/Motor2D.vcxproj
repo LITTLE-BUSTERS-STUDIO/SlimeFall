@@ -77,6 +77,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Button_Input.cpp" />
+    <ClCompile Include="Checkbox.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Enemy_Skeleton.cpp" />
@@ -114,6 +115,7 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Button_Input.h" />
+    <ClInclude Include="Checkbox.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Enemy_Skeleton.h" />

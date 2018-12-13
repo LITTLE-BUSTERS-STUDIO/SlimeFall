@@ -237,6 +237,15 @@ Slider * j1Gui::CreateSlider(iPoint position, Slider_Definition definition, Gui_
 	return object;
 }
 
+Checkbox * j1Gui::CreateCheckbox(iPoint position, Button_Definition animation, Gui_Listener * listener)
+{
+	Checkbox* object = new Checkbox(position, animation, atlas, listener);
+	object->SetAnchor(screen);
+	objects_list.add(object);
+	return object;
+	return nullptr;
+}
+
 
 // ====================================================================================
 

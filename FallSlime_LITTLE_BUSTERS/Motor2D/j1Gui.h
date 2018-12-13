@@ -4,6 +4,11 @@
 #include "j1Module.h"
 #include "SDL_ttf/include/SDL_ttf.h"
 #include "Animation.h"
+#include "Object.h"
+#include "Label.h"
+#include "Image.h"
+#include "Button_Input.h"
+#include "Checkbox.h"
 #include "p2Point.h"
 
 #define CURSOR_WIDTH 2
@@ -56,6 +61,9 @@ public:
 	Button_Input* CreateButton(iPoint position, Button_Definition animation, Gui_Listener* listener = nullptr);
 
 	Slider* CreateSlider(iPoint position, Slider_Definition animation, Gui_Listener* listener = nullptr);
+
+	Checkbox* CreateCheckbox(iPoint position, Button_Definition animation, Gui_Listener* listener = nullptr);
+
 
 	// Object functions ----------------------------------------------------------
 	Object*  GetClickedObject();
