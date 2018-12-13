@@ -155,6 +155,12 @@ bool j1Gui::Update(float dt)
 		}
 	}
 
+	// Update objects ==============================================
+	for (p2List_item<Object*> * item = objects_list.start; item; item = item->next)
+	{
+		item->data->Update(dt);
+	}
+
 	UpdateGuiPositions(screen, { 0,0 });
 
 	return true;
@@ -210,7 +216,7 @@ Image* j1Gui::CreateImage(iPoint position, Animation animation, Gui_Listener* li
 	return object;
 }
 
-Button_Input* j1Gui::CreateButton(iPoint position, Button_Animation animation, Gui_Listener* listener)
+Button_Input* j1Gui::CreateButton(iPoint position, Button_Definition animation, Gui_Listener* listener)
 {
 	Button_Input* object = new Button_Input(position, animation, atlas, listener);
 	object->SetAnchor(screen);

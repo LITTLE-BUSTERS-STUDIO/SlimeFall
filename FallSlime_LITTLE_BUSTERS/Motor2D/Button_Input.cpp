@@ -5,9 +5,9 @@
 #include "j1Input.h"
 
 
-Button_Input::Button_Input(iPoint position, Button_Animation button_animation, SDL_Texture * texture, Gui_Listener* listener) : Object(position, listener)
+Button_Input::Button_Input(iPoint position, Button_Definition definition, SDL_Texture * texture, Gui_Listener* listener) : Object(position, listener)
 {
-	this->button_animation = button_animation;
+	this->definition = definition;
 	this->texture = texture;
 }
 
@@ -23,15 +23,15 @@ bool Button_Input::Draw()
 
 	if (App->gui->GetClickedObject() == this)
 	{
-		anim_rect = button_animation.pushed_rect;
+		anim_rect = definition.pushed_rect;
 	}
 	else if (hover_state == HoverState::Repeat || hover_state == HoverState::On)
 	{
-		anim_rect = button_animation.hover_rect;
+		anim_rect = definition.hover_rect;
 	}
 	else
 	{
-		anim_rect = button_animation.idle_rect;
+		anim_rect = definition.idle_rect;
 	}
 
 	section.w = anim_rect.w;
