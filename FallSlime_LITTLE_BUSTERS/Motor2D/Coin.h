@@ -42,10 +42,10 @@ private:
 
 	Coin_States		  current_state = Coin_States::enable;
 	//-----------Vars-----------------------
-	bool			  enable_fx = false;
+	bool			  enable_coin = false;
 	uint  			  coin_counter = NULL;
 	Collider*         main_collider = nullptr;
-	fPoint			  moving_pos;
+	fPoint			  moving_pos = {NULL, NULL};
 	bool			  moving = true;
 	//-----------Textures-------------------
 	SDL_Texture      *tex_coin = nullptr;

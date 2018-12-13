@@ -106,10 +106,11 @@ bool Coin::OnCollision(Collider* c1, Collider* c2)
 	{
 		if (c2->type==COLLIDER_ATTACK || c2->type == COLLIDER_PLAYER)
 		{
-			if (!enable_fx)
+			if (!enable_coin)
 			{
 				App->audio->PlayFx(fx_pick_up);
-				enable_fx = true;
+				enable_coin = true;
+				coin_counter++;
 			}
 			Desactive();
 		}
