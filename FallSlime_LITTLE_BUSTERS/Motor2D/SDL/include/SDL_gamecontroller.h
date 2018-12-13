@@ -78,7 +78,7 @@ typedef struct SDL_GameControllerButtonBind
             int hat;
             int hat_mask;
         } hat;
-    } value;
+    } current_value;
 
 } SDL_GameControllerButtonBind;
 

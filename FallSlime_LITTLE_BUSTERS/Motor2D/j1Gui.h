@@ -47,7 +47,7 @@ public:
 
 	Label* CreateLabel(iPoint position, p2SString text, _TTF_Font* font , Gui_Listener* listener = nullptr);
 
-	Image* CreateImage(iPoint position, Animation animation, Gui_Listener* listener = nullptr);
+	Image* CreateImage(iPoint position, SDL_Rect draw_rect, Gui_Listener* listener = nullptr);
 
 	Button_Input* CreateButton(iPoint position, Button_Definition animation, Gui_Listener* listener = nullptr);
 

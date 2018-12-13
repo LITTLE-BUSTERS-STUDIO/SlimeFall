@@ -325,7 +325,7 @@ namespace pugi
 
 		// Get attribute name/value, or "" if attribute is empty
 		const char_t* name() const;
-		const char_t* value() const;
+		const char_t* current_value() const;
 
 		// Get attribute value, or the default value if attribute is empty
 		const char_t* as_string(const char_t* def = PUGIXML_TEXT("")) const;
@@ -434,7 +434,7 @@ namespace pugi
 
 		// Get node value, or "" if node is empty or it has no value
 		// Note: For <node>text</node> node.value() does not return "text"! Use child_value() or text() methods to access text inside nodes.
-		const char_t* value() const;
+		const char_t* current_value() const;
 	
 		// Get attribute list
 		xml_attribute first_attribute() const;
@@ -1060,10 +1060,10 @@ namespace pugi
 		const xpath_node_set& get_node_set() const;
 
 		// Set variable value; no type conversion is performed, false is returned on type mismatch error
-		bool set(bool value);
-		bool set(double value);
-		bool set(const char_t* value);
-		bool set(const xpath_node_set& value);
+		bool set(bool current_value);
+		bool set(double current_value);
+		bool set(const char_t* current_value);
+		bool set(const xpath_node_set& current_value);
 	};
 
 	// A set of XPath variables
@@ -1087,10 +1087,10 @@ namespace pugi
 		xpath_variable* add(const char_t* name, xpath_value_type type);
 
 		// Set value of an existing variable; no type conversion is performed, false is returned if there is no such variable or if types mismatch
-		bool set(const char_t* name, bool value);
-		bool set(const char_t* name, double value);
-		bool set(const char_t* name, const char_t* value);
-		bool set(const char_t* name, const xpath_node_set& value);
+		bool set(const char_t* name, bool current_value);
+		bool set(const char_t* name, double current_value);
+		bool set(const char_t* name, const char_t* current_value);
+		bool set(const char_t* name, const xpath_node_set& current_value);
 
 		// Get existing variable by name
 		xpath_variable* get(const char_t* name);

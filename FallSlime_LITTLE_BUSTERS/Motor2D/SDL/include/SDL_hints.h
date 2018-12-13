@@ -651,7 +651,7 @@ typedef enum
  *  \return SDL_TRUE if the hint was set, SDL_FALSE otherwise
  */
 extern DECLSPEC SDL_bool SDLCALL SDL_SetHintWithPriority(const char *name,
-                                                         const char *value,
+                                                         const char *current_value,
                                                          SDL_HintPriority priority);
 
 /**
@@ -660,7 +660,7 @@ extern DECLSPEC SDL_bool SDLCALL SDL_SetHintWithPriority(const char *name,
  *  \return SDL_TRUE if the hint was set, SDL_FALSE otherwise
  */
 extern DECLSPEC SDL_bool SDLCALL SDL_SetHint(const char *name,
-                                             const char *value);
+                                             const char *current_value);
 
 /**
  *  \brief Get a hint
