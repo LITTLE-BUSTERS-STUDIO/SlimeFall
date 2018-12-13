@@ -3,6 +3,7 @@
 
 #include "j1Module.h"
 #include "p2SString.h"
+#include "j1Render.h"
 
 class j1Scene;
 class Level_1;
@@ -33,21 +34,24 @@ public:
 
 	bool ResetScene(); // All scene ========================
 
+	bool ChangeScene(p2SString name, int phase);
+
 	// Load & Save game ====================================
 	bool Load(pugi::xml_node& node);
 
 	bool Save(pugi::xml_node& node) const;
 
+	// Load & Unload phases and its map  ====================
+
+	bool LoadPhase(uint phase_number);
+
+	bool NextPhase();
+	 
+private:
 	// Load & Save scene ==================================
 	bool LoadScene(p2SString name, int phase);
 
 	bool UnloadScene();
-
-	// Load & Unload phases and its map  ====================
-
-	bool LoadPhase(uint phase_number, bool spawn = true);
-
-	bool NextPhase();
 
 private:
 
@@ -56,9 +60,15 @@ private:
 	p2SString                default_scene_str;
 	bool                     default_scene_loaded = false;
 
+	// Scene to load ========================
+	p2SString                scene_to_load;
+	uint                     phase_to_load;
+
 	// Document scenes.xml ==================
 
 	p2SString                scene_doc_path;
+private:
+	friend j1Render;
 };
 
 #endif // __SCENE_MANAGER_H__

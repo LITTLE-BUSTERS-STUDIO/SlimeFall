@@ -67,22 +67,26 @@ bool SceneManager::PreUpdate()
 	// Debug keys =======================================
 
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	{
 		return false;
-
+	}
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
-		App->render->FadeToBlack(1000u, p2SString("level_1"));
+		ChangeScene("level_1", 1);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
-
+		App->scene_manager->ResetScene();
 	}
-
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+	{
 		App->SaveGame();
-
+	}
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+	{
 		App->LoadGame();
+	}
+	
 
 	return true;
 }
@@ -140,6 +144,16 @@ j1Scene* SceneManager::GetCurrentScene()
 bool SceneManager::ResetScene()
 {
 	App->entity_manager->ResetAll();
+	return true;
+}
+
+bool SceneManager::ChangeScene(p2SString name, int phase)
+{
+	if (App->render->FadeToBlack(1000) == true)
+	{
+		scene_to_load = name;
+		phase_to_load = phase;
+	}
 	return true;
 }
 
@@ -277,7 +291,7 @@ bool SceneManager::UnloadScene()
 	return true;
 }
 
-bool SceneManager::LoadPhase(uint phase_number, bool spawn)
+bool SceneManager::LoadPhase(uint phase_number)
 {
 	BROFILER_CATEGORY("Scene LoadPhase", Profiler::Color::LimeGreen);
 

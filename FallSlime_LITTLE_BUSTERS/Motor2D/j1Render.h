@@ -77,7 +77,7 @@ public:
 
 	// Fade to black methods ============================
 
-	bool FadeToBlack(uint32 time, p2SString scene_to_load);
+	bool FadeToBlack(uint32 time);
 
 public:
 

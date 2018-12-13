@@ -16125,7 +16125,7 @@
  </layer>
  <objectgroup id="74" name="entities">
   <properties>
-   <property name="type" value="enemies"/>
+   <property name="type" value="entities"/>
   </properties>
   <object id="434" name="skeleton" x="661" y="263.5">
    <point/>

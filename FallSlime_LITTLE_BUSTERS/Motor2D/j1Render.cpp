@@ -137,7 +137,7 @@ bool j1Render::Update(float dt)
 			}
 			break;
 		case FadeStates::Middle:
-			App->scene_manager->LoadScene("main_menu", -1);
+			App->scene_manager->LoadScene(App->scene_manager->scene_to_load,App->scene_manager->phase_to_load);
 			fade_timer.Start();
 			fade_state = FadeStates::Out;
 			break;
@@ -162,12 +162,6 @@ bool j1Render::Update(float dt)
 	{
 		return true;
 	}
-
-	//if (reset)
-	//{
-	//	CameraReset();
-	//	reset = false;
-	//}
 
 	fPoint player_position(App->entity_manager->GetPlayer()->GetPosition());
 
@@ -345,7 +339,7 @@ bool j1Render::SetCameraLimits(const int x, const int y)
 	return true;
 }
 
-bool j1Render::FadeToBlack(uint32 time,  p2SString scene_to_load)
+bool j1Render::FadeToBlack(uint32 time)
 {
 	if (fade_active)
 	{
