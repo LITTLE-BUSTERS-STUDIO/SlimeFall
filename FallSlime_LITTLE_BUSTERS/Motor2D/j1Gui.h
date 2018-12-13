@@ -4,14 +4,17 @@
 #include "j1Module.h"
 #include "SDL_ttf/include/SDL_ttf.h"
 #include "Animation.h"
-#include "Object.h"
-#include "Label.h"
-#include "Image.h"
-#include "Button_Input.h"
+#include "p2Point.h"
 
 #define CURSOR_WIDTH 2
 
 class Gui_Listener;
+class Object;
+class Image;
+class Button_Input;
+class Slider;
+class Label;
+struct Button_Definition;
 
 enum class ClickState
 {
@@ -51,6 +54,7 @@ public:
 
 	Button_Input* CreateButton(iPoint position, Button_Definition animation, Gui_Listener* listener = nullptr);
 
+	Slider* CreateSlider(iPoint position, Button_Definition animation, Gui_Listener* listener = nullptr);
 	// Object functions ----------------------------------------------------------
 	Object*  GetClickedObject();
 

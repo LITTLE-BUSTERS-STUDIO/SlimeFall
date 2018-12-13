@@ -62,6 +62,7 @@ protected:
 
 	// Properties ======================================
 	bool is_draggable = false;
+	bool active = true;
 
 	friend class j1Gui;
 };

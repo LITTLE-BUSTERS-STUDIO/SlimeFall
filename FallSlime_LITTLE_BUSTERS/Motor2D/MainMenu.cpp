@@ -11,6 +11,9 @@
 #include "j1Gui.h"
 #include "Brofiler/Brofiler.h"
 
+#include "Image.h"
+#include "Button_Input.h"
+
 MainMenu::MainMenu() : j1Scene()
 {
 	name.create("main_menu");

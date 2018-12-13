@@ -4,6 +4,7 @@
 #include "j1Gui.h"
 #include "Hud.h"
 #include "Brofiler/Brofiler.h"
+#include "Image.h"
 
 Hud::Hud() :j1Module()
 {

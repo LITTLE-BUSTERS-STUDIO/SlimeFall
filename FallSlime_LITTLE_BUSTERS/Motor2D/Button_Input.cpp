@@ -4,7 +4,6 @@
 #include  "p2Log.h"
 #include "j1Input.h"
 
-
 Button_Input::Button_Input(iPoint position, Button_Definition definition, SDL_Texture * texture, Gui_Listener* listener) : Object(position, listener)
 {
 	this->definition = definition;

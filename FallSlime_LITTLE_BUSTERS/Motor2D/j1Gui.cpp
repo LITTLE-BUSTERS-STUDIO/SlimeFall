@@ -7,6 +7,11 @@
 #include "j1Textures.h"
 #include "j1Input.h"
 
+#include "Object.h"
+#include "Label.h"
+#include "Image.h"
+#include "Button_Input.h"
+#include "Slider.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -223,6 +228,7 @@ Button_Input* j1Gui::CreateButton(iPoint position, Button_Definition animation, 
 	objects_list.add(object);
 	return object;
 }
+
 
 // ====================================================================================
 
