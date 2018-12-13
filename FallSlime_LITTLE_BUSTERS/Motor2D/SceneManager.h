@@ -31,13 +31,15 @@ public:
 
 	j1Scene* GetCurrentScene();
 
+	bool ResetScene(); // All scene ========================
+
 	// Load & Save game ====================================
 	bool Load(pugi::xml_node& node);
 
 	bool Save(pugi::xml_node& node) const;
 
 	// Load & Save scene ==================================
-	bool LoadScene(p2SString name);
+	bool LoadScene(p2SString name, int phase);
 
 	bool UnloadScene();
 
@@ -55,7 +57,7 @@ private:
 	bool                     default_scene_loaded = false;
 
 	// Document scenes.xml ==================
-	//pugi::xml_document       scenes_doc;
+
 	p2SString                scene_doc_path;
 };
 

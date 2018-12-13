@@ -137,7 +137,7 @@ bool j1Render::Update(float dt)
 			}
 			break;
 		case FadeStates::Middle:
-			App->scene_manager->LoadScene("main_menu");
+			App->scene_manager->LoadScene("main_menu", -1);
 			fade_timer.Start();
 			fade_state = FadeStates::Out;
 			break;
@@ -163,11 +163,11 @@ bool j1Render::Update(float dt)
 		return true;
 	}
 
-	if (reset)
-	{
-		CameraReset();
-		reset = false;
-	}
+	//if (reset)
+	//{
+	//	CameraReset();
+	//	reset = false;
+	//}
 
 	fPoint player_position(App->entity_manager->GetPlayer()->GetPosition());
 

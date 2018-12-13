@@ -51,7 +51,7 @@ bool SceneManager::PreUpdate()
 
 	if (default_scene_loaded == false)
 	{
-		LoadScene(default_scene_str);
+		LoadScene(default_scene_str, -1);
 		default_scene_loaded = true;
 	}
 
@@ -75,9 +75,7 @@ bool SceneManager::PreUpdate()
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
-		App->entity_manager->ResetAll();
-		App->entity_manager->GetPlayer()->reset = true;
-		App->render->reset = true;
+
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
@@ -139,21 +137,34 @@ j1Scene* SceneManager::GetCurrentScene()
 	return current_scene;
 }
 
+bool SceneManager::ResetScene()
+{
+	App->entity_manager->ResetAll();
+	return true;
+}
+
 bool  SceneManager::Load(pugi::xml_node& node)
 {
-	current_phase = node.child("phase").attribute("current_phase").as_uint(1u);
-	LoadPhase(current_phase, false);
+	pugi::xml_node scene_node = node.child("scene");
+
+	p2SString scene_to_load_name(scene_node.attribute("name").as_string(""));
+	current_phase = scene_node.attribute("phase").as_int(1);
+	LoadScene(scene_to_load_name, current_phase);
+
 	return true;
 }
 
 bool  SceneManager::Save(pugi::xml_node& node) const
 {
-	pugi::xml_node phase_node = node.append_child("phase");
-	phase_node.append_attribute("current_phase") = current_phase;
+	pugi::xml_node scene_node = node.append_child("scene");
+
+	scene_node.append_attribute("name") = current_scene->name.GetString();
+	scene_node.append_attribute("phase") = current_phase;
+
 	return true;
 }
 
-bool SceneManager::LoadScene(p2SString name)
+bool SceneManager::LoadScene(p2SString name, int phase)   // phase = -1 -> default phase
 {
 	UnloadScene();
 
@@ -219,9 +230,16 @@ bool SceneManager::LoadScene(p2SString name)
 
 	// Current scene =======================================
 	current_scene = scene_to_load;
-
 	scene_to_load->LoadScene(node_to_send);
-	LoadPhase(scene_to_load->default_phase);
+
+	if (phase == -1)
+	{
+		LoadPhase(scene_to_load->default_phase);
+	}
+	else
+	{
+		LoadPhase(phase);
+	}
 
 	scenes_doc.reset();
 
@@ -287,6 +305,9 @@ bool SceneManager::LoadPhase(uint phase_number, bool spawn)
 		LOG("Couldn't load phase %i", phase_number);
 		return false;
 	}
+	// Unload old map  ====================================
+	App->entity_manager->UnloadEntities();
+	App->map->CleanUp();
 
 	// Load new map  ====================================
 	ret = App->map->Load(item->data->map_path.GetString() );
@@ -296,18 +317,6 @@ bool SceneManager::LoadPhase(uint phase_number, bool spawn)
 	{
 		current_phase = phase_number;
 		App->render->SetCameraLimits(item->data->x_limit, item->data->y_limit);
-
-		if (spawn)
-		{
-			if (App->entity_manager->GetPlayer())
-			{
-				App->entity_manager->GetPlayer()->reset = true;
-				App->render->reset = true;
-			}
-			else
-				App->entity_manager->CreatePlayer(App->map->data.initial_position);
-
-		}
 	}
 
 	return ret;

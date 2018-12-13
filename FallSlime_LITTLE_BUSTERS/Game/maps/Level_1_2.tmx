@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="100" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="71" nextobjectid="448">
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="100" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="71" nextobjectid="449">
  <tileset firstgid="1" name="Basic_tileset" tilewidth="16" tileheight="16" tilecount="60" columns="10">
   <image source="Basic_tileset.png" width="160" height="96"/>
   <terraintypes>
@@ -4065,14 +4065,6 @@
    <tile/>
   </data>
  </layer>
- <objectgroup id="68" name="initial_position">
-  <properties>
-   <property name="type" value="initial_position"/>
-  </properties>
-  <object id="438" x="30" y="161.5">
-   <point/>
-  </object>
- </objectgroup>
  <layer id="65" name="Ground" width="100" height="40">
   <data>
    <tile gid="24"/>
@@ -16137,9 +16129,15 @@
   <object id="429" x="804" y="191.708" width="23.875" height="45.6667"/>
   <object id="430" x="805.5" y="64.25" width="20.5" height="63"/>
  </objectgroup>
+ <objectgroup color="#ffff00" id="20" name="colliders_next_level">
+  <properties>
+   <property name="type" value="colliders"/>
+  </properties>
+  <object id="411" x="1290" y="351.667" width="10.5" height="66.5"/>
+ </objectgroup>
  <objectgroup id="70" name="entities">
   <properties>
-   <property name="type" value="enemies"/>
+   <property name="type" value="entities"/>
   </properties>
   <object id="442" name="skeleton" x="526.75" y="217">
    <point/>
@@ -16156,11 +16154,8 @@
   <object id="447" name="coin" x="945.667" y="123.333">
    <point/>
   </object>
- </objectgroup>
- <objectgroup color="#ffff00" id="20" name="colliders_next_level">
-  <properties>
-   <property name="type" value="colliders"/>
-  </properties>
-  <object id="411" x="1290" y="351.667" width="10.5" height="66.5"/>
+  <object id="448" name="player" x="77.5" y="151.5">
+   <point/>
+  </object>
  </objectgroup>
 </map>

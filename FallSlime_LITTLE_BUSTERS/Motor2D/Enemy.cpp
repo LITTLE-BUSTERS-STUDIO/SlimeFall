@@ -134,6 +134,7 @@ bool  Enemy::Active()
 	}
 
 	active = true;
+
 	return true;
 }
 
@@ -148,9 +149,15 @@ bool  Enemy::Desactive()
 	return true;
 }
 
+bool Enemy::Reset()
+{
+	last_path.Clear();
+	return true;
+}
+
 bool Enemy::DrawPath()
 {
-	if (App->path_finding->debug)
+	if (App->path_finding->debug && active)
 	{
 		for (uint i = 0; i < last_path.Count(); ++i)
 		{

@@ -74,8 +74,6 @@ struct MapData
 	p2List<TileSet*>	          tilesets;
 	p2List<MapLayer*>	          layers;
 	p2List<CollidersGroup*>       coll_groups;           
-
-	fPoint                        initial_position = {0.0f,0.0f};
 };
 
 // ----------------------------------------------------
@@ -110,7 +108,6 @@ private:
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 	bool LoadColliders(pugi::xml_node& object_node, CollidersGroup* group);
-	bool UnloadMap();
 
 public:
 

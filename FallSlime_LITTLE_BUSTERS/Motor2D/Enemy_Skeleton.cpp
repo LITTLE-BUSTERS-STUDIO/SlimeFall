@@ -16,6 +16,8 @@
 
 Enemy_Skeleton::Enemy_Skeleton(fPoint position, fPoint spawn_pos, Properties *properties) :Enemy(position, spawn_pos, properties)
 {
+	name.create("enemy_skeleton");
+
 	Enemy_Skeleton_Properties* enemy_properties = (Enemy_Skeleton_Properties *)properties;
 
 	target = (Entity*)App->entity_manager->GetPlayer();
@@ -144,6 +146,7 @@ bool Enemy_Skeleton::Draw()
 bool Enemy_Skeleton::Reset()
 {
 	BROFILER_CATEGORY("Enemy_Skeleton Reset", Profiler::Color::LightGray);
+	last_path.Clear();
 	current_state = Enemy_Skeleton_State::walking;
 	dead_fx = false;
 	return true;

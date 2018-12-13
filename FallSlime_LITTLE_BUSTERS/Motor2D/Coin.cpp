@@ -15,6 +15,8 @@
 
 Coin::Coin(fPoint position, fPoint spawn_pos, Properties *properties) :Entity(position, spawn_pos, properties)
 {
+	name.create("object_coin");
+
 	Coin_Properties* coin_properties = (Coin_Properties *)properties;
 
 	// Values ---------------------------------------------

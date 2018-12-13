@@ -14,6 +14,7 @@
 
 Enemy_Bat::Enemy_Bat(fPoint position, fPoint spawn_pos, Properties *properties) :Enemy(position, spawn_pos, properties)
 {
+	name.create("enemy_bat");
 	Enemy_Bat_Properties* enemy_properties = (Enemy_Bat_Properties *)properties;
 
 	// Textures ------------------------------------------
@@ -127,6 +128,7 @@ bool Enemy_Bat::Reset()
 {
 	BROFILER_CATEGORY("Enemy_Bat Reset", Profiler::Color::LightGray);
 
+	last_path.Clear();
 	current_state = Enemy_Bat_State::flying;
 	bat_anim.Reset();
 	dead_fx = false;

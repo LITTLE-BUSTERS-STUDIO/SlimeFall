@@ -115,9 +115,7 @@ bool j1Player::HandleInput()
 	//Only if player is dead
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && current_state == Player_State::dead)
 	{
-		App->entity_manager->ResetAll();
-		reset = true;
-		App->render->reset = true;
+		App->scene_manager->ResetScene();
 	}
 
 	// Only if player is on ground 
@@ -202,12 +200,6 @@ bool j1Player::HandleInput()
 bool j1Player::Update(float dt)
 {
 	BROFILER_CATEGORY("Player Update", Profiler::Color::LightCyan);
-
-	if (reset) 
-	{
-		Reset(App->map->data.initial_position);
-		reset = false;
-	}
 
 	if (current_state != Player_State::jumping && current_state != Player_State::attack)
 	{
@@ -343,12 +335,11 @@ bool j1Player::Draw()
 	return true;
 }
 
-bool j1Player::Reset( fPoint pos)
+bool j1Player::Reset()
 {
 	BROFILER_CATEGORY("Player Reset", Profiler::Color::LightGray);
 
-	position = pos;
-	collider->SetPos(pos.x, pos.y);
+	collider->SetPos(spawn_pos.x - collider->rect.w * 0.5f , spawn_pos.y - collider->rect.h * 0.5f);
 	velocity.x = 0;
 	velocity.y = 0;
 	acceleration.x = 0;
@@ -369,8 +360,7 @@ bool j1Player::Reset( fPoint pos)
 bool j1Player::Load(pugi::xml_node& node) 
 {
 	bool ret = true;
-	position.x = node.child("position").attribute("x").as_float(0);
-	position.y = node.child("position").attribute("y").as_float(0);
+
 	velocity.x = node.child("velocity").attribute("x").as_float(0);
 	velocity.y = node.child("velocity").attribute("y").as_float(0);
 	acceleration.x = node.child("acceleration").attribute("x").as_float(0);
@@ -426,11 +416,6 @@ bool j1Player::Load(pugi::xml_node& node)
 bool j1Player::Save(pugi::xml_node& node) const
 {
 	bool ret = true;
-
-	pugi::xml_node pos = node.append_child("position");
-
-	pos.append_attribute("x") = position.x;
-	pos.append_attribute("y") = position.y;
 
 	pugi::xml_node vel = node.append_child("velocity");
 
