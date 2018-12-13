@@ -18,7 +18,8 @@ Coin::Coin(fPoint position, fPoint spawn_pos, Properties *properties) :Entity(po
 	Coin_Properties* coin_properties = (Coin_Properties *)properties;
 
 	// Values ---------------------------------------------
-
+	moving_pos = position;
+	
 	// Textures ------------------------------------------
 	tex_coin = coin_properties->tex_coin;
 	
@@ -27,6 +28,7 @@ Coin::Coin(fPoint position, fPoint spawn_pos, Properties *properties) :Entity(po
 
 	// Sfx ----------------------------------------------
 	fx_pick_up = coin_properties->pick_up_coin_fx;
+
 
 }
 
@@ -84,6 +86,21 @@ bool Coin::Draw()
 	default:
 		break;
 	}
+
+
+	if (position.y > moving_pos.y - 5 && moving)
+	{
+		position.y-=0.5F;
+		if (position.y == moving_pos.y - 5)
+			moving = false;
+	}
+	else if (position.y < moving_pos.y + 5 && !moving)
+	{
+		position.y+=0.5F;
+		if (position.y == moving_pos.y + 5)
+			moving = true;
+	}
+	
 
 	App->render->Blit(texture, (int)position.x - frame.w / 2, (int)position.y - frame.h / 2, &frame);
 

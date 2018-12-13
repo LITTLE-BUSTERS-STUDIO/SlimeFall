@@ -42,6 +42,8 @@ private:
 	bool			  enable_fx = false;
 	uint  			  coin_counter = NULL;
 	Collider*         main_collider = nullptr;
+	fPoint			  moving_pos;
+	bool			  moving = true;
 	//-----------Textures-------------------
 	SDL_Texture      *tex_coin = nullptr;
 
