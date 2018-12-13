@@ -32,6 +32,11 @@ void Slider::SetValue(float value)
 {
 }
 
+bool Slider::Update(float dt)
+{
+	return true;
+}
+
 //bool Slider::OnClick(Object * object)
 //{
 //	button->IsDraggable(true);
