@@ -3,6 +3,9 @@
 ## Game description
 This is a Platform Game about a jumping slime. Kill enemies, obtain risky coins to get and reach the end if you can! All of this in Slime Fall, a game developed by Little Busters.
 
+![Slime gif](https://github.com/LITTLE-BUSTERS-STUDIO/SlimeFall/blob/master/docs/tumblr_nr8o80uuin1sntjsso1_r2_1280.gif)
+
+
 ## Development team
 * **Alejandro Gamarra** (alejandro61299) - As a Lead Programer & QA https://github.com/alejandro61299
 * **Marc Galvez** (optus23) - As a Lead Designer & Manager https://github.com/optus23
@@ -39,6 +42,8 @@ LSHIFT - Special Attack
 * Load Animations with Tiled v1.2.0
 * Random SFx Jump (4 slime sounds)
 
+![Skeleton Walking gif](https://github.com/LITTLE-BUSTERS-STUDIO/SlimeFall/blob/master/docs/Skeleton%20Walk.gif)
+
 ## Innovation features A2:
 
 * Camera follow is now smooth
@@ -48,6 +53,8 @@ LSHIFT - Special Attack
 * Camera pulling, all tilesets out of camera despawn
 * Load Entities with tiled v1.2.0
 
+![Skeleton Death gif](https://github.com/LITTLE-BUSTERS-STUDIO/SlimeFall/blob/master/docs/Skeleton%20Dead.gif)
+
 ## Download link
 
 [![Slime Fall Releases](https://github.com/LITTLE-BUSTERS-STUDIO/SlimeFall/releases)]
@@ -56,8 +63,7 @@ Slime Fall Releases[https://github.com/LITTLE-BUSTERS-STUDIO/SlimeFall/releases)
 
 **We hope you Enjoy! Thanks for playing.**
 
-
-
+![team Logo](https://github.com/LITTLE-BUSTERS-STUDIO/SlimeFall/blob/master/docs/Slime%20Fall%20Logo.jpeg)
 
 
 ~~~~~~~~~~~~~~~
