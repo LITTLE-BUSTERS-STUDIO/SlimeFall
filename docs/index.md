@@ -1,4 +1,4 @@
-﻿# Slime Fall ![slime Small Logo](https://raw.githubusercontent.com/LITTLE-BUSTERS-STUDIO/SlimeFall/master/docs/Slime%20Fall%20Logo2.png)
+﻿# Welcome to our website! ![slime Small Logo](https://raw.githubusercontent.com/LITTLE-BUSTERS-STUDIO/SlimeFall/master/docs/Slime%20Fall%20Logo2.png)
 
 
 ## Game description
