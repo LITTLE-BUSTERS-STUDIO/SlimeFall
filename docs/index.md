@@ -65,7 +65,7 @@ Download Slime Fall Releases [here](https://github.com/LITTLE-BUSTERS-STUDIO/Sli
 
 **We hope you Enjoy! Thanks for playing.**
 
-![team Logo](https://github.com/LITTLE-BUSTERS-STUDIO/SlimeFall/blob/master/docs/Slime%20Fall%20Logo.png)
+![team Logo](https://raw.githubusercontent.com/LITTLE-BUSTERS-STUDIO/SlimeFall/master/docs/Slime%20Fall%20Logo.png)
 
 
 ~~~~~~~~~~~~~~~
