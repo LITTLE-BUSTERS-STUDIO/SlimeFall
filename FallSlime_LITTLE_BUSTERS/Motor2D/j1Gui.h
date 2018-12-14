@@ -8,8 +8,10 @@
 
 #define CURSOR_WIDTH 2
 
-class Gui_Listener;
 class Object;
+enum class ObjectState;
+
+class Gui_Listener;
 class Image;
 class Button_Input;
 class Slider;
@@ -69,6 +71,8 @@ public:
 	Object* GetScreen();
 
 	bool DeleteObject(Object* object);
+
+	void SetStateToBranch(const ObjectState state, Object* branch_root);
 
 	// Cursor functions ----------------------------------------------------------
 

@@ -13,7 +13,7 @@ public:
 	Label(iPoint position, p2SString text, _TTF_Font* font, SDL_Color color, Gui_Listener* listener);
 
 	// Destructor
-	virtual ~Label();
+	~Label();
 
 	// Set the text
 	void SetText(p2SString text);

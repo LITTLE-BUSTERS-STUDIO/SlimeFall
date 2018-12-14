@@ -54,8 +54,13 @@ bool j1Gui::PreUpdate()
 	// Hover States ============================================
 	SDL_Rect rect;
 
-	for (p2List_item<Object*> * item = objects_list.start; item; item = item->next)
+	for (p2List_item<Object*> * item = objects_list.start; item != nullptr ; item = item->next)
 	{
+		if (item->data->state != ObjectState::visible)
+		{
+			continue;
+		}
+
 		rect.x = item->data->position.x - item->data->section.w / 2;
 		rect.y = item->data->position.y - item->data->section.h / 2;
 		rect.w = item->data->section.w;
@@ -311,6 +316,22 @@ bool j1Gui::DeleteObject(Object * object)
 	return true;
 }
 
+void j1Gui::SetStateToBranch(const ObjectState state, Object * branch_root)
+{
+	if (branch_root == nullptr)
+	{
+		return;
+	}
+
+	branch_root->state = state;
+
+	for (p2List_item<Object*> *item = branch_root->anchor_sons.start; item != nullptr; item = item->next)
+	{
+		SetStateToBranch(state, item->data);
+	}
+
+}
+
 iPoint j1Gui::GetCursorOffset() const
 {
 	return cursor_offset;
@@ -327,7 +348,7 @@ bool j1Gui::SelectClickedObject()
 
 	for (p2List_item<Object*> * item = objects_list.start; item; item = item->next)
 	{
-		if (item->data->hover_state == HoverState::On || item->data->hover_state == HoverState::Repeat)
+		if (item->data->hover_state != HoverState::None  &&  item->data->state == ObjectState::visible && item->data->is_interactive == true)
 		{
 			clicked_objects.add(item->data);
 		}
@@ -362,9 +383,16 @@ bool j1Gui::SelectClickedObject()
 
 void j1Gui::DrawGui(Object * object)
 {
-	
-	object->Draw();
+	if (object == nullptr)
+	{
+		return;
+	}
 
+	if (object->state != ObjectState::hidden)
+	{
+		object->Draw();
+	}
+	
 	if (App->gui->debug)
 	{
 		SDL_Rect rect;
@@ -373,7 +401,7 @@ void j1Gui::DrawGui(Object * object)
 		rect.w = object->section.w;
 		rect.h = object->section.h;
 
-		if (object->hover_state == HoverState::On || object->hover_state == HoverState::Repeat)
+		if (object->hover_state != HoverState::None )
 		{
 			App->render->DrawQuad(rect, 255, 0, 0, 100, true, false);
 		}
@@ -383,7 +411,7 @@ void j1Gui::DrawGui(Object * object)
 		}
 	}
 
-	for (p2List_item<Object*> *item = object->anchor_sons.start; item; item = item->next)
+	for (p2List_item<Object*> *item = object->anchor_sons.start;  item != nullptr; item = item->next)
 	{
 		DrawGui(item->data);
 	}
@@ -391,10 +419,15 @@ void j1Gui::DrawGui(Object * object)
 
 void j1Gui::UpdateGuiPositions(Object * object, iPoint cumulated_position)
 {
+	if (object == nullptr)
+	{
+		return;
+	}
+
 	cumulated_position += object->relative_position;
 	object->position = cumulated_position;
 
-	for (p2List_item<Object*> *item = object->anchor_sons.start; item; item = item->next)
+	for (p2List_item<Object*> *item = object->anchor_sons.start; item != nullptr; item = item->next)
 	{
 		UpdateGuiPositions(item->data, cumulated_position);
 	}

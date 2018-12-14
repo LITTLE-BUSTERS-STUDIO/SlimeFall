@@ -67,6 +67,7 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 
 	LOG("Loading MainMenu");
 
+	// Paralax ========================================================
 	music_path = node.child("music").attribute("path").as_string("");
 	App->audio->PlayMusic(music_path.GetString());
 

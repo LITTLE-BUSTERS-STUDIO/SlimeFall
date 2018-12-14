@@ -191,7 +191,7 @@ bool EntityManager::CleanUp()
 	// Remove all entities =====================================
 	p2List_item<Entity*>* entities_item = entities.start;
 	
-	while (entities_item != NULL)
+	while (entities_item != nullptr)
 	{
 		entities_item->data->colliders.clear();
 		RELEASE(entities_item->data);
@@ -327,6 +327,7 @@ bool  EntityManager::UnloadEntities()
 		{
 			RELEASE(item->data);
 		}
+
 		entities.del(item);
 		item = iterator;
 	}

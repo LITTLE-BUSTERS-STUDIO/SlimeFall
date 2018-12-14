@@ -8,6 +8,10 @@
 
 Label::Label(iPoint position, p2SString text, _TTF_Font* font, SDL_Color color, Gui_Listener* listener): Object(position, listener)
 {
+	//Properties ==================================
+	is_draggable = false;
+	is_interactive = false;
+
 	this->font = font;
 	this->color = color;
 	SetText(text);

@@ -36,8 +36,6 @@ bool Object::UpdateRelativePosition()
 	return true;
 }
 
-
-
 bool Object::SetAnchor(Object * anchor)
 {
 	if (anchor == nullptr)
@@ -88,3 +86,10 @@ void Object::IsDraggable(const bool is_draggable)
 {
 	this->is_draggable = is_draggable;
 }
+
+void Object::SetState(const ObjectState state)
+{
+	this->state = state;
+}
+
+

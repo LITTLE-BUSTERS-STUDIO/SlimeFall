@@ -17,6 +17,12 @@ enum class HoverState
 	None
 };
 
+enum class ObjectState
+{
+	visible,
+	hidden
+};
+
 class Object
 {
 
@@ -45,8 +51,7 @@ public:
 
 	void IsDraggable(const bool is_draggable);
 
-	// Variables ======================================
-	HoverState hover_state = HoverState::None;
+	void SetState(const ObjectState state);
 
 protected:
 
@@ -61,8 +66,10 @@ protected:
 	p2List<Object*>       anchor_sons;
 
 	// Properties ======================================
+	ObjectState state = ObjectState::visible;
+	HoverState hover_state = HoverState::None;
 	bool is_draggable = false;
-	bool active = true;
+	bool is_interactive = true;
 
 	friend class j1Gui;
 };
