@@ -42,6 +42,8 @@ LSHIFT - Special Attack
 * Load Animations with Tiled v1.2.0
 * Random SFx Jump (4 slime sounds)
 
+![Skeleton Walking gif](https://github.com/LITTLE-BUSTERS-STUDIO/SlimeFall/blob/master/docs/Skeleton%20Walk.gif)
+
 ## Innovation features A2:
 
 * Camera follow is now smooth
@@ -51,6 +53,8 @@ LSHIFT - Special Attack
 * Camera pulling, all tilesets out of camera despawn
 * Load Entities with tiled v1.2.0
 
+![Skeleton Death gif](https://github.com/LITTLE-BUSTERS-STUDIO/SlimeFall/blob/master/docs/Skeleton%20Dead.gif)
+
 ## Download link
 
 [![Slime Fall Releases](https://github.com/LITTLE-BUSTERS-STUDIO/SlimeFall/releases)]
@@ -59,8 +63,7 @@ Slime Fall Releases[https://github.com/LITTLE-BUSTERS-STUDIO/SlimeFall/releases)
 
 **We hope you Enjoy! Thanks for playing.**
 
-
-
+![team Logo](https://github.com/LITTLE-BUSTERS-STUDIO/SlimeFall/blob/master/docs/Slime%20Fall%20Logo.jpeg)
 
 
 ~~~~~~~~~~~~~~~
