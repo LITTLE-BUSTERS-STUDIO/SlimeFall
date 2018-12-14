@@ -8,6 +8,10 @@ Object::Object(iPoint position, Gui_Listener *listener)
 {
 	this->position = position;
 	this->listener = listener;
+
+	section.x = section.y = 0;
+	section.w = DEFAULT_MARGIN_SECTION;
+	section.h = DEFAULT_MARGIN_SECTION;
 }
 
 Object::~Object()

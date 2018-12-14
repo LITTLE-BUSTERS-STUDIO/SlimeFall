@@ -101,35 +101,50 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 		parallax3[i].rect_parallax.h = background_high;
 	}
 
-	// Images ============================================
-	//Animation logo_anim;
-	//logo_anim.PushBack({ 0, 0, 219, 94 });
-	//logo = App->gui->CreateImage(iPoint(326, 84), logo_anim, this);
-	//logo->IsDraggable(true);
+	// =============================================================
+	// ====================   Menu   ===============================
+	// =============================================================
 
+	// Images ============================================
+	
+	Animation logo_anim;
+	logo_anim.PushBack({ 0, 0, 219, 94 });
+	logo = App->gui->CreateImage(iPoint(326, 84), logo_anim, this);
+	logo->IsDraggable(true);
+
+	// Buttons ============================================
+
+	Button_Definition button_rectangle({ 219 , 0, 122, 36 }, { 219, 36, 122, 36 }, { 219, 72, 122, 36 });
+
+	button_play = App->gui->CreateButton(iPoint(0, 0), button_rectangle, this);
+	button_play->IsDraggable(true);
+	
+	
+	// =============================================================
+    // ==================   Settings   =============================
+    // =============================================================
+
+	
 	Animation panel_anim;
 	panel_anim.PushBack({ 387, 0, 389, 293 });
-	panel = App->gui->CreateImage(iPoint(320, 182), panel_anim, this);
-	panel->IsDraggable(true);
+	settings_panel = App->gui->CreateImage(iPoint(320, 182), panel_anim, this);
+	settings_panel->IsDraggable(true);
 
 	// Labels ============================================
 	karma_font = App->font->Load("fonts/KarmaSuture.ttf", 24);
 	SDL_Color color = {231,94,152,255};
 
 	music_volume_label = App->gui->CreateLabel(iPoint(229, 130), "Music volume", karma_font, this, color);
-	music_volume_label->SetAnchor(panel);
+	music_volume_label->SetAnchor(settings_panel);
 	sfx_volume_label = App->gui->CreateLabel(iPoint(218, 173), "Sfx volume", karma_font, this, color);
-	sfx_volume_label->SetAnchor(panel);
+	sfx_volume_label->SetAnchor(settings_panel);
 	mute_label = App->gui->CreateLabel(iPoint(185, 216), "Mute", karma_font, this, color);
-	mute_label->SetAnchor(panel);
+	mute_label->SetAnchor(settings_panel);
 	limitate_fps_label = App->gui->CreateLabel(iPoint(225, 255), "Limitate FPS", karma_font, this, color);
-	limitate_fps_label->SetAnchor(panel);
+	limitate_fps_label->SetAnchor(settings_panel);
 
 	// Buttons ============================================
-	Button_Definition button_rectangle({ 219 , 0, 122, 36 }, { 219, 36, 122, 36 }, { 219, 72, 122, 36 });
 
-	button_play = App->gui->CreateButton(iPoint(0, 0), button_rectangle, this);
-	button_play->IsDraggable(true);
 
 	//Button_Definition button_quad({ 343 ,0, 42,45 }, { 343 ,45, 42,45 }, { 343 ,90, 42,45 });
 
@@ -146,10 +161,10 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	slider_def.rail_draw_rect = { 248 ,136, 136,7 };
 
 	slider_music_volume = App->gui->CreateSlider(iPoint(399, 134), slider_def, this);
-	slider_music_volume->SetAnchor(panel);
+	slider_music_volume->SetAnchor(settings_panel);
 
 	slider_sfx_volume = App->gui->CreateSlider(iPoint(399, 178), slider_def, this);
-	slider_sfx_volume->SetAnchor(panel);
+	slider_sfx_volume->SetAnchor(settings_panel);
 
 	// Checkboxes ========================================
 	Checkbox_Definition checkbox_def;
@@ -162,12 +177,12 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	checkbox_def.check_on_button.pushed_rect = { 343, 144 , 19, 21 };
 
 	checkbox_mute = App->gui->CreateCheckbox(iPoint(398, 219), checkbox_def, this);
-	checkbox_mute->SetAnchor(panel);
+	checkbox_mute->SetAnchor(settings_panel);
 
 	checkbox_limitate_fps = App->gui->CreateCheckbox(iPoint(398, 257), checkbox_def, this);
-	checkbox_limitate_fps->SetAnchor(panel);
+	checkbox_limitate_fps->SetAnchor(settings_panel);
 
-	App->gui->SetStateToBranch(ObjectState::hidden, panel);
+	App->gui->SetStateToBranch(ObjectState::hidden, settings_panel);
 
 	return true;
 }
@@ -183,7 +198,7 @@ bool MainMenu::UnloadScene()
 	App->gui->DeleteObject(mute_label);
 
 	App->gui->DeleteObject(logo);
-	App->gui->DeleteObject(panel);
+	App->gui->DeleteObject(settings_panel);
 	App->gui->DeleteObject(button_play);
 	App->gui->DeleteObject(button_continue);
 	App->gui->DeleteObject(button_exit);
@@ -206,7 +221,7 @@ bool MainMenu::OutClick(Object * object)
 {
 	if (object == button_play)
 	{
-		App->gui->SetStateToBranch(ObjectState::visible, panel);
+		App->gui->SetStateToBranch(ObjectState::visible, settings_panel);
 	}
 
 	return true;

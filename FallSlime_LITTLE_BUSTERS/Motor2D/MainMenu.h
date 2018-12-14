@@ -36,7 +36,7 @@ private:
 	Label*              mute_label = nullptr;
 
 	Image*              logo = nullptr;
-	Image*              panel = nullptr;
+	Image*              settings_panel = nullptr;
 
 	Button_Input*       button_play = nullptr;
 	Button_Input*       button_continue = nullptr;

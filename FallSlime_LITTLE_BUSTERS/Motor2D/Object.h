@@ -6,6 +6,8 @@
 #include "p2List.h"
 #include "j1Module.h"
 
+#define DEFAULT_MARGIN_SECTION 10
+
 struct SDL_Texture;
 class Gui_Listener;
 
