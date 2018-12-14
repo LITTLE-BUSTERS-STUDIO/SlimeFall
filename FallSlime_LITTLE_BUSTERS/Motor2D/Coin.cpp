@@ -8,7 +8,7 @@
 #include "Coin.h"
 #include "j1Map.h"
 #include "j1Render.h"
-
+#include  "Hud.h"
 #include "Brofiler/Brofiler.h"
 
 
@@ -110,7 +110,7 @@ bool Coin::OnCollision(Collider* c1, Collider* c2)
 			{
 				App->audio->PlayFx(fx_pick_up);
 				enable_coin = true;
-				coin_counter++;
+				App->hud->AddCoin();
 			}
 			Desactive();
 		}

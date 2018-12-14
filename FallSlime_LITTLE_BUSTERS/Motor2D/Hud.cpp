@@ -19,6 +19,7 @@ Hud::Hud() :j1Module()
 bool Hud::Awake(pugi::xml_node &node)
 {
 	hp_counter = 5; //MAGIC NUMBER to xml 
+	coin_counter = 0; //MAGIC NUMBER to xml 
 	return true;
 }
 
@@ -124,6 +125,32 @@ bool Hud::PreUpdate()
 	{
 		game_over = true;
 	}
+
+
+	if (coin_counter >= 3)
+	{
+		score_1->SetAnimationFrame(1);
+		score_2->SetAnimationFrame(1);
+		score_3->SetAnimationFrame(1);
+	}
+	else if (coin_counter >= 2)
+	{
+		score_1->SetAnimationFrame(1);
+		score_2->SetAnimationFrame(1);
+		score_3->SetAnimationFrame(0);
+	}	
+	else if (coin_counter >= 1)
+	{
+		score_1->SetAnimationFrame(1);
+		score_2->SetAnimationFrame(0);
+		score_3->SetAnimationFrame(0);
+	}
+	else if (coin_counter >= 0)
+	{
+		score_1->SetAnimationFrame(0);
+		score_2->SetAnimationFrame(0);
+		score_3->SetAnimationFrame(0);
+	}
 	
 	return true;
 }
@@ -177,4 +204,9 @@ bool Hud::ShowHud()
 uint Hud::SubstractLife()
 {
 	return hp_counter--;
+}
+
+uint Hud::AddCoin()
+{
+	return coin_counter++;
 }
