@@ -34,11 +34,11 @@ private:
 	Button_Input*       button_credits = nullptr;
 	Button_Input*       button_settings = nullptr;
 
-	Slider*             slider = nullptr;
-	
+	Slider*             slider_music_volume = nullptr;
+	Slider*             slider_sfx_volume = nullptr;
 
-
-
+	Checkbox*           checkbox_mute = nullptr;
+	Checkbox*           checkbox_limit_fps = nullptr;
 
 	// Scene ==========================================
 	p2SString			music_path;

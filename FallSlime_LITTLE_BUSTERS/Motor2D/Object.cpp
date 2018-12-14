@@ -22,12 +22,21 @@ iPoint Object::GetPosition() const
 void Object::SetPosition(const iPoint position) 
 {
 	this->position = position;
+	UpdateRelativePosition();
 }
 
-void Object::SetRelativePosition(const iPoint relative_position)
+bool Object::UpdateRelativePosition()
 {
-	this->relative_position = relative_position;
+	if (anchor_parent == nullptr)
+	{
+		return false;
+	}
+
+	relative_position = position - anchor_parent->GetPosition();
+	return true;
 }
+
+
 
 bool Object::SetAnchor(Object * anchor)
 {

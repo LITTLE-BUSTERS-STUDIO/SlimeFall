@@ -12,6 +12,7 @@
 #include "Image.h"
 #include "Button_Input.h"
 #include "Slider.h"
+#include "Checkbox.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -111,7 +112,7 @@ bool j1Gui::Update(float dt)
 			break;
 		case ClickState::Repeat:
 			clicked_object->SetPosition(cursor_position - App->gui->GetCursorOffset());
-			clicked_object->SetRelativePosition(clicked_object->GetPosition() - clicked_object->GetAnchorParent()->GetPosition());
+			clicked_object->UpdateRelativePosition();
 			break;
 		case ClickState::Out:
 			App->gui->SetCursorOffset({0,0});
@@ -128,10 +129,13 @@ bool j1Gui::Update(float dt)
 			clicked_object->listener->OnClick(clicked_object);
 			break;
 		case ClickState::Repeat:
-			
+			clicked_object->listener->RepeatClick(clicked_object);
 			break;
 		case ClickState::Out:
-		
+			if (clicked_object->hover_state != HoverState::None)
+			{
+				clicked_object->listener->OutClick(clicked_object);
+			}
 			break;
 		}
 	}
@@ -160,13 +164,13 @@ bool j1Gui::Update(float dt)
 		}
 	}
 
+	UpdateGuiPositions(screen, { 0,0 });
+
 	// Update objects ==============================================
 	for (p2List_item<Object*> * item = objects_list.start; item; item = item->next)
 	{
 		item->data->Update(dt);
 	}
-
-	UpdateGuiPositions(screen, { 0,0 });
 
 	return true;
 }
@@ -237,9 +241,9 @@ Slider * j1Gui::CreateSlider(iPoint position, Slider_Definition definition, Gui_
 	return object;
 }
 
-Checkbox * j1Gui::CreateCheckbox(iPoint position, Button_Definition animation, Gui_Listener * listener)
+Checkbox * j1Gui::CreateCheckbox(iPoint position, Checkbox_Definition definition, Gui_Listener * listener)
 {
-	Checkbox* object = new Checkbox(position, animation, atlas, listener);
+	Checkbox* object = new Checkbox(position, definition, atlas, listener);
 	object->SetAnchor(screen);
 	objects_list.add(object);
 	return object;

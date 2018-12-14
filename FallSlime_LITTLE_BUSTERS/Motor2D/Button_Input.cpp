@@ -41,4 +41,9 @@ bool Button_Input::Draw()
 	return true;
 }
 
+void Button_Input::SetDefinition(Button_Definition definition)
+{
+	this->definition = definition;
+}
+
 

@@ -17,6 +17,7 @@ struct Slider_Definition
 	SDL_Rect            rail_draw_rect = {0,0,0,0};
 	int                 default_value = 0;
 	Button_Definition   button_definition;
+	int                 max_value = 100;
 };
 
 
@@ -49,6 +50,7 @@ private:
 
 private:
 	friend j1Gui;
+	friend Gui_Listener;
 };
 
 #endif // _SLIDER_H__

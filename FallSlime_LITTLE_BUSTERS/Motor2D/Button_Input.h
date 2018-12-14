@@ -36,6 +36,8 @@ public:
 
 	bool SetLabel(/*Position position ,*/p2SString text/* , Color color ,*/);
 
+	void SetDefinition(Button_Definition definition);
+
 private:
 
 	SDL_Texture * texture = nullptr;

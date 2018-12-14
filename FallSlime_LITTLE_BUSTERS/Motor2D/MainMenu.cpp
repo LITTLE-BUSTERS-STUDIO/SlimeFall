@@ -10,7 +10,7 @@
 #include "j1Map.h"
 #include "j1Gui.h"
 #include "Brofiler/Brofiler.h"
-
+#include "Checkbox.h"
 #include "Image.h"
 #include "Button_Input.h"
 #include "Slider.h"
@@ -93,6 +93,7 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 		parallax3[i].rect_parallax.w = background_width;
 		parallax3[i].rect_parallax.h = background_high;
 	}
+
 	Animation logo_anim;
 	logo_anim.PushBack({ 0, 0, 219, 94 });
 	logo = App->gui->CreateImage(iPoint(326, 84), logo_anim, this);
@@ -109,16 +110,25 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	button_settings->IsDraggable(true);
 
 	Slider_Definition slider_def;
-	slider_def.ditance = 100;
-	slider_def.default_value = 20;
-	//slider_def.button_definition.hover_rect = 0;
-	//slider_def.button_definition.idle_rect = 0;
-	//slider_def.button_definition.pushed_rect = 0;
-	slider = App->gui->CreateSlider(iPoint(360, 180), slider_def, this);
+	slider_def.ditance = 120;
+	slider_def.default_value = 0;
+	slider_def.button_definition.idle_rect = { 302 ,111, 13,24 };
+	slider_def.button_definition.hover_rect = { 315 ,111, 13,24 };
+	slider_def.button_definition.pushed_rect = { 328 ,111, 13,24 };
+	slider_def.rail_draw_rect = { 248 ,136, 136,7 };
 
+	slider_music_volume = App->gui->CreateSlider(iPoint(360, 180), slider_def, this);
 
+	Checkbox_Definition checkbox_def;
+	checkbox_def.check_off_button.idle_rect = { 248, 144 , 19, 21};
+	checkbox_def.check_off_button.hover_rect = { 267, 144 , 19, 21 };
+	checkbox_def.check_off_button.pushed_rect = { 286, 144 , 19, 21 };
 
+	checkbox_def.check_on_button.idle_rect = { 305, 144 , 19, 21 };
+	checkbox_def.check_on_button.hover_rect = { 324, 144 , 19, 21 };
+	checkbox_def.check_on_button.pushed_rect = { 343, 144 , 19, 21 };
 
+	checkbox_mute = App->gui->CreateCheckbox(iPoint(360, 180), checkbox_def, this);
 	return true;
 }
 

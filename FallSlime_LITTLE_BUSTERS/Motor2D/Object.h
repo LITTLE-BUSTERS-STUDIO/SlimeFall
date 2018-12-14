@@ -35,7 +35,7 @@ public:
 
 	void SetPosition(const iPoint position);
 
-	void SetRelativePosition(const iPoint position);
+	bool UpdateRelativePosition();
 
 	bool SetAnchor(Object* anchor);
 
