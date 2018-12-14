@@ -28,27 +28,35 @@ public:
 private:
 
 	// GUI ============================================
+	Object*             menu = nullptr;
 	_TTF_Font*          karma_font = nullptr;
+
+	// ---------- Menu -------------------------
+	Image*              logo = nullptr;
+
+	Button_Input*       button_play = nullptr;
+	Button_Input*       button_continue = nullptr;
+	Button_Input*       button_exit = nullptr;
+
+	Button_Input*       button_credits = nullptr;
+	Button_Input*       button_settings = nullptr;
+
+	// ---------- Settings ----------------------
+	Image*              settings_panel = nullptr;
+
+	Button_Input*       button_return_settings = nullptr;
 
 	Label*              music_volume_label = nullptr;
 	Label*              sfx_volume_label = nullptr;
 	Label*              limitate_fps_label = nullptr;
 	Label*              mute_label = nullptr;
 
-	Image*              logo = nullptr;
-	Image*              settings_panel = nullptr;
-
-	Button_Input*       button_play = nullptr;
-	Button_Input*       button_continue = nullptr;
-	Button_Input*       button_exit = nullptr;
-	Button_Input*       button_credits = nullptr;
-	Button_Input*       button_settings = nullptr;
-
 	Slider*             slider_music_volume = nullptr;
 	Slider*             slider_sfx_volume = nullptr;
 
 	Checkbox*           checkbox_mute = nullptr;
 	Checkbox*           checkbox_limitate_fps = nullptr;
+
 
 	// Scene ==========================================
 	p2SString			music_path;

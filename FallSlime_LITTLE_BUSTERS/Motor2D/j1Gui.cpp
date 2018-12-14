@@ -151,7 +151,11 @@ bool j1Gui::Update(float dt)
 	{
 		if (item->data->listener == nullptr)
 		{
-			LOG("Object callback failed, listener was nullptr");
+			if (item->data != screen)
+			{
+				LOG("Object callback failed, listener was nullptr");
+			}
+			
 			continue;
 		}
 

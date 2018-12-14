@@ -101,6 +101,9 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 		parallax3[i].rect_parallax.h = background_high;
 	}
 
+
+	menu = App->gui->CreateObject(iPoint(App->render->camera.w * 0.5f, App->render->camera.h * 0.5f), this);
+
 	// =============================================================
 	// ====================   Menu   ===============================
 	// =============================================================
@@ -110,25 +113,31 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	Animation logo_anim;
 	logo_anim.PushBack({ 0, 0, 219, 94 });
 	logo = App->gui->CreateImage(iPoint(326, 84), logo_anim, this);
-	logo->IsDraggable(true);
+
 
 	// Buttons ============================================
 
 	Button_Definition button_rectangle({ 219 , 0, 122, 36 }, { 219, 36, 122, 36 }, { 219, 72, 122, 36 });
 
 	button_play = App->gui->CreateButton(iPoint(0, 0), button_rectangle, this);
-	button_play->IsDraggable(true);
-	
+	//button_play = App->gui->CreateButton(iPoint(0, 0), button_rectangle, this);
+	//button_play = App->gui->CreateButton(iPoint(0, 0), button_rectangle, this);
+	//button_play = App->gui->CreateButton(iPoint(0, 0), button_rectangle, this);
+
 	
 	// =============================================================
     // ==================   Settings   =============================
     // =============================================================
-
 	
 	Animation panel_anim;
 	panel_anim.PushBack({ 387, 0, 389, 293 });
 	settings_panel = App->gui->CreateImage(iPoint(320, 182), panel_anim, this);
-	settings_panel->IsDraggable(true);
+
+	// Buttons ============================================
+
+	Button_Definition button_quad({ 343 ,0, 42,45 }, { 343 ,45, 42,45 }, { 343 ,90, 42,45 });
+	button_return_settings = App->gui->CreateButton(iPoint(40, 40), button_quad, this);
+
 
 	// Labels ============================================
 	karma_font = App->font->Load("fonts/KarmaSuture.ttf", 24);
@@ -142,14 +151,6 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	mute_label->SetAnchor(settings_panel);
 	limitate_fps_label = App->gui->CreateLabel(iPoint(225, 255), "Limitate FPS", karma_font, this, color);
 	limitate_fps_label->SetAnchor(settings_panel);
-
-	// Buttons ============================================
-
-
-	//Button_Definition button_quad({ 343 ,0, 42,45 }, { 343 ,45, 42,45 }, { 343 ,90, 42,45 });
-
-	//button_settings = App->gui->CreateButton(iPoint(40, 40), button_quad, this);
-	//button_settings->IsDraggable(true);
 
 	// Sliders ============================================
 	Slider_Definition slider_def;
