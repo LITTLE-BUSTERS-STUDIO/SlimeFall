@@ -19,6 +19,7 @@ Hud::Hud() :j1Module()
 bool Hud::Awake(pugi::xml_node &node)
 {
 	hp_counter = 5; //MAGIC NUMBER to xml 
+	coin_counter = 0; //MAGIC NUMBER to xml 
 	return true;
 }
 
@@ -57,17 +58,41 @@ bool Hud::Start()
 
 	wood_panel->SetAnchor(hud_object);
 	
+
+	/*Animation cursor_anim;
+	cursor_anim.PushBack({ 0, 165, 16, 24 });
+	cursor = App->gui->CreateImage(iPoint(320, 30), cursor_anim, this);
+
+	cursor->SetAnchor(NULL);*/
+
 	App->gui->SetStateToBranch(ObjectState::hidden, hud_object);
-	/*SDL_ShowCursor(SDL_DISABLE);*/
+	//SDL_ShowCursor(SDL_DISABLE);
 
 	return true;
 }
 
 bool Hud::PreUpdate()
 {
-	int x, y;
-	App->input->GetMousePosition(x, y);
+	/*iPoint mouse_pos;
+	App->input->GetMousePosition(mouse_pos.x, mouse_pos.y);
+	cursor->SetPosition({ mouse_pos.x +7, mouse_pos.y +12 });*/
+	
 
+	//for (p2List_item<Image*> * item = hp.start; item != nullptr; item = item->next)
+	//{
+	//	for (int i = 4; i > 0; --i)
+	//	{
+	//		if (hp_counter > i)
+	//		{
+	//			//item = SetAnimationFrame(1);
+	//		}
+	//		else
+	//		{
+	//			//item = SetAnimationFrame(0);
+	//		}
+	//	}
+	//
+	//}
 	if (hp_counter >= 5) 
 	{
 		lives_1->SetAnimationFrame(1);
@@ -106,6 +131,32 @@ bool Hud::PreUpdate()
 	else if (hp_counter >= 0)
 	{
 		game_over = true;
+	}
+
+
+	if (coin_counter >= 3)
+	{
+		score_1->SetAnimationFrame(1);
+		score_2->SetAnimationFrame(1);
+		score_3->SetAnimationFrame(1);
+	}
+	else if (coin_counter >= 2)
+	{
+		score_1->SetAnimationFrame(1);
+		score_2->SetAnimationFrame(1);
+		score_3->SetAnimationFrame(0);
+	}	
+	else if (coin_counter >= 1)
+	{
+		score_1->SetAnimationFrame(1);
+		score_2->SetAnimationFrame(0);
+		score_3->SetAnimationFrame(0);
+	}
+	else if (coin_counter >= 0)
+	{
+		score_1->SetAnimationFrame(0);
+		score_2->SetAnimationFrame(0);
+		score_3->SetAnimationFrame(0);
 	}
 	
 	return true;
@@ -160,4 +211,9 @@ bool Hud::ShowHud()
 uint Hud::SubstractLife()
 {
 	return hp_counter--;
+}
+
+uint Hud::AddCoin()
+{
+	return coin_counter++;
 }

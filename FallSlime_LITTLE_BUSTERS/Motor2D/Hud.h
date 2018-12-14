@@ -45,12 +45,16 @@ private:
 	Image *				score_2 = nullptr;
 	Image *				score_3 = nullptr;
 	Image *				wood_panel = nullptr;
+	//Image *				cursor = nullptr;
 	SDL_Texture*		tex_cursor;
 	uint				hp_counter;
+	uint				coin_counter;
 	bool				game_over;
+	p2List<Image*> hp;
 
 public: 
 	uint				SubstractLife();
+	uint				AddCoin();
 };
 
 

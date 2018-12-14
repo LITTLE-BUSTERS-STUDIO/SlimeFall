@@ -110,11 +110,12 @@ private:
 	ClickState click_state = ClickState::None;
 
 	// Cursor ----------------------------------------------
-	iPoint cursor_position;
+	iPoint				cursor_position;
+	iPoint				cursor_offset;
 
-	iPoint cursor_offset;
-	
-	bool show_cursor = false; 
+	bool				show_cursor = false; 
+	Image *				cursor = nullptr;
+
 };
 
 
