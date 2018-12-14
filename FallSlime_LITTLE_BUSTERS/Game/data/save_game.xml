@@ -19,13 +19,11 @@
 			<state current_state="jumping" collider_type="collider_player" />
 		</entity>
 	</entity_manager>
-	<:anonymous />
-	<gui />
-	<:anonymous />
 	<renderer>
 		<camera_position x="0" y="0" />
 		<camera_smoth_position x="0" y="0" />
 		<debug zoom="1" />
 		<conditions free_camera_x="true" free_camera_y="true" />
 	</renderer>
+
 </game_state>

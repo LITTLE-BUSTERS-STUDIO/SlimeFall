@@ -102,7 +102,7 @@ private:
 	uint			  fx_jump5;
 	uint		      id_death_fx;
 	uint		      fx_attack;
-	bool			  dead_fx = false;
+	bool			  dead_enable = false;
 
 };
 

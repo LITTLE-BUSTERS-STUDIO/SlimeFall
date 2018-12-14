@@ -133,7 +133,7 @@ bool Coin::Desactive()
 {
 	if (main_collider)
 	{
-		main_collider->type = COLLIDER_COIN;
+		main_collider->type = COLLIDER_NONE;
 	}
 	active = false;
 	return true;

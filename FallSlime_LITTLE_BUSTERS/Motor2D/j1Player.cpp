@@ -15,6 +15,7 @@
 #include <math.h>
 #include "j1FadeToBlack.h"
 #include "EntityManager.h"
+#include "Hud.h"
 #include "Brofiler/Brofiler.h"
 
 
@@ -314,10 +315,10 @@ bool j1Player::Draw()
 			god_mode = false;
 		}
 			
-		if (!dead_fx)
+		if (!dead_enable)
 		{
 			App->audio->PlayFx(id_death_fx);
-			dead_fx = true;
+			dead_enable = true;
 		}
 		break;
 	case Player_State::attack:
@@ -345,7 +346,7 @@ bool j1Player::Reset()
 	velocity.y = 0;
 	acceleration.x = 0;
 	acceleration.y = 0;
-	dead_fx = false;
+	dead_enable = false;
 	current_state = Player_State::jumping;
 	jumping_anim.Reset();
 

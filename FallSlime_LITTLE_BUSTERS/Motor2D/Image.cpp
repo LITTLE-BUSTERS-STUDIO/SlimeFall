@@ -22,7 +22,7 @@ Image::~Image()
 
 bool Image::Draw()
 {
-	SDL_Rect anim_rect = animation.GetCurrentFrame();
+	SDL_Rect anim_rect = animation.GetLastFrame();
 
 	section.w = anim_rect.w;
 	section.h = anim_rect.h;

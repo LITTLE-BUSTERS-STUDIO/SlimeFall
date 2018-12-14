@@ -11,6 +11,7 @@
 #include "EntityManager.h"
 #include "Brofiler/Brofiler.h"
 #include "j1Gui.h"
+#include "Hud.h"
 
 Level_1::Level_1() : j1Scene()
 {
@@ -56,6 +57,8 @@ bool Level_1::LoadScene(pugi::xml_node& node)
 		parallax3[i].rect_parallax.w = background_width;
 		parallax3[i].rect_parallax.h = background_high;
 	}
+
+	App->hud->ShowHud();
 
 	return true;
 }
