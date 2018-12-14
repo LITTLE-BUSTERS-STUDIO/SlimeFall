@@ -49,6 +49,10 @@ LSHIFT - Special Attack
 * Load Entities with tiled v1.2.0
 
 ## Download link
+
+[![Slime Fall Releases](https://github.com/LITTLE-BUSTERS-STUDIO/SlimeFall/releases)](https://github.com/LITTLE-BUSTERS-STUDIO/SlimeFall/releases)
+
+
 Slime Fall Releases[https://github.com/LITTLE-BUSTERS-STUDIO/SlimeFall/releases)]
 
 **We hope you Enjoy! Thanks for playing.**
