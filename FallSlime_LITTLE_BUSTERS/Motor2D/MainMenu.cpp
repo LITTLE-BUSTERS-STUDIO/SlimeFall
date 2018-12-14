@@ -118,12 +118,12 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	// Buttons ============================================
 
 	Button_Definition button_rectangle({ 219 , 0, 122, 36 }, { 219, 36, 122, 36 }, { 219, 72, 122, 36 });
+	button_play = App->gui->CreateButton(iPoint(320, 214), button_rectangle, this);
+	button_continue = App->gui->CreateButton(iPoint(320, 258), button_rectangle, this);
+	button_exit = App->gui->CreateButton(iPoint(320, 304), button_rectangle, this);
 
-	button_play = App->gui->CreateButton(iPoint(0, 0), button_rectangle, this);
-	//button_play = App->gui->CreateButton(iPoint(0, 0), button_rectangle, this);
-	//button_play = App->gui->CreateButton(iPoint(0, 0), button_rectangle, this);
-	//button_play = App->gui->CreateButton(iPoint(0, 0), button_rectangle, this);
-
+	Button_Definition button_def_credits({ 343 ,0, 42,45 }, { 343 ,45, 42,45 }, { 343 ,90, 42,45 });
+	button_credits = App->gui->CreateButton(iPoint(320, 304), button_def_credits, this);
 	
 	// =============================================================
     // ==================   Settings   =============================
@@ -134,9 +134,7 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	settings_panel = App->gui->CreateImage(iPoint(320, 182), panel_anim, this);
 
 	// Buttons ============================================
-
-	Button_Definition button_quad({ 343 ,0, 42,45 }, { 343 ,45, 42,45 }, { 343 ,90, 42,45 });
-	button_return_settings = App->gui->CreateButton(iPoint(40, 40), button_quad, this);
+	//button_return_settings = App->gui->CreateButton(iPoint(40, 40), button_quad, this);
 
 
 	// Labels ============================================

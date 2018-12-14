@@ -18,7 +18,8 @@ Hud::Hud() :j1Module()
 
 bool Hud::Awake(pugi::xml_node &node)
 {
-	hp_counter = 5; //MAGIC NUMBER to xml 
+
+	lives_counter = MAX_LIVES; //MAGIC NUMBER to xml 
 	coin_counter = 0; //MAGIC NUMBER to xml 
 	return true;
 }
@@ -30,56 +31,51 @@ bool Hud::Start()
 	Animation anim_lives;
 	anim_lives.PushBack({ 0, 165, 29, 32 });
 	anim_lives.PushBack({ 0, 96, 17, 14 });
-	lives_1 = App->gui->CreateImage(iPoint(40, 30), anim_lives, this);
-	lives_2 = App->gui->CreateImage(iPoint(65, 30), anim_lives, this);
-	lives_3 = App->gui->CreateImage(iPoint(90, 30), anim_lives, this);
-	lives_4 = App->gui->CreateImage(iPoint(115, 30), anim_lives, this);
 
-	lives_1->SetAnchor(hud_object);
-	lives_2->SetAnchor(hud_object);
-	lives_3->SetAnchor(hud_object);
-	lives_4->SetAnchor(hud_object);
+	for (uint i = 0 ; i < MAX_LIVES; ++i)
+	{
+		Image* live = App->gui->CreateImage(iPoint(25 * i + 40, 30), anim_lives, this);
+		lives_list.add(live);
+		live->SetAnchor(hud_object);
+	}
 
-	
 	Animation anim_score;
 	anim_score.PushBack({ 33, 96, 12, 18 });
 	anim_score.PushBack({ 19, 96, 12, 18 });
-	score_1 = App->gui->CreateImage(iPoint(550, 30), anim_score, this);
-	score_2= App->gui->CreateImage(iPoint(575, 30), anim_score, this);
-	score_3 = App->gui->CreateImage(iPoint(600, 30), anim_score, this);
 
-	score_1->SetAnchor(hud_object);
-	score_2->SetAnchor(hud_object);
-	score_3->SetAnchor(hud_object);
+	for (uint i = 0; i < MAX_COINS; ++i)
+	{
+		Image* coin = App->gui->CreateImage(iPoint(25 * i + 550, 30), anim_score, this);
+		coins_list.add(coin);
+		coin->SetAnchor(hud_object);
+	}
 
 	Animation anim_wood_panel;
 	anim_wood_panel.PushBack({ 0, 114, 235, 40 });
 	wood_panel = App->gui->CreateImage(iPoint(320, 30), anim_wood_panel, this);
 
 	wood_panel->SetAnchor(hud_object);
-	
-
-	/*Animation cursor_anim;
-	cursor_anim.PushBack({ 0, 165, 16, 24 });
-	cursor = App->gui->CreateImage(iPoint(320, 30), cursor_anim, this);
-
-	cursor->SetAnchor(NULL);*/
 
 	App->gui->SetStateToBranch(ObjectState::hidden, hud_object);
-	//SDL_ShowCursor(SDL_DISABLE);
 
 	return true;
 }
 
 bool Hud::PreUpdate()
-{
-	/*iPoint mouse_pos;
-	App->input->GetMousePosition(mouse_pos.x, mouse_pos.y);
-	cursor->SetPosition({ mouse_pos.x +7, mouse_pos.y +12 });*/
-	
+{	
+	return true;
+}
 
-	//for (p2List_item<Image*> * item = hp.start; item != nullptr; item = item->next)
+bool Hud::Update(float dt)
+{
+	return true;
+}
+
+bool Hud::PostUpdate()
+{
+	//for (p2List_item<Image*> * item = lives_list.start; item != nullptr; item = item->next)
 	//{
+	//	item.
 	//	for (int i = 4; i > 0; --i)
 	//	{
 	//		if (hp_counter > i)
@@ -91,84 +87,9 @@ bool Hud::PreUpdate()
 	//			//item = SetAnimationFrame(0);
 	//		}
 	//	}
-	//
 	//}
-	if (hp_counter >= 5) 
-	{
-		lives_1->SetAnimationFrame(1);
-		lives_2->SetAnimationFrame(1);
-		lives_3->SetAnimationFrame(1);
-		lives_4->SetAnimationFrame(1);
-	}
-	else if (hp_counter >= 4)
-	{
-		lives_1->SetAnimationFrame(1);
-		lives_2->SetAnimationFrame(1);
-		lives_3->SetAnimationFrame(1);
-		lives_4->SetAnimationFrame(0);
-	}
-	else if (hp_counter >= 3)
-	{
-		lives_1->SetAnimationFrame(1);
-		lives_2->SetAnimationFrame(1);
-		lives_3->SetAnimationFrame(0);
-		lives_4->SetAnimationFrame(0);
-	}
-	else if (hp_counter >= 2)
-	{
-		lives_1->SetAnimationFrame(1);
-		lives_2->SetAnimationFrame(0);
-		lives_3->SetAnimationFrame(0);
-		lives_4->SetAnimationFrame(0);
-	}
-	else if (hp_counter >= 1)
-	{
-		lives_1->SetAnimationFrame(0);
-		lives_2->SetAnimationFrame(0);
-		lives_3->SetAnimationFrame(0);
-		lives_4->SetAnimationFrame(0);
-	}
-	else if (hp_counter >= 0)
-	{
-		game_over = true;
-	}
 
 
-	if (coin_counter >= 3)
-	{
-		score_1->SetAnimationFrame(1);
-		score_2->SetAnimationFrame(1);
-		score_3->SetAnimationFrame(1);
-	}
-	else if (coin_counter >= 2)
-	{
-		score_1->SetAnimationFrame(1);
-		score_2->SetAnimationFrame(1);
-		score_3->SetAnimationFrame(0);
-	}	
-	else if (coin_counter >= 1)
-	{
-		score_1->SetAnimationFrame(1);
-		score_2->SetAnimationFrame(0);
-		score_3->SetAnimationFrame(0);
-	}
-	else if (coin_counter >= 0)
-	{
-		score_1->SetAnimationFrame(0);
-		score_2->SetAnimationFrame(0);
-		score_3->SetAnimationFrame(0);
-	}
-	
-	return true;
-}
-
-bool Hud::Update(float dt)
-{
-	return true;
-}
-
-bool Hud::PostUpdate()
-{
 	return true;
 }
 
@@ -208,12 +129,30 @@ bool Hud::ShowHud()
 }
 
 
-uint Hud::SubstractLife()
+ int Hud::SubstractLife()
 {
-	return hp_counter--;
+	 --lives_counter;
+	 if (lives_counter < 0)
+	 {
+		 lives_counter = 0;
+	 }
+
+	 for (uint i= 0 ; i < MAX_LIVES ; ++i)
+	 {
+		 if (i > lives_counter)
+		 {
+			 lives_list[i]->SetAnimationFrame(0);
+		 }
+		 else
+		 {
+			 lives_list[i]->SetAnimationFrame(1);
+		 }
+	 }
+
+	return true;
 }
 
-uint Hud::AddCoin()
+int Hud::AddCoin()
 {
 	return coin_counter++;
 }

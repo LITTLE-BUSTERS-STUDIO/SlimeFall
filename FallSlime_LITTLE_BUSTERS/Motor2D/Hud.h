@@ -5,6 +5,9 @@
 #include "Animation.h"
 #include "j1Gui.h"
 
+#define MAX_LIVES 5
+#define MAX_COINS 3
+
 struct SDL_Texture;
 class Image;
 class Object;
@@ -35,26 +38,21 @@ public:
 	bool ShowHud();
 
 private:
-	//--------------GUI-----------------------
+	// Gui ===================================
 	Object *		    hud_object = nullptr;
-	Image *				lives_1 = nullptr;
-	Image *				lives_2 = nullptr;
-	Image *				lives_3 = nullptr;
-	Image *				lives_4 = nullptr;
-	Image *				score_1 = nullptr;
-	Image *				score_2 = nullptr;
-	Image *				score_3 = nullptr;
+	p2List<Image*>		lives_list;
+	p2List<Image*>		coins_list;
+
 	Image *				wood_panel = nullptr;
-	//Image *				cursor = nullptr;
-	SDL_Texture*		tex_cursor;
-	uint				hp_counter;
-	uint				coin_counter;
+
+	// Vars ===================================
+	int 				lives_counter;
+	int				    coin_counter;
 	bool				game_over;
-	p2List<Image*> hp;
 
 public: 
-	uint				SubstractLife();
-	uint				AddCoin();
+	int				SubstractLife();
+	int				AddCoin();
 };
 
 
