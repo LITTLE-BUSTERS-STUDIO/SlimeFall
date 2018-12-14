@@ -39,7 +39,7 @@ bool Hud::Start()
 
 	Animation anim_score_locked;
 	anim_score_locked.PushBack({ 33, 96, 12, 18 });
-	score = App->gui->CreateImage(iPoint(550, 20), anim_score_locked, this);
+	//score = App->gui->CreateImage(iPoint(550, 20), anim_score_locked, this);
 	score = App->gui->CreateImage(iPoint(575, 20), anim_score_locked, this);
 	score = App->gui->CreateImage(iPoint(600, 20), anim_score_locked, this);
 	score->IsDraggable(false);
@@ -48,7 +48,7 @@ bool Hud::Start()
 	anim_wood_panel.PushBack({ 0, 114, 235, 54 });
 	wood_panel = App->gui->CreateImage(iPoint(320, 30), anim_wood_panel, this);
 	wood_panel->IsDraggable(false);
-	SDL_ShowCursor(SDL_DISABLE);
+	/*SDL_ShowCursor(SDL_DISABLE);*/
 
 	return true;
 }

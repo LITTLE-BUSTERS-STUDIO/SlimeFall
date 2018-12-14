@@ -3,6 +3,7 @@
 #include "j1Gui.h"
 #include  "p2Log.h"
 #include "j1Input.h"
+#include "Button_Input.h"
 
 
 Checkbox::Checkbox(iPoint position, Button_Definition definition, SDL_Texture * texture, Gui_Listener* listener) : Object(position, listener)
