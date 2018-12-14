@@ -137,11 +137,11 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 
 	// Sliders ============================================
 	Slider_Definition slider_def;
-	slider_def.ditance = 120;
+	slider_def.distance = 120;
 	slider_def.default_value = 0;
-	slider_def.button_definition.idle_rect = { 302 ,111, 13,24 };
-	slider_def.button_definition.hover_rect = { 315 ,111, 13,24 };
-	slider_def.button_definition.pushed_rect = { 328 ,111, 13,24 };
+	slider_def.thumb_definition.idle_rect = { 302 ,111, 13,24 };
+	slider_def.thumb_definition.hover_rect = { 315 ,111, 13,24 };
+	slider_def.thumb_definition.pushed_rect = { 328 ,111, 13,24 };
 	slider_def.rail_draw_rect = { 248 ,136, 136,7 };
 
 	slider_music_volume = App->gui->CreateSlider(iPoint(399, 134), slider_def, this);

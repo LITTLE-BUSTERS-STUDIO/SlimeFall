@@ -14,12 +14,12 @@ Slider::Slider(iPoint position, Slider_Definition definition, SDL_Texture * text
 	section.w = definition.rail_draw_rect.w;
 	section.h = definition.rail_draw_rect.h;
 
-	button = App->gui->CreateButton(position, definition.button_definition, this);
-	button->SetAnchor(this);
-	button->IsDraggable(true);
+	thumb = App->gui->CreateButton(position, definition.thumb_definition, this);
+	thumb->SetAnchor(this);
+	thumb->IsDraggable(true);
 
-	point_A = position.x - definition.ditance * 0.5f;
-	point_B = position.x + definition.ditance * 0.5f;
+	point_A = position.x - definition.distance * 0.5f;
+	point_B = position.x + definition.distance * 0.5f;
 	current_value = definition.default_value;
 	SetValue(current_value);
 }
@@ -53,31 +53,31 @@ void Slider::SetValue(int value)
 	}
 
 	current_value = value;
-	int init_button_x = point_A + (current_value* definition.ditance) / 100;
-	button->SetPosition(iPoint(init_button_x, position.y));
+	int button_axis_value = point_A + (current_value* definition.distance) / 100;
+	thumb->SetPosition(iPoint(button_axis_value, position.y));
 }
 
 bool Slider::Update(float dt)
 {
-	point_A = position.x - definition.ditance * 0.5f;
-	point_B = position.x + definition.ditance * 0.5f;
+	point_A = position.x - definition.distance * 0.5f;
+	point_B = position.x + definition.distance * 0.5f;
 
-	iPoint pos = button->GetPosition();
+	iPoint pos = thumb->GetPosition();
 
 	if (pos.x < point_A)
 	{
-		button->SetPosition(iPoint(point_A, position.y));
+		thumb->SetPosition(iPoint(point_A, position.y));
 	}
 	else if (pos.x > point_B)
 	{
-		button->SetPosition(iPoint(point_B, position.y));
+		thumb->SetPosition(iPoint(point_B, position.y));
 	}
 	else
 	{
-		button->SetPosition(iPoint( button->GetPosition().x, position.y));
+		thumb->SetPosition(iPoint( thumb->GetPosition().x, position.y));
 	}
 
-	current_value = ((pos.x - point_A) * definition.max_value) / definition.ditance;
+	current_value = ((pos.x - point_A) * definition.max_value) / definition.distance;
 
 	return true;
 }

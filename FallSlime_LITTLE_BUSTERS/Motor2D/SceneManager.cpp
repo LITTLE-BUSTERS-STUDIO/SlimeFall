@@ -78,6 +78,11 @@ bool SceneManager::PreUpdate()
 	{
 		App->scene_manager->ResetScene();
 	}
+	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+	{
+		App->scene_manager->LoadPhase(2);
+	}
+
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 	{
 		App->SaveGame();
@@ -245,8 +250,9 @@ bool SceneManager::LoadScene(p2SString name, int phase)   // phase = -1 -> defau
 	}
 
 	// Current scene =======================================
-	current_scene = scene_to_load;
+
 	scene_to_load->LoadScene(node_to_send);
+	current_scene = scene_to_load;
 
 	if (phase == -1)
 	{
@@ -287,8 +293,7 @@ bool SceneManager::UnloadScene()
 	App->entity_manager->UnloadEntities();
 	App->map->CleanUp();
 
-	delete current_scene;
-	current_scene = nullptr;
+	RELEASE(current_scene);
 
 	return true;
 }

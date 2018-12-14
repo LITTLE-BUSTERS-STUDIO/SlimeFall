@@ -12,11 +12,11 @@ class Button_Input;
 
 struct Slider_Definition
 {
-	int                 ditance = 100;
+	int                 distance = 100;
 	int                 fixed_y = 0;
 	SDL_Rect            rail_draw_rect = {0,0,0,0};
 	int                 default_value = 0;
-	Button_Definition   button_definition;
+	Button_Definition   thumb_definition;
 	int                 max_value = 100;
 };
 
@@ -40,7 +40,7 @@ private:
 	bool Update(float dt);
 
 private:
-	Button_Input*       button = nullptr;
+	Button_Input*       thumb = nullptr;
 	Slider_Definition   definition;
 	int					point_A = 0;
 	int					point_B = 0;
