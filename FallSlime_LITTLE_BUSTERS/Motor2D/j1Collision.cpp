@@ -232,7 +232,6 @@ bool j1Collision:: CleanUp()
 		{
 			++count;
 			RELEASE(item->data);
-			item->data = nullptr;
 		}
 
 	}
@@ -276,7 +275,7 @@ bool j1Collision::CheckOverlap(p2List<Direction> &directions , Collider *dynamic
 
 bool j1Collision::DeleteCollider(Collider * collider)
 {
-	for (p2List_item<Collider*> * item = colliders.start; item; item = item->next)
+	for (p2List_item<Collider*> * item = colliders.start; item != nullptr; item = item->next)
 	{
 		if (item->data == collider)
 		{

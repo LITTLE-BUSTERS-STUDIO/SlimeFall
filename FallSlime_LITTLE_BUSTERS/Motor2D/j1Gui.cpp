@@ -208,9 +208,9 @@ bool j1Gui::CleanUp()
 
 // Creation methods =================================================================
 
-Label* j1Gui::CreateLabel(iPoint position, p2SString text, _TTF_Font* font, Gui_Listener* listener)
+Label* j1Gui::CreateLabel(iPoint position, p2SString text, _TTF_Font* font, Gui_Listener* listener, SDL_Color color )
 {
-	Label* object = new Label(position, text, font, listener);
+	Label* object = new Label(position, text, font, color, listener);
 	object->SetAnchor(screen);
 	objects_list.add(object);
 	return object;
@@ -247,7 +247,6 @@ Checkbox * j1Gui::CreateCheckbox(iPoint position, Checkbox_Definition definition
 	object->SetAnchor(screen);
 	objects_list.add(object);
 	return object;
-	return nullptr;
 }
 
 
@@ -267,31 +266,47 @@ bool j1Gui::DeleteObject(Object * object)
 {
 	if (object == nullptr)
 	{
+		LOG("Object not deleted: Pointer nullptr");
 		return false;
 	}
+	p2List_item<Object*>* object_to_delete = nullptr;
 
-	int index = objects_list.find(object);
-
-	if (index == -1)
+	for (p2List_item<Object*> * item = objects_list.start; item != nullptr; item = item->next)
 	{
-		return false;
-	}
-	p2List_item<Object*> * item = objects_list.At(index);
-
-	if (item->data->anchor_parent != nullptr)
-	{
-		p2List<Object*> *list = item->data->anchor_parent->GetAnchorSons();
-		int son_index = list->find(object);
-		if (son_index != -1)
+		if (object == item->data)
 		{
-			p2List_item<Object*>* item_son = list->At(son_index);
-			list->del(item_son);
+			object_to_delete = item;
 		}
 	}
 
-	RELEASE(item->data);
-	item->data = nullptr;
-	objects_list.del(item);
+	if (object_to_delete == nullptr)
+	{
+		LOG("Object not deleted: Not found");
+		return false;
+	}
+
+	if (object_to_delete->data->anchor_parent != nullptr)
+	{
+		p2List<Object*> *list = object_to_delete->data->anchor_parent->GetAnchorSons();
+		p2List_item<Object*> *item = list->start;
+
+		while (item != nullptr)
+		{
+			if (object == item->data)
+			{
+				p2List_item<Object*>* iterator = item->next;
+				list->del(item);
+				item = iterator;
+			}
+			else
+			{
+				item = item->next;
+			}
+		}
+	}
+
+	RELEASE(object_to_delete->data);
+	objects_list.del(object_to_delete);
 
 	return true;
 }

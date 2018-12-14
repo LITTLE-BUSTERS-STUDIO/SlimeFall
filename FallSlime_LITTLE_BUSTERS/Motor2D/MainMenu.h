@@ -26,7 +26,15 @@ public:
 private:
 
 	// GUI ============================================
+	_TTF_Font*          karma_font = nullptr;
+
+	Label*              music_volume_label = nullptr;
+	Label*              sfx_volume_label = nullptr;
+	Label*              limitate_fps_label = nullptr;
+	Label*              mute_label = nullptr;
+
 	Image*              logo = nullptr;
+	Image*              panel = nullptr;
 
 	Button_Input*       button_play = nullptr;
 	Button_Input*       button_continue = nullptr;
@@ -38,7 +46,7 @@ private:
 	Slider*             slider_sfx_volume = nullptr;
 
 	Checkbox*           checkbox_mute = nullptr;
-	Checkbox*           checkbox_limit_fps = nullptr;
+	Checkbox*           checkbox_limitate_fps = nullptr;
 
 	// Scene ==========================================
 	p2SString			music_path;

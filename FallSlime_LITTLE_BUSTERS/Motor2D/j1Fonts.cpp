@@ -72,11 +72,34 @@ TTF_Font* const j1Fonts::Load(const char* path, int size)
 	return font;
 }
 
-// Print text using font
-SDL_Texture* j1Fonts::Print(const char* text, SDL_Color color, TTF_Font* font)
+bool j1Fonts::Unload(_TTF_Font * font)
 {
+	p2List_item<_TTF_Font*>* item;
+
+	for (item = fonts.start; item != NULL; item = item->next)
+	{
+		if (font == item->data)
+		{
+			TTF_CloseFont(item->data);
+			fonts.del(item);
+			return true;
+		}
+	}
+
+	LOG("Texture to unload not found");
+	return false;
+}
+
+// Print text using font
+SDL_Texture* j1Fonts::Print(const char* text, SDL_Color color, _TTF_Font* font)
+{
+	if (font == nullptr)
+	{
+		LOG("Default font printed");
+	}
 	SDL_Texture* ret = NULL;
 	SDL_Surface* surface = TTF_RenderText_Blended((font) ? font : default, text, color);
+	
 
 	if(surface == NULL)
 	{

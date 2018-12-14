@@ -3,29 +3,36 @@
 #include "Label.h"
 #include "j1Render.h"
 #include "j1Fonts.h"
+#include "j1Textures.h"
 
 
-Label::Label(iPoint position, p2SString text, _TTF_Font* font, Gui_Listener* listener): Object(position, listener)
+Label::Label(iPoint position, p2SString text, _TTF_Font* font, SDL_Color color, Gui_Listener* listener): Object(position, listener)
 {
-	SetText(text);
 	this->font = font;
+	this->color = color;
+	SetText(text);
+
 }
 
 Label::~Label()
 {
-
+	if (texture != nullptr)
+	{
+		App->tex->DeleteExternalTexture(texture);
+	}
 }
 
 void Label::SetText(p2SString text)
 {
-	text.create(text.GetString());
+	if (texture != nullptr)
+	{
+		App->tex->DeleteExternalTexture(texture);
+	}
 
+	text.create(text.GetString());
 	App->font->CalcSize(text.GetString(), section.w, section.h, font);
 	section.x = section.y = 0;
-	
-	SDL_Color color = { 255, 255, 255, 255 };
 	texture = App->font->Print(text.GetString(), color, font);
-
 }
 
 bool Label::Draw()

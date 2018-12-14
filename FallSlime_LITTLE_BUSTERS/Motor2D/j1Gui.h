@@ -52,7 +52,7 @@ public:
 
 	// Creation functions ---------------------------------------------------------
 
-	Label* CreateLabel(iPoint position, p2SString text, _TTF_Font* font , Gui_Listener* listener = nullptr);
+	Label* CreateLabel(iPoint position, p2SString text, _TTF_Font* font, Gui_Listener* listener = nullptr ,SDL_Color color = {255,255,255,255});
 
 	Image* CreateImage(iPoint position, Animation animation, Gui_Listener* listener = nullptr);
 

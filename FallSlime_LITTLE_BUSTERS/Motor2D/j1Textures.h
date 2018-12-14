@@ -30,6 +30,7 @@ public:
 	bool				UnLoad(SDL_Texture* texture);
 	SDL_Texture* const	LoadSurface(SDL_Surface* surface);
 	void				GetSize(const SDL_Texture* texture, uint& width, uint& height) const;
+	bool                DeleteExternalTexture(SDL_Texture* texture);
 
 public:
 

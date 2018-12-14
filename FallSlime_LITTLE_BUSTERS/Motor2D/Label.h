@@ -10,7 +10,7 @@ class Label : public Object
 {
 public:
 
-	Label(iPoint position, p2SString text, _TTF_Font* font, Gui_Listener* listener);
+	Label(iPoint position, p2SString text, _TTF_Font* font, SDL_Color color, Gui_Listener* listener);
 
 	// Destructor
 	virtual ~Label();
@@ -21,10 +21,10 @@ public:
 	// Draw label
 	bool Draw();
 
-public:
+private:
 	_TTF_Font*			font = nullptr;
 	p2SString		    text;
-
+	SDL_Color           color = { 255,255,255,255 };
 };
 
 
