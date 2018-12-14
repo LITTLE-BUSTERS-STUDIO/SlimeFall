@@ -3,7 +3,7 @@
 ## Game description
 This is a Platform Game about a jumping slime. Kill enemies, obtain risky coins to get and reach the end if you can! All of this in Slime Fall, a game developed by Little Busters.
 
-![Slime gif](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
+![Slime gif](https://media.giphy.com/media/ZNKTOhKsCtidMGtzQG/giphy.gif)
 
 
 ## Development team
@@ -43,7 +43,7 @@ LSHIFT - Special Attack
 * Load Animations with Tiled v1.2.0
 * Random SFx Jump (4 slime sounds)
 
-![Skeleton Walking gif](https://github.com/LITTLE-BUSTERS-STUDIO/SlimeFall/blob/master/docs/Skeleton%20Walk.gif)
+![Skeleton Walking gif](https://media.giphy.com/media/3XCqoGPMbbnfDMXVaH/giphy.gif)
 
 ## Innovation features A2:
 
@@ -54,7 +54,7 @@ LSHIFT - Special Attack
 * Camera pulling, all tilesets out of camera despawn
 * Load Entities with tiled v1.2.0
 
-![Skeleton Death gif](https://github.com/LITTLE-BUSTERS-STUDIO/SlimeFall/blob/master/docs/Skeleton%20Dead.gif)
+![Skeleton Death gif](https://media.giphy.com/media/3tKcEoLd4V0dBpB8jb/giphy.gif)
 
 ## Download link
 
