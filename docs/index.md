@@ -1,8 +1,10 @@
-﻿# Slime Fall ![slime Small Logo](https://github.com/LITTLE-BUSTERS-STUDIO/SlimeFall/blob/master/docs/Slime%20Fall%20Logo2.png)
+﻿# Welcome to our website! ![slime Small Logo](https://raw.githubusercontent.com/LITTLE-BUSTERS-STUDIO/SlimeFall/master/docs/Slime%20Fall%20Logo2.png)
 
 
 ## Game description
 This is a Platform Game about a jumping slime. Kill enemies, obtain risky coins to get and reach the end if you can! All of this in Slime Fall, a game developed by Little Busters.
+
+
 ![Slime gif](https://media.giphy.com/media/ZNKTOhKsCtidMGtzQG/giphy.gif)
 
 
@@ -63,7 +65,7 @@ Download Slime Fall Releases [here](https://github.com/LITTLE-BUSTERS-STUDIO/Sli
 
 **We hope you Enjoy! Thanks for playing.**
 
-![team Logo](https://github.com/LITTLE-BUSTERS-STUDIO/SlimeFall/blob/master/docs/Slime%20Fall%20Logo.png)
+![team Logo](https://raw.githubusercontent.com/LITTLE-BUSTERS-STUDIO/SlimeFall/master/docs/Slime%20Fall%20Logo.png)
 
 
 ~~~~~~~~~~~~~~~

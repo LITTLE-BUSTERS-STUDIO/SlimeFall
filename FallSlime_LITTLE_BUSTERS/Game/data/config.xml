@@ -54,6 +54,10 @@
   <gui>
     <atlas path="textures/atlas.png"/>
   </gui>
+
+  <hud>
+    <hp value="5"/>
+  </hud>
   
 </config>
 

@@ -11,6 +11,7 @@
 #include "EntityManager.h"
 #include "Brofiler/Brofiler.h"
 #include "j1Gui.h"
+#include "Hud.h"
 
 Level_1::Level_1() : j1Scene()
 {
@@ -57,6 +58,8 @@ bool Level_1::LoadScene(pugi::xml_node& node)
 		parallax3[i].rect_parallax.h = background_high;
 	}
 
+	App->hud->ShowHud();
+
 	return true;
 }
 
@@ -82,7 +85,6 @@ bool Level_1::PostUpdate()
 
 	for (uint i = 0; i < max_background_layers; i++)
 	{
-
 		if (i == 0)
 			App->render->Blit(paralax_tex_2, 0, background_startpos, &parallax2[i].rect_parallax, false, parallax_speed_3 /** dt*/);
 		else if (i > 0)
