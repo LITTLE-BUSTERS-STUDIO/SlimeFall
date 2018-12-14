@@ -48,6 +48,7 @@ private:
 	SDL_Texture*		tex_cursor;
 	uint				hp_counter;
 	bool				game_over;
+	p2List<Image*> hp;
 
 public: 
 	uint				SubstractLife();

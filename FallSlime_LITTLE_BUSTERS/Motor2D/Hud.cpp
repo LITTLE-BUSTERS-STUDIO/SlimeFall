@@ -71,6 +71,23 @@ bool Hud::PreUpdate()
 	int x, y;
 	App->input->GetMousePosition(x, y);
 
+	
+
+	//for (p2List_item<Image*> * item = hp.start; item != nullptr; item = item->next)
+	//{
+	//	for (int i = 4; i > 0; --i)
+	//	{
+	//		if (hp_counter > i)
+	//		{
+	//			//item = SetAnimationFrame(1);
+	//		}
+	//		else
+	//		{
+	//			//item = SetAnimationFrame(0);
+	//		}
+	//	}
+	//
+	//}
 	if (hp_counter >= 5) 
 	{
 		lives_1->SetAnimationFrame(1);
