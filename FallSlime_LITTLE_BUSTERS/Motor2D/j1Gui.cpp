@@ -401,7 +401,7 @@ void j1Gui::DrawGui(Object * object)
 		object->Draw();
 	}
 	
-	if (App->gui->debug)
+	if (App->gui->debug && object->state != ObjectState::hidden)
 	{
 		SDL_Rect rect;
 		rect.x = object->position.x - object->section.w / 2;
