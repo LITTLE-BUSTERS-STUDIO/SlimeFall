@@ -23,6 +23,8 @@ public:
 
 	bool UnloadScene();
 
+	bool OutClick(Object* object);
+
 private:
 
 	// GUI ============================================

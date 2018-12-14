@@ -31,3 +31,8 @@ bool Image::Draw()
 	return true;
 }
 
+void Image::SetAnimationFrame(int frame)
+{
+	animation.SetFrame(frame);
+}
+

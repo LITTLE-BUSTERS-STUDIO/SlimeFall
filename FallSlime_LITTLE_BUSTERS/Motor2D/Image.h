@@ -17,6 +17,8 @@ public:
 
 	bool Draw();
 
+	void SetAnimationFrame( int frame);
+
 private:
 
 	Animation animation;

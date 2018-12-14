@@ -77,6 +77,11 @@ public:
 		current_frame = 0.0f;
 	}
 
+	void SetFrame(const float frame)
+	{
+		this->current_frame = frame;
+	}
+
 	bool LoadAnimation(p2SString path, p2SString name)
 	{
 		BROFILER_CATEGORY("Animation LoadAnimation", Profiler::Color::MediumSeaGreen);

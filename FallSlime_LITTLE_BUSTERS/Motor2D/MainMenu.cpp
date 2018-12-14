@@ -126,10 +126,10 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	limitate_fps_label->SetAnchor(panel);
 
 	// Buttons ============================================
-	//Button_Definition button_rectangle({ 219 , 0, 122, 36 }, { 219, 36, 122, 36 }, { 219, 72, 122, 36 });
+	Button_Definition button_rectangle({ 219 , 0, 122, 36 }, { 219, 36, 122, 36 }, { 219, 72, 122, 36 });
 
-	//button_play = App->gui->CreateButton(iPoint(0, 0), button_rectangle, this);
-	//button_play->IsDraggable(true);
+	button_play = App->gui->CreateButton(iPoint(0, 0), button_rectangle, this);
+	button_play->IsDraggable(true);
 
 	//Button_Definition button_quad({ 343 ,0, 42,45 }, { 343 ,45, 42,45 }, { 343 ,90, 42,45 });
 
@@ -167,6 +167,8 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	checkbox_limitate_fps = App->gui->CreateCheckbox(iPoint(398, 257), checkbox_def, this);
 	checkbox_limitate_fps->SetAnchor(panel);
 
+	App->gui->SetStateToBranch(ObjectState::hidden, panel);
+
 	return true;
 }
 
@@ -197,6 +199,16 @@ bool MainMenu::UnloadScene()
 	App->tex->UnLoad(paralax_tex_1);
 	App->tex->UnLoad(paralax_tex_2);
 	App->tex->UnLoad(paralax_tex_3);
+	return true;
+}
+
+bool MainMenu::OutClick(Object * object)
+{
+	if (object == button_play)
+	{
+		App->gui->SetStateToBranch(ObjectState::visible, panel);
+	}
+
 	return true;
 }
 
