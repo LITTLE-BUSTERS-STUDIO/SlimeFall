@@ -21,31 +21,40 @@ bool Hud::Awake(pugi::xml_node &node)
 
 bool Hud::Start()
 {
+
+	Animation anim_deaths;
+	anim_deaths.PushBack({ 0, 165, 29, 32 });
+	lives = App->gui->CreateImage(iPoint(38, 32), anim_deaths, this);
+	lives = App->gui->CreateImage(iPoint(63, 32), anim_deaths, this);
+	lives = App->gui->CreateImage(iPoint(88, 32), anim_deaths, this);
+	lives = App->gui->CreateImage(iPoint(113, 32), anim_deaths, this);
+	lives->IsDraggable(false);
+
 	Animation anim_lives;
 	anim_lives.PushBack({ 0, 96, 17, 14 });
-	lives = App->gui->CreateImage(iPoint(30, 20), anim_lives, this);
-	lives = App->gui->CreateImage(iPoint(55, 20), anim_lives, this);
-	lives = App->gui->CreateImage(iPoint(80, 20), anim_lives, this);
-	lives = App->gui->CreateImage(iPoint(105, 20), anim_lives, this);
+	lives = App->gui->CreateImage(iPoint(40, 30), anim_lives, this);
+	lives = App->gui->CreateImage(iPoint(65, 30), anim_lives, this);
+	lives = App->gui->CreateImage(iPoint(90, 30), anim_lives, this);
+	lives = App->gui->CreateImage(iPoint(115, 30), anim_lives, this);
 	lives->IsDraggable(false);
 
 
 	Animation anim_score;
 	anim_score.PushBack({ 19, 96, 12, 18 });
-	score = App->gui->CreateImage(iPoint(550, 20), anim_score, this);
-	score = App->gui->CreateImage(iPoint(575, 20), anim_score, this);
-	score = App->gui->CreateImage(iPoint(600, 20), anim_score, this);
+	score = App->gui->CreateImage(iPoint(550, 30), anim_score, this);
+	score = App->gui->CreateImage(iPoint(575, 30), anim_score, this);
+	score = App->gui->CreateImage(iPoint(600, 30), anim_score, this);
 	score->IsDraggable(false);
 
 	Animation anim_score_locked;
 	anim_score_locked.PushBack({ 33, 96, 12, 18 });
-	//score = App->gui->CreateImage(iPoint(550, 20), anim_score_locked, this);
-	score = App->gui->CreateImage(iPoint(575, 20), anim_score_locked, this);
-	score = App->gui->CreateImage(iPoint(600, 20), anim_score_locked, this);
+	//score = App->gui->CreateImage(iPoint(550, 30), anim_score_locked, this);
+	score = App->gui->CreateImage(iPoint(575, 30), anim_score_locked, this);
+	score = App->gui->CreateImage(iPoint(600, 30), anim_score_locked, this);
 	score->IsDraggable(false);
 
 	Animation anim_wood_panel;
-	anim_wood_panel.PushBack({ 0, 114, 235, 54 });
+	anim_wood_panel.PushBack({ 0, 114, 235, 40 });
 	wood_panel = App->gui->CreateImage(iPoint(320, 30), anim_wood_panel, this);
 	wood_panel->IsDraggable(false);
 	/*SDL_ShowCursor(SDL_DISABLE);*/
