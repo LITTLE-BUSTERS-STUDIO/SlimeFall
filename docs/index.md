@@ -3,7 +3,7 @@
 ## Game description
 This is a Platform Game about a jumping slime. Kill enemies, obtain risky coins to get and reach the end if you can! All of this in Slime Fall, a game developed by Little Busters.
 
-![Slime gif](https://github.com/LITTLE-BUSTERS-STUDIO/SlimeFall/blob/master/docs/tumblr_nr8o80uuin1sntjsso1_r2_1280.gif)
+![Slime gif](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
 
 
 ## Development team
