@@ -66,8 +66,8 @@ See also our organization, Little Busters[https://github.com/LITTLE-BUSTERS-STUD
 
 And finnaly take a look at, Ric's github  https://github.com/d0n3val
 
-##Authors Creations
-#Marc Galvez: 
+## Authors Creations
+# Marc Galvez: 
 * God Mode free flying
 * Special Attack mechanic 
 * Camera Tremble when player kill an enemy
@@ -84,7 +84,7 @@ And finnaly take a look at, Ric's github  https://github.com/d0n3val
 * Changelog and Readme
 * UML Entity System
 
-#Alejandro Gamarra : 
+# Alejandro Gamarra : 
 * Debug pathfinding draw && Walkablemap draw 
 * A* algorithm && pathfinding new methods
 * Enemy Bat (flyer enemy)
