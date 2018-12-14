@@ -50,8 +50,7 @@ LSHIFT - Special Attack
 
 ## Download link
 
-[![Slime Fall Releases](https://github.com/LITTLE-BUSTERS-STUDIO/SlimeFall/releases)](https://github.com/LITTLE-BUSTERS-STUDIO/SlimeFall/releases)
-
+[![Slime Fall Releases](https://github.com/LITTLE-BUSTERS-STUDIO/SlimeFall/releases)]
 
 Slime Fall Releases[https://github.com/LITTLE-BUSTERS-STUDIO/SlimeFall/releases)]
 
