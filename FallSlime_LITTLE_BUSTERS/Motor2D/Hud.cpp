@@ -70,7 +70,47 @@ bool Hud::PreUpdate()
 {
 	int x, y;
 	App->input->GetMousePosition(x, y);
-	//App->render->Blit(App->);
+
+	if (hp_counter >= 5) 
+	{
+		lives_1->SetAnimationFrame(1);
+		lives_2->SetAnimationFrame(1);
+		lives_3->SetAnimationFrame(1);
+		lives_4->SetAnimationFrame(1);
+	}
+	else if (hp_counter >= 4)
+	{
+		lives_1->SetAnimationFrame(1);
+		lives_2->SetAnimationFrame(1);
+		lives_3->SetAnimationFrame(1);
+		lives_4->SetAnimationFrame(0);
+	}
+	else if (hp_counter >= 3)
+	{
+		lives_1->SetAnimationFrame(1);
+		lives_2->SetAnimationFrame(1);
+		lives_3->SetAnimationFrame(0);
+		lives_4->SetAnimationFrame(0);
+	}
+	else if (hp_counter >= 2)
+	{
+		lives_1->SetAnimationFrame(1);
+		lives_2->SetAnimationFrame(0);
+		lives_3->SetAnimationFrame(0);
+		lives_4->SetAnimationFrame(0);
+	}
+	else if (hp_counter >= 1)
+	{
+		lives_1->SetAnimationFrame(0);
+		lives_2->SetAnimationFrame(0);
+		lives_3->SetAnimationFrame(0);
+		lives_4->SetAnimationFrame(0);
+	}
+	else if (hp_counter >= 0)
+	{
+		game_over = true;
+	}
+	
 	return true;
 }
 

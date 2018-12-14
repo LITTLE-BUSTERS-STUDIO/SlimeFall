@@ -319,6 +319,7 @@ bool j1Player::Draw()
 		{
 			App->audio->PlayFx(id_death_fx);
 			dead_enable = true;
+			App->hud->SubstractLife();
 		}
 		break;
 	case Player_State::attack:

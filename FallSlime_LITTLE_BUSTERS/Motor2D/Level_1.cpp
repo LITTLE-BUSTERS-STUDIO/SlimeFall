@@ -85,7 +85,6 @@ bool Level_1::PostUpdate()
 
 	for (uint i = 0; i < max_background_layers; i++)
 	{
-
 		if (i == 0)
 			App->render->Blit(paralax_tex_2, 0, background_startpos, &parallax2[i].rect_parallax, false, parallax_speed_3 /** dt*/);
 		else if (i > 0)

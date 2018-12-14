@@ -47,6 +47,7 @@ private:
 	Image *				wood_panel = nullptr;
 	SDL_Texture*		tex_cursor;
 	uint				hp_counter;
+	bool				game_over;
 
 public: 
 	uint				SubstractLife();
