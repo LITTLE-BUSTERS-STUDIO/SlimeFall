@@ -36,7 +36,7 @@ public:
 
 private:
 	//--------------GUI-----------------------
-	Image *				hud_object = nullptr;
+	Object *		    hud_object = nullptr;
 	Image *				lives_1 = nullptr;
 	Image *				lives_2 = nullptr;
 	Image *				lives_3 = nullptr;

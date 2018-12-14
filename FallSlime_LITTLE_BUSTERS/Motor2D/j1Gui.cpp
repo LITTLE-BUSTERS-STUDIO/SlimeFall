@@ -213,7 +213,15 @@ bool j1Gui::CleanUp()
 
 // Creation methods =================================================================
 
-Label* j1Gui::CreateLabel(iPoint position, p2SString text, _TTF_Font* font, Gui_Listener* listener, SDL_Color color )
+ Object * j1Gui::CreateObject(iPoint position, Gui_Listener * listener)
+ {
+	 Object* object = new Object(position, listener);
+	 object->SetAnchor(screen);
+	 objects_list.add(object);
+	 return object;
+ }
+
+ Label* j1Gui::CreateLabel(iPoint position, p2SString text, _TTF_Font* font, Gui_Listener* listener, SDL_Color color )
 {
 	Label* object = new Label(position, text, font, color, listener);
 	object->SetAnchor(screen);
@@ -393,7 +401,7 @@ void j1Gui::DrawGui(Object * object)
 		object->Draw();
 	}
 	
-	if (App->gui->debug)
+	if (App->gui->debug && object->state != ObjectState::hidden)
 	{
 		SDL_Rect rect;
 		rect.x = object->position.x - object->section.w / 2;

@@ -24,11 +24,8 @@ bool Hud::Awake(pugi::xml_node &node)
 
 bool Hud::Start()
 {
-	Animation hud_anim;
-	hud_anim.PushBack( { 0, 0, 1, 1 } );
-	hud_object = App->gui->CreateImage(iPoint(App->render->camera.w * 0.5F, App->render->camera.h * 0.5F), hud_anim, this);
+	hud_object = App->gui->CreateObject(iPoint(App->render->camera.w * 0.5F, App->render->camera.h * 0.5F), this);
 	
-
 	Animation anim_lives;
 	anim_lives.PushBack({ 0, 165, 29, 32 });
 	anim_lives.PushBack({ 0, 96, 17, 14 });

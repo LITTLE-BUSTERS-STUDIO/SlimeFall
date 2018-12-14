@@ -13,17 +13,19 @@
 	</scene_manager>
 	<pathfinding />
 	<entity_manager>
-		<entity name="player" id="1" x="359" y="96" spawned="true" active="true">
-			<velocity x="0" y="292.762909" />
-			<conditions apply_jump_speed="false" on_ground="false" check_fall="false" flip_x="false" gummy_jump="false" />
-			<state current_state="jumping" collider_type="collider_player" />
+		<entity name="player" id="1" x="359" y="119" spawned="true" active="true">
+			<velocity x="0" y="399.585602" />
+			<conditions apply_jump_speed="false" on_ground="true" check_fall="true" flip_x="false" gummy_jump="false" />
+			<state current_state="boucing" collider_type="collider_player" />
 		</entity>
 	</entity_manager>
+	<:anonymous />
+	<gui />
+	<hud />
 	<renderer>
 		<camera_position x="0" y="0" />
 		<camera_smoth_position x="0" y="0" />
 		<debug zoom="1" />
 		<conditions free_camera_x="true" free_camera_y="true" />
 	</renderer>
-
 </game_state>
