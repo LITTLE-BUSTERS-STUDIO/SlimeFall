@@ -211,7 +211,7 @@ bool EntityManager::PreUpdate()
 
 	// Spawn entities ===============================
 
-	for (p2List_item<Entity*> *item = entities.start ; item; item = item->next )
+	for (p2List_item<Entity*> *item = entities.start ; item != nullptr; item = item->next )
 	{
 		if (item->data->spawned)
 		{
@@ -229,7 +229,7 @@ bool EntityManager::PreUpdate()
 	}
 
 
-	for (p2List_item<Entity*> *item = entities.start;  item; item = item->next)
+	for (p2List_item<Entity*> *item = entities.start;  item != nullptr; item = item->next)
 	{
 		if (item->data->active == false)
 		{
@@ -247,7 +247,7 @@ bool EntityManager::Update(float dt)
 {
 	BROFILER_CATEGORY("EntityManager Update", Profiler::Color::Lavender);
 
-	for (p2List_item<Entity*> *item = entities.start; item; item = item->next)
+	for (p2List_item<Entity*> *item = entities.start; item != nullptr; item = item->next)
 	{
 		if (!item->data->active)
 		{
@@ -263,7 +263,7 @@ bool EntityManager::PostUpdate()
 {
 	BROFILER_CATEGORY("EntityManager PostUpdate", Profiler::Color::LavenderBlush);
 
-	for (p2List_item<Entity*> *item = entities.start;  item ; item = item->next)
+	for (p2List_item<Entity*> *item = entities.start;  item != nullptr; item = item->next)
 	{
 		if (!item->data->active)
 		{
@@ -309,7 +309,7 @@ bool  EntityManager::UnloadEntities()
 	{
 		++entity_deleted;
 
-		for (p2List_item<Collider*>* colliders = item->data->colliders.start; colliders; colliders = colliders->next)
+		for (p2List_item<Collider*>* colliders = item->data->colliders.start; colliders != nullptr; colliders = colliders->next)
 		{
 			App->collision->DeleteCollider(colliders->data);
 		}
