@@ -58,17 +58,24 @@ bool Hud::Start()
 
 	wood_panel->SetAnchor(hud_object);
 	
+
+	Animation cursor_anim;
+	cursor_anim.PushBack({ 0, 165, 16, 24 });
+	cursor = App->gui->CreateImage(iPoint(320, 30), cursor_anim, this);
+
+	cursor->SetAnchor(NULL);
+
 	App->gui->SetStateToBranch(ObjectState::hidden, hud_object);
-	/*SDL_ShowCursor(SDL_DISABLE);*/
+	SDL_ShowCursor(SDL_DISABLE);
 
 	return true;
 }
 
 bool Hud::PreUpdate()
 {
-	int x, y;
-	App->input->GetMousePosition(x, y);
-
+	iPoint mouse_pos;
+	App->input->GetMousePosition(mouse_pos.x, mouse_pos.y);
+	cursor->SetPosition({ mouse_pos.x +7, mouse_pos.y +12 });
 	
 
 	//for (p2List_item<Image*> * item = hp.start; item != nullptr; item = item->next)
