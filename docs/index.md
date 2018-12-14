@@ -3,18 +3,19 @@
 ## Game description
 This is a Platform Game about a jumping slime. Kill enemies, obtain risky coins to get and reach the end if you can! All of this in Slime Fall, a game developed by Little Busters.
 
-![Slime gif](https://github.com/LITTLE-BUSTERS-STUDIO/SlimeFall/blob/master/docs/tumblr_nr8o80uuin1sntjsso1_r2_1280.gif)
+![Slime gif](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
 
 
 ## Development team
-* **Alejandro Gamarra** (alejandro61299) - As a Lead Programer & QA https://github.com/alejandro61299
-* **Marc Galvez** (optus23) - As a Lead Designer & Manager https://github.com/optus23
+* [Alejandro Gamarra](https://github.com/alejandro61299) 
+ (alejandro61299) - As a Lead Programer & QA
+ 
+* [Marc Gálvez]( https://github.com/optus23) (optus23) - As a Lead Designer & Manager
 
-* Github repository: https://github.com/LITTLE-BUSTERS-STUDIO/FallSlime 
-* Trello: https://trello.com/b/ZRKRIdPU/little-busters 
+* [Github repository]( https://github.com/LITTLE-BUSTERS-STUDIO/FallSlime)
+* [Trello]( https://trello.com/b/ZRKRIdPU/little-busters)
 
-See also our organization, **Little Busters**[https://github.com/LITTLE-BUSTERS-STUDIO]
-
+See also our organization, [Little Busters](https://github.com/LITTLE-BUSTERS-STUDIO)
 
 Currently we are studying VideoGames Design and Development at the "Centre de la Imatge i Multimèdia" (CITM) in Terrassa, Catalonia, Spain. This is our second development project in this degree.
 
@@ -57,9 +58,8 @@ LSHIFT - Special Attack
 
 ## Download link
 
-[![Slime Fall Releases](https://github.com/LITTLE-BUSTERS-STUDIO/SlimeFall/releases)]
+Download Slime Fall Releases [here](https://github.com/LITTLE-BUSTERS-STUDIO/SlimeFall/releases)
 
-Slime Fall Releases[https://github.com/LITTLE-BUSTERS-STUDIO/SlimeFall/releases)]
 
 **We hope you Enjoy! Thanks for playing.**
 
