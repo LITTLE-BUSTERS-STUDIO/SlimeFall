@@ -55,6 +55,7 @@ bool j1Gui::CleanUp()
 	LOG("Freeing all GUI objects");
 
 	App->tex->UnLoad(atlas);
+	atlas = nullptr;
 
 	p2List_item<Object*>* object;
 	object = objects_list.start;
@@ -214,7 +215,14 @@ bool j1Gui::Update(float dt)
 
 	for (p2List_item<Object*> * item = objects_list.start; item; item = item->next)
 	{
+		if (item == nullptr)
+		{
+			return false;
+		}
+		else
+		{
 			item->data->Update(dt);
+		}
 	}
 
 	return true;

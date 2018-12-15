@@ -142,6 +142,12 @@ bool Level_1::UnloadScene()
 	App->tex->UnLoad(paralax_tex_2);
 	App->tex->UnLoad(paralax_tex_3);
 
+	App->gui->DeleteObject(button_back);
+	App->gui->DeleteObject(button_save);
+	App->gui->DeleteObject(button_load);
+	App->gui->DeleteObject(button_exit_to_menu);
+	App->gui->DeleteObject(paused_menu);
+	
 	return true;
 }
 
@@ -163,6 +169,22 @@ bool Level_1::OutClick(Object * object)
 		App->pause_game = false;
 		ResumeScene();
 		App->scene_manager->ChangeScene("main_menu", 1);
+		App->hud->CleanUp();
+	}
+	else if (object == button_save)
+	{
+		App->pause_game = false;
+		ResumeScene();
+		App->hud->CleanUp();
+		App->SaveGame();
+
+	}
+	else if (object == button_load)
+	{
+		App->pause_game = false;
+		ResumeScene();
+		App->hud->CleanUp();
+		App->LoadGame();
 	}
 	return true;
 }

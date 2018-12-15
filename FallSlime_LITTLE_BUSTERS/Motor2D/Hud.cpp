@@ -50,15 +50,6 @@ bool Hud::Start()
 		coin->SetAnchor(hud_object);
 	}
 
-
-
-	//Animation anim_panel;
-	//anim_panel.PushBack({ 0, 446, 800, 61 });
-	//panel_pos = { -320, 170 }; //Camera w && Camera h / GetScale()
-	//panel_stages = App->gui->CreateImage(iPoint(panel_pos), anim_panel, this);
-
-	//panel_stages->SetAnchor(hud_object);
-
 	App->gui->SetStateToBranch(ObjectState::hidden, hud_object);
 
 	return true;
@@ -71,14 +62,6 @@ bool Hud::PreUpdate()
 
 bool Hud::Update(float dt)
 {
-	/*if (panel_pos.x <= 320)
-		panel_pos.x += 20;
-	panel_stages->SetPosition(panel_pos);*/
-	/*
-	if (App->pause_game)
-	{
-		App->render->DrawQuad({ App->render->camera.x, App->render->camera.y, App->render->camera.w, App->render->camera.h }, 0, 0, 0, 200, false);
-	}*/
 	return true;
 }
 
@@ -90,6 +73,28 @@ bool Hud::PostUpdate()
 
 bool Hud::CleanUp()
 {
+	App->gui->DeleteObject(hud_object);
+	App->gui->DeleteObject(panel_stages);
+
+
+	for (p2List_item<Image*>* item = lives_list.start; item; item = item->next)
+	{
+		if (item->data)
+		{
+			RELEASE(item->data);
+		}
+	}
+	lives_list.clear();
+
+
+	for (p2List_item<Image*>* item = coins_list.start; item; item = item->next)
+	{
+		if (item->data)
+		{
+			RELEASE(item->data);
+		}
+	}
+	coins_list.clear();
 	return true;
 }
 

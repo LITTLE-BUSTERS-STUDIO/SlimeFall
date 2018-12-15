@@ -363,6 +363,17 @@ bool MainMenu::OutClick(Object * object)
 	else if (object == button_credits)
 	{
 		MoveToSection(MenuSection::credits);
+		
+	}
+	else if (object == checkbox_mute)
+	{
+		App->audio->mute = !App->audio->mute;
+		if (App->audio->mute)
+			Mix_VolumeMusic(0);
+		else
+			Mix_VolumeMusic(App->audio->volume_music);
+
+		LOG("Mute ON!");
 	}
 
 	return true;
