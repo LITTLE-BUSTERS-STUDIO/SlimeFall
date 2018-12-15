@@ -49,6 +49,7 @@ private:
 	bool Update(float dt);
 
 private:
+
 	Button_Definition	definition;
 
 public:

@@ -17,10 +17,12 @@ class Button_Input;
 class Slider;
 class Label;
 class Checkbox;
+class TextPanel;
 
 struct Button_Definition;
 struct Slider_Definition;
 struct Checkbox_Definition;
+struct TextPanel_Definition;
 
 enum class ClickState
 {
@@ -67,6 +69,7 @@ public:
 
 	Checkbox* CreateCheckbox(iPoint position, Checkbox_Definition definition, Gui_Listener* listener = nullptr);
 
+	TextPanel * CreateTextPanel(const iPoint position, TextPanel_Definition definition, Gui_Listener* listener);
 
 	// Object functions ----------------------------------------------------------
 	Object*  GetClickedObject();

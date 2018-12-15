@@ -16,6 +16,7 @@
 #include "Button_Input.h"
 #include "Slider.h"
 #include "Checkbox.h"
+#include "Text_Panel.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -288,6 +289,14 @@ Slider * j1Gui::CreateSlider(iPoint position, Slider_Definition definition, Gui_
 Checkbox * j1Gui::CreateCheckbox(iPoint position, Checkbox_Definition definition, Gui_Listener * listener)
 {
 	Checkbox* object = new Checkbox(position, definition, atlas, listener);
+	object->SetAnchor(screen);
+	objects_list.add(object);
+	return object;
+}
+
+TextPanel * j1Gui::CreateTextPanel(const iPoint position, TextPanel_Definition definition, Gui_Listener * listener)
+{
+	TextPanel* object = new TextPanel(position, definition, listener);
 	object->SetAnchor(screen);
 	objects_list.add(object);
 	return object;

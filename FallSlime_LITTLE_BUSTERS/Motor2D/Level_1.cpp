@@ -162,7 +162,7 @@ bool Level_1::OutClick(Object * object)
 	{
 		App->pause_game = false;
 		ResumeScene();
-		//App->scene_manager->ChangeScene("main_menu", 1);
+		App->scene_manager->ChangeScene("main_menu", 1);
 	}
 	return true;
 }

@@ -111,6 +111,7 @@
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Slider.cpp" />
+    <ClCompile Include="Text_Panel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -155,6 +156,7 @@
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Slider.h" />
+    <ClInclude Include="Text_Panel.h" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\Game\animations\enemy_bat_animation.xml" />
