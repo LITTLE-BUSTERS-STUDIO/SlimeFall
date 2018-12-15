@@ -21,7 +21,6 @@
 #include "Slider.h"
 
 
-
 MainMenu::MainMenu() : j1Scene()
 {
 	name.create("main_menu");
@@ -274,8 +273,13 @@ bool MainMenu::OutClick(Object * object)
 	{
 		App->scene_manager->Exit();
 	}
+	else if (object == button_web)
+	{
+		ShellExecuteA(NULL, "open", "https://little-busters-studio.github.io/SlimeFall/", NULL, NULL, SW_SHOWNORMAL);
+	}
 
 	return true;
 }
+
 
 
