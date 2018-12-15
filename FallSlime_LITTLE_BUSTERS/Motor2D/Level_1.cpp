@@ -171,6 +171,21 @@ bool Level_1::OutClick(Object * object)
 		App->scene_manager->ChangeScene("main_menu", 1);
 		App->hud->CleanUp();
 	}
+	else if (object == button_save)
+	{
+		App->pause_game = false;
+		ResumeScene();
+		App->hud->CleanUp();
+		App->SaveGame();
+
+	}
+	else if (object == button_load)
+	{
+		App->pause_game = false;
+		ResumeScene();
+		App->hud->CleanUp();
+		App->LoadGame();
+	}
 	return true;
 }
 
