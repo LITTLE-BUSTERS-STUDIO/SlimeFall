@@ -138,3 +138,56 @@ bool Coin::Desactive()
 	active = false;
 	return true;
 }
+
+//Save and Load
+bool Coin::Load(pugi::xml_node& node)
+{
+	bool ret = true;
+
+	coin_counter = node.child("coin_counter").attribute("value").as_int(0);
+	enable_coin = node.child("enable_coin").attribute("bool").as_bool(false);
+	p2SString collider_string(node.child("state").attribute("main_collider").as_string(""));
+
+	if (collider_string == "collider_coin")
+	{
+		main_collider->type = COLLIDER_TYPE::COLLIDER_COIN;
+	}
+	else if (collider_string == "collider_none")
+	{
+		main_collider->type = COLLIDER_TYPE::COLLIDER_NONE;
+	}
+
+	return ret;
+}
+
+bool Coin::Save(pugi::xml_node& node) const
+{
+	bool ret = true;
+
+	pugi::xml_node counter = node.append_child("coin_counter");
+
+	counter.append_attribute("value") = coin_counter;
+
+	pugi::xml_node conditions = node.append_child("enable_coin");
+
+	conditions.append_attribute("bool") = coin_counter;
+	
+	pugi::xml_node state_node = node.append_child("state");
+
+	p2SString collider_string;
+	switch (main_collider->type)
+	{
+	case COLLIDER_TYPE::COLLIDER_COIN:
+		collider_string.create("collider_coin");
+		break;
+	case COLLIDER_TYPE::COLLIDER_NONE:
+		collider_string.create("collider_none");
+		break;
+	default:
+		break;
+	}
+
+	state_node.append_attribute("main_collider") = collider_string.GetString();
+
+	return ret;
+}
