@@ -100,6 +100,10 @@ private:
 
 	p2SString atlas_file_name;
 
+	//SFX --------------------------------------------------
+	p2SString			fx_button_hovered;
+
+
 	// Objects ---------------------------------------------
 	p2List<Object*> objects_list;
 

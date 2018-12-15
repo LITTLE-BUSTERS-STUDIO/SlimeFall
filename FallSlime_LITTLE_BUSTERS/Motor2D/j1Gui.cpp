@@ -31,6 +31,7 @@ bool j1Gui::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 	atlas_file_name = config.child("atlas").attribute("path").as_string("");
+	fx_button_hovered = config.child("sfx").attribute("path").as_string("");
 
 	return ret;
 }
