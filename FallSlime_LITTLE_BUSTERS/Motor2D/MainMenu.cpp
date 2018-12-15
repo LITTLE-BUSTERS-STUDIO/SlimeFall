@@ -26,39 +26,52 @@ MainMenu::MainMenu() : j1Scene()
 	name.create("main_menu");
 }
 
+bool MainMenu::PreUpdate()
+{
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
+	{
+		MoveToSection(MenuSection::settings);
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
+	{
+		MoveToSection(MenuSection::main_menu);
+	}
+
+	return true;
+}
+
 bool MainMenu::Update(float dt)
 {
 	BROFILER_CATEGORY("MainMenu Update", Profiler::Color::MediumBlue);
-	
 
-	switch ((MainMenu_States)current_state)
+	if (camera_velocity.x >  0)
 	{
-	case MainMenu_States::main_menu:
-		if (camera_position.x >= CAMERA_OFFSET * App->win->GetScale())
-			camera_position.x -= 50;
-
-		/*else if (camera_position.x <= CAMERA_OFFSET * App->win->GetScale())
-			camera_position.x += 50;*/
-	break;
-
-	case MainMenu_States::credits:
-		if (camera_position.x >= 0)
-			camera_position.x-=50;
-	break;
-
-	case MainMenu_States::settings:
-		if (camera_position.x <= CAMERA_OFFSET * 2 * App->win->GetScale())
+		if (App->render->camera.x < move_to_point[(int)current_section].x)
 		{
-			camera_position.x += 50;
-			if (settings_panel_pos.x >= 320)
-				settings_panel_pos.x-=50;
-
+			App->render->camera.x += camera_velocity.x;
 		}
-		settings_panel->SetPosition(settings_panel_pos);
-	break;
+
+		if (App->render->camera.x > move_to_point[(int)current_section].x)
+		{
+			App->render->camera.x = move_to_point[(int)current_section].x;
+			camera_velocity.x = 0.0f;
+		}
+	}
+	else if (camera_velocity.x < 0)
+	{
+		if (App->render->camera.x > move_to_point[(int)current_section].x)
+		{
+			App->render->camera.x += camera_velocity.x;
+		}
+
+		if (App->render->camera.x < move_to_point[(int)current_section].x)
+		{
+			App->render->camera.x = move_to_point[(int)current_section].x;
+			camera_velocity.x = 0.0f;
+		}
 	}
 
-	App->render->camera.x = camera_position.x;
 
 	return true;
 }
@@ -66,15 +79,6 @@ bool MainMenu::Update(float dt)
 bool MainMenu::PostUpdate()
 {
 	BROFILER_CATEGORY("MainMenu PostUpdate", Profiler::Color::MediumBlue);
-
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
-	{
-		current_state = MainMenu_States::settings;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
-	{
-		current_state = MainMenu_States::credits;
-	}
 
 	// Blit background--------------------------------------
 	for (uint i = 0; i < max_background_layers; i++)
@@ -104,8 +108,15 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	BROFILER_CATEGORY("MainMenu Load", Profiler::Color::Maroon);
 
 	LOG("Loading MainMenu");
-	// Camera View ====================================================
-	camera_position.x = CAMERA_OFFSET * App->win->GetScale();
+
+	// Menu Secions ===================================================
+	move_to_point[(int)MenuSection::credits] = {  0 , 0};
+	move_to_point[(int)MenuSection::main_menu] = { 1280 , 0};
+	move_to_point[(int)MenuSection::settings] = { 1280*2 , 0};
+
+	App->render->camera.x = 1280;
+	camera_speed = 50.0f;
+
 	// Paralax ========================================================
 	music_path = node.child("music").attribute("path").as_string("");
 	App->audio->PlayMusic(music_path.GetString());
@@ -184,7 +195,7 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	settings_panel->IsDraggable(true);
 
 	settings_panel_pos = { App->render->camera.w + 320, 182 };
-	settings_panel->SetPosition(settings_panel_pos);
+
 	// Buttons ============================================
 	Button_Definition button_def_return_settings({ 778 ,0, 42,45 }, { 778 ,45, 42,45 }, { 778 ,90, 42,45 });
 	button_return_settings = App->gui->CreateButton(iPoint(320, 318), button_def_return_settings, this);
@@ -278,14 +289,10 @@ bool MainMenu::OutClick(Object * object)
 	if (object == button_settings)
 	{
 		App->gui->SetStateToBranch(ObjectState::visible, settings_panel);
-		current_state = MainMenu_States::settings;
-
 	}
 	else if (object == button_return_settings)
 	{
 		App->gui->SetStateToBranch(ObjectState::hidden, settings_panel);
-		current_state = MainMenu_States::main_menu;
-
 	}
 	else if (object == button_exit)
 	{
@@ -297,10 +304,30 @@ bool MainMenu::OutClick(Object * object)
 	}
 	else if (object == button_credits)
 	{
-		current_state = MainMenu_States::credits;
+	
 	}
 
 	return true;
+}
+
+bool MainMenu::MoveToSection(MenuSection menu_section)
+{
+	current_section = menu_section;
+
+	if (App->render->camera.x > move_to_point[(int)menu_section].x )
+	{
+		camera_velocity.x = - camera_speed;
+	}
+	else if (App->render->camera.x < move_to_point[(int)menu_section].x)
+	{
+		camera_velocity.x = camera_speed;
+	}
+	else 
+	{
+		camera_velocity.x = 0.0f;
+	}
+
+	return false;
 }
 
 

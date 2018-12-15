@@ -5,20 +5,30 @@
 #include "j1Scene.h"
 #include "j1Gui.h"
 
-#define CAMERA_OFFSET 640
-struct SDL_Texture;
-enum class MainMenu_States
-{
-	main_menu,
-	settings,
-	credits
+enum class MenuSection : int {
+	min = -1,
+	credits = 0,
+	main_menu = 1,
+	settings = 2,
+	max = 3
 };
+
+//enum class Direction
+//{
+//	left,
+//	right,
+//	none
+//};
+
+struct SDL_Texture;
 
 class MainMenu : public j1Scene , public Gui_Listener
 {
 public:
 
 	MainMenu();
+
+	bool PreUpdate();
 
 	bool Update(float dt);
 
@@ -35,8 +45,16 @@ public:
 	bool OutClick(Object* object);
 
 private:
+	bool MoveToSection(MenuSection menu_section);
+
+private:
 	// Values =========================================
 	bool                exit = false; 
+	fPoint              move_to_point[(int)MenuSection::max];
+	float               camera_speed = 0.0f;
+	fPoint              camera_velocity = { 0.0f , 0.0f };
+	MenuSection         current_section = MenuSection::main_menu;
+
 	// GUI ============================================
 	Object*             menu = nullptr;
 	_TTF_Font*          karma_font_settings = nullptr;
@@ -86,8 +104,7 @@ private:
 	int				    background_high;
 	int			    	max_background_layers;
 	int				    background_startpos;
-	fPoint				camera_position;
-	MainMenu_States		current_state = MainMenu_States::main_menu;
+
 };
 
 #endif // __MAINMENU_H__
