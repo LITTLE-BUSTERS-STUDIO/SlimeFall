@@ -36,9 +36,7 @@ bool Level_1::LoadScene(pugi::xml_node& node)
 	background_high = node.child("background_dimension").attribute("high").as_uint(0u);
 	max_background_layers = node.child("max_background_layers").attribute("value").as_uint(0u);
 	background_startpos = node.child("background_startpos").attribute("value").as_uint(0u);
-	parallax_speed_1 = node.child("parallax_speed").attribute("low").as_float(0.0f);
-	parallax_speed_2 = node.child("parallax_speed").attribute("medium").as_float(0.0f);
-	parallax_speed_3 = node.child("parallax_speed").attribute("high").as_float(0.0f);
+	
 
 	for (uint i = 0; i < 4; i++)
 	{
@@ -57,6 +55,10 @@ bool Level_1::LoadScene(pugi::xml_node& node)
 		parallax3[i].rect_parallax.w = background_width;
 		parallax3[i].rect_parallax.h = background_high;
 	}
+
+	parallax_speed_11 = node.child("parallax_speed").attribute("low").as_float(0.0f);
+	parallax_speed_22 = node.child("parallax_speed").attribute("medium").as_float(0.0f);
+	parallax_speed_33 = node.child("parallax_speed").attribute("high").as_float(0.0f);
 
 	App->hud->ShowHud();
 
@@ -80,19 +82,19 @@ bool Level_1::PostUpdate()
 
 	// Blit background--------------------------------------
 	for (uint i = 0; i < max_background_layers; i++)
-		App->render->Blit(paralax_tex_1, 0, background_startpos, &parallax1[i].rect_parallax, false, parallax_speed_1 /** dt*/);
+		App->render->Blit(paralax_tex_1, 0, background_startpos, &parallax1[i].rect_parallax, false, parallax_speed_11 /** dt*/);
 
 
 	for (uint i = 0; i < max_background_layers; i++)
 	{
 		if (i == 0)
-			App->render->Blit(paralax_tex_2, 0, background_startpos, &parallax2[i].rect_parallax, false, parallax_speed_3 /** dt*/);
+			App->render->Blit(paralax_tex_2, 0, background_startpos, &parallax2[i].rect_parallax, false, parallax_speed_33 /** dt*/);
 		else if (i > 0)
-			App->render->Blit(paralax_tex_2, 0, background_startpos, &parallax2[i].rect_parallax, false, parallax_speed_2/** dt*/);
+			App->render->Blit(paralax_tex_2, 0, background_startpos, &parallax2[i].rect_parallax, false, parallax_speed_22/** dt*/);
 	}
 
 	for (uint i = 0; i < max_background_layers; i++)
-		App->render->Blit(paralax_tex_3, 0, background_startpos, &parallax3[i].rect_parallax, false, parallax_speed_2 /** dt*/);
+		App->render->Blit(paralax_tex_3, 0, background_startpos, &parallax3[i].rect_parallax, false, parallax_speed_22 /** dt*/);
 
 
 	App->map->Draw();

@@ -118,9 +118,7 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	background_high = node.child("background_dimension").attribute("high").as_uint(0u);
 	max_background_layers = node.child("max_background_layers").attribute("value").as_uint(0u);
 	background_startpos = node.child("background_startpos").attribute("value").as_uint(0u);
-	parallax_speed_1 = node.child("parallax_speed").attribute("low").as_float(0.0f);
-	parallax_speed_2 = node.child("parallax_speed").attribute("medium").as_float(0.0f);
-	parallax_speed_3 = node.child("parallax_speed").attribute("high").as_float(0.0f);
+
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -140,7 +138,9 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 		parallax3[i].rect_parallax.h = background_high;
 	}
 
-
+	parallax_speed_1 = node.child("parallax_speed").attribute("low").as_float(0.0f);
+	parallax_speed_2 = node.child("parallax_speed").attribute("medium").as_float(0.0f);
+	parallax_speed_3 = node.child("parallax_speed").attribute("high").as_float(0.0f);
 	menu = App->gui->CreateObject(iPoint(App->render->camera.w * 0.5f, App->render->camera.h * 0.5f), this);
 	karma_font_settings = App->font->Load("fonts/KarmaSuture.ttf", 24);
 	SDL_Color color = { 231,94,152,255 };
