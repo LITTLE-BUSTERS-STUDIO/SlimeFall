@@ -26,10 +26,38 @@ MainMenu::MainMenu() : j1Scene()
 	name.create("main_menu");
 }
 
+bool MainMenu::Start()
+{
+	
+	return true;
+}
+
 
 bool MainMenu::Update(float dt)
 {
 	BROFILER_CATEGORY("MainMenu Update", Profiler::Color::MediumBlue);
+	
+
+	switch ((MainMenu_States)current_state)
+	{
+	case MainMenu_States::main_menu:
+		camera_position.x = CAMERA_OFFSET * App->win->GetScale();
+	break;
+
+	case MainMenu_States::credits:
+		if (camera_position.x >= 0)
+			camera_position.x-=25;
+	break;
+
+	case MainMenu_States::settings:
+		if (camera_position.x <= CAMERA_OFFSET * 2 * App->win->GetScale())
+			camera_position.x+=25;
+	break;
+
+	default:
+		break;
+	}
+	App->render->camera.x = camera_position.x;
 
 	return true;
 }
@@ -37,6 +65,15 @@ bool MainMenu::Update(float dt)
 bool MainMenu::PostUpdate()
 {
 	BROFILER_CATEGORY("MainMenu PostUpdate", Profiler::Color::MediumBlue);
+
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
+	{
+		current_state = MainMenu_States::settings;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
+	{
+		current_state = MainMenu_States::credits;
+	}
 
 	// Blit background--------------------------------------
 	for (uint i = 0; i < max_background_layers; i++)

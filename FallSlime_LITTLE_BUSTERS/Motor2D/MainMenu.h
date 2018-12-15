@@ -5,13 +5,22 @@
 #include "j1Scene.h"
 #include "j1Gui.h"
 
+#define CAMERA_OFFSET 640
 struct SDL_Texture;
+enum class MainMenu_States
+{
+	main_menu,
+	settings,
+	credits
+};
 
 class MainMenu : public j1Scene , public Gui_Listener
 {
 public:
 
 	MainMenu();
+
+	virtual bool Start();
 
 	bool Update(float dt);
 
@@ -73,6 +82,8 @@ private:
 	uint				background_high;
 	uint				max_background_layers;
 	uint				background_startpos;
+	fPoint				camera_position;
+	MainMenu_States		current_state = MainMenu_States::main_menu;
 };
 
 #endif // __MAINMENU_H__
