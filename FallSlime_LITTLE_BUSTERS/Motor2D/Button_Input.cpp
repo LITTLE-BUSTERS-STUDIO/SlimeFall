@@ -25,27 +25,27 @@ Button_Input::~Button_Input()
 
 bool Button_Input::Draw()
 {
-	SDL_Rect anim_rect;
+	ClickState state = App->gui->GetClickState();
+	SDL_Rect current_frame;
 
-	if (App->gui->GetClickedObject() == this)
+	if (App->gui->GetClickedObject() == this && state != ClickState::None &&  state != ClickState::Out)
 	{
-		anim_rect = definition.pushed_rect;
+		current_frame = definition.pushed_rect;
 	}
-	else if (hover_state == HoverState::Repeat || hover_state == HoverState::On)
+	else if (hover_state != HoverState::None)
 	{
-		anim_rect = definition.hover_rect;
+		current_frame = definition.hover_rect;
 	}
 	else
 	{
-		anim_rect = definition.idle_rect;
+		current_frame = definition.idle_rect;
 	}
-	if (hover_state == HoverState::On)
-		App->audio->PlayFx(App->gui->fx_button_hovered);
 
-	section.w = anim_rect.w;
-	section.h = anim_rect.h;
+	section.w = current_frame.w;
+	section.h = current_frame.h;
 	
-	App->render->Blit(texture, position.x - section.w*0.5f, position.y - section.h*0.5f, &anim_rect, false, 0.0f);
+	App->render->Blit(texture, position.x - section.w*0.5f, position.y - section.h*0.5f, &current_frame, false, 0.0f);
+
 	return true;
 }
 
@@ -68,6 +68,16 @@ void Button_Input::SetDefinition(Button_Definition definition)
 	this->definition = definition;
 }
 
+bool Button_Input::PreUpdate()
+{
+	if (hover_state == HoverState::On)
+	{
+		App->audio->PlayFx(App->gui->fx_button_hovered);
+	}
+	
+	return true;
+}
+
 bool Button_Input::Update(float dt)
 {
 	if (label == nullptr)
@@ -78,14 +88,14 @@ bool Button_Input::Update(float dt)
 	if (this == App->gui->GetClickedObject())
 	{
 		ClickState state = App->gui->GetClickState();
-
+		
 		switch (state)
 		{
 		case ClickState::On:
-			label->SetPosition(iPoint(label->GetPosition().x, label->GetPosition().y + 3));
+			label->SetPosition(iPoint(label->position.x, label->position.y + LABEL_PRESSED_OFFSET));
 			break;
 		case ClickState::Out:
-			label->SetPosition(iPoint(label->GetPosition().x, label->GetPosition().y - 3));
+			label->SetPosition(iPoint(label->position.x, label->position.y - LABEL_PRESSED_OFFSET));
 			break;
 		}
 	}
