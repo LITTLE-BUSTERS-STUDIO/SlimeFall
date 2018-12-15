@@ -29,11 +29,13 @@ class Object
 {
 
 public:
-	Object(iPoint position , Gui_Listener *listener);
+	Object(const iPoint position , Gui_Listener *listener);
 	
 	virtual ~Object();
 
 	// Virtual methods ================================
+	virtual bool PreUpdate() { return true; }
+
 	virtual bool Update(float dt) { return true; }
 
 	virtual bool Draw() { return true; };

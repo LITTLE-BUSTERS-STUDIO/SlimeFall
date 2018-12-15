@@ -23,23 +23,28 @@ public:
 
 	bool UnloadScene();
 
+	bool OnClick(Object* object);
+
 	bool OutClick(Object* object);
 
 private:
-
+	// Values =========================================
+	bool                exit = false; 
 	// GUI ============================================
 	Object*             menu = nullptr;
-	_TTF_Font*          karma_font = nullptr;
+	_TTF_Font*          karma_font_settings = nullptr;
+	_TTF_Font*          karma_font_buttons = nullptr;
 
 	// ---------- Menu -------------------------
 	Image*              logo = nullptr;
 
-	Button_Input*       button_play = nullptr;
+	Button_Input*       button_new_game = nullptr;
 	Button_Input*       button_continue = nullptr;
 	Button_Input*       button_exit = nullptr;
 
 	Button_Input*       button_credits = nullptr;
 	Button_Input*       button_settings = nullptr;
+	Button_Input*       button_web = nullptr;
 
 	// ---------- Settings ----------------------
 	Image*              settings_panel = nullptr;

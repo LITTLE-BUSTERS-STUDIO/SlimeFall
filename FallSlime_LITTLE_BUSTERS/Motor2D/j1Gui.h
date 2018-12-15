@@ -52,6 +52,8 @@ public:
 
 	SDL_Texture* GetAtlas() const;
 
+	ClickState GetClickState() const;
+
 	// Creation functions ---------------------------------------------------------
 	Object* CreateObject(iPoint position, Gui_Listener* listener = nullptr);
 

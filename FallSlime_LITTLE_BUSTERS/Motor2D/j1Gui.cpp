@@ -39,15 +39,6 @@ bool j1Gui::Awake(pugi::xml_node& config)
 bool j1Gui::Start()
 {
 	atlas = App->tex->Load(atlas_file_name.GetString());
-
-	Animation cursor_anim;
-	cursor_anim.PushBack({ 0, 165, 16, 24 });
-	cursor = App->gui->CreateImage(iPoint(320, 30), cursor_anim);
-
-	cursor->SetAnchor(NULL);
-
-	SDL_ShowCursor(SDL_DISABLE);
-
 	return true;
 }
 
@@ -88,6 +79,8 @@ bool j1Gui::PreUpdate()
 			else
 				item->data->hover_state = HoverState::None;
 		}
+
+		item->data->PreUpdate();
 	}
 
 	// Click States ============================================
@@ -110,10 +103,7 @@ bool j1Gui::PreUpdate()
 		clicked_object = nullptr;
 	}
 
-	// Cursor ==========================
-	cursor_offset = { 7, 12 };
-	App->input->GetMousePosition(cursor_position.x, cursor_position.y);
-	cursor->SetPosition({ cursor_position.x + cursor_offset.x, cursor_position.y + cursor_offset.y });
+
 	return true;
 }
 
@@ -227,6 +217,11 @@ bool j1Gui::CleanUp()
 {
 	return atlas;
 }
+
+ ClickState j1Gui::GetClickState() const
+ {
+	 return click_state;
+ }
 
 // Creation methods =================================================================
 

@@ -9,9 +9,9 @@ class Image: public Object
 {
 
 public:
-	Image::Image(iPoint position, SDL_Rect draw_rect, SDL_Texture * texture, Gui_Listener* listener);
+	Image(const iPoint position, const SDL_Rect draw_rect, SDL_Texture * texture, Gui_Listener* listener);
 
-	Image (iPoint position, Animation animation, SDL_Texture * texture,  Gui_Listener* listener);
+	Image (const iPoint position, const Animation animation, SDL_Texture * texture,  Gui_Listener* listener);
 
 	virtual ~Image();
 

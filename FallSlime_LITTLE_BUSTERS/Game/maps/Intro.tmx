@@ -1919,7 +1919,7 @@
   <properties>
    <property name="type" value="entities"/>
   </properties>
-  <object id="439" name="player" x="359" y="91">
+  <object id="439" name="player" x="188.25" y="-61.75">
    <point/>
   </object>
  </objectgroup>

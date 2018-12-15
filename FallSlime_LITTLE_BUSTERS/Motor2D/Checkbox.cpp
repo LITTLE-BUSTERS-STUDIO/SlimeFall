@@ -5,7 +5,7 @@
 #include "Button_Input.h"
 
 
-Checkbox::Checkbox(iPoint position, Checkbox_Definition definition, SDL_Texture * texture, Gui_Listener* listener) : Object(position, listener)
+Checkbox::Checkbox(const iPoint position, const Checkbox_Definition definition, SDL_Texture * texture, Gui_Listener* listener) : Object(position, listener)
 {
 	this->definition = definition;
 	this->texture = texture;
@@ -23,13 +23,15 @@ Checkbox::Checkbox(iPoint position, Checkbox_Definition definition, SDL_Texture 
 
 	button = App->gui->CreateButton(position, def, this);
 	button->SetAnchor(this);
-
-
 }
 
 Checkbox::~Checkbox()
 {
-
+	if (button != nullptr)
+	{
+		App->gui->DeleteObject(button);
+		button = nullptr;
+	}
 }
 
 void Checkbox::SetValue(const bool value)

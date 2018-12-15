@@ -10,7 +10,7 @@ class Label : public Object
 {
 public:
 
-	Label(iPoint position, p2SString text, _TTF_Font* font, SDL_Color color, Gui_Listener* listener);
+	Label(const iPoint position, const p2SString text, _TTF_Font* font, const SDL_Color color, Gui_Listener* listener);
 
 	// Destructor
 	~Label();

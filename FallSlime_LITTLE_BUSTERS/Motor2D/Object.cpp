@@ -4,7 +4,7 @@
 #include "j1Gui.h"
 #include "p2Log.h"
 
-Object::Object(iPoint position, Gui_Listener *listener)
+Object::Object(const iPoint position, Gui_Listener *listener)
 {
 	this->position = position;
 	this->listener = listener;

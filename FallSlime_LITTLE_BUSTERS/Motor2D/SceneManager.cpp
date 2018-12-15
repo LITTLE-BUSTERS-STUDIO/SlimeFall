@@ -48,6 +48,11 @@ bool SceneManager::Start()
 bool SceneManager::PreUpdate()
 {
 	BROFILER_CATEGORY("Scene PreUpdate", Profiler::Color::Linen);
+	
+	if (exit == true)
+	{
+		return false;
+	}
 
 	if (default_scene_loaded == false)
 	{
@@ -92,7 +97,6 @@ bool SceneManager::PreUpdate()
 		App->LoadGame();
 	}
 	
-
 	return true;
 }
 
@@ -152,7 +156,7 @@ bool SceneManager::ResetScene()
 	return true;
 }
 
-bool SceneManager::ChangeScene(p2SString name, int phase)
+bool SceneManager::ChangeScene(const p2SString name, int phase)
 {
 	if (App->render->FadeToBlack(1000) == true)
 	{
@@ -160,6 +164,11 @@ bool SceneManager::ChangeScene(p2SString name, int phase)
 		phase_to_load = phase;
 	}
 	return true;
+}
+
+void SceneManager::Exit()
+{
+	exit = true;
 }
 
 bool  SceneManager::Load(pugi::xml_node& node)
@@ -183,7 +192,7 @@ bool  SceneManager::Save(pugi::xml_node& node) const
 	return true;
 }
 
-bool SceneManager::LoadScene(p2SString name, int phase)   // phase = -1 -> default phase
+bool SceneManager::LoadScene(const p2SString name, int phase)   // phase = -1 -> default phase
 {
 	UnloadScene();
 

@@ -20,13 +20,9 @@ class Checkbox : public Object, public Gui_Listener
 {
 public:
 
-	Checkbox(iPoint position, Checkbox_Definition definition, SDL_Texture * texture, Gui_Listener * listener);
+	Checkbox(const iPoint position, const Checkbox_Definition definition, SDL_Texture * texture, Gui_Listener * listener);
 
 	virtual ~Checkbox();
-
-	//bool Draw();
-
-	bool SetLabel(/*Position position ,*/p2SString text/* , Color color ,*/);
 
 	void SetValue(const bool value);
 
@@ -42,8 +38,8 @@ private:
 	bool                    value = false;
 
 	// Components =================================
+
 	Button_Input* button = nullptr;   
-	//Label* label = nullptr;
 
 private:
 	friend j1Gui;

@@ -34,7 +34,9 @@ public:
 
 	bool ResetScene(); // All scene ========================
 
-	bool ChangeScene(p2SString name, int phase);
+	bool ChangeScene(const p2SString name, int phase);
+
+	void Exit();
 
 	// Load & Save game ====================================
 	bool Load(pugi::xml_node& node);
@@ -49,7 +51,7 @@ public:
 	 
 private:
 	// Load & Save scene ==================================
-	bool LoadScene(p2SString name, int phase);
+	bool LoadScene(const p2SString name, int phase);
 
 	bool UnloadScene();
 
@@ -59,7 +61,7 @@ private:
 	uint                     current_phase = 0u;
 	p2SString                default_scene_str;
 	bool                     default_scene_loaded = false;
-
+	bool                     exit = false;
 	// Scene to load ========================
 	p2SString                scene_to_load;
 	uint                     phase_to_load;
