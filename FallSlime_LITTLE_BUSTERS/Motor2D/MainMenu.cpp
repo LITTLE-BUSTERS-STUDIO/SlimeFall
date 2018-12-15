@@ -77,21 +77,21 @@ bool MainMenu::PostUpdate()
 	}
 
 	// Blit background--------------------------------------
+	int speed = 0;
 	for (uint i = 0; i < max_background_layers; i++)
-		App->render->Blit(paralax_tex_1, 0, background_startpos, &parallax1[i].rect_parallax, false, parallax_speed_1);
-
+		App->render->Blit(paralax_tex_1, App->render->camera.x - App->render->camera.w, background_startpos, &parallax1[i].rect_parallax, false, speed);
 
 	for (uint i = 0; i < max_background_layers; i++)
 	{
 
 		if (i == 0)
-			App->render->Blit(paralax_tex_2, 0, background_startpos, &parallax2[i].rect_parallax, false, parallax_speed_3);
+			App->render->Blit(paralax_tex_2, App->render->camera.x - App->render->camera.w, background_startpos, &parallax2[i].rect_parallax, false, speed);
 		else if (i > 0)
-			App->render->Blit(paralax_tex_2, 0, background_startpos, &parallax2[i].rect_parallax, false, parallax_speed_2);
+			App->render->Blit(paralax_tex_2, App->render->camera.x - App->render->camera.w, background_startpos, &parallax2[i].rect_parallax, false, speed);
 	}
 
 	for (uint i = 0; i < max_background_layers; i++)
-		App->render->Blit(paralax_tex_3, 0, background_startpos, &parallax3[i].rect_parallax, false, parallax_speed_2);
+		App->render->Blit(paralax_tex_3, App->render->camera.x - App->render->camera.w, background_startpos, &parallax3[i].rect_parallax, false, speed);
 
 
 	App->map->Draw();
