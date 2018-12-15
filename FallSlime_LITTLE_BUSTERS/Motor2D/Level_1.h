@@ -40,6 +40,14 @@ private:
 	uint				background_high;
 	uint				max_background_layers;
 	uint				background_startpos;
+	
+	//------------Paused Menu----------------
+	Object*             paused_menu = nullptr;
+	_TTF_Font*          karma_font_buttons = nullptr;
+	Button_Input*       button_back = nullptr;
+	Button_Input*       button_save = nullptr;
+	Button_Input*       button_load = nullptr;
+	Button_Input*       button_exit_to_menu = nullptr;
 };
 
 #endif // __LEVEL_1_H__
