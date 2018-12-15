@@ -13,6 +13,12 @@
 #include "j1Gui.h"
 #include "Hud.h"
 
+#include "Button_Input.h"
+#include "Label.h"
+#include "j1Fonts.h"
+
+
+
 Level_1::Level_1() : j1Scene()
 {
 	name.create("level_1");
@@ -61,6 +67,31 @@ bool Level_1::LoadScene(pugi::xml_node& node)
 	parallax_speed_33 = node.child("parallax_speed").attribute("high").as_float(0.0f);
 
 	App->hud->ShowHud();
+	// Anchor =============================================
+	paused_menu = App->gui->CreateObject(iPoint(App->render->camera.w * 0.5f, App->render->camera.h * 0.5f), this);
+	//Labels ==============================================
+	karma_font_buttons = App->font->Load("fonts/KarmaSuture.ttf", 24);
+	SDL_Color color = { 231,94,152,255 };
+
+	// Buttons ============================================
+	Button_Definition button_rectangle({ 219 , 0, 122, 36 }, { 219, 36, 122, 36 }, { 219, 72, 122, 36 });
+	button_back = App->gui->CreateButton(iPoint(321, 89), button_rectangle, this);
+	button_back->SetLabel(iPoint(321, 85), p2SString("BACK"), karma_font_buttons, color);
+	button_back->SetAnchor(paused_menu);
+
+	button_save = App->gui->CreateButton(iPoint(321, 146), button_rectangle, this);
+	button_save->SetLabel(iPoint(321, 142), p2SString("SAVE"), karma_font_buttons, color);
+	button_save->SetAnchor(paused_menu);
+
+	button_load = App->gui->CreateButton(iPoint(321, 199), button_rectangle, this);
+	button_load->SetLabel(iPoint(321, 195), p2SString("LOAD"), karma_font_buttons, color);
+	button_load->SetAnchor(paused_menu);
+
+	button_exit_to_menu = App->gui->CreateButton(iPoint(321, 278), button_rectangle, this);
+	button_exit_to_menu->SetLabel(iPoint(321, 274), p2SString("EXIT"), karma_font_buttons, color);
+	button_exit_to_menu->SetAnchor(paused_menu);
+
+	App->gui->SetStateToBranch(ObjectState::hidden, paused_menu);
 
 	return true;
 }
@@ -70,6 +101,10 @@ bool Level_1::Update(float dt)
 {
 	BROFILER_CATEGORY("Level_1 Update", Profiler::Color::MediumBlue);
 
+	if (App->pause_game)
+		App->gui->SetStateToBranch(ObjectState::visible, paused_menu);
+	else
+		App->gui->SetStateToBranch(ObjectState::hidden, paused_menu);
 
 	return true;
 }
@@ -98,10 +133,19 @@ bool Level_1::PostUpdate()
 
 	App->map->Draw();
 
+
+	// Paused Menu ===============================================
 	int black_margin = 100;
 	if (App->pause_game)
+	{
 		App->render->DrawQuad({ 0, App->render->camera.y - black_margin, App->render->camera.w * (int)App->win->GetScale() , App->render->camera.h * (int)App->win->GetScale() }, 0, 0, 0, 100, true, true);
 	
+	
+	
+	}
+		
+	
+
 	LOG("%d", App->render->camera.x);
 	return ret;
 }
