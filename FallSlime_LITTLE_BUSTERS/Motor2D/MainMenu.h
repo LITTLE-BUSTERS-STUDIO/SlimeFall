@@ -69,6 +69,7 @@ private:
 	Checkbox*           checkbox_mute = nullptr;
 	Checkbox*           checkbox_limitate_fps = nullptr;
 
+	iPoint				settings_panel_pos;
 
 	// Scene ==========================================
 	p2SString			music_path;

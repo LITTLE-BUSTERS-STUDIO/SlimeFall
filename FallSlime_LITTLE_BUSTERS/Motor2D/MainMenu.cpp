@@ -34,17 +34,27 @@ bool MainMenu::Update(float dt)
 	switch ((MainMenu_States)current_state)
 	{
 	case MainMenu_States::main_menu:
-		camera_position.x = CAMERA_OFFSET * App->win->GetScale();
+		if (camera_position.x >= CAMERA_OFFSET * App->win->GetScale())
+			camera_position.x -= 50;
+
+		/*else if (camera_position.x <= CAMERA_OFFSET * App->win->GetScale())
+			camera_position.x += 50;*/
 	break;
 
 	case MainMenu_States::credits:
 		if (camera_position.x >= 0)
-			camera_position.x-=25;
+			camera_position.x-=50;
 	break;
 
 	case MainMenu_States::settings:
 		if (camera_position.x <= CAMERA_OFFSET * 2 * App->win->GetScale())
-			camera_position.x+=25;
+		{
+			camera_position.x += 50;
+			if (settings_panel_pos.x >= 320)
+				settings_panel_pos.x-=50;
+
+		}
+		settings_panel->SetPosition(settings_panel_pos);
 	break;
 	}
 
@@ -94,7 +104,8 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	BROFILER_CATEGORY("MainMenu Load", Profiler::Color::Maroon);
 
 	LOG("Loading MainMenu");
-
+	// Camera View ====================================================
+	camera_position.x = CAMERA_OFFSET * App->win->GetScale();
 	// Paralax ========================================================
 	music_path = node.child("music").attribute("path").as_string("");
 	App->audio->PlayMusic(music_path.GetString());
@@ -171,6 +182,9 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	panel_anim.PushBack({ 387, 0, 389, 293 });
 	settings_panel = App->gui->CreateImage(iPoint(320, 182), panel_anim, this);
 	settings_panel->IsDraggable(true);
+
+	settings_panel_pos = { App->render->camera.w + 320, 182 };
+	settings_panel->SetPosition(settings_panel_pos);
 	// Buttons ============================================
 	Button_Definition button_def_return_settings({ 778 ,0, 42,45 }, { 778 ,45, 42,45 }, { 778 ,90, 42,45 });
 	button_return_settings = App->gui->CreateButton(iPoint(320, 318), button_def_return_settings, this);
@@ -264,10 +278,14 @@ bool MainMenu::OutClick(Object * object)
 	if (object == button_settings)
 	{
 		App->gui->SetStateToBranch(ObjectState::visible, settings_panel);
+		current_state = MainMenu_States::settings;
+
 	}
 	else if (object == button_return_settings)
 	{
 		App->gui->SetStateToBranch(ObjectState::hidden, settings_panel);
+		current_state = MainMenu_States::main_menu;
+
 	}
 	else if (object == button_exit)
 	{
@@ -276,6 +294,10 @@ bool MainMenu::OutClick(Object * object)
 	else if (object == button_web)
 	{
 		ShellExecuteA(NULL, "open", "https://little-busters-studio.github.io/SlimeFall/", NULL, NULL, SW_SHOWNORMAL);
+	}
+	else if (object == button_credits)
+	{
+		current_state = MainMenu_States::credits;
 	}
 
 	return true;
