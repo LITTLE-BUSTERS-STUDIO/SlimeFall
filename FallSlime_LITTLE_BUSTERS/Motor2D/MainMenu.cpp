@@ -84,19 +84,19 @@ bool MainMenu::PostUpdate()
 	int speed = 0;
 
 	for (uint i = 0; i < max_background_layers; i++)
-		App->render->Blit(paralax_tex_1, 0, background_startpos, &parallax1[i].rect_parallax, false, 0.2f);
+		App->render->Blit(paralax_tex_1, 0, background_startpos, &parallax1[i].rect_parallax, false, 0.0f);
 
 	for (uint i = 0; i < max_background_layers; i++)
 	{
 
 		if (i == 0)
-			App->render->Blit(paralax_tex_2, 0, background_startpos, &parallax2[i].rect_parallax, false, 0.3f);
+			App->render->Blit(paralax_tex_2, 0, background_startpos, &parallax2[i].rect_parallax, false, 0.0f);
 		else if (i > 0)
-			App->render->Blit(paralax_tex_2, 0, background_startpos, &parallax2[i].rect_parallax, false, 0.3f);
+			App->render->Blit(paralax_tex_2, 0, background_startpos, &parallax2[i].rect_parallax, false, 0.0f);
 	}
 
 	for (uint i = 0; i < max_background_layers; i++)
-		App->render->Blit(paralax_tex_3, 0, background_startpos, &parallax3[i].rect_parallax, false, 0.4f);
+		App->render->Blit(paralax_tex_3, 0, background_startpos, &parallax3[i].rect_parallax, false, 0.0f);
 
 
 	App->map->Draw();
