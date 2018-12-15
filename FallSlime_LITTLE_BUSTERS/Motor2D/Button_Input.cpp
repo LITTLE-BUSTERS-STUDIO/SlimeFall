@@ -75,20 +75,20 @@ bool Button_Input::Update(float dt)
 		return true;
 	}
 
-	//if (this == App->gui->GetClickedObject())
-	//{
-	//	ClickState state = App->gui->GetClickState();
+	if (this == App->gui->GetClickedObject())
+	{
+		ClickState state = App->gui->GetClickState();
 
-	//	switch (state)
-	//	{
-	//	case ClickState::On:
-	//		label->SetPosition(iPoint(label->GetPosition().x, label->GetPosition().y + 3));
-	//		break;
-	//	case ClickState::Out:
-	//		label->SetPosition(iPoint(label->GetPosition().x, label->GetPosition().y - 3));
-	//		break;
-	//	}
-	//}
+		switch (state)
+		{
+		case ClickState::On:
+			label->SetPosition(iPoint(label->GetPosition().x, label->GetPosition().y + 3));
+			break;
+		case ClickState::Out:
+			label->SetPosition(iPoint(label->GetPosition().x, label->GetPosition().y - 3));
+			break;
+		}
+	}
 
 	return true;
 }

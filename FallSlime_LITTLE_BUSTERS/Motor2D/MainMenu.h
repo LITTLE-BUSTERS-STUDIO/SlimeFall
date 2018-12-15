@@ -81,10 +81,10 @@ private:
 	float	           	parallax_speed_1;
 	float		        parallax_speed_2;
 	float				parallax_speed_3;
-	uint				background_width;
-	uint				background_high;
-	uint				max_background_layers;
-	uint				background_startpos;
+	int			     	background_width;
+	int				    background_high;
+	int			    	max_background_layers;
+	int				    background_startpos;
 	fPoint				camera_position;
 	MainMenu_States		current_state = MainMenu_States::main_menu;
 };

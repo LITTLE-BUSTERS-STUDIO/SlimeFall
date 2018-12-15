@@ -41,7 +41,7 @@ void Label::SetText(p2SString text)
 
 bool Label::Draw()
 {
-	App->render->Blit(texture, position.x- section.w * 0.5f, position.y - section.h * 0.5f , &section, 0.0f);
+	App->render->Blit(texture, position.x- section.w * 0.5f, position.y - section.h * 0.5f , &section, false, 0.0f);
 
 	return false;
 }

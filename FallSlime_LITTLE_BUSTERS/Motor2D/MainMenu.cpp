@@ -112,7 +112,7 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	parallax_speed_2 = node.child("parallax_speed").attribute("medium").as_float(0.0f);
 	parallax_speed_3 = node.child("parallax_speed").attribute("high").as_float(0.0f);
 
-	for (uint i = 0; i < 4; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		parallax1[i].rect_parallax.x = background_width * i;
 		parallax1[i].rect_parallax.y = 0;
