@@ -71,7 +71,7 @@ bool SceneManager::PreUpdate()
 
 	// Debug keys =======================================
 
-	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && current_scene->name.GetString() == "level_1" )
 	{
 		App->pause_game = !App->pause_game;
 		
