@@ -115,6 +115,7 @@ public:
 	bool			    apply_cap_frames = true;
 	j1Timer				timer;
 	bool				pause_game = false;
+	bool                first_frame = true;
 
 private:
 
@@ -131,7 +132,7 @@ private:
 	mutable p2SString	save_game;
 
 
-	// Framerate =======================================
+	// Framerate =======================================                
 	uint				frames = 0;
 	uint64				frame_count = 0;
 	int					framerate_cap = 0;

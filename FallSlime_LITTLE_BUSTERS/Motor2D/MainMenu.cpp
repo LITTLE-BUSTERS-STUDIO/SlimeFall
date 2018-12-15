@@ -49,7 +49,7 @@ bool MainMenu::Update(float dt)
 	{
 		if (App->render->camera.x < move_to_point[(int)current_section].x)
 		{
-			App->render->camera.x += camera_velocity.x;
+			App->render->camera.x += camera_velocity.x *dt;
 		}
 
 		if (App->render->camera.x > move_to_point[(int)current_section].x)
@@ -62,7 +62,7 @@ bool MainMenu::Update(float dt)
 	{
 		if (App->render->camera.x > move_to_point[(int)current_section].x)
 		{
-			App->render->camera.x += camera_velocity.x;
+			App->render->camera.x += camera_velocity.x *dt;
 		}
 
 		if (App->render->camera.x < move_to_point[(int)current_section].x)
@@ -72,6 +72,7 @@ bool MainMenu::Update(float dt)
 		}
 	}
 
+	menu->SetPosition(iPoint( - (App->render->camera.x / (int)App->win->GetScale()) , menu->GetPosition().y));
 
 	return true;
 }
@@ -88,7 +89,6 @@ bool MainMenu::PostUpdate()
 
 	for (uint i = 0; i < max_background_layers; i++)
 	{
-
 		if (i == 0)
 			App->render->Blit(paralax_tex_2, 0, background_startpos, &parallax2[i].rect_parallax, false, 0.0f);
 		else if (i > 0)
@@ -116,7 +116,7 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	move_to_point[(int)MenuSection::settings] = { 1280*2 , 0};
 
 	App->render->camera.x = 1280;
-	camera_speed = 50.0f;
+	camera_speed = 1515.0f;
 
 	// Paralax ========================================================
 	music_path = node.child("music").attribute("path").as_string("");
@@ -153,7 +153,9 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	parallax_speed_1 = node.child("parallax_speed").attribute("low").as_float(0.0f);
 	parallax_speed_2 = node.child("parallax_speed").attribute("medium").as_float(0.0f);
 	parallax_speed_3 = node.child("parallax_speed").attribute("high").as_float(0.0f);
-	menu = App->gui->CreateObject(iPoint(App->render->camera.w * 0.5f, App->render->camera.h * 0.5f), this);
+
+
+	menu = App->gui->CreateObject(iPoint( 0,0), this);
 	karma_font_settings = App->font->Load("fonts/KarmaSuture.ttf", 24);
 	SDL_Color color = { 231,94,152,255 };
 
@@ -165,27 +167,36 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	Animation logo_anim;
 	logo_anim.PushBack({ 0, 0, 219, 94 });
 	logo = App->gui->CreateImage(iPoint(326, 76), logo_anim, this);
+	logo->SetAnchor(menu);
 
 	// Buttons ============================================
 	Button_Definition button_rectangle({ 219 , 0, 122, 36 }, { 219, 36, 122, 36 }, { 219, 72, 122, 36 });
 	button_new_game = App->gui->CreateButton(iPoint(320, 208), button_rectangle, this);
 	button_new_game->SetLabel(iPoint(320, 204), p2SString("NEW GAME"), karma_font_settings, color);
+	button_new_game->SetAnchor(logo);
 
 	button_continue = App->gui->CreateButton(iPoint(320, 250), button_rectangle, this);
 	button_continue->SetLabel(iPoint(320, 246), p2SString("CONTINUE"), karma_font_settings, color);
+	button_continue->SetAnchor(logo);
 
 	button_exit = App->gui->CreateButton(iPoint(320, 292), button_rectangle, this);
 	button_exit->SetLabel(iPoint(320, 288), p2SString("EXIT"), karma_font_settings, color);
+	button_exit->SetAnchor(logo);
 
 	Button_Definition button_def_credits({ 866 ,0, 42,45 }, { 866 ,45, 42,45 }, { 866 ,90, 42,45 });
 	button_credits = App->gui->CreateButton(iPoint(84, 329), button_def_credits, this);
+	button_credits->SetAnchor(logo);
 
 	Button_Definition button_def_web({ 954 ,0, 42,45 }, { 954 ,45, 42,45 }, { 954 ,90, 42,45 });
 	button_web = App->gui->CreateButton(iPoint(141, 329), button_def_web, this);
+	button_web->SetAnchor(logo);
 
 	Button_Definition button_def_settings({ 910 ,0, 42,45 }, { 910 ,45, 42,45 }, { 910 ,90, 42,45 });
 	button_settings = App->gui->CreateButton(iPoint(555, 329), button_def_settings, this);
-	
+	button_settings->SetAnchor(logo);
+
+	logo->SetPosition(iPoint(320 + 640, logo->GetPosition().y));
+
 	// =============================================================
     // ==================   Settings   =============================
     // =============================================================
@@ -194,8 +205,7 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	panel_anim.PushBack({ 387, 0, 389, 293 });
 	settings_panel = App->gui->CreateImage(iPoint(320, 182), panel_anim, this);
 	settings_panel->IsDraggable(true);
-
-	settings_panel_pos = { App->render->camera.w + 320, 182 };
+	settings_panel->SetAnchor(menu);
 
 	// Buttons ============================================
 	Button_Definition button_def_return_settings({ 778 ,0, 42,45 }, { 778 ,45, 42,45 }, { 778 ,90, 42,45 });
@@ -243,7 +253,7 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	checkbox_limitate_fps = App->gui->CreateCheckbox(iPoint(398, 257), checkbox_def, this);
 	checkbox_limitate_fps->SetAnchor(settings_panel);
 
-	App->gui->SetStateToBranch(ObjectState::hidden, settings_panel);
+	settings_panel->SetPosition(iPoint(320 + 1280, 182));
 
 	return true;
 }
@@ -289,11 +299,11 @@ bool MainMenu::OutClick(Object * object)
 {
 	if (object == button_settings)
 	{
-		App->gui->SetStateToBranch(ObjectState::visible, settings_panel);
+		MoveToSection(MenuSection::settings);
 	}
 	else if (object == button_return_settings)
 	{
-		App->gui->SetStateToBranch(ObjectState::hidden, settings_panel);
+		MoveToSection(MenuSection::main_menu);
 	}
 	else if (object == button_exit)
 	{

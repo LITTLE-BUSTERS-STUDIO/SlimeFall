@@ -205,6 +205,11 @@ void j1App::FinishUpdate()
 	if(want_to_load == true)
 		LoadGameNow();
 
+	if (first_frame == true)
+	{
+		first_frame = false;
+	}
+
 	if (last_sec_frame_time.Read() > 1000)
 	{
 		last_sec_frame_time.Start();
@@ -223,6 +228,7 @@ void j1App::FinishUpdate()
 
 	// Assigment 2 Title ===================================================
 	static char title_info[256];
+
 
 	p2SString FramerateCap;
 	if (apply_cap_frames)
