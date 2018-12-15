@@ -46,6 +46,28 @@ bool j1Gui::Start()
 	return true;
 }
 
+// Called before quitting
+bool j1Gui::CleanUp()
+{
+	LOG("Freeing all GUI objects");
+
+	App->tex->UnLoad(atlas);
+
+	p2List_item<Object*>* object;
+	object = objects_list.start;
+
+	while (object != NULL)
+	{
+		object->data->anchor_sons.clear();
+		RELEASE(object->data);
+		object = object->next;
+	}
+	objects_list.clear();
+
+	return true;
+}
+
+
 // Update all guis
 bool j1Gui::PreUpdate()
 {
@@ -202,24 +224,6 @@ bool j1Gui::PostUpdate()
 	return true;
 }
 
-// Called before quitting
-bool j1Gui::CleanUp()
-{
-	LOG("Freeing GUI");
-
-	p2List_item<Object*>* object;
-	object = objects_list.start;
-
-	while (object != NULL)
-	{
-		RELEASE(object->data);
-		object = object->next;
-	}
-	objects_list.clear();
-
-	return true;
-}
-
 // const getter for atlas
  SDL_Texture* j1Gui::GetAtlas() const 
 {
@@ -297,6 +301,11 @@ Object * j1Gui::GetScreen()
 
 bool j1Gui::DeleteObject(Object * object)
 {
+	if (objects_list.count() == 0)
+	{
+		return true;
+	}
+
 	if (object == nullptr)
 	{
 		LOG("Object not deleted: Pointer nullptr");
@@ -338,6 +347,7 @@ bool j1Gui::DeleteObject(Object * object)
 		}
 	}
 
+	LOG("Object deleted");
 	RELEASE(object_to_delete->data);
 	objects_list.del(object_to_delete);
 

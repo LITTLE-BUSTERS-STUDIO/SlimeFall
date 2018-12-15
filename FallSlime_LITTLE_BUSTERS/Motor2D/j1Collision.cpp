@@ -275,6 +275,11 @@ bool j1Collision::CheckOverlap(p2List<Direction> &directions , Collider *dynamic
 
 bool j1Collision::DeleteCollider(Collider * collider)
 {
+	if (colliders.count() == 0)
+	{
+		return true;
+	}
+
 	for (p2List_item<Collider*> * item = colliders.start; item != nullptr; item = item->next)
 	{
 		if (item->data == collider)
@@ -284,6 +289,7 @@ bool j1Collision::DeleteCollider(Collider * collider)
 			return true;
 		}
 	}
+
 	LOG("Collider to delete not found");
 	return false;
 }
