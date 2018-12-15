@@ -114,6 +114,7 @@ public:
 	// Framerate ==============================
 	bool			    apply_cap_frames = true;
 	j1Timer				timer;
+	bool				pause_game = false;
 
 private:
 

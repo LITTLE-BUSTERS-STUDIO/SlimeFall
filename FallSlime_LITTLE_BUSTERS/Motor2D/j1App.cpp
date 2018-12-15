@@ -179,12 +179,18 @@ void j1App::PrepareUpdate()
 	frame_count++;
 	last_sec_frame_count++;
 
-	dt = perfect_frame_time.ReadSec();
-
-	if (dt > 1.0f / framerate_cap + 0.02f) 
+	if (pause_game)
+		dt = 0;
+	else
 	{
-		dt = 1.0f / framerate_cap + 0.02f;
+		dt = perfect_frame_time.ReadSec();
+
+		if (dt > 1.0f / framerate_cap + 0.02f)
+		{
+			dt = 1.0f / framerate_cap + 0.02f;
+		}
 	}
+	
 
 	perfect_frame_time.ReadMs();
 	perfect_frame_time.Start();
@@ -323,6 +329,7 @@ bool j1App::PostUpdate()
 		ret = item->data->PostUpdate();
 	}
 
+	
 	return ret;
 }
 

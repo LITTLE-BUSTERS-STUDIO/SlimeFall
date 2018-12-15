@@ -68,7 +68,7 @@ bool SceneManager::PreUpdate()
 
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	{
-		return false;
+		App->pause_game = !App->pause_game;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
