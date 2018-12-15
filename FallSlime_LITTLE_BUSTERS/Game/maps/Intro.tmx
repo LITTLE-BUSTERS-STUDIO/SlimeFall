@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="120" height="23" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="475">
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="120" height="23" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="480">
  <tileset firstgid="1" name="Basic_tileset" tilewidth="16" tileheight="16" tilecount="60" columns="10">
   <image source="Basic_tileset.png" width="160" height="96"/>
   <terraintypes>
@@ -5596,12 +5596,15 @@
   <object id="437" x="808.667" y="129" width="300" height="56.6667"/>
   <object id="453" x="1864.04" y="179.917" width="56.125" height="22.875"/>
   <object id="465" x="1757.1" y="277.063" width="18.125" height="9.875"/>
+  <object id="475" x="857.521" y="24.3125" width="208.792" height="104.208"/>
+  <object id="476" x="790.438" y="-189.688" width="18.125" height="318.875"/>
+  <object id="479" x="1110.27" y="-185.438" width="18.125" height="314.208"/>
  </objectgroup>
  <objectgroup id="5" name="entities">
   <properties>
    <property name="type" value="entities"/>
   </properties>
-  <object id="439" name="player" x="826" y="-33">
+  <object id="439" name="player" x="834.667" y="106">
    <point/>
   </object>
   <object id="456" name="player" x="1770" y="258">

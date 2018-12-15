@@ -10,6 +10,7 @@
 #include "j1Textures.h"
 #include "Image.h"
 #include "j1Render.h"
+#include "j1Window.h"
 
 Hud::Hud() :j1Module()
 {
@@ -49,6 +50,8 @@ bool Hud::Start()
 		coin->SetAnchor(hud_object);
 	}
 
+
+
 	//Animation anim_panel;
 	//anim_panel.PushBack({ 0, 446, 800, 61 });
 	//panel_pos = { -320, 170 }; //Camera w && Camera h / GetScale()
@@ -71,6 +74,11 @@ bool Hud::Update(float dt)
 	/*if (panel_pos.x <= 320)
 		panel_pos.x += 20;
 	panel_stages->SetPosition(panel_pos);*/
+	/*
+	if (App->pause_game)
+	{
+		App->render->DrawQuad({ App->render->camera.x, App->render->camera.y, App->render->camera.w, App->render->camera.h }, 0, 0, 0, 200, false);
+	}*/
 	return true;
 }
 
