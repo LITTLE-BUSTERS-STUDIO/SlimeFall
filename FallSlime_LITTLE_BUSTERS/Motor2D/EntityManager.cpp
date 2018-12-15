@@ -382,9 +382,9 @@ Entity* EntityManager::CreateEntity( p2SString name, fPoint position, fPoint spa
 
 bool EntityManager::OnCollision(Collider* c1, Collider* c2)
 {
-	for (p2List_item<Entity*> *item = entities.start; item ; item = item->next)
+	for (p2List_item<Entity*> *item = entities.start; item != nullptr; item = item->next)
 	{
-		if (!item->data->active)
+     	if (item->data != nullptr && !item->data->active)
 		{
 			continue;
 		}

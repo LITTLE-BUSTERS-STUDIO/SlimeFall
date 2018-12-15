@@ -159,7 +159,7 @@ bool j1Gui::Update(float dt)
 			clicked_object->UpdateRelativePosition();
 			break;
 		case ClickState::Out:
-			App->gui->SetCursorOffset({0,0});
+			App->gui->SetCursorOffset({ 0,0 });
 			break;
 		}
 	}
@@ -194,7 +194,7 @@ bool j1Gui::Update(float dt)
 			{
 				LOG("Object callback failed, listener was nullptr");
 			}
-			
+
 			continue;
 		}
 
@@ -211,10 +211,10 @@ bool j1Gui::Update(float dt)
 			break;
 		}
 	}
-
 	if (!App->first_frame)
 	{
 		UpdateGuiPositions(screen, { 0,0 });
+
 	}
 	
 	// Update objects ==============================================

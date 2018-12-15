@@ -27,38 +27,41 @@ void TextPanel::SetText(p2SString text)
 		App->tex->UnLoad(text_texture);
 	}
 
-	lines = 0;
-	int last_line_x = 0;
-	int first_line_letter = 0;
 
-	int w = 0, h = 0;
-	int length = text.Length();
-	const char * char_text = text.GetString();
-	
-	App->font->CalcSize(text.GetString(), w, h, definition.font);
+	//int last_line_x = 0;
+	//uint first_line_letter = 0u;
+	//int width = 0;
+	//int height = 0;
+	//int length = text.Length();
+	//const char * char_text = text.GetString();
 
-	for (uint i = 0; i < length ; ++i)
-	{
-		if (char_text[i + 1] == ' ')
-		{
-		
-			p2SString sub_string;
-			text.SubString(first_line_letter, i, sub_string);
-			App->font->CalcSize(sub_string.GetString(), w, h, definition.font);
+	//lines = 0;
+	//App->font->CalcSize(text.GetString(), width, height, definition.font);
 
-			if (w > definition.width)
-			{
-				first_line_letter = i + 2;
-				i = i + 2;
-				+lines;
-				last_line_x = last_line_x + w + 1;
-				rects.PushBack({ last_line_x, 0 , w, h});
-			}
-		}
-	}
+	//p2SString sub_string("");
 
-	section.h = lines * (h + definition.line_spacing);
-	section.w = definition.width;
+	//for (uint i = 0; i < length ; ++i)
+	//{
+	//	if (char_text[i + 1] == ' ' || char_text[i + 1] == '\0')
+	//	{
+	//		text.SubString(first_line_letter, i, sub_string);
+	//		App->font->CalcSize(sub_string.GetString(), width, height, definition.font);
+
+	//		if (width > definition.width)
+	//		{
+	//			first_line_letter = i + 2;
+	//			i = i + 2;
+	//			+lines;
+	//			last_line_x = last_line_x + width + 1;
+	//			rects.PushBack({ last_line_x, 0 , width, height });
+	//		}
+	//	}
+	//}
+
+	//section.w = definition.width;
+	//LOG("%i", section.w);
+	//section.h = lines * (height + definition.line_spacing);
+	//LOG("%i", section.h);
 
 	text_texture = App->font->Print(text.GetString(), definition.color, definition.font);
 }

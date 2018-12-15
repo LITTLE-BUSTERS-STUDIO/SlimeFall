@@ -323,10 +323,6 @@ bool SceneManager::UnloadScene()
 	}
 	current_scene->phases.clear();
 
-	// Delete scene ==========================
-	App->entity_manager->UnloadEntities();
-	App->map->CleanUp();
-
 	RELEASE(current_scene);
 
 	return true;

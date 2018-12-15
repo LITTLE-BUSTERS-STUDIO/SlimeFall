@@ -111,13 +111,6 @@ bool j1Collision::Update(float dt)
 
 	while (collider != NULL)
 	{
-		// Skip empty colliders
-		if (collider->data == nullptr)
-		{
-			collider = collider->next;
-			continue;
-		}
-
 		c1 = collider->data;
 
 

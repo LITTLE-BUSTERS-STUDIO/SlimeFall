@@ -253,7 +253,7 @@ bool j1Render::PostUpdate()
 	//Fade to black =============================
 	if (fade_active)
 	{
-		DrawQuad({ 0, 0, camera.w, camera.h }, 0, 0, 0, fade_alpha, true, true);
+		DrawQuad({ 0, 0, camera.w, camera.h }, 0, 0, 0, fade_alpha, true, false);
 	}
 
 
