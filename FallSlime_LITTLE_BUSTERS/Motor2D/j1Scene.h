@@ -34,11 +34,18 @@ public:
 
 	virtual bool PostUpdate() { return true; }
 
+	virtual bool PauseScene() { return true; }
+
+	virtual bool ResumeScene() { return true; }
+
 	//Scene Load & Unload ===============
 
 	virtual bool LoadScene(pugi::xml_node& node) { return true; }
 
 	virtual bool UnloadScene() { return true; }
+
+public:
+	bool               is_pausable = true;
 
 protected:
 
@@ -47,7 +54,6 @@ protected:
 	uint               default_phase;
 
 private:
-
 	friend SceneManager;
 };
 

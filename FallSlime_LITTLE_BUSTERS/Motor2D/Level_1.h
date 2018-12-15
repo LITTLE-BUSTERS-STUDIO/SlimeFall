@@ -23,6 +23,10 @@ public:
 
 	 bool UnloadScene();
 
+	 bool PauseScene();
+
+	 bool ResumeScene();
+
 private:
 
 	//-------------VARS----------------------

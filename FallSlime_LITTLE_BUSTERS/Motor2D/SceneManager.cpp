@@ -74,6 +74,19 @@ bool SceneManager::PreUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	{
 		App->pause_game = !App->pause_game;
+		
+		if (current_scene != nullptr)
+		{
+			if (App->pause_game)
+			{
+				current_scene->PauseScene();
+			}
+			else
+			{
+				current_scene->ResumeScene();
+			}
+		}
+
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{

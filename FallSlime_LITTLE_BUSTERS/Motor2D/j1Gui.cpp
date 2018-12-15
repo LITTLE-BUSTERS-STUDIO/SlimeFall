@@ -7,6 +7,8 @@
 #include "j1Textures.h"
 #include "j1Input.h"
 #include "j1Audio.h"
+#include "SceneManager.h"
+#include "j1Scene.h"
 
 #include "Object.h"
 #include "Label.h"
@@ -223,6 +225,11 @@ bool j1Gui::Update(float dt)
 // Called after all Updates
 bool j1Gui::PostUpdate()
 {
+	if (App->pause_game && App->scene_manager->GetCurrentScene() != nullptr &&  App->scene_manager->GetCurrentScene()->is_pausable)
+	{
+		App->render->DrawQuad({ 0, 0, App->render->camera.w * (int)App->win->GetScale() , App->render->camera.h * (int)App->win->GetScale() }, 0, 0, 0, 100, true, false);
+	}
+
 	DrawGui(screen);
 	return true;
 }

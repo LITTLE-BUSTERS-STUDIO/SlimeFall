@@ -101,11 +101,6 @@ bool Level_1::Update(float dt)
 {
 	BROFILER_CATEGORY("Level_1 Update", Profiler::Color::MediumBlue);
 
-	if (App->pause_game)
-		App->gui->SetStateToBranch(ObjectState::visible, paused_menu);
-	else
-		App->gui->SetStateToBranch(ObjectState::hidden, paused_menu);
-
 	return true;
 }
 
@@ -132,21 +127,7 @@ bool Level_1::PostUpdate()
 		App->render->Blit(paralax_tex_3, 0, background_startpos, &parallax3[i].rect_parallax, false, parallax_speed_22 /** dt*/);
 
 	App->map->Draw();
-
-
-	// Paused Menu ===============================================
-	int black_margin = 100;
-	if (App->pause_game)
-	{
-		App->render->DrawQuad({ 0, App->render->camera.y - black_margin, App->render->camera.w * (int)App->win->GetScale() , App->render->camera.h * (int)App->win->GetScale() }, 0, 0, 0, 100, true, true);
 	
-	
-	
-	}
-		
-	
-
-	LOG("%d", App->render->camera.x);
 	return ret;
 }
 
@@ -160,5 +141,17 @@ bool Level_1::UnloadScene()
 	App->tex->UnLoad(paralax_tex_2);
 	App->tex->UnLoad(paralax_tex_3);
 
+	return true;
+}
+
+bool Level_1::PauseScene()
+{
+	App->gui->SetStateToBranch(ObjectState::visible, paused_menu);
+	return true;
+}
+
+bool Level_1::ResumeScene()
+{
+	App->gui->SetStateToBranch(ObjectState::hidden, paused_menu);
 	return true;
 }

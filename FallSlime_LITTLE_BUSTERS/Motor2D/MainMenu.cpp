@@ -24,6 +24,7 @@
 MainMenu::MainMenu() : j1Scene()
 {
 	name.create("main_menu");
+	is_pausable = false;
 }
 
 bool MainMenu::PreUpdate()
