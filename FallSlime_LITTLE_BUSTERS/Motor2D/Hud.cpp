@@ -18,7 +18,6 @@ Hud::Hud() :j1Module()
 
 bool Hud::Awake(pugi::xml_node &node)
 {
-
 	lives_counter = MAX_LIVES; //MAGIC NUMBER to xml 
 	coin_counter = 0; //MAGIC NUMBER to xml 
 	return true;
@@ -50,11 +49,12 @@ bool Hud::Start()
 		coin->SetAnchor(hud_object);
 	}
 
-	Animation anim_wood_panel;
-	anim_wood_panel.PushBack({ 0, 114, 235, 40 });
-	wood_panel = App->gui->CreateImage(iPoint(320, 30), anim_wood_panel, this);
+	//Animation anim_panel;
+	//anim_panel.PushBack({ 0, 446, 800, 61 });
+	//panel_pos = { -320, 170 }; //Camera w && Camera h / GetScale()
+	//panel_stages = App->gui->CreateImage(iPoint(panel_pos), anim_panel, this);
 
-	wood_panel->SetAnchor(hud_object);
+	//panel_stages->SetAnchor(hud_object);
 
 	App->gui->SetStateToBranch(ObjectState::hidden, hud_object);
 
@@ -68,6 +68,9 @@ bool Hud::PreUpdate()
 
 bool Hud::Update(float dt)
 {
+	/*if (panel_pos.x <= 320)
+		panel_pos.x += 20;
+	panel_stages->SetPosition(panel_pos);*/
 	return true;
 }
 
@@ -157,3 +160,4 @@ int Hud::AddCoin()
 	}
 	return true;
 }
+

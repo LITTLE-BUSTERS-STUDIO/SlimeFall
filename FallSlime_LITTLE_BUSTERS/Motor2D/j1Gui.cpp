@@ -43,14 +43,6 @@ bool j1Gui::Start()
 	atlas = App->tex->Load(atlas_file_name.GetString());
 	fx_button_hovered = App->audio->LoadFx(fx_hovered_path.GetString());
 
-	//Animation cursor_anim;
-	//cursor_anim.PushBack({ 0, 165, 16, 24 });
-	//cursor = App->gui->CreateImage(iPoint(320, 30), cursor_anim);
-
-	//cursor->SetAnchor(NULL);
-
-	//SDL_ShowCursor(SDL_DISABLE);
-
 	return true;
 }
 

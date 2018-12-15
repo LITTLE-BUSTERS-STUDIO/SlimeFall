@@ -43,12 +43,13 @@ private:
 	p2List<Image*>		lives_list;
 	p2List<Image*>		coins_list;
 
-	Image *				wood_panel = nullptr;
+	Image *				panel_stages = nullptr;
 
 	// Vars ===================================
 	int 				lives_counter;
 	int				    coin_counter;
 	bool				game_over;
+	iPoint				panel_pos;
 
 public: 
 	int				SubstractLife();

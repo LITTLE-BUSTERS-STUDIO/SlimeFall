@@ -45,7 +45,7 @@ bool Button_Input::Draw()
 	section.w = anim_rect.w;
 	section.h = anim_rect.h;
 	
-	App->render->Blit(texture, position.x - section.w/2 , position.y - section.h/2, &anim_rect, false, 0.0f);
+	App->render->Blit(texture, position.x - section.w*0.5f, position.y - section.h*0.5f, &anim_rect, false, 0.0f);
 	return true;
 }
 
@@ -59,6 +59,7 @@ bool Button_Input::SetLabel(const iPoint position, const p2SString text, _TTF_Fo
 
 	label = App->gui->CreateLabel(position, text, font, this, color);
 	label->SetAnchor(this);
+
 	return true;
 }
 
@@ -74,20 +75,20 @@ bool Button_Input::Update(float dt)
 		return true;
 	}
 
-	if (this == App->gui->GetClickedObject())
-	{
-		ClickState state = App->gui->GetClickState();
+	//if (this == App->gui->GetClickedObject())
+	//{
+	//	ClickState state = App->gui->GetClickState();
 
-		switch (state)
-		{
-		case ClickState::On:
-			label->SetPosition(iPoint(label->GetPosition().x, label->GetPosition().y + 3));
-			break;
-		case ClickState::Out:
-			label->SetPosition(iPoint(label->GetPosition().x, label->GetPosition().y - 3));
-			break;
-		}
-	}
+	//	switch (state)
+	//	{
+	//	case ClickState::On:
+	//		label->SetPosition(iPoint(label->GetPosition().x, label->GetPosition().y + 3));
+	//		break;
+	//	case ClickState::Out:
+	//		label->SetPosition(iPoint(label->GetPosition().x, label->GetPosition().y - 3));
+	//		break;
+	//	}
+	//}
 
 	return true;
 }
