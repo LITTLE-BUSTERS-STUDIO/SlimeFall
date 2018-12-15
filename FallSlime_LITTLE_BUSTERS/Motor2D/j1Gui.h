@@ -96,7 +96,10 @@ private:
 public:
 	//SFX --------------------------------------------------
 	p2SString			fx_hovered_path;
+	p2SString			game_over_path;
 	uint				fx_button_hovered;
+	SDL_Texture*		game_over;
+
 
 private:
 

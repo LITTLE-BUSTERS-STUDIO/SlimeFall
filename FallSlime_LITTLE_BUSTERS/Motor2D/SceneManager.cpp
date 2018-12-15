@@ -12,6 +12,7 @@
 #include "j1Player.h"
 #include "EntityManager.h"
 #include "j1Scene.h"
+#include "hud.h"
 
 #include "Level_1.h"
 #include "MainMenu.h"
@@ -69,7 +70,16 @@ bool SceneManager::PreUpdate()
 		current_scene->PreUpdate();
 	}
 
-	// Debug keys =======================================
+
+	if (App->hud->Getlife() <= 0)
+	{
+		current_scene->SetGameOver();
+	}
+	else
+	{
+		current_scene->OutGameOver();
+	}
+
 
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && current_scene->is_pausable == true)
 	{
@@ -89,6 +99,7 @@ bool SceneManager::PreUpdate()
 
 	}
 
+	// Debug keys =======================================
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
 		ChangeScene("level_1", 1);

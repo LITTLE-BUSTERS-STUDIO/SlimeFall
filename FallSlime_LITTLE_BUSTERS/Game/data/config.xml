@@ -53,7 +53,8 @@
 
   <gui>
     <atlas path="textures/atlas.png"/>
-    <fx_button_hover path="audio/fx/button_hover.wav"/> 
+    <fx_button_hover path="audio/fx/button_hover.wav"/>
+    <game_over path="textures/GameOver2.png"/>
   </gui>
 
   <hud>

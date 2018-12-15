@@ -19,7 +19,7 @@ Hud::Hud() :j1Module()
 
 bool Hud::Awake(pugi::xml_node &node)
 {
-	lives_counter = MAX_LIVES; //MAGIC NUMBER to xml 
+	lifes_counter = MAX_LIVES; //MAGIC NUMBER to xml 
 	coin_counter = 0; //MAGIC NUMBER to xml 
 	return true;
 }
@@ -35,7 +35,7 @@ bool Hud::Start()
 	for (uint i = 0 ; i < MAX_LIVES; ++i)
 	{
 		Image* live = App->gui->CreateImage(iPoint(25 * i + 40, 30), anim_lives, this);
-		lives_list.add(live);
+		lifes_list.add(live);
 		live->SetAnchor(hud_object);
 	}
 
@@ -77,14 +77,14 @@ bool Hud::CleanUp()
 	App->gui->DeleteObject(panel_stages);
 
 
-	for (p2List_item<Image*>* item = lives_list.start; item; item = item->next)
+	for (p2List_item<Image*>* item = lifes_list.start; item; item = item->next)
 	{
 		if (item->data)
 		{
 			RELEASE(item->data);
 		}
 	}
-	lives_list.clear();
+	lifes_list.clear();
 
 
 	for (p2List_item<Image*>* item = coins_list.start; item; item = item->next)
@@ -128,24 +128,29 @@ bool Hud::ShowHud()
 	return true;
 }
 
+int Hud::Getlife()
+{
+	return lifes_counter;
+}
+
 
  int Hud::SubstractLife()
 {
-	 --lives_counter;
-	 if (lives_counter < 0)
+	 --lifes_counter;
+	 if (lifes_counter < 0)
 	 {
-		 lives_counter = 0;
+		 lifes_counter = 0;
 	 }
 
 	 for (uint i= 0 ; i < MAX_LIVES ; ++i)
 	 {
-		 if (i >= lives_counter)
+		 if (i >= lifes_counter)
 		 {
-			 lives_list[i]->SetAnimationFrame(1);
+			 lifes_list[i]->SetAnimationFrame(1);
 		 }
 		 else
 		 {
-			 lives_list[i]->SetAnimationFrame(0);
+			 lifes_list[i]->SetAnimationFrame(0);
 		 }
 	 }
 

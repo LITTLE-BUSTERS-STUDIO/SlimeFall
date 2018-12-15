@@ -31,6 +31,12 @@ public:
 
 	 bool ResumeScene();
 
+	 bool SetGameOver();
+
+	 bool OutGameOver();
+
+
+
 private:
 
 	//-------------VARS----------------------
@@ -56,6 +62,11 @@ private:
 	Button_Input*       button_save = nullptr;
 	Button_Input*       button_load = nullptr;
 	Button_Input*       button_exit_to_menu = nullptr;
+
+	// -----------GameOver --------------------
+	Object*             game_over_anchor = nullptr;
+	Button_Input*       button_return_gameover = nullptr;
+
 };
 
 #endif // __LEVEL_1_H__

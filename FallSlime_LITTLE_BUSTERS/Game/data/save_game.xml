@@ -9,40 +9,31 @@
 	<fonts />
 	<map />
 	<scene_manager>
-		<scene name="main_menu" phase="1" />
+		<scene name="level_1" phase="1" />
 	</scene_manager>
 	<pathfinding />
 	<entity_manager>
-		<entity name="player" id="1" x="834" y="95" spawned="true" active="true">
-			<velocity x="0" y="-326.453064" />
+		<entity name="enemy_skeleton" id="1" x="661" y="263" spawned="false" active="false" />
+		<entity name="enemy_skeleton" id="2" x="738" y="262" spawned="false" active="false" />
+		<entity name="enemy_bat" id="3" x="1018" y="277" spawned="false" active="false" />
+		<entity name="coin" id="4" x="1100" y="284" spawned="false" active="false">
+			<coin_counter value="0" />
+			<enable_coin bool="0" />
+			<state main_collider="collider_none" />
+		</entity>
+		<entity name="player" id="5" x="65" y="221" spawned="true" active="true">
+			<velocity x="0" y="229.386169" />
 			<conditions apply_jump_speed="false" on_ground="false" check_fall="false" flip_x="false" gummy_jump="false" />
 			<state current_state="jumping" collider_type="collider_player" />
 		</entity>
-		<entity name="player" id="2" x="1770" y="243" spawned="true" active="true">
-			<velocity x="0" y="-326.453064" />
-			<conditions apply_jump_speed="false" on_ground="false" check_fall="false" flip_x="false" gummy_jump="false" />
-			<state current_state="jumping" collider_type="collider_player" />
-		</entity>
-		<entity name="enemy_bat" id="3" x="64" y="160" spawned="false" active="false" />
-		<entity name="enemy_bat" id="4" x="96" y="272" spawned="false" active="false" />
-		<entity name="enemy_bat" id="5" x="592" y="128" spawned="false" active="false" />
-		<entity name="enemy_bat" id="6" x="528" y="256" spawned="false" active="false" />
-		<entity name="enemy_skeleton" id="7" x="1881" y="166" spawned="true" active="true" />
-		<entity name="enemy_skeleton" id="8" x="1837" y="261" spawned="true" active="true" />
-    <entity name="coin" id="9" x="834" y="95" spawned="true" active="true" >
-      <enable_coin bool="false" />
-      <coin_counter value="0" />
-      <state main_collider="collider_coin" />
-    </entity>
-
-  </entity_manager>
+	</entity_manager>
 	<:anonymous />
 	<gui />
 	<hud />
 	<renderer>
-		<camera_position x="2560" y="0" />
-		<camera_smoth_position x="0" y="0" />
+		<camera_position x="0" y="73" />
+		<camera_smoth_position x="0" y="73" />
 		<debug zoom="1" />
-		<conditions free_camera_x="true" free_camera_y="true" />
+		<conditions free_camera_x="false" free_camera_y="true" />
 	</renderer>
 </game_state>

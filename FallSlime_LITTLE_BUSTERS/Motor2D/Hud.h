@@ -37,23 +37,25 @@ public:
 
 	bool ShowHud();
 
+	int Getlife();
+
 private:
 	// Gui ===================================
 	Object *		    hud_object = nullptr;
-	p2List<Image*>		lives_list;
+	p2List<Image*>		lifes_list;
 	p2List<Image*>		coins_list;
 
 	Image *				panel_stages = nullptr;
 
 	// Vars ===================================
-	int 				lives_counter;
+	int 				lifes_counter;
 	int				    coin_counter;
 	bool				game_over;
 	iPoint				panel_pos;
 
 public: 
-	int				SubstractLife();
-	int				AddCoin();
+	int				   SubstractLife();
+	int			       AddCoin();
 };
 
 

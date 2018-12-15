@@ -37,6 +37,10 @@ public:
 	virtual bool PauseScene() { return true; }
 
 	virtual bool ResumeScene() { return true; }
+	
+	virtual bool SetGameOver() { return true; }
+
+	virtual bool OutGameOver() { return true; }
 
 	//Scene Load & Unload ===============
 

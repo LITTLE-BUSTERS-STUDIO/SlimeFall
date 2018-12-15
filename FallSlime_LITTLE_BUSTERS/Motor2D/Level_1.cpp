@@ -69,6 +69,7 @@ bool Level_1::LoadScene(pugi::xml_node& node)
 	App->hud->ShowHud();
 	// Anchor =============================================
 	paused_menu = App->gui->CreateObject(iPoint(App->render->camera.w * 0.5f, App->render->camera.h * 0.5f), this);
+	game_over_anchor = App->gui->CreateObject(iPoint(App->render->camera.w * 0.5f, App->render->camera.h * 0.5f), this);
 	//Labels ==============================================
 	karma_font_buttons = App->font->Load("fonts/KarmaSuture.ttf", 24);
 	SDL_Color color = { 231,94,152,255 };
@@ -93,6 +94,12 @@ bool Level_1::LoadScene(pugi::xml_node& node)
 	button_exit_to_menu->SetAnchor(paused_menu);
 
 	App->gui->SetStateToBranch(ObjectState::hidden, paused_menu);
+
+	Button_Definition button_def_return_gameover({ 778 ,0, 42,45 }, { 778 ,45, 42,45 }, { 778 ,90, 42,45 });
+	button_return_gameover = App->gui->CreateButton(iPoint(69, 268), button_def_return_gameover, this);
+	button_return_gameover->SetAnchor(game_over_anchor);
+
+	App->gui->SetStateToBranch(ObjectState::hidden, game_over_anchor);
 
 	return true;
 }
@@ -129,6 +136,10 @@ bool Level_1::PostUpdate()
 
 	App->map->Draw();
 	
+	// Blit Game Over
+	SDL_Rect game_over_rect = { 0, 0, 640, 360 };
+	if (App->hud->Getlife() <= 0)
+		App->render->Blit(App->gui->game_over, 0, 0, &game_over_rect, false, 0.0f);
 	return ret;
 }
 
@@ -147,6 +158,9 @@ bool Level_1::UnloadScene()
 	App->gui->DeleteObject(button_load);
 	App->gui->DeleteObject(button_exit_to_menu);
 	App->gui->DeleteObject(paused_menu);
+
+	App->gui->DeleteObject(button_return_gameover);
+	App->gui->DeleteObject(game_over_anchor);
 	
 	return true;
 }
@@ -164,18 +178,16 @@ bool Level_1::OutClick(Object * object)
 		App->pause_game = false;
 		ResumeScene();
 	}
-	else if (object == button_exit_to_menu)
+	else if (object == button_exit_to_menu || object == button_return_gameover)
 	{
 		App->pause_game = false;
 		ResumeScene();
 		App->scene_manager->ChangeScene("main_menu", 1);
-		App->hud->CleanUp();
 	}
 	else if (object == button_save)
 	{
 		App->pause_game = false;
 		ResumeScene();
-		App->hud->CleanUp();
 		App->SaveGame();
 
 	}
@@ -183,9 +195,9 @@ bool Level_1::OutClick(Object * object)
 	{
 		App->pause_game = false;
 		ResumeScene();
-		App->hud->CleanUp();
 		App->LoadGame();
 	}
+	
 	return true;
 }
 
@@ -198,5 +210,18 @@ bool Level_1::PauseScene()
 bool Level_1::ResumeScene()
 {
 	App->gui->SetStateToBranch(ObjectState::hidden, paused_menu);
+	return true;
+}
+
+bool Level_1::SetGameOver()
+{
+	App->gui->SetStateToBranch(ObjectState::visible, game_over_anchor);
+	App->pause_game = true;
+	return true;
+}
+
+bool Level_1::OutGameOver()
+{
+	App->gui->SetStateToBranch(ObjectState::hidden, game_over_anchor);
 	return true;
 }
