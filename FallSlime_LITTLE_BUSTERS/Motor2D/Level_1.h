@@ -33,9 +33,9 @@ private:
 	Parallax            parallax1[4];
 	Parallax            parallax2[4];
 	Parallax            parallax3[3];
-	float	           	parallax_speed_1;
-	float		        parallax_speed_2;
-	float				parallax_speed_3;
+	float	           	parallax_speed_11;
+	float		        parallax_speed_22;
+	float				parallax_speed_33;
 	uint				background_width;
 	uint				background_high;
 	uint				max_background_layers;
