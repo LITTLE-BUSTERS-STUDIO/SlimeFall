@@ -81,7 +81,7 @@ bool Hud::CleanUp()
 	{
 		if (item->data)
 		{
-			RELEASE(item->data);
+			App->gui->DeleteObject(item->data);
 		}
 	}
 	lifes_list.clear();
@@ -91,7 +91,7 @@ bool Hud::CleanUp()
 	{
 		if (item->data)
 		{
-			RELEASE(item->data);
+			App->gui->DeleteObject(item->data);
 		}
 	}
 	coins_list.clear();
