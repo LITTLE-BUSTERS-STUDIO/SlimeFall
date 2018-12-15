@@ -22,7 +22,8 @@ enum class HoverState
 enum class ObjectState
 {
 	visible,
-	hidden
+	hidden,
+	locked
 };
 
 class Object
