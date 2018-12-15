@@ -300,7 +300,11 @@ bool MainMenu::OnClick(Object * object)
 
 bool MainMenu::OutClick(Object * object)
 {
-	if (object == button_settings)
+	if (object == button_new_game)
+	{
+		App->scene_manager->ChangeScene("level_1", 1);
+	}
+	else if (object == button_settings)
 	{
 		MoveToSection(MenuSection::settings);
 	}

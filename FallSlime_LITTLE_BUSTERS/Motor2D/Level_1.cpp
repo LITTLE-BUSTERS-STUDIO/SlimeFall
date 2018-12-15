@@ -75,6 +75,7 @@ bool Level_1::LoadScene(pugi::xml_node& node)
 
 	// Buttons ============================================
 	Button_Definition button_rectangle({ 219 , 0, 122, 36 }, { 219, 36, 122, 36 }, { 219, 72, 122, 36 });
+
 	button_back = App->gui->CreateButton(iPoint(321, 89), button_rectangle, this);
 	button_back->SetLabel(iPoint(321, 85), p2SString("BACK"), karma_font_buttons, color);
 	button_back->SetAnchor(paused_menu);
@@ -141,6 +142,28 @@ bool Level_1::UnloadScene()
 	App->tex->UnLoad(paralax_tex_2);
 	App->tex->UnLoad(paralax_tex_3);
 
+	return true;
+}
+
+bool Level_1::OnClick(Object * object)
+{
+	
+	return false;
+}
+
+bool Level_1::OutClick(Object * object)
+{
+	if (object == button_back)
+	{
+		App->pause_game = false;
+		ResumeScene();
+	}
+	else if (object == button_exit_to_menu)
+	{
+		App->pause_game = false;
+		ResumeScene();
+		//App->scene_manager->ChangeScene("main_menu", 1);
+	}
 	return true;
 }
 

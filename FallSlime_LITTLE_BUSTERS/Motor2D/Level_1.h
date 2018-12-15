@@ -23,6 +23,10 @@ public:
 
 	 bool UnloadScene();
 
+	 bool OnClick(Object* object);
+
+	 bool OutClick(Object* object);
+
 	 bool PauseScene();
 
 	 bool ResumeScene();
