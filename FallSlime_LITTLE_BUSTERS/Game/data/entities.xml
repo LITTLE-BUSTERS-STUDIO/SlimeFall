@@ -1,7 +1,7 @@
   <entities>
     
     <entity name ="player">
-      <variables gravity ="1100" speed_air ="150.0" speed_ground ="0" speed_jump ="400" speed_gummy_jump ="180" speed_attack="600.0" />
+      <variables gravity ="1000" speed_air ="150.0" speed_ground ="0" speed_jump ="400" speed_gummy_jump ="180" speed_attack="600.0" />
       <collider width="20" height="20"/>
       <animations>
         <jumping path ="animations/player_animation.xml"/>

@@ -178,21 +178,6 @@ void j1App::PrepareUpdate()
 
 	frame_count++;
 	last_sec_frame_count++;
-
-	if (pause_game)
-		dt = 0;
-	else
-	{
-		dt = perfect_frame_time.ReadSec();
-
-		if (dt > 1.0f / framerate_cap + 0.02f)
-		{
-			dt = 1.0f / framerate_cap + 0.02f;
-		}
-	}
-	
-
-	perfect_frame_time.ReadMs();
 	perfect_frame_time.Start();
 }
 
@@ -263,7 +248,23 @@ void j1App::FinishUpdate()
 		}
 		else
 			SDL_Delay(frame_cap_ms - (uint32)last_frame_ms % (uint32)frame_cap_ms);
-			
+	}
+
+	if (pause_game)
+	{
+		dt = 0.0f;
+	}
+
+	else
+	{
+		double framerate = 1000.00 / perfect_frame_time.ReadMs();
+
+		dt = 1.0f / framerate;
+
+		if (dt > 1.0f / (float)framerate_cap + 0.02f)
+		{
+			dt = 1.0f / (float)framerate_cap + 0.02f;
+		}
 	}
 }
 
