@@ -20,28 +20,27 @@ Label::Label(const iPoint position, const p2SString text, _TTF_Font* font, SDL_C
 
 Label::~Label()
 {
-	if (texture != nullptr)
+	if (label_texture != nullptr)
 	{
-		App->tex->DeleteExternalTexture(texture);
+		App->tex->UnLoad(label_texture);
 	}
 }
 
 void Label::SetText(p2SString text)
 {
-	if (texture != nullptr)
+	if (label_texture != nullptr)
 	{
-		App->tex->DeleteExternalTexture(texture);
+		App->tex->UnLoad(label_texture);
 	}
 
-	text.create(text.GetString());
 	App->font->CalcSize(text.GetString(), section.w, section.h, font);
 	section.x = section.y = 0;
-	texture = App->font->Print(text.GetString(), color, font);
+	label_texture = App->font->Print(text.GetString(), color, font);
 }
 
 bool Label::Draw()
 {
-	App->render->Blit(texture, position.x- section.w * 0.5f, position.y - section.h * 0.5f , &section, false, 0.0f);
+	App->render->Blit(label_texture, position.x- section.w * 0.5f, position.y - section.h * 0.5f , &section, false, 0.0f);
 
 	return false;
 }

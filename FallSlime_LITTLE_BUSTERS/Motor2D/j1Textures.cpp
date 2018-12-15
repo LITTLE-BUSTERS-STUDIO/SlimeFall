@@ -133,14 +133,14 @@ void j1Textures::GetSize(const SDL_Texture* texture, uint& width, uint& height) 
 	SDL_QueryTexture((SDL_Texture*)texture, NULL, NULL, (int*) &width, (int*) &height);
 }
 
-bool j1Textures::DeleteExternalTexture(SDL_Texture * texture)
-{
-	if (texture != nullptr)
-	{
-		SDL_DestroyTexture(texture);
-		return true;
-	}
-	
-	LOG("External texture not deleted: Pointer nullptr");
-	return false;
-}
+//bool j1Textures::DeleteExternalTexture(SDL_Texture * texture)
+//{
+//	if (texture != nullptr)
+//	{
+//		SDL_DestroyTexture(texture);
+//		return true;
+//	}
+//	
+//	LOG("External texture not deleted: Pointer nullptr");
+//	return false;
+//}

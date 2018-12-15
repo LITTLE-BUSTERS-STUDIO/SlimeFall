@@ -19,6 +19,7 @@
 #include "Image.h"
 #include "Button_Input.h"
 #include "Slider.h"
+#include "Text_Panel.h"
 
 
 MainMenu::MainMenu() : j1Scene()
@@ -266,8 +267,21 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	checkbox_limitate_fps = App->gui->CreateCheckbox(iPoint(398, 257), checkbox_def, this);
 	checkbox_limitate_fps->SetAnchor(settings_panel);
 
-	settings_panel->SetPosition(iPoint(320 + 1280, 182));
+	settings_panel->SetPosition(iPoint(320 + 1280, 180));
 
+	// =============================================================
+    // ==================   Credits   ==============================
+    // =============================================================
+
+	TextPanel_Definition license_text_panel_def;
+	license_text_panel_def.color = color;
+	license_text_panel_def.font = karma_font_settings;
+	license_text_panel_def.width = 100;
+	license_text_panel_def.text.create("BOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOI");
+
+	license_text_panel = App->gui->CreateTextPanel(iPoint(320, 180), license_text_panel_def, this);
+
+	/*App->gui->SetStateToBranch(ObjectState::hidden, menu);*/
 	return true;
 }
 
@@ -276,25 +290,41 @@ bool MainMenu::UnloadScene()
 	BROFILER_CATEGORY("MainMenu Unload", Profiler::Color::Maroon);
 	App->font->Unload(karma_font_settings);
 
+	App->gui->DeleteObject(menu);
+
+	// ---------- Menu -------------------------
+
+	App->gui->DeleteObject(logo);
+
+	App->gui->DeleteObject(button_new_game);
+	App->gui->DeleteObject(button_continue);
+	App->gui->DeleteObject(button_exit);
+
+	App->gui->DeleteObject(button_credits);
+	App->gui->DeleteObject(button_settings);
+	App->gui->DeleteObject(button_web);
+
+	// ---------- Settings ----------------------
+
+	App->gui->DeleteObject(settings_label);
 	App->gui->DeleteObject(music_volume_label);
 	App->gui->DeleteObject(sfx_volume_label);
 	App->gui->DeleteObject(limitate_fps_label);
 	App->gui->DeleteObject(mute_label);
-
-	App->gui->DeleteObject(logo);
-	App->gui->DeleteObject(settings_panel);
-	App->gui->DeleteObject(button_new_game);
-	App->gui->DeleteObject(button_continue);
-	App->gui->DeleteObject(button_exit);
-	App->gui->DeleteObject(button_credits);
-	App->gui->DeleteObject(button_settings);
-	App->gui->DeleteObject(button_web);
 
 	App->gui->DeleteObject(slider_music_volume);
 	App->gui->DeleteObject(slider_sfx_volume);
 
 	App->gui->DeleteObject(checkbox_mute);
 	App->gui->DeleteObject(checkbox_limitate_fps);
+
+	App->gui->DeleteObject(settings_panel);
+
+	// --------- Credits -----------------------
+
+	App->gui->DeleteObject(license_text_panel);
+
+
 
 	App->tex->UnLoad(paralax_tex_1);
 	App->tex->UnLoad(paralax_tex_2);

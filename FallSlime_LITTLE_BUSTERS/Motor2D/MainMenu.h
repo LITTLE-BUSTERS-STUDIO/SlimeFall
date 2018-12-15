@@ -92,6 +92,12 @@ private:
 
 	iPoint				settings_panel_pos;
 
+	// --------- Credits -----------------------
+
+	TextPanel*          license_text_panel = nullptr;
+
+
+
 	// Scene ==========================================
 	p2SString			music_path;
 	SDL_Texture         *paralax_tex_1 = nullptr;

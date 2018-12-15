@@ -24,6 +24,7 @@ public:
 	bool Draw();
 
 private:
+	SDL_Texture*        label_texture = nullptr;
 	_TTF_Font*			font = nullptr;
 	p2SString		    text;
 	SDL_Color           color = { 255,255,255,255 };
@@ -33,4 +34,4 @@ private:
 };
 
 
-#endif // __j1FONTS_H__
+#endif // __LABEL_H__
