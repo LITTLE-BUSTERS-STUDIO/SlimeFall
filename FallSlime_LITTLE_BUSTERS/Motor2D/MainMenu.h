@@ -74,9 +74,11 @@ private:
 
 	// ---------- Settings ----------------------
 	Image*              settings_panel = nullptr;
+	Image*              settings_image = nullptr;
 
 	Button_Input*       button_return_settings = nullptr;
 
+	Label*              settings_label = nullptr;
 	Label*              music_volume_label = nullptr;
 	Label*              sfx_volume_label = nullptr;
 	Label*              limitate_fps_label = nullptr;

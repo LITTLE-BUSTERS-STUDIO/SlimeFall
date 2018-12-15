@@ -49,26 +49,29 @@ bool MainMenu::Update(float dt)
 			camera_pos.x += camera_velocity.x *dt;
 		}
 
-		if (camera_pos.x <= move_to_point[(int)current_section].x)
+		if (camera_pos.x < move_to_point[(int)current_section].x)
 		{
-			App->render->camera.x = move_to_point[(int)current_section].x;
+			camera_pos.x = move_to_point[(int)current_section].x;
 			camera_velocity.x = 0.0f;
 		}
 
 	}
-
-	if (camera_velocity.x >  0.0f)
+	else if (camera_velocity.x >  0.0f)
 	{
 		if (camera_pos.x < move_to_point[(int)current_section].x)
 		{
 			camera_pos.x += camera_velocity.x *dt;
 		}
 
-		if (camera_pos.x >= move_to_point[(int)current_section].x)
+		if (camera_pos.x > move_to_point[(int)current_section].x)
 		{
 			camera_pos.x = move_to_point[(int)current_section].x;
 			camera_velocity.x = 0.0f;
 		}
+	}
+	else
+	{
+		camera_pos.x = move_to_point[(int)current_section].x;
 	}
 
 	App->render->camera.x = camera_pos.x;
@@ -204,11 +207,16 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
     // ==================   Settings   =============================
     // =============================================================
 
+	// Images ============================================
 	Animation panel_anim;
 	panel_anim.PushBack({ 387, 0, 389, 293 });
 	settings_panel = App->gui->CreateImage(iPoint(320, 182), panel_anim, this);
-	settings_panel->IsDraggable(true);
 	settings_panel->SetAnchor(menu);
+
+	Animation settings_anim;
+	settings_anim.PushBack({ 915, 5, 31, 30 });
+	settings_image = App->gui->CreateImage(iPoint(363, 78), settings_anim, this);
+	settings_image->SetAnchor(settings_panel);
 
 	// Buttons ============================================
 	Button_Definition button_def_return_settings({ 778 ,0, 42,45 }, { 778 ,45, 42,45 }, { 778 ,90, 42,45 });
@@ -216,6 +224,8 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	button_return_settings->SetAnchor(settings_panel);
 
 	// Labels ============================================
+	settings_label = App->gui->CreateLabel(iPoint(295, 75), "Settings", karma_font_settings, this, color);
+	settings_label->SetAnchor(settings_panel);
 	music_volume_label = App->gui->CreateLabel(iPoint(229, 130), "Music volume", karma_font_settings, this, color);
 	music_volume_label->SetAnchor(settings_panel);
 	sfx_volume_label = App->gui->CreateLabel(iPoint(218, 173), "Sfx volume", karma_font_settings, this, color);
@@ -332,11 +342,11 @@ bool MainMenu::MoveToSection(MenuSection menu_section)
 {
 	current_section = menu_section;
 
-	if (App->render->camera.x > (int)move_to_point[(int)menu_section].x )
+	if (App->render->camera.x > move_to_point[(int)menu_section].x )
 	{
 		camera_velocity.x = - camera_speed;
 	}
-	else if (App->render->camera.x < (int)move_to_point[(int)menu_section].x)
+	else if (App->render->camera.x < move_to_point[(int)menu_section].x)
 	{
 		camera_velocity.x = camera_speed;
 	}

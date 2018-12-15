@@ -48,7 +48,7 @@ bool SceneManager::Start()
 bool SceneManager::PreUpdate()
 {
 	BROFILER_CATEGORY("Scene PreUpdate", Profiler::Color::Linen);
-	
+
 	if (exit == true)
 	{
 		return false;
@@ -71,7 +71,7 @@ bool SceneManager::PreUpdate()
 
 	// Debug keys =======================================
 
-	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && current_scene->name.GetString() == "level_1" )
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && current_scene->is_pausable == true)
 	{
 		App->pause_game = !App->pause_game;
 		
@@ -88,6 +88,7 @@ bool SceneManager::PreUpdate()
 		}
 
 	}
+
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
 		ChangeScene("level_1", 1);
