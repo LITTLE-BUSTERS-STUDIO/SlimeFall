@@ -5601,7 +5601,7 @@
   <properties>
    <property name="type" value="entities"/>
   </properties>
-  <object id="439" name="player" x="999" y="91">
+  <object id="439" name="player" x="834.667" y="106">
    <point/>
   </object>
   <object id="456" name="player" x="1770" y="258">

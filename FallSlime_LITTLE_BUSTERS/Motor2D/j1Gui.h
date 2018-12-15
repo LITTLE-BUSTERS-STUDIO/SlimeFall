@@ -91,6 +91,11 @@ private:
 
 	void UpdateGuiPositions(Object* object, iPoint cumulated_position);
 
+public:
+	//SFX --------------------------------------------------
+	p2SString			fx_hovered_path;
+	uint				fx_button_hovered;
+
 private:
 
 	bool debug = false;
@@ -99,10 +104,6 @@ private:
 	SDL_Texture* atlas;
 
 	p2SString atlas_file_name;
-
-	//SFX --------------------------------------------------
-	p2SString			fx_button_hovered;
-
 
 	// Objects ---------------------------------------------
 	p2List<Object*> objects_list;
