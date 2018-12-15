@@ -21,7 +21,6 @@
 #include "Slider.h"
 
 
-
 MainMenu::MainMenu() : j1Scene()
 {
 	name.create("main_menu");
@@ -171,7 +170,7 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	Animation panel_anim;
 	panel_anim.PushBack({ 387, 0, 389, 293 });
 	settings_panel = App->gui->CreateImage(iPoint(320, 182), panel_anim, this);
-
+	settings_panel->IsDraggable(true);
 	// Buttons ============================================
 	Button_Definition button_def_return_settings({ 778 ,0, 42,45 }, { 778 ,45, 42,45 }, { 778 ,90, 42,45 });
 	button_return_settings = App->gui->CreateButton(iPoint(320, 318), button_def_return_settings, this);
@@ -276,10 +275,11 @@ bool MainMenu::OutClick(Object * object)
 	}
 	else if (object == button_web)
 	{
-		ShellExecuteA(NULL, "open", "https://little-busters-studio.github.io/SlimeFall/", NULL, NULL, SW_SHOWNORMAL);
+		ShellExecuteA(NULL, "open", "https://little-busters-studio.github.io/SlimeFall/", NULL, NULL, SW_SHOWNORMAL);
 	}
 
 	return true;
 }
+
 
 

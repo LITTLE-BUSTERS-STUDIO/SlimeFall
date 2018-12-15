@@ -183,6 +183,7 @@ bool j1Gui::Update(float dt)
 	UpdateGuiPositions(screen, { 0,0 });
 
 	// Update objects ==============================================
+
 	for (p2List_item<Object*> * item = objects_list.start; item; item = item->next)
 	{
 		item->data->Update(dt);

@@ -6,6 +6,8 @@
 #include "p2Point.h"
 #include "SDL_ttf/include/SDL_ttf.h"
 
+class Button_Input;
+
 class Label : public Object
 {
 public:
@@ -25,6 +27,9 @@ private:
 	_TTF_Font*			font = nullptr;
 	p2SString		    text;
 	SDL_Color           color = { 255,255,255,255 };
+
+private:
+	friend Button_Input;
 };
 
 

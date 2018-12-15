@@ -119,9 +119,8 @@ private:
 	// Cursor ----------------------------------------------
 	iPoint				cursor_position;
 	iPoint				cursor_offset;
-
 	bool				show_cursor = false; 
-	Image *				cursor = nullptr;
+	
 
 };
 

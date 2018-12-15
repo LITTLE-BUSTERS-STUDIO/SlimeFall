@@ -6,6 +6,8 @@
 #include "Object.h"
 #include "j1Gui.h"
 
+#define LABEL_PRESSED_OFFSET 4
+
 class Label;
 struct Button_Definition;
 
@@ -41,11 +43,12 @@ public:
 	void SetDefinition(Button_Definition definition);
 
 private:
+
+	bool PreUpdate();
+
 	bool Update(float dt);
 
 private:
-
-	SDL_Texture *		texture = nullptr;
 	Button_Definition	definition;
 
 public:
