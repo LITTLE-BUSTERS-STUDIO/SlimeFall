@@ -6,7 +6,7 @@
 
 #include"Button_Input.h"
 
-Slider::Slider(iPoint position, Slider_Definition definition, SDL_Texture * texture, Gui_Listener* listener) : Object(position, listener)
+Slider::Slider(const iPoint position, const Slider_Definition definition, SDL_Texture * texture, Gui_Listener* listener) : Object(position, listener)
 {
 	this->definition = definition;
 	this->texture = texture;
@@ -27,7 +27,11 @@ Slider::Slider(iPoint position, Slider_Definition definition, SDL_Texture * text
 
 Slider::~Slider()
 {
-
+	if (thumb != nullptr)
+	{
+		App->gui->DeleteObject(thumb);
+		thumb = nullptr;
+	}
 }
 
 bool Slider::Draw()

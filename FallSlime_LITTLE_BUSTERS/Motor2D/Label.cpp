@@ -6,7 +6,7 @@
 #include "j1Textures.h"
 
 
-Label::Label(iPoint position, p2SString text, _TTF_Font* font, SDL_Color color, Gui_Listener* listener): Object(position, listener)
+Label::Label(const iPoint position, const p2SString text, _TTF_Font* font, SDL_Color color, Gui_Listener* listener): Object(position, listener)
 {
 	//Properties ==================================
 	is_draggable = false;
@@ -41,7 +41,7 @@ void Label::SetText(p2SString text)
 
 bool Label::Draw()
 {
-	App->render->Blit(texture, position.x- section.w/2, position.y - section.h / 2, &section, 0.0f);
+	App->render->Blit(texture, position.x- section.w * 0.5f, position.y - section.h * 0.5f , &section, 0.0f);
 
 	return false;
 }

@@ -2,7 +2,7 @@
 #include "j1Render.h"
 #include "j1Gui.h"
 
-Image::Image(iPoint position, Animation animation, SDL_Texture * texture, Gui_Listener* listener): Object(position, listener)
+Image::Image(const iPoint position, const Animation animation, SDL_Texture * texture, Gui_Listener* listener): Object(position, listener)
 {
 	this->animation = animation;
 	this->texture = texture;
@@ -26,7 +26,7 @@ bool Image::Draw()
 
 	section.w = anim_rect.w;
 	section.h = anim_rect.h;
-	App->render->Blit( texture ,  position.x - section.w/2 , position.y - section.h / 2, &anim_rect, false, 0.0f);
+	App->render->Blit( texture ,  position.x - section.w*0.5f , position.y  - section.h *0.5f , &anim_rect, false, 0.0f);
 
 	return true;
 }

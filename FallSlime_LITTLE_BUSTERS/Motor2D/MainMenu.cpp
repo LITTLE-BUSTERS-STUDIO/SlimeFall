@@ -10,6 +10,7 @@
 #include "j1Map.h"
 #include "j1Gui.h"
 #include "j1Fonts.h"
+#include "SceneManager.h"
 #include "Brofiler/Brofiler.h"
 
 
@@ -25,13 +26,6 @@ MainMenu::MainMenu() : j1Scene()
 {
 	name.create("main_menu");
 }
-
-bool MainMenu::Start()
-{
-	
-	return true;
-}
-
 
 bool MainMenu::Update(float dt)
 {
@@ -53,10 +47,8 @@ bool MainMenu::Update(float dt)
 		if (camera_position.x <= CAMERA_OFFSET * 2 * App->win->GetScale())
 			camera_position.x+=25;
 	break;
-
-	default:
-		break;
 	}
+
 	App->render->camera.x = camera_position.x;
 
 	return true;
@@ -140,51 +132,59 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 
 
 	menu = App->gui->CreateObject(iPoint(App->render->camera.w * 0.5f, App->render->camera.h * 0.5f), this);
+	karma_font_settings = App->font->Load("fonts/KarmaSuture.ttf", 24);
+	SDL_Color color = { 231,94,152,255 };
 
 	// =============================================================
 	// ====================   Menu   ===============================
 	// =============================================================
 
 	// Images ============================================
-	
 	Animation logo_anim;
 	logo_anim.PushBack({ 0, 0, 219, 94 });
-	logo = App->gui->CreateImage(iPoint(326, 84), logo_anim, this);
-
+	logo = App->gui->CreateImage(iPoint(326, 76), logo_anim, this);
 
 	// Buttons ============================================
-
 	Button_Definition button_rectangle({ 219 , 0, 122, 36 }, { 219, 36, 122, 36 }, { 219, 72, 122, 36 });
-	button_play = App->gui->CreateButton(iPoint(320, 214), button_rectangle, this);
-	button_continue = App->gui->CreateButton(iPoint(320, 258), button_rectangle, this);
-	button_exit = App->gui->CreateButton(iPoint(320, 304), button_rectangle, this);
+	button_new_game = App->gui->CreateButton(iPoint(320, 208), button_rectangle, this);
+	button_new_game->SetLabel(iPoint(320, 204), p2SString("NEW GAME"), karma_font_settings, color);
 
-	Button_Definition button_def_credits({ 343 ,0, 42,45 }, { 343 ,45, 42,45 }, { 343 ,90, 42,45 });
-	button_credits = App->gui->CreateButton(iPoint(320, 304), button_def_credits, this);
+	button_continue = App->gui->CreateButton(iPoint(320, 250), button_rectangle, this);
+	button_continue->SetLabel(iPoint(320, 246), p2SString("CONTINUE"), karma_font_settings, color);
+
+	button_exit = App->gui->CreateButton(iPoint(320, 292), button_rectangle, this);
+	button_exit->SetLabel(iPoint(320, 288), p2SString("EXIT"), karma_font_settings, color);
+
+	Button_Definition button_def_credits({ 866 ,0, 42,45 }, { 866 ,45, 42,45 }, { 866 ,90, 42,45 });
+	button_credits = App->gui->CreateButton(iPoint(84, 329), button_def_credits, this);
+
+	Button_Definition button_def_web({ 954 ,0, 42,45 }, { 954 ,45, 42,45 }, { 954 ,90, 42,45 });
+	button_web = App->gui->CreateButton(iPoint(141, 329), button_def_web, this);
+
+	Button_Definition button_def_settings({ 910 ,0, 42,45 }, { 910 ,45, 42,45 }, { 910 ,90, 42,45 });
+	button_settings = App->gui->CreateButton(iPoint(555, 329), button_def_settings, this);
 	
 	// =============================================================
     // ==================   Settings   =============================
     // =============================================================
-	
+
 	Animation panel_anim;
 	panel_anim.PushBack({ 387, 0, 389, 293 });
 	settings_panel = App->gui->CreateImage(iPoint(320, 182), panel_anim, this);
 
 	// Buttons ============================================
-	//button_return_settings = App->gui->CreateButton(iPoint(40, 40), button_quad, this);
-
+	Button_Definition button_def_return_settings({ 778 ,0, 42,45 }, { 778 ,45, 42,45 }, { 778 ,90, 42,45 });
+	button_return_settings = App->gui->CreateButton(iPoint(320, 318), button_def_return_settings, this);
+	button_return_settings->SetAnchor(settings_panel);
 
 	// Labels ============================================
-	karma_font = App->font->Load("fonts/KarmaSuture.ttf", 24);
-	SDL_Color color = {231,94,152,255};
-
-	music_volume_label = App->gui->CreateLabel(iPoint(229, 130), "Music volume", karma_font, this, color);
+	music_volume_label = App->gui->CreateLabel(iPoint(229, 130), "Music volume", karma_font_settings, this, color);
 	music_volume_label->SetAnchor(settings_panel);
-	sfx_volume_label = App->gui->CreateLabel(iPoint(218, 173), "Sfx volume", karma_font, this, color);
+	sfx_volume_label = App->gui->CreateLabel(iPoint(218, 173), "Sfx volume", karma_font_settings, this, color);
 	sfx_volume_label->SetAnchor(settings_panel);
-	mute_label = App->gui->CreateLabel(iPoint(185, 216), "Mute", karma_font, this, color);
+	mute_label = App->gui->CreateLabel(iPoint(185, 216), "Mute", karma_font_settings, this, color);
 	mute_label->SetAnchor(settings_panel);
-	limitate_fps_label = App->gui->CreateLabel(iPoint(225, 255), "Limitate FPS", karma_font, this, color);
+	limitate_fps_label = App->gui->CreateLabel(iPoint(225, 255), "Limitate FPS", karma_font_settings, this, color);
 	limitate_fps_label->SetAnchor(settings_panel);
 
 	// Sliders ============================================
@@ -226,7 +226,7 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 bool MainMenu::UnloadScene()
 {
 	BROFILER_CATEGORY("MainMenu Unload", Profiler::Color::Maroon);
-	App->font->Unload(karma_font);
+	App->font->Unload(karma_font_settings);
 
 	App->gui->DeleteObject(music_volume_label);
 	App->gui->DeleteObject(sfx_volume_label);
@@ -235,11 +235,12 @@ bool MainMenu::UnloadScene()
 
 	App->gui->DeleteObject(logo);
 	App->gui->DeleteObject(settings_panel);
-	App->gui->DeleteObject(button_play);
+	App->gui->DeleteObject(button_new_game);
 	App->gui->DeleteObject(button_continue);
 	App->gui->DeleteObject(button_exit);
 	App->gui->DeleteObject(button_credits);
 	App->gui->DeleteObject(button_settings);
+	App->gui->DeleteObject(button_web);
 
 	App->gui->DeleteObject(slider_music_volume);
 	App->gui->DeleteObject(slider_sfx_volume);
@@ -253,11 +254,25 @@ bool MainMenu::UnloadScene()
 	return true;
 }
 
+bool MainMenu::OnClick(Object * object)
+{
+	return false;
+}
+
+
 bool MainMenu::OutClick(Object * object)
 {
-	if (object == button_play)
+	if (object == button_settings)
 	{
 		App->gui->SetStateToBranch(ObjectState::visible, settings_panel);
+	}
+	else if (object == button_return_settings)
+	{
+		App->gui->SetStateToBranch(ObjectState::hidden, settings_panel);
+	}
+	else if (object == button_exit)
+	{
+		App->scene_manager->Exit();
 	}
 
 	return true;
