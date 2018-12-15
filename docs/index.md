@@ -15,6 +15,7 @@ This is a Platform Game about a jumping slime. Kill enemies, obtain risky coins 
 * [Marc Gálvez]( https://github.com/optus23) (optus23) - As a Lead Designer & Manager
 
 * [Github repository]( https://github.com/LITTLE-BUSTERS-STUDIO/FallSlime)
+
 * [Trello]( https://trello.com/b/ZRKRIdPU/little-busters)
 
 See also our organization, [Little Busters](https://github.com/LITTLE-BUSTERS-STUDIO)
@@ -30,10 +31,10 @@ Currently we are studying VideoGames Design and Development at the "Centre de la
 <iframe width="560" height="315" src="https://www.youtube.com/embed/5DJ6QL3aveo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ## Controls
-A - Move player to the left
-D - Move player to the right
-SPACE - Charged Jump (gummy jump). Also, respawn if slime is dead.
-LSHIFT - Special Attack
+* A - Move player to the left
+* D - Move player to the right
+* SPACE - Charged Jump (gummy jump). Also, respawn if slime is dead
+* LSHIFT - Special Attack
 
 
 ## Innovation features A1:
