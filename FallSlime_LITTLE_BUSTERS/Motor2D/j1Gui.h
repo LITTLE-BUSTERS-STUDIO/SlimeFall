@@ -93,6 +93,11 @@ private:
 
 	void UpdateGuiPositions(Object* object, iPoint cumulated_position);
 
+public:
+	//SFX --------------------------------------------------
+	p2SString			fx_hovered_path;
+	uint				fx_button_hovered;
+
 private:
 
 	bool debug = false;

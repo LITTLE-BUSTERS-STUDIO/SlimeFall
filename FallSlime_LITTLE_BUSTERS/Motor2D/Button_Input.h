@@ -45,8 +45,8 @@ private:
 
 private:
 
-	SDL_Texture * texture = nullptr;
-	Button_Definition definition;
+	SDL_Texture *		texture = nullptr;
+	Button_Definition	definition;
 
 public:
 	// Components =================================

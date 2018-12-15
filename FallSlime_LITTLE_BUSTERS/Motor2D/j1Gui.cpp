@@ -6,6 +6,7 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Input.h"
+#include "j1Audio.h"
 
 #include "Object.h"
 #include "Label.h"
@@ -31,6 +32,7 @@ bool j1Gui::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 	atlas_file_name = config.child("atlas").attribute("path").as_string("");
+	fx_hovered_path = config.child("fx_button_hover").attribute("path").as_string("");
 
 	return ret;
 }
@@ -39,6 +41,16 @@ bool j1Gui::Awake(pugi::xml_node& config)
 bool j1Gui::Start()
 {
 	atlas = App->tex->Load(atlas_file_name.GetString());
+	fx_button_hovered = App->audio->LoadFx(fx_hovered_path.GetString());
+
+	//Animation cursor_anim;
+	//cursor_anim.PushBack({ 0, 165, 16, 24 });
+	//cursor = App->gui->CreateImage(iPoint(320, 30), cursor_anim);
+
+	//cursor->SetAnchor(NULL);
+
+	//SDL_ShowCursor(SDL_DISABLE);
+
 	return true;
 }
 

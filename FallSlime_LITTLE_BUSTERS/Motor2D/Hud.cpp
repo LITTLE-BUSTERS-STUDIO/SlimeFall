@@ -29,8 +29,8 @@ bool Hud::Start()
 	hud_object = App->gui->CreateObject(iPoint(App->render->camera.w * 0.5F, App->render->camera.h * 0.5F), this);
 	
 	Animation anim_lives;
-	anim_lives.PushBack({ 0, 165, 29, 32 });
 	anim_lives.PushBack({ 0, 96, 17, 14 });
+	anim_lives.PushBack({ 50, 165, 29, 32 });
 
 	for (uint i = 0 ; i < MAX_LIVES; ++i)
 	{
@@ -73,22 +73,6 @@ bool Hud::Update(float dt)
 
 bool Hud::PostUpdate()
 {
-	//for (p2List_item<Image*> * item = lives_list.start; item != nullptr; item = item->next)
-	//{
-	//	item.
-	//	for (int i = 4; i > 0; --i)
-	//	{
-	//		if (hp_counter > i)
-	//		{
-	//			//item = SetAnimationFrame(1);
-	//		}
-	//		else
-	//		{
-	//			//item = SetAnimationFrame(0);
-	//		}
-	//	}
-	//}
-
 
 	return true;
 }
@@ -139,13 +123,13 @@ bool Hud::ShowHud()
 
 	 for (uint i= 0 ; i < MAX_LIVES ; ++i)
 	 {
-		 if (i > lives_counter)
+		 if (i >= lives_counter)
 		 {
-			 lives_list[i]->SetAnimationFrame(0);
+			 lives_list[i]->SetAnimationFrame(1);
 		 }
 		 else
 		 {
-			 lives_list[i]->SetAnimationFrame(1);
+			 lives_list[i]->SetAnimationFrame(0);
 		 }
 	 }
 
@@ -154,5 +138,22 @@ bool Hud::ShowHud()
 
 int Hud::AddCoin()
 {
-	return coin_counter++;
+	++coin_counter;
+	if (coin_counter > 3)
+	{
+		coin_counter = 3;
+	}
+
+	for (uint i = 0; i < MAX_COINS; ++i)
+	{
+		if (i >= coin_counter)
+		{
+			coins_list[i]->SetAnimationFrame(0);
+		}
+		else
+		{
+			coins_list[i]->SetAnimationFrame(1);
+		}
+	}
+	return true;
 }

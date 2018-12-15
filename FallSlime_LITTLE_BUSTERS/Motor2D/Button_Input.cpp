@@ -4,6 +4,8 @@
 #include  "p2Log.h"
 #include "j1Input.h"
 #include "Label.h"
+#include "j1Audio.h"
+
 
 Button_Input::Button_Input(const iPoint position, const Button_Definition definition, SDL_Texture * texture, Gui_Listener* listener) : Object(position, listener)
 {
@@ -37,6 +39,8 @@ bool Button_Input::Draw()
 	{
 		anim_rect = definition.idle_rect;
 	}
+	if (hover_state == HoverState::On)
+		App->audio->PlayFx(App->gui->fx_button_hovered);
 
 	section.w = anim_rect.w;
 	section.h = anim_rect.h;
