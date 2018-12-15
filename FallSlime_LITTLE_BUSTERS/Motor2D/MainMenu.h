@@ -51,6 +51,7 @@ private:
 	// Values =========================================
 	bool                exit = false; 
 	fPoint              move_to_point[(int)MenuSection::max];
+	fPoint              camera_pos = { 0.0f, 0.0f };
 	float               camera_speed = 0.0f;
 	fPoint              camera_velocity = { 0.0f , 0.0f };
 	MenuSection         current_section = MenuSection::main_menu;

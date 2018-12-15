@@ -29,10 +29,6 @@ MainMenu::MainMenu() : j1Scene()
 
 bool MainMenu::PreUpdate()
 {
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
-	{
-		MoveToSection(MenuSection::settings);
-	}
 
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
 	{
@@ -46,32 +42,37 @@ bool MainMenu::Update(float dt)
 {
 	BROFILER_CATEGORY("MainMenu Update", Profiler::Color::MediumBlue);
 
-	if (camera_velocity.x >  0)
+	if (camera_velocity.x < 0.0f)
 	{
-		if (App->render->camera.x < move_to_point[(int)current_section].x)
+		if (camera_pos.x > move_to_point[(int)current_section].x)
 		{
-			App->render->camera.x += camera_velocity.x *dt;
+			camera_pos.x += camera_velocity.x *dt;
 		}
 
-		if (App->render->camera.x > move_to_point[(int)current_section].x)
+		if (camera_pos.x <= move_to_point[(int)current_section].x)
 		{
 			App->render->camera.x = move_to_point[(int)current_section].x;
 			camera_velocity.x = 0.0f;
 		}
+
 	}
-	else if (camera_velocity.x < 0)
+
+	if (camera_velocity.x >  0.0f)
 	{
-		if (App->render->camera.x > move_to_point[(int)current_section].x)
+		if (camera_pos.x < move_to_point[(int)current_section].x)
 		{
-			App->render->camera.x += camera_velocity.x *dt;
+			camera_pos.x += camera_velocity.x *dt;
 		}
 
-		if (App->render->camera.x < move_to_point[(int)current_section].x)
+		if (camera_pos.x >= move_to_point[(int)current_section].x)
 		{
-			App->render->camera.x = move_to_point[(int)current_section].x;
+			camera_pos.x = move_to_point[(int)current_section].x;
 			camera_velocity.x = 0.0f;
 		}
 	}
+
+	App->render->camera.x = camera_pos.x;
+	App->render->camera.y = camera_pos.y;
 
 	menu->SetPosition(iPoint( - (App->render->camera.x / (int)App->win->GetScale()) , menu->GetPosition().y));
 
@@ -117,6 +118,7 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	move_to_point[(int)MenuSection::settings] = { 1280*2 , 0};
 
 	App->render->camera.x = 1280;
+	camera_pos = { 1280, 0 };
 	camera_speed = 1515.0f;
 
 	// Paralax ========================================================
@@ -316,7 +318,7 @@ bool MainMenu::OutClick(Object * object)
 	}
 	else if (object == button_credits)
 	{
-	
+		MoveToSection(MenuSection::credits);
 	}
 
 	return true;
@@ -326,11 +328,11 @@ bool MainMenu::MoveToSection(MenuSection menu_section)
 {
 	current_section = menu_section;
 
-	if (App->render->camera.x > move_to_point[(int)menu_section].x )
+	if (App->render->camera.x > (int)move_to_point[(int)menu_section].x )
 	{
 		camera_velocity.x = - camera_speed;
 	}
-	else if (App->render->camera.x < move_to_point[(int)menu_section].x)
+	else if (App->render->camera.x < (int)move_to_point[(int)menu_section].x)
 	{
 		camera_velocity.x = camera_speed;
 	}
