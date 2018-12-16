@@ -13,15 +13,15 @@
 	</scene_manager>
 	<pathfinding />
 	<entity_manager>
-		<entity name="enemy_skeleton" id="1" x="661" y="263" spawned="false" active="false" />
+		<entity name="enemy_skeleton" id="1" x="661" y="263" spawned="true" active="true" />
 		<entity name="enemy_skeleton" id="2" x="738" y="262" spawned="false" active="false" />
 		<entity name="enemy_bat" id="3" x="1087" y="271" spawned="false" active="false" />
 		<entity name="coin" id="4" x="1014" y="279" spawned="false" active="false">
 			<enable_coin bool="0" />
 			<state main_collider="collider_none" />
 		</entity>
-		<entity name="player" id="5" x="205" y="223" spawned="true" active="true">
-			<velocity x="0" y="297.385925" />
+		<entity name="player" id="5" x="410" y="26" spawned="true" active="true">
+			<velocity x="0" y="-15.2171097" />
 			<conditions apply_jump_speed="false" on_ground="false" check_fall="false" flip_x="false" gummy_jump="false" />
 			<state current_state="jumping" collider_type="collider_player" />
 		</entity>
@@ -29,12 +29,12 @@
 	<:anonymous />
 	<gui />
 	<hud>
-		<counter coins="1" lifes="3" />
+		<counter coins="0" lifes="5" />
 	</hud>
 	<renderer>
-		<camera_position x="0" y="77" />
-		<camera_smoth_position x="0" y="77" />
+		<camera_position x="171" y="0" />
+		<camera_smoth_position x="171" y="0" />
 		<debug zoom="1" />
-		<conditions free_camera_x="false" free_camera_y="true" />
+		<conditions free_camera_x="true" free_camera_y="false" />
 	</renderer>
 </game_state>

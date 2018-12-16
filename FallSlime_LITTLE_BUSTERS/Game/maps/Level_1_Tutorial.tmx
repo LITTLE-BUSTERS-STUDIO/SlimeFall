@@ -16139,7 +16139,7 @@
   <object id="486" name="coin" x="1014.7" y="279.603">
    <point/>
   </object>
-  <object id="489" name="player" x="65" y="250.333">
+  <object id="489" name="player" x="51" y="114.333">
    <point/>
   </object>
  </objectgroup>

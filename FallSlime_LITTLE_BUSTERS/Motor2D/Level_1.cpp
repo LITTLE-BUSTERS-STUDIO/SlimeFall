@@ -70,8 +70,9 @@ bool Level_1::LoadScene(pugi::xml_node& node)
 	parallax_speed_33 = node.child("parallax_speed").attribute("high").as_float(0.0F);
 
 	// Anchor =============================================
-	game_over_anchor = App->gui->CreateObject(iPoint(App->render->camera.w * 0.5F, App->render->camera.h * 0.5F), this);
-	paused_menu = App->gui->CreateObject(iPoint(App->render->camera.w * 0.5F, App->render->camera.h * 0.5F), this);
+
+	game_over_anchor = App->gui->CreateObject(iPoint(1280 * 0.5F, 720 * 0.5F), this);
+	paused_menu = App->gui->CreateObject(iPoint(1280 * 0.5F, 720 * 0.5F), this);
 	
 	//Labels ==============================================
 	karma_font_buttons = App->font->Load("fonts/KarmaSuture.ttf", 24);
@@ -234,7 +235,7 @@ bool Level_1::ResumeScene()
 
 bool Level_1::SetGameOver()
 {
-	//App->hud->HideHud();
+	App->hud->HideHud();
 	App->gui->SetStateToBranch(ObjectState::visible, game_over_anchor);
 	App->gui->SetStateToBranch(ObjectState::hidden, paused_menu);
 
