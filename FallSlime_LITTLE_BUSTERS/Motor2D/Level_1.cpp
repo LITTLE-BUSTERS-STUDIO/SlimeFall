@@ -99,7 +99,7 @@ bool Level_1::LoadScene(pugi::xml_node& node)
 	}
 
 	button_exit_to_menu = App->gui->CreateButton(iPoint(321, 278), button_rectangle, this);
-	button_exit_to_menu->SetLabel(iPoint(321, 274), p2SString("EXIT"), karma_font_buttons, color);
+	button_exit_to_menu->SetLabel(iPoint(321, 274), p2SString("MENU"), karma_font_buttons, color);
 	button_exit_to_menu->SetAnchor(paused_menu);
 
 	App->gui->SetStateToBranch(ObjectState::hidden, paused_menu);
