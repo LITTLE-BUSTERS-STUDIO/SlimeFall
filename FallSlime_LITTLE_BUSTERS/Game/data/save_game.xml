@@ -17,7 +17,6 @@
 		<entity name="enemy_skeleton" id="2" x="738" y="262" spawned="false" active="false" />
 		<entity name="enemy_bat" id="3" x="1018" y="277" spawned="false" active="false" />
 		<entity name="coin" id="4" x="1100" y="284" spawned="false" active="false">
-			<coin_counter value="0" />
 			<enable_coin bool="0" />
 			<state main_collider="collider_none" />
 		</entity>
@@ -29,7 +28,9 @@
 	</entity_manager>
 	<:anonymous />
 	<gui />
-	<hud />
+  <hud>
+    <counter coins="0" lifes="5"/>
+  </hud>
 	<renderer>
 		<camera_position x="0" y="161" />
 		<camera_smoth_position x="0" y="161" />

@@ -116,13 +116,20 @@ bool Hud::Reset()
 	return true;
 }
 
-bool Hud::Load(pugi::xml_node &)
+bool Hud::Load(pugi::xml_node &node)
 {
+	coin_counter = node.child("counter").attribute("coins").as_int(0);
+	lifes_counter = node.child("counter").attribute("lifes").as_int(0);
+
 	return true;
 }
 
-bool Hud::Save(pugi::xml_node &) const
+bool Hud::Save(pugi::xml_node &node) const
 {
+	pugi::xml_node counter = node.append_child("counter");
+
+	counter.append_attribute("coins") = coin_counter;
+	counter.append_attribute("lifes") = lifes_counter;
 	return true;
 }
 

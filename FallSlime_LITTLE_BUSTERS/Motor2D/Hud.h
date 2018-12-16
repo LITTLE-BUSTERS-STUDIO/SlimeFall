@@ -54,7 +54,6 @@ private:
 	// Vars ===================================
 	int 				lifes_counter;
 	int				    coin_counter;
-	bool				game_over;
 	iPoint				panel_pos;
 
 public: 
