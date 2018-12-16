@@ -64,6 +64,7 @@ bool SceneManager::PreUpdate()
 	if (change_phase == true)
 	{
 		LoadPhase(phase_to_load);
+		change_phase = false;
 	}
 
 	if (current_scene == nullptr)
@@ -172,6 +173,7 @@ j1Scene* SceneManager::GetCurrentScene()
 bool SceneManager::ResetScene()
 {
 	App->entity_manager->ResetAll();
+	App->render->CameraReset();
 	return true;
 }
 
@@ -238,6 +240,7 @@ bool SceneManager::LoadPhase(uint phase_number)
 	// Hardcode =========================================
 	if (ret)
 	{
+		App->render->CameraReset();
 		current_phase = phase_number;
 		App->render->SetCameraLimits(item->data->x_limit, item->data->y_limit);
 		App->render->CameraFollowPlayer(item->data->camera_follow_player);

@@ -15,24 +15,25 @@
 	<entity_manager>
 		<entity name="enemy_skeleton" id="1" x="661" y="263" spawned="false" active="false" />
 		<entity name="enemy_skeleton" id="2" x="738" y="262" spawned="false" active="false" />
-		<entity name="enemy_bat" id="3" x="1018" y="277" spawned="false" active="false" />
-		<entity name="coin" id="4" x="1100" y="284" spawned="false" active="false">
+		<entity name="enemy_bat" id="3" x="1087" y="271" spawned="false" active="false" />
+		<entity name="coin" id="4" x="1014" y="279" spawned="false" active="false">
 			<enable_coin bool="0" />
 			<state main_collider="collider_none" />
 		</entity>
-		<entity name="player" id="5" x="84" y="265" spawned="true" active="true">
-			<velocity x="0" y="396.809998" />
-			<conditions apply_jump_speed="false" on_ground="true" check_fall="true" flip_x="false" gummy_jump="false" />
-			<state current_state="boucing" collider_type="collider_player" />
+		<entity name="player" id="5" x="65" y="265" spawned="true" active="true">
+			<velocity x="0" y="393.204163" />
+			<conditions apply_jump_speed="true" on_ground="true" check_fall="true" flip_x="false" gummy_jump="false" />
+			<state current_state="jumping" collider_type="collider_player" />
 		</entity>
 	</entity_manager>
+	<:anonymous />
 	<gui />
-  <hud>
-    <counter coins="0" lifes="5"/>
-  </hud>
+	<hud>
+		<counter coins="0" lifes="5" />
+	</hud>
 	<renderer>
-		<camera_position x="0" y="161" />
-		<camera_smoth_position x="0" y="161" />
+		<camera_position x="-2495" y="133" />
+		<camera_smoth_position x="0" y="133" />
 		<debug zoom="1" />
 		<conditions free_camera_x="false" free_camera_y="true" />
 	</renderer>

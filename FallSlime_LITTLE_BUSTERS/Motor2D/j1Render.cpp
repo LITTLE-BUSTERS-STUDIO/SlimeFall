@@ -156,6 +156,26 @@ bool j1Render::Update(float dt)
 			break;
 		}
 	}
+	// Camera Reset ==========================================================
+	if (reset == true)
+	{
+		if (App->entity_manager->GetPlayer() != nullptr)
+		{
+			camera.x = App->entity_manager->GetPlayer()->GetPosition().x - camera.w / (int)App->win->GetScale();
+			camera.y = App->entity_manager->GetPlayer()->GetPosition().y - camera.h / (int)App->win->GetScale();
+		}
+		else
+		{
+			camera.x = 0;
+			camera.y = 0;
+		}
+
+		smoth_position.x = 0;
+		smoth_position.y = 0;
+		free_camera_x = true;
+		free_camera_y = true;
+		reset = false;
+	}
 
 	// Camera Update =========================================================
 	if (App->entity_manager->GetPlayer() == nullptr || camera_follow_player == false)
@@ -529,16 +549,8 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 	return ret;
 }
 
-bool j1Render::CameraReset() {
-
-	BROFILER_CATEGORY("Render CameraReset", Profiler::Color::DarkTurquoise);
-
-	camera.x = 0;
-	camera.y = 0;
-	smoth_position.x = 0;
-	smoth_position.y = 0;
-	free_camera_x = false;
-	free_camera_y = false;
-
+bool j1Render::CameraReset()
+{
+	reset = true;
     return true;
 }

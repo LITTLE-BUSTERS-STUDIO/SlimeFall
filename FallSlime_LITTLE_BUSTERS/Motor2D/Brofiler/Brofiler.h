@@ -244,7 +244,7 @@ struct BROFILER_API Event
 	}
 
 	~Event()
-	{
+    {
 		if (data)
 			Stop(*data);
 	}

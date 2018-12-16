@@ -16,6 +16,7 @@
 #include "j1FadeToBlack.h"
 #include "EntityManager.h"
 #include "Hud.h"
+#include "j1Scene.h"
 #include "Brofiler/Brofiler.h"
 
 
@@ -167,29 +168,32 @@ bool j1Player::HandleInput()
 		apply_invulnerability = false;
 
 	//Random Jump Fx
-	if (on_ground && current_state == Player_State::jumping)
+	if (on_ground && current_state == Player_State::jumping  )
 	{
 		current_state = Player_State::boucing;
 
-		uint random_jump = rand() % 4 + 1;
-		
-		switch (random_jump)
+		if (App->scene_manager->GetCurrentScene()->is_pausable == true)
 		{
-		case 1:
-			App->audio->PlayFx(fx_jump1);
-			break;
-		case 2:
-			App->audio->PlayFx(fx_jump2);
-			break;
-		case 3:
-			App->audio->PlayFx(fx_jump3);
-			break;
-		case 4:
-			App->audio->PlayFx(fx_jump4);
-			break;
-		default:
-			App->audio->PlayFx(fx_jump1);
-			break;
+			uint random_jump = rand() % 4 + 1;
+
+			switch (random_jump)
+			{
+			case 1:
+				App->audio->PlayFx(fx_jump1);
+				break;
+			case 2:
+				App->audio->PlayFx(fx_jump2);
+				break;
+			case 3:
+				App->audio->PlayFx(fx_jump3);
+				break;
+			case 4:
+				App->audio->PlayFx(fx_jump4);
+				break;
+			default:
+				App->audio->PlayFx(fx_jump1);
+				break;
+			}
 		}
 	}
 
@@ -500,7 +504,7 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 		if (current_state == Player_State::attack)
 		{
 			on_ground = true;
-			apply_invulnerability = true;
+	/*		apply_invulnerability = true;*/
 			attack_tremble = true;
 			break;
 		}
