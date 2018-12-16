@@ -34,7 +34,7 @@ enum COLLIDER_TYPE
 
 struct Collider
 {
-	SDL_Rect rect;
+	SDL_Rect rect = {0, 0, 0, 0};
 	COLLIDER_TYPE type = COLLIDER_NONE;
 	j1Module* callback = nullptr;
 

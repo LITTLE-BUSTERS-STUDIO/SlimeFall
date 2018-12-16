@@ -27,18 +27,18 @@ struct TileSet
 	SDL_Rect GetTileRect(int id) const;
 
 	p2SString			    name;
-	uint					firstgid;
-	uint					margin;
-	uint					spacing;
-	uint					tile_width;
-	uint					tile_height;
-	SDL_Texture*		    texture;
-	uint					tex_width;
-	uint					tex_height;
-	uint					num_tiles_width;
-	uint					num_tiles_height;
-	uint					offset_x;
-	uint					offset_y;
+	uint					firstgid = 0u;
+	uint					margin = 0u;
+	uint					spacing = 0u;
+	uint					tile_width = 0u;
+	uint					tile_height = 0u;
+	SDL_Texture*		    texture = nullptr;
+	uint					tex_width = 0u;
+	uint					tex_height = 0u;
+	uint					num_tiles_width = 0u;
+	uint					num_tiles_height = 0u;
+	uint					offset_x = 0u;
+	uint					offset_y = 0u;
 };
 
 struct CollidersGroup
@@ -63,12 +63,12 @@ enum MapTypes
 // ----------------------------------------------------
 struct MapData
 {
-	uint					      width;
-	uint					      height;
-	uint					      tile_width;
-	uint					      tile_height;
+	uint					      width = 0u;
+	uint					      height = 0u;
+	uint					      tile_width = 0u;
+	uint					      tile_height = 0u;
 	MapTypes			          type;
-	SDL_Color			          background_color;
+	SDL_Color			          background_color = {255, 255 , 255 , 255 };
 	
 	p2List<TileSet*>	          tilesets;
 	p2List<MapLayer*>	          layers;

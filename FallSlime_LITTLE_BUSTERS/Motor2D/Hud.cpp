@@ -51,8 +51,6 @@ bool Hud::Start()
 		coin->SetAnchor(hud_object);
 	}
 
-	HideHud();
-
 	return true;
 }
 
