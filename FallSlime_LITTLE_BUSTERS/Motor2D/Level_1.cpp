@@ -12,6 +12,7 @@
 #include "Brofiler/Brofiler.h"
 #include "j1Gui.h"
 #include "Hud.h"
+#include "j1PerfTimer.h"
 
 #include "Button_Input.h"
 #include "Label.h"
@@ -78,6 +79,12 @@ bool Level_1::LoadScene(pugi::xml_node& node)
 	karma_font_buttons = App->font->Load("fonts/KarmaSuture.ttf", 24);
 	SDL_Color color = { 231,94,152,255 };
 
+	score_label = App->gui->CreateLabel(iPoint(570, 320), p2SString("Score: 0"), karma_font_buttons, nullptr, color);
+	score_label->SetAnchor(paused_menu);
+
+	timer_label = App->gui->CreateLabel(iPoint(100, 320),p2SString("Timer: 00"), karma_font_buttons, nullptr, color);
+	timer_label->SetAnchor(paused_menu);
+
 	// Buttons ============================================
 	Button_Definition button_rectangle({ 219 , 0, 122, 36 }, { 219, 36, 122, 36 }, { 219, 72, 122, 36 });
 
@@ -92,6 +99,9 @@ bool Level_1::LoadScene(pugi::xml_node& node)
 	button_load = App->gui->CreateButton(iPoint(321, 199), button_rectangle, this);
 	button_load->SetLabel(iPoint(321, 195), p2SString("LOAD"), karma_font_buttons, color);
 	button_load->SetAnchor(paused_menu);
+
+
+
 
 	if (!App->save_doc_exist)
 	{
@@ -123,6 +133,11 @@ bool Level_1::Update(float dt)
 {
 	BROFILER_CATEGORY("Level_1 Update", Profiler::Color::MediumBlue);
 
+	p2SString timer_str("Timer: %i", timer.Read()/1000);
+	timer_label->SetText(timer_str);
+
+	p2SString score_str("Score: %i", App->hud->GetCoins());
+	score_label->SetText(score_str);
 
 	return true;
 }
@@ -160,8 +175,6 @@ bool Level_1::PostUpdate()
 		App->gui->show_cursor = true;
 		App->render->Blit(App->gui->game_over, 0, 0, &game_over_rect, false, 0.0f);
 	}
-
-
 
 	return ret;
 }

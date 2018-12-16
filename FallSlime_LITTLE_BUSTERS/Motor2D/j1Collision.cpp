@@ -126,43 +126,6 @@ bool j1Collision::Update(float dt)
 		}
 	}
 
-	//while (collider != NULL)
-	//{
-	//	c1 = collider->data;
-
-
-	//	if (collider != NULL)
-	//	{
-	//		item_2 = collider->next;
-	//	}
-
-
-	//	// Avoid checking collisions already checked
-
-	//	while (item_2 != NULL)
-	//	{
-	//		if (item_2->data == nullptr)
-	//		{
-	//			item_2 = item_2->next;
-	//			continue;
-	//		}
-	//			
-	//		c2 = item_2->data;
-
-	//		if (c1->CheckCollision(c2->rect) == true)
-	//		{
-	//			if (matrix[c1->type][c2->type] && c1->callback)
-	//				c1->callback->OnCollision(c1, c2);
-
-	//			if (matrix[c2->type][c1->type] && c2->callback)
-	//				c2->callback->OnCollision(c2, c1);
-	//		}
-
-	//		item_2 = item_2->next;
-	//	}
-
-	//	collider = collider->next;
-	//}
 	return true;
 }
 
