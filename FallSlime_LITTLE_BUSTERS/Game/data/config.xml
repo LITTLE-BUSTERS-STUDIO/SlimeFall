@@ -16,7 +16,7 @@
   </renderer>
 
   <audio>
-    <mute value="true"/>
+    <mute value="false"/>
     <fade_time default="1.0"/>
     <volume_music default="40"/>
     <volume_sfx default ="40"/>
@@ -29,7 +29,7 @@
 
   <window>
     <resolution width="1280" height="720" scale="2"/>
-    <fullscreen value="false"/>
+    <fullscreen value="true"/>
     <borderless value="false"/>
     <resizable value="false"/>
     <fullscreen_window value="false"/>

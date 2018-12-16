@@ -16085,7 +16085,7 @@
   <object id="332" x="208.979" y="287.426" width="45.4712" height="33.2814"/>
   <object id="333" x="256.108" y="223.5" width="64.6247" height="32.0226"/>
   <object id="336" x="547.769" y="256.15" width="48.0602" height="31.9697"/>
-  <object id="338" x="424.53" y="288.872" width="53.7723" height="29.4462"/>
+  <object id="338" x="419.655" y="288.872" width="58.6473" height="29.4462"/>
   <object id="345" x="593.456" y="319.551" width="107.272" height="64.4462"/>
   <object id="347" x="640.378" y="399.706" width="189.651" height="33.6212"/>
   <object id="348" x="867.405" y="336.777" width="51.8859" height="28.4917"/>
@@ -16156,7 +16156,7 @@
   <object id="432" name="skeleton" x="281.666" y="211.333">
    <point/>
   </object>
-  <object id="433" name="coin" x="376.667" y="236.667">
+  <object id="433" name="coin" x="376.667" y="228.667">
    <point/>
   </object>
   <object id="435" name="player" x="77" y="224">
