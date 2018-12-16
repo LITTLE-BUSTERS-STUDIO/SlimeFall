@@ -42,6 +42,7 @@ public:
 
 	bool Save(pugi::xml_node& node) const;
 
+
 private:
 
 	//-----------Vars-----------------------

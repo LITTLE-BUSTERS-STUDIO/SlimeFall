@@ -100,6 +100,7 @@ private:
 
 	// Scene ==========================================
 	p2SString			music_path;
+	p2SString			credits_music_path;
 	SDL_Texture         *paralax_tex_1 = nullptr;
 	SDL_Texture         *paralax_tex_2 = nullptr;
 	SDL_Texture         *paralax_tex_3 = nullptr;

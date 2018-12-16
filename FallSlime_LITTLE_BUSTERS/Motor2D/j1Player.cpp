@@ -206,16 +206,17 @@ bool j1Player::Update(float dt)
 	}
 	
 	// God Mode movement =======================================
+	int speed_god_mode = 600;
 	if (god_mode)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-			position.y -= speed_air * dt;
+			position.y -= speed_god_mode * dt;
 		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-			position.y += speed_air *dt;
+			position.y += speed_god_mode *dt;
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-			position.x -= speed_air * dt;
+			position.x -= speed_god_mode * dt;
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-			position.x += speed_air *dt;
+			position.x += speed_god_mode *dt;
 
 		velocity.x = velocity.y = 0;
 		return true;

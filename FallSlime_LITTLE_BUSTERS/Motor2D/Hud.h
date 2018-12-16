@@ -29,6 +29,8 @@ public:
 
 	bool CleanUp();
 
+	bool Reset();
+
 	bool Load(pugi::xml_node&);
 
 	bool Save(pugi::xml_node&) const;
@@ -39,9 +41,11 @@ public:
 
 	int Getlife();
 
+public:
+	Object * hud_object = nullptr;
+
 private:
 	// Gui ===================================
-	Object *		    hud_object = nullptr;
 	p2List<Image*>		lifes_list;
 	p2List<Image*>		coins_list;
 

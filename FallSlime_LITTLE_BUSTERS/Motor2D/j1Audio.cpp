@@ -156,7 +156,7 @@ bool j1Audio::PlayMusic(const char* path)
 	{
 		if(fade_time > 0.0f)
 		{
-			Mix_FadeOutMusic(int(fade_time * 1000.0f));
+			Mix_FadeOutMusic(int(fade_time * 0/*1000.0f*/));
 		}
 		else
 		{

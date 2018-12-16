@@ -11,6 +11,8 @@
 #include "j1Gui.h"
 #include "j1Fonts.h"
 #include "SceneManager.h"
+#include "Hud.h"
+#include "EntityManager.h"
 #include "Brofiler/Brofiler.h"
 
 
@@ -125,10 +127,12 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	camera_pos = { 1280, 0 };
 	camera_speed = 1515.0f;
 
-	// Paralax ========================================================
+	// Music ========================================================
 	music_path = node.child("music").attribute("path").as_string("");
+	credits_music_path = node.child("credits").attribute("path").as_string("");
 	App->audio->PlayMusic(music_path.GetString());
 
+	// Paralax ========================================================
 	paralax_tex_1 = App->tex->Load(node.child("background1").attribute("path").as_string(""));
 	paralax_tex_2 = App->tex->Load(node.child("background2").attribute("path").as_string(""));
 	paralax_tex_3 = App->tex->Load(node.child("background3").attribute("path").as_string(""));
@@ -173,7 +177,7 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	// Images ============================================
 	Animation logo_anim;
 	logo_anim.PushBack({ 0, 0, 219, 94 });
-	logo = App->gui->CreateImage(iPoint(326, 76), logo_anim, this);
+	logo = App->gui->CreateImage(iPoint(340, 84), logo_anim, this);
 	logo->SetAnchor(menu);
 
 	// Buttons ============================================
@@ -343,6 +347,8 @@ bool MainMenu::OutClick(Object * object)
 	if (object == button_new_game)
 	{
 		App->scene_manager->ChangeScene("level_1", 1);
+		App->scene_manager->ResetScene();
+		App->hud->Reset();
 	}
 	else if (object == button_settings)
 	{
@@ -362,10 +368,11 @@ bool MainMenu::OutClick(Object * object)
 	}
 	else if (object == button_credits)
 	{
+		App->audio->PlayMusic(credits_music_path.GetString()); 
 		MoveToSection(MenuSection::credits);
 		
 	}
-	else if (object == checkbox_mute)
+	/*else if (object == checkbox_mute)
 	{
 		App->audio->mute = !App->audio->mute;
 		if (App->audio->mute)
@@ -374,6 +381,10 @@ bool MainMenu::OutClick(Object * object)
 			Mix_VolumeMusic(App->audio->volume_music);
 
 		LOG("Mute ON!");
+	}*/
+	else if (object == button_continue && !App->gui->is_locked)
+	{
+		App->LoadGame();
 	}
 
 	return true;
