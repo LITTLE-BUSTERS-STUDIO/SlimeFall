@@ -57,8 +57,10 @@ private:
 	iPoint				panel_pos;
 
 public: 
-	int				   SubstractLife();
-	int			       AddCoin();
+	bool		        SetLifes(int lifes);
+	bool			    SetCoins(int coins);
+	int                 GetLifes() const;
+	int                 GetCoins() const;
 };
 
 

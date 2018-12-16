@@ -115,9 +115,9 @@ bool Hud::Reset()
 
 bool Hud::Load(pugi::xml_node &node)
 {
-	coin_counter = node.child("counter").attribute("coins").as_int(0);
-	lifes_counter = node.child("counter").attribute("lifes").as_int(0);
 
+	SetLifes(node.child("counter").attribute("lifes").as_int(0));
+	SetCoins(node.child("counter").attribute("coins").as_int(0));
 	return true;
 }
 
@@ -127,6 +127,7 @@ bool Hud::Save(pugi::xml_node &node) const
 
 	counter.append_attribute("coins") = coin_counter;
 	counter.append_attribute("lifes") = lifes_counter;
+
 	return true;
 }
 
@@ -156,13 +157,20 @@ int Hud::Getlife()
 }
 
 
- int Hud::SubstractLife()
+bool Hud::SetLifes(int lifes)
 {
-	 --lifes_counter;
-	 if (lifes_counter <= 0)
+	 if (lifes <= 0)
 	 {
 		 lifes_counter = 0;
 		 App->scene_manager->GetCurrentScene()->SetGameOver();
+	 }
+	 else if (lifes > MAX_LIFES)
+	 { 
+		 lifes_counter = MAX_LIFES;
+	 }
+	 else
+	 {
+		 lifes_counter = lifes;
 	 }
 
 	 for (uint i= 0 ; i < MAX_LIFES; ++i)
@@ -180,12 +188,19 @@ int Hud::Getlife()
 	return true;
 }
 
-int Hud::AddCoin()
+bool Hud::SetCoins(int coins)
 {
-	++coin_counter;
-	if (coin_counter > 3)
+	if (coins <= 0)
 	{
-		coin_counter = 3;
+		coin_counter = 0;
+	}
+	else if (coins > MAX_LIFES)
+	{
+		coin_counter = MAX_LIFES;
+	}
+	else
+	{
+		coin_counter = coins;
 	}
 
 	for (uint i = 0; i < MAX_COINS; ++i)
@@ -199,6 +214,17 @@ int Hud::AddCoin()
 			coins_list[i]->SetAnimationFrame(1);
 		}
 	}
+
 	return true;
+}
+
+int Hud::GetLifes() const
+{
+	return lifes_counter;
+}
+
+int Hud::GetCoins() const
+{
+	return coin_counter;
 }
 
