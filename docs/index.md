@@ -63,6 +63,7 @@ Currently we are studying VideoGames Design and Development at the "Centre de la
 
 Download Slime Fall Releases [here](https://github.com/LITTLE-BUSTERS-STUDIO/SlimeFall/releases)
 
+See also our UML System:  [Entities](https://github.com/LITTLE-BUSTERS-STUDIO/SlimeFall/blob/master/docs/UML%20Entity.pdf) -  [UI](https://github.com/LITTLE-BUSTERS-STUDIO/SlimeFall/blob/master/docs/UML%20UI.pdf)
 
 **We hope you Enjoy! Thanks for playing.**
 
