@@ -228,6 +228,11 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	settings_panel = App->gui->CreateImage(iPoint(320 +1280, 182), panel_anim, this);
 	settings_panel->SetAnchor(menu);
 
+	Animation panel_anim2; //TODO: Change this for Alejandor's work vertical slider panel credits
+	panel_anim2.PushBack({ 387, 0, 389, 293 });
+	credits_panel = App->gui->CreateImage(iPoint(320, 182), panel_anim2, this);
+	credits_panel->SetAnchor(menu);
+
 	Animation settings_anim;
 	settings_anim.PushBack({ 915, 5, 31, 30 });
 	settings_image = App->gui->CreateImage(iPoint(363 + 1280, 78), settings_anim, this);
@@ -237,6 +242,10 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	Button_Definition button_def_return_settings({ 778 ,0, 42,45 }, { 778 ,45, 42,45 }, { 778 ,90, 42,45 });
 	button_return_settings = App->gui->CreateButton(iPoint(320 + 1280, 318), button_def_return_settings, this);
 	button_return_settings->SetAnchor(settings_panel);
+
+	Button_Definition button_def_return_credits({ 778 ,136, 42,45 }, { 778 ,181, 42,45 }, { 778 ,230, 42,45 });
+	button_return_credits = App->gui->CreateButton(iPoint(320, 318), button_def_return_credits, this);
+	button_return_credits->SetAnchor(credits_panel);
 
 	// Labels ============================================
 	settings_label = App->gui->CreateLabel(iPoint(295 + 1280, 75), "Settings", karma_font_settings, this, color);
@@ -281,7 +290,6 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	checkbox_limitate_fps = App->gui->CreateCheckbox(iPoint(398 + 1280, 257), checkbox_def, this);
 	checkbox_limitate_fps->SetAnchor(settings_panel);
 
-	//settings_panel->SetPosition(iPoint(320 + 1280, 180));
 
 	// =============================================================
     // ==================   Credits   ==============================
@@ -334,6 +342,10 @@ bool MainMenu::UnloadScene()
 	App->gui->DeleteObject(checkbox_limitate_fps);
 
 	App->gui->DeleteObject(settings_panel);
+	App->gui->DeleteObject(credits_panel);
+	/*App->gui->DeleteObject(button_return_settings);
+	App->gui->DeleteObject(button_return_credits);*/
+
 
 	// --------- Credits -----------------------
 
@@ -380,6 +392,11 @@ bool MainMenu::OutClick(Object * object)
 		App->audio->PlayMusic(credits_music_path.GetString()); 
 		MoveToSection(MenuSection::credits);
 		
+	}
+	else if (object == button_return_credits)
+	{
+		App->audio->PlayMusic(music_path.GetString());
+		MoveToSection(MenuSection::main_menu);
 	}
 	/*else if (object == checkbox_mute)
 	{

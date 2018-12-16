@@ -16138,7 +16138,7 @@
   <properties>
    <property name="type" value="colliders"/>
   </properties>
-  <object id="350" x="1286.48" y="393.821" width="15.8182" height="74.803"/>
+  <object id="350" x="1286.48" y="412.912" width="15.8182" height="55.7121"/>
  </objectgroup>
  <objectgroup id="69" name="entities">
   <properties>
