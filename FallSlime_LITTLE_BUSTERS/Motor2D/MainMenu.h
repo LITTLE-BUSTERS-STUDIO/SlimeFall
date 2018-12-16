@@ -59,7 +59,7 @@ private:
 	// GUI ============================================
 	Object*             menu = nullptr;
 	_TTF_Font*          karma_font_settings = nullptr;
-	_TTF_Font*          karma_font_buttons = nullptr;
+	_TTF_Font*          karma_font_credits = nullptr;
 
 	// ---------- Menu -------------------------
 	Image*              logo = nullptr;
