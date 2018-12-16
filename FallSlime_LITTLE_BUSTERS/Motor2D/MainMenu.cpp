@@ -28,6 +28,7 @@ MainMenu::MainMenu() : j1Scene()
 {
 	name.create("main_menu");
 	is_pausable = false;
+	App->gui->show_cursor = true;
 }
 
 bool MainMenu::PreUpdate()
@@ -113,7 +114,7 @@ bool MainMenu::PostUpdate()
 
 
 	App->map->Draw();
-	App->gui->show_cursor = true;
+
 	return true;
 }
 
@@ -124,12 +125,12 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	LOG("Loading MainMenu");
 
 	// Menu Secions ===================================================
-	move_to_point[(int)MenuSection::credits] = {  0 , 0};
-	move_to_point[(int)MenuSection::main_menu] = { 1280 , 0};
-	move_to_point[(int)MenuSection::settings] = { 1280*2 , 0};
+ 	move_to_point[(int)MenuSection::credits].create(0, 0);
+	move_to_point[(int)MenuSection::main_menu].create(1280, 0);
+	move_to_point[(int)MenuSection::settings].create(1280*2 , 0);
 
 	App->render->camera.x = 1280;
-	camera_pos = { 1280, 0 };
+	camera_pos.create(1280, 0);
 	camera_speed = 1515.0f;
 
 	// Music ========================================================
@@ -169,7 +170,6 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	parallax_speed_1 = node.child("parallax_speed").attribute("low").as_float(0.0f);
 	parallax_speed_2 = node.child("parallax_speed").attribute("medium").as_float(0.0f);
 	parallax_speed_3 = node.child("parallax_speed").attribute("high").as_float(0.0f);
-
 
 	menu = App->gui->CreateObject(iPoint( 0,0), this);
 	karma_font_settings = App->font->Load("fonts/KarmaSuture.ttf", 24);
@@ -306,6 +306,7 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	license_text_panel = App->gui->CreateTextPanel(iPoint(320, 180), license_text_panel_def, this);
 	license_text_panel->SetAnchor(menu);
 
+	App->gui->UpdateGuiPositions(App->gui->GetScreen(), iPoint(0,0));
 	//App->gui->SetStateToBranch(ObjectState::hidden, menu);
 	return true;
 }
