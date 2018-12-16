@@ -20,7 +20,6 @@ Coin::Coin(fPoint position, fPoint spawn_pos, Properties *properties) :Entity(po
 	Coin_Properties* coin_properties = (Coin_Properties *)properties;
 
 	main_collider = App->collision->AddCollider(coin_properties->collider_rect, COLLIDER_NONE,  App->entity_manager);
-	colliders.add(main_collider);
 
 	// Values ---------------------------------------------
 	moving_pos = position;
@@ -104,7 +103,7 @@ bool Coin::OnCollision(Collider* c1, Collider* c2)
 
 	if (c1 == main_collider)
 	{
-		if (c2->type==COLLIDER_ATTACK || c2->type == COLLIDER_PLAYER)
+		if (c2->type == COLLIDER_ATTACK || c2->type == COLLIDER_PLAYER)
 		{
 			if (!enable_coin)
 			{
@@ -144,8 +143,15 @@ bool Coin::Load(pugi::xml_node& node)
 {
 	bool ret = true;
 
+
 	coin_counter = node.child("coin_counter").attribute("value").as_int(0);
 	enable_coin = node.child("enable_coin").attribute("bool").as_bool(false);
+	
+	if (main_collider != nullptr)
+	{
+		return false;
+	}
+
 	p2SString collider_string(node.child("state").attribute("main_collider").as_string(""));
 
 	if (collider_string == "collider_coin")

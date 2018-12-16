@@ -14,22 +14,22 @@ Enemy::Enemy(fPoint position, fPoint spawn_pos, Properties *properties) :Entity(
 {
 	Enemy_Properties* enemy_properties = (Enemy_Properties*)properties;
 
-	main_collider = App->collision->AddCollider(enemy_properties->collider_rect, COLLIDER_NONE, App->entity_manager);
-	colliders.add(main_collider);
-
-	main_collider->SetPos(position.x - enemy_properties->collider_rect.w/2 , position.y - enemy_properties->collider_rect.h / 2);
-
 	iPoint pos = { (int)position.x, (int)position.y};
 	current_point = App->map->WorldToMap(pos.x, pos.y);
 	
 	path_interval_time = enemy_properties->path_interval_time;
 	detection_ratio = enemy_properties->detection_ratio;
+
+	main_collider = App->collision->AddCollider(enemy_properties->collider_rect, COLLIDER_NONE, App->entity_manager);
+	main_collider->SetPos(position.x - enemy_properties->collider_rect.w * 0.5F, position.y - enemy_properties->collider_rect.h* 0.5F);
+
 }
 
 Enemy::~Enemy()
 {
 
 }
+
 bool Enemy::UpdateLogic() 
 {
 	if (  path_timer.Read() > path_interval_time ) 

@@ -184,6 +184,7 @@ bool Level_1::OutClick(Object * object)
 	else if (object == button_exit_to_menu || object == button_return_gameover)
 	{
 		App->pause_game = false;
+		OutGameOver();
 		App->gui->SetStateToBranch(ObjectState::hidden, App->hud->hud_object);
 		ResumeScene();
 		App->scene_manager->ChangeScene("main_menu", 1);

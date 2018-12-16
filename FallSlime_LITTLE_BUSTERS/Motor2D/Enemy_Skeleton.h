@@ -40,8 +40,6 @@ public:
 
 	// States ================================
 	Enemy_Skeleton_State	current_state = Enemy_Skeleton_State::walking;
-	// Collision =============================
-	Collider				*enemy_collider = nullptr;
 
 private:
 

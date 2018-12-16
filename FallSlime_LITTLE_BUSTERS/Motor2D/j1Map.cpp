@@ -170,22 +170,18 @@ bool j1Map::CleanUp()
 	data.layers.clear();
 
 	// Remove all collider groups ========================
-	p2List_item<CollidersGroup*>* colider;
-	colider = data.coll_groups.start;
+	p2List_item<CollidersGroup*>* collider_group;
+	collider_group = data.coll_groups.start;
 
-	while (colider != NULL)
+	while (collider_group != NULL)
 	{
-		for (uint i = 0; i < colider->data->num_colliders; ++i)
+		for (p2List_item<Collider*>* item = collider_group->data->colliders.start ; item != nullptr; item = item->next)
 		{
-			if (colider->data->colls[i] != nullptr)
-			{ 
-				App->collision->DeleteCollider(colider->data->colls[i]);
-				colider->data->colls[i] = nullptr;
-			}
+			App->collision->DeleteCollider(item->data);
 		} 
 
-		RELEASE(colider->data);
-		colider = colider->next;
+		collider_group->data->colliders.clear();
+		collider_group = collider_group->next;
 	}
 
 	data.coll_groups.clear();
@@ -294,7 +290,7 @@ bool j1Map::Load(const char* file_name)
 
 	//LOG All info ------------------------------------------------------
 
-	if(ret == true)
+	/*if(ret == true)
 	{
 		LOG("Successfully parsed map XML file: %s", file_name);
 		LOG("width: %d height: %d", data.width, data.height);
@@ -320,7 +316,7 @@ bool j1Map::Load(const char* file_name)
 			LOG("tile width: %d tile height: %d", l->width, l->height);
 			item_layer = item_layer->next;
 		}
-	}
+	}*/
 
 	map_loaded = ret;
 	map_file.reset();
@@ -524,27 +520,22 @@ bool j1Map::LoadColliders(pugi::xml_node& object_node, CollidersGroup* group)
 	else if (group->name == "colliders_next_level")
 		collider_type = COLLIDER_NEXT_LEVEL;
 
-		
-	for (pugi::xml_node object_data = object_node.child("object"); object_data; object_data = object_data.next_sibling("object"))
-	{
-		++group->num_colliders;
-	}
-
-	group->colls = new Collider*[group->num_colliders];
 	uint counter = 0u;
 
 	for (pugi::xml_node object_data = object_node.child("object"); object_data; object_data = object_data.next_sibling("object"))
 	{
+		Collider* collider = nullptr;
 		SDL_Rect rect;
 		rect.x = object_data.attribute("x").as_int(0);
 		rect.y = object_data.attribute("y").as_int(0);
 		rect.w = object_data.attribute("width").as_int(0);
 		rect.h = object_data.attribute("height").as_int(0);
-		group->colls[counter] = App->collision->AddCollider(rect, collider_type, this);
+		collider = App->collision->AddCollider(rect, collider_type, this);
+		group->colliders.add(collider);
 		++counter;
 	}
 
-	LOG("Added %i %s", group->num_colliders, object_node.attribute("name").as_string());
+	LOG("Added %u %s", counter, object_node.attribute("name").as_string());
 
 	return ret;
 }

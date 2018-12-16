@@ -62,7 +62,7 @@ private:
 	float				speed_attack;
 
 	// States ==================================
-	Player_State				current_state = Player_State::jumping;
+	Player_State		current_state = Player_State::jumping;
 	//Bool =====================================
 	
 	bool                gummy_jump = false;
@@ -76,12 +76,11 @@ private:
 	bool                check_fall = false;
 	bool                flip_x = false;
 	// Collision ================================
-	Collider           *collider = nullptr;
 	SDL_Rect            collider_rect;
 
 	// Abilities ================================
 	j1Timer             timer_invulnerability;
-
+	 
 	// Assets ===================================
 
 	//-----------Textures-------------------

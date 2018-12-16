@@ -193,7 +193,7 @@ bool EntityManager::CleanUp()
 	
 	while (entities_item != nullptr)
 	{
-		entities_item->data->colliders.clear();
+		App->collision->DeleteCollider(entities_item->data->main_collider);
 		RELEASE(entities_item->data);
 		entities_item = entities_item->next;
 	}
@@ -288,6 +288,7 @@ bool EntityManager::LoadEntities(pugi::xml_node& node)
 		p2SString name(object.attribute("name").as_string());
 		fPoint spawn_pos(object.attribute("x").as_float(0.0f), object.attribute("y").as_float(0.0f));
 		Properties * properties = GetProperties(name);
+
 		if (properties == nullptr)
 		{
 			LOG("Error: Enemy %s Properties not found spawn pos x : %f y: %f" ,name.GetString(), spawn_pos.x, spawn_pos.y);
@@ -309,13 +310,8 @@ bool  EntityManager::UnloadEntities()
 	{
 		++entity_deleted;
 
-		for (p2List_item<Collider*>* colliders = item->data->colliders.start; colliders != nullptr; colliders = colliders->next)
-		{
-			App->collision->DeleteCollider(colliders->data);
-		}
+		App->collision->DeleteCollider(item->data->main_collider);
 		
-		item->data->colliders.clear();
-
 		p2List_item<Entity*>* iterator = item->next;
 
 		if (item->data->name == "player")
@@ -347,11 +343,12 @@ Entity* EntityManager::CreateEntity( p2SString name, fPoint position, fPoint spa
 
 	if (name == "player")
 	{
-		entity = player = new j1Player(position, spawn_pos, properties);
+		entity = new j1Player(position, spawn_pos, properties);
 		entity->active = true;
 		entity->spawned = true;
+		player = (j1Player*) entity;
 	}
-	if (name == "bat") 
+	else if (name == "bat") 
 	{
 		entity = new Enemy_Bat( position, spawn_pos, properties);
 	}
@@ -384,12 +381,12 @@ bool EntityManager::OnCollision(Collider* c1, Collider* c2)
 {
 	for (p2List_item<Entity*> *item = entities.start; item != nullptr; item = item->next)
 	{
-     	if (item->data != nullptr && !item->data->active)
+     	if ( !item->data->active)
 		{
 			continue;
 		}
 
-		if (item->data->FindCollider(c1))
+		if (item->data->GetMainCollider() == c1)
 		{
 			item->data->OnCollision(c1, c2);
 		}

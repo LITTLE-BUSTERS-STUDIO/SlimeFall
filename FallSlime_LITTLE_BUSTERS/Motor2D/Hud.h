@@ -42,7 +42,7 @@ public:
 	int Getlife();
 
 public:
-	Object * hud_object = nullptr;
+	Object *             hud_object = nullptr;
 
 private:
 	// Gui ===================================
