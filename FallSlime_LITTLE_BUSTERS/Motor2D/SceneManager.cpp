@@ -400,6 +400,12 @@ bool SceneManager::ChangeToNextPhase()
 		return false;
 	}
 
+	if ((current_phase + 1) > 3)
+	{
+		ChangeScene("main_menu", 1);
+		return true;
+	}
+
 	change_phase = true;
 	phase_to_load = current_phase + 1;
 
