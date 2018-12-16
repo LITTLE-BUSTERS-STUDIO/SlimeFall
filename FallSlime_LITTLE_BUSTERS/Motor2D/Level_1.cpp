@@ -79,7 +79,7 @@ bool Level_1::LoadScene(pugi::xml_node& node)
 	Button_Definition button_rectangle({ 219 , 0, 122, 36 }, { 219, 36, 122, 36 }, { 219, 72, 122, 36 });
 
 	button_back = App->gui->CreateButton(iPoint(321, 89), button_rectangle, this);
-	button_back->SetLabel(iPoint(321, 85), p2SString("BACK"), karma_font_buttons, color);
+	button_back->SetLabel(iPoint(321, 85), p2SString("RESUME"), karma_font_buttons, color);
 	button_back->SetAnchor(paused_menu);
 
 	button_save = App->gui->CreateButton(iPoint(321, 146), button_rectangle, this);

@@ -4,7 +4,7 @@
 	<window />
 	<textures />
 	<audio>
-		<volumes music="40" sfx="40" mute="false" />
+		<volumes music="40" sfx="40" mute="true" />
 	</audio>
 	<fonts />
 	<map />
@@ -14,15 +14,15 @@
 	<pathfinding />
 	<entity_manager>
 		<entity name="enemy_skeleton" id="1" x="661" y="263" spawned="true" active="true" />
-		<entity name="enemy_skeleton" id="2" x="738" y="262" spawned="true" active="true" />
+		<entity name="enemy_skeleton" id="2" x="738" y="262" spawned="false" active="false" />
 		<entity name="enemy_bat" id="3" x="1018" y="277" spawned="false" active="false" />
 		<entity name="coin" id="4" x="1100" y="284" spawned="false" active="false">
 			<coin_counter value="0" />
 			<enable_coin bool="0" />
 			<state main_collider="collider_none" />
 		</entity>
-		<entity name="player" id="5" x="184" y="161" spawned="true" active="true">
-			<velocity x="0" y="316.642456" />
+		<entity name="player" id="5" x="65" y="195" spawned="true" active="true">
+			<velocity x="0" y="-102.946594" />
 			<conditions apply_jump_speed="false" on_ground="false" check_fall="false" flip_x="false" gummy_jump="false" />
 			<state current_state="jumping" collider_type="collider_player" />
 		</entity>
@@ -31,9 +31,9 @@
 	<gui />
 	<hud />
 	<renderer>
-		<camera_position x="0" y="0" />
-		<camera_smoth_position x="0" y="0" />
+		<camera_position x="0" y="30" />
+		<camera_smoth_position x="0" y="30" />
 		<debug zoom="1" />
-		<conditions free_camera_x="false" free_camera_y="false" />
+		<conditions free_camera_x="false" free_camera_y="true" />
 	</renderer>
 </game_state>

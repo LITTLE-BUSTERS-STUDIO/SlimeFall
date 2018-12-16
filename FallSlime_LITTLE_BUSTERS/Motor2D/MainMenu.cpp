@@ -347,8 +347,8 @@ bool MainMenu::OutClick(Object * object)
 	if (object == button_new_game)
 	{
 		App->scene_manager->ChangeScene("level_1", 1);
-		App->scene_manager->ResetScene();
 		App->hud->Reset();
+		
 	}
 	else if (object == button_settings)
 	{
