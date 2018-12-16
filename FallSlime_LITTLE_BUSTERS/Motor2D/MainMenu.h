@@ -97,6 +97,8 @@ private:
 	// --------- Credits -----------------------
 
 	TextPanel*          license_text_panel = nullptr;
+	Button_Input*       button_github_1 = nullptr;
+	Button_Input*       button_github_2 = nullptr;
 
 
 

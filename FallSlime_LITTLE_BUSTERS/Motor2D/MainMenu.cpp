@@ -296,7 +296,7 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
     // ==================   Credits   ==============================
     // =============================================================
 
-	Animation panel_anim2; //TODO: Change this for Alejandor's work vertical slider panel credits
+	Animation panel_anim2;
 	panel_anim2.PushBack({ 387, 0, 389, 293 });
 	credits_panel = App->gui->CreateImage(iPoint(320, 182), panel_anim2, this);
 	credits_panel->SetAnchor(menu);
@@ -340,6 +340,13 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	button_return_credits = App->gui->CreateButton(iPoint(320, 330), button_def_return_credits, this);
 	button_return_credits->SetAnchor(credits_panel);
 
+	Button_Definition button_def_github({ 822 ,0, 42,45 }, { 822 ,45, 42,45 }, { 822 ,90, 42,50 });
+	button_github_1 = App->gui->CreateButton(iPoint(50, 329), button_def_github, this);
+	button_github_1->SetAnchor(credits_panel);
+
+	button_github_2 = App->gui->CreateButton(iPoint(80, 329), button_def_github, this);
+	button_github_2->SetAnchor(credits_panel);
+
 
 	menu->SetPosition(iPoint(-(App->render->camera.x / (int)App->win->GetScale()), 0));
 
@@ -365,6 +372,8 @@ bool MainMenu::UnloadScene()
 	App->gui->DeleteObject(button_credits);
 	App->gui->DeleteObject(button_settings);
 	App->gui->DeleteObject(button_web);
+	App->gui->DeleteObject(button_github_1);
+	App->gui->DeleteObject(button_github_2);
 
 	// ---------- Settings ----------------------
 
@@ -433,6 +442,14 @@ bool MainMenu::OutClick(Object * object)
 	else if (object == button_web)
 	{
 		ShellExecuteA(NULL, "open", "https://little-busters-studio.github.io/SlimeFall/", NULL, NULL, SW_SHOWNORMAL);
+	}
+	else if (object == button_github_1)
+	{
+		ShellExecuteA(NULL, "open", "https://github.com/optus23", NULL, NULL, SW_SHOWNORMAL);
+	}
+	else if (object == button_github_2)
+	{
+		ShellExecuteA(NULL, "open", "https://github.com/alejandro61299", NULL, NULL, SW_SHOWNORMAL);
 	}
 	else if (object == button_credits)
 	{
