@@ -194,8 +194,11 @@ bool Level_1::OutClick(Object * object)
 		ResumeScene();
 		App->scene_manager->ChangeScene("main_menu", 1);
 
-		/*if (object == button_exit_to_menu)
-			App->LoadGame();*/
+		if (object == button_exit_to_menu)
+		{
+			App->LoadGame();
+			App->gui->is_locked = false;
+		}
 
 	}
 	else if (object == button_save)
