@@ -358,6 +358,25 @@ public:
 			return 0;
 	}
 
+	int CutString(int begin, int end)
+	{
+		uint lenght = this->Length();
+
+		if (begin >= end || end > lenght)
+		{
+			return -1;
+		}
+
+		this->Cut(end, lenght);
+
+		if (begin > 0)
+		{
+			this->Cut(0, begin);
+		}
+
+		return this->Length();
+	}
+
 private:
 
 	void Alloc(unsigned int requiered_memory)

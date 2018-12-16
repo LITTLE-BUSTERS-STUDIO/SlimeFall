@@ -278,6 +278,7 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
     // =============================================================
 
 	TextPanel_Definition license_text_panel_def;
+	license_text_panel_def.line_spacing = 2;
 	license_text_panel_def.color = color;
 	license_text_panel_def.font = karma_font_settings;
 	license_text_panel_def.width = 100;

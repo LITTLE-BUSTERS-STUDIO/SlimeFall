@@ -38,6 +38,8 @@ private:
 	TextPanel_Definition   definition;
 	p2DynArray<SDL_Rect>   rects;
 	uint                   lines = 0;
+	int                    font_height = 0;
+	int                    font_width = 0;
 };
 
 
