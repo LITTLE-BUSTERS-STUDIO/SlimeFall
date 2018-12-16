@@ -91,6 +91,11 @@ bool Level_1::LoadScene(pugi::xml_node& node)
 	button_load->SetLabel(iPoint(321, 195), p2SString("LOAD"), karma_font_buttons, color);
 	button_load->SetAnchor(paused_menu);
 
+	if (!App->save_doc_exist)
+	{
+		button_load->SetState(ObjectState::locked);
+	}
+
 	button_exit_to_menu = App->gui->CreateButton(iPoint(321, 278), button_rectangle, this);
 	button_exit_to_menu->SetLabel(iPoint(321, 274), p2SString("EXIT"), karma_font_buttons, color);
 	button_exit_to_menu->SetAnchor(paused_menu);
