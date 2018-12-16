@@ -301,7 +301,7 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	credits_panel = App->gui->CreateImage(iPoint(320, 182), panel_anim2, this);
 	credits_panel->SetAnchor(menu);
 
-	karma_font_credits = App->font->Load("fonts/ProFontWindows.ttf", 11);
+	karma_font_credits = App->font->Load("fonts/ProFontWindows.ttf", 12);
 
 	TextPanel_Definition license_text_panel_def;
 	license_text_panel_def.line_spacing = 2;
