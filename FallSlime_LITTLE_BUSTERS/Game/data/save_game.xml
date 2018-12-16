@@ -20,8 +20,8 @@
 			<enable_coin bool="0" />
 			<state main_collider="collider_none" />
 		</entity>
-		<entity name="player" id="5" x="65" y="265" spawned="true" active="true">
-			<velocity x="0" y="-400" />
+		<entity name="player" id="5" x="205" y="223" spawned="true" active="true">
+			<velocity x="0" y="297.385925" />
 			<conditions apply_jump_speed="false" on_ground="false" check_fall="false" flip_x="false" gummy_jump="false" />
 			<state current_state="jumping" collider_type="collider_player" />
 		</entity>
@@ -29,11 +29,11 @@
 	<:anonymous />
 	<gui />
 	<hud>
-		<counter coins="0" lifes="5" />
+		<counter coins="1" lifes="3" />
 	</hud>
 	<renderer>
-		<camera_position x="0" y="161" />
-		<camera_smoth_position x="0" y="161" />
+		<camera_position x="0" y="77" />
+		<camera_smoth_position x="0" y="77" />
 		<debug zoom="1" />
 		<conditions free_camera_x="false" free_camera_y="true" />
 	</renderer>

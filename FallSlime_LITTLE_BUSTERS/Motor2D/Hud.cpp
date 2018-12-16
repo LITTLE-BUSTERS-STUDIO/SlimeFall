@@ -27,13 +27,13 @@ bool Hud::Awake(pugi::xml_node &node)
 
 bool Hud::Start()
 {
-	hud_object = App->gui->CreateObject(iPoint(App->render->camera.w * 0.5F, App->render->camera.h * 0.5F), this);
+	hud_object = App->gui->CreateObject(iPoint( 0, 0), this);
 	
 	Animation anim_lives;
 	anim_lives.PushBack({ 0, 96, 17, 14 });
 	anim_lives.PushBack({ 50, 165, 29, 32 });
 
-	for (uint i = 0 ; i < MAX_LIFES; ++i)
+	for (int i = 0 ; i < MAX_LIFES; ++i)
 	{
 		Image* live = App->gui->CreateImage(iPoint(25 * i + 40, 30), anim_lives, this);
 		lifes_list.add(live);
@@ -44,14 +44,14 @@ bool Hud::Start()
 	anim_score.PushBack({ 33, 96, 12, 18 });
 	anim_score.PushBack({ 19, 96, 12, 18 });
 
-	for (uint i = 0; i < MAX_COINS; ++i)
+	for (int i = 0; i < MAX_COINS; ++i)
 	{
 		Image* coin = App->gui->CreateImage(iPoint(25 * i + 550, 30), anim_score, this);
 		coins_list.add(coin);
 		coin->SetAnchor(hud_object);
 	}
 
-	App->gui->SetStateToBranch(ObjectState::hidden, hud_object);
+	HideHud();
 
 	return true;
 }
@@ -73,14 +73,14 @@ bool Hud::PostUpdate()
 
 bool Hud::CleanUp()
 {
-	App->gui->DeleteObject(hud_object);
-	App->gui->DeleteObject(panel_stages);
+
 
 	for (p2List_item<Image*>* item = lifes_list.start; item; item = item->next)
 	{
 		App->gui->DeleteObject(item->data);
 
 	}
+
 	lifes_list.clear();
 
 
@@ -91,6 +91,10 @@ bool Hud::CleanUp()
 	}
 
 	coins_list.clear();
+
+	App->gui->DeleteObject(hud_object);
+	App->gui->DeleteObject(panel_stages);
+
 	return true;
 }
 
@@ -137,7 +141,9 @@ bool Hud::HideHud()
 	{
 		return false;
 	}
+
 	App->gui->SetStateToBranch(ObjectState::hidden, hud_object);
+
 	return true;
 }
 
@@ -147,6 +153,7 @@ bool Hud::ShowHud()
 	{
 		return false;
 	}
+
 	App->gui->SetStateToBranch(ObjectState::visible, hud_object);
 	return true;
 }

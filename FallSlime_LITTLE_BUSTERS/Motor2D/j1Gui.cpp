@@ -215,10 +215,9 @@ bool j1Gui::Update(float dt)
 			break;
 		}
 	}
-	if (!App->first_frame)
-	{
-		UpdateGuiPositions(screen, iPoint(0, 0));
-	}
+
+	UpdateGuiPositions(screen, iPoint(0, 0));
+
 	
 	// Update objects ==============================================
 

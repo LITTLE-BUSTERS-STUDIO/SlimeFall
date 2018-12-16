@@ -31,6 +31,8 @@ bool Level_1::LoadScene(pugi::xml_node& node)
 
 	LOG("Loading Level 1");
 
+	App->pause_game = false;
+
 	music_path = node.child("music").attribute("path").as_string("");
 	game_over_path = node.child("game_over").attribute("path").as_string("");
 	App->audio->PlayMusic(music_path.GetString());
@@ -67,11 +69,10 @@ bool Level_1::LoadScene(pugi::xml_node& node)
 	parallax_speed_22 = node.child("parallax_speed").attribute("medium").as_float(0.0F);
 	parallax_speed_33 = node.child("parallax_speed").attribute("high").as_float(0.0F);
 
-	App->hud->ShowHud();
 	// Anchor =============================================
-	paused_menu = App->gui->CreateObject(iPoint(App->render->camera.w * 0.5F, App->render->camera.h * 0.5F), this);
 	game_over_anchor = App->gui->CreateObject(iPoint(App->render->camera.w * 0.5F, App->render->camera.h * 0.5F), this);
-	game_over_anchor->SetAnchor(App->hud->hud_object);
+	paused_menu = App->gui->CreateObject(iPoint(App->render->camera.w * 0.5F, App->render->camera.h * 0.5F), this);
+	
 	//Labels ==============================================
 	karma_font_buttons = App->font->Load("fonts/KarmaSuture.ttf", 24);
 	SDL_Color color = { 231,94,152,255 };
@@ -79,9 +80,9 @@ bool Level_1::LoadScene(pugi::xml_node& node)
 	// Buttons ============================================
 	Button_Definition button_rectangle({ 219 , 0, 122, 36 }, { 219, 36, 122, 36 }, { 219, 72, 122, 36 });
 
-	button_back = App->gui->CreateButton(iPoint(321, 89), button_rectangle, this);
-	button_back->SetLabel(iPoint(321, 85), p2SString("RESUME"), karma_font_buttons, color);
-	button_back->SetAnchor(paused_menu);
+	button_resume = App->gui->CreateButton(iPoint(321, 89), button_rectangle, this);
+	button_resume->SetLabel(iPoint(321, 85), p2SString("RESUME"), karma_font_buttons, color);
+	button_resume->SetAnchor(paused_menu);
 
 	button_save = App->gui->CreateButton(iPoint(321, 146), button_rectangle, this);
 	button_save->SetLabel(iPoint(321, 142), p2SString("SAVE"), karma_font_buttons, color);
@@ -107,7 +108,12 @@ bool Level_1::LoadScene(pugi::xml_node& node)
 	button_return_gameover->SetAnchor(game_over_anchor);
 
 	App->gui->SetStateToBranch(ObjectState::hidden, game_over_anchor);
+
+
 	App->gui->show_cursor = false;
+	App->hud->ShowHud();
+
+
 	return true;
 }
 
@@ -144,7 +150,9 @@ bool Level_1::PostUpdate()
 	App->map->Draw();
 	
 	// Blit Game Over + Music
+
 	SDL_Rect game_over_rect = { 0, 0, 640, 360 };
+
 	if (App->hud->Getlife() <= 0)
 	{
 		App->gui->show_cursor = true;
@@ -166,7 +174,7 @@ bool Level_1::UnloadScene()
 	App->tex->UnLoad(paralax_tex_2);
 	App->tex->UnLoad(paralax_tex_3);
 
-	App->gui->DeleteObject(button_back);
+	App->gui->DeleteObject(button_resume);
 	App->gui->DeleteObject(button_save);
 	App->gui->DeleteObject(button_load);
 	App->gui->DeleteObject(button_exit_to_menu);
@@ -186,36 +194,22 @@ bool Level_1::OnClick(Object * object)
 
 bool Level_1::OutClick(Object * object)
 {
-	if (object == button_back)
+	if (object == button_resume)
 	{
-		App->pause_game = false;
 		ResumeScene();
 	}
 	else if (object == button_exit_to_menu || object == button_return_gameover)
 	{
-		App->pause_game = false;
-		OutGameOver();
-		App->gui->SetStateToBranch(ObjectState::hidden, App->hud->hud_object);
-		ResumeScene();
 		App->scene_manager->ChangeScene("main_menu", 1);
-
-		if (object == button_exit_to_menu)
-		{
-			App->LoadGame();
-		}
-
 	}
 	else if (object == button_save)
 	{
-		App->pause_game = false;
 		ResumeScene();
 		App->SaveGame();
 	}
 	else if (object == button_load)
 	{
-		App->pause_game = false;
 		App->LoadGame();
-		ResumeScene();
 	}
 	
 	return true;
@@ -223,6 +217,7 @@ bool Level_1::OutClick(Object * object)
 
 bool Level_1::PauseScene()
 {
+	App->pause_game = true;
 	App->gui->SetStateToBranch(ObjectState::visible, paused_menu);
 	App->gui->show_cursor = true;
 	return true;
@@ -230,6 +225,7 @@ bool Level_1::PauseScene()
 
 bool Level_1::ResumeScene()
 {
+	App->pause_game = false;
 	App->gui->SetStateToBranch(ObjectState::hidden, paused_menu);
 	App->gui->show_cursor = false;
 	return true;
@@ -237,17 +233,20 @@ bool Level_1::ResumeScene()
 
 bool Level_1::SetGameOver()
 {
-	App->entity_manager->UnloadEntities();
-	App->gui->SetStateToBranch(ObjectState::hidden, App->hud->hud_object);
+	//App->hud->HideHud();
 	App->gui->SetStateToBranch(ObjectState::visible, game_over_anchor);
 	App->gui->SetStateToBranch(ObjectState::hidden, paused_menu);
+
 	App->audio->PlayMusic(game_over_path.GetString());
-	App->pause_game = false;
+	App->pause_game = true;
+
 	return true;
 }
 
 bool Level_1::OutGameOver()
 {
 	App->gui->SetStateToBranch(ObjectState::hidden, game_over_anchor);
+	App->pause_game = false;
+
 	return true;
 }

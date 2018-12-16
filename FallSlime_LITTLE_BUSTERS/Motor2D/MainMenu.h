@@ -55,7 +55,7 @@ private:
 	float               camera_speed = 0.0f;
 	fPoint              camera_velocity = { 0.0f , 0.0f };
 	MenuSection         current_section = MenuSection::main_menu;
-
+	int                 frames_counter = 0;
 	// GUI ============================================
 	Object*             menu = nullptr;
 	_TTF_Font*          karma_font_settings = nullptr;

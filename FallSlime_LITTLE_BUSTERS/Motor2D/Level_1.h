@@ -58,7 +58,7 @@ private:
 	//------------Paused Menu----------------
 	Object*             paused_menu = nullptr;
 	_TTF_Font*          karma_font_buttons = nullptr;
-	Button_Input*       button_back = nullptr;
+	Button_Input*       button_resume = nullptr;
 	Button_Input*       button_save = nullptr;
 	Button_Input*       button_load = nullptr;
 	Button_Input*       button_exit_to_menu = nullptr;
