@@ -46,20 +46,32 @@ Extract .zip files inside a folder and open the .exe file.
 * Load Animations with Tiled v1.2.0
 * Random SFx Jump (4 slime sounds)
 
-
 ### Innovation features A2:
 * Camera follow is now smooth
 * Camera Tremble when player kill an enemy
 * Special Attack mechanic
 * God Mode free flying
 * Camera pulling, all tilesets out of camera despawn
-* Load Entities with tiled v1.2.0
+* Load Entities with Tiled v1.2.0
+
+### Innovation features A3
+* Personalized Cursor (Blits only in menus)
+* Coin entity with Tiled v1.2.0
+* Kinesthetic Main menu nevigation
+* Tutorial level added
+* Different music for each "scene"
+* Credits vertical slider
+* At the end game your total score is been revealed
+* Personalized Icon.ico 
+
+
 
 
 ## Authors & Links
 * **Alejandro Gamarra (alejandro61299)** - *As a Lead Programer & QA* https://github.com/alejandro61299
 * **Marc Galvez(optus23)** - *As a Lead Designer & Manager*  https://github.com/optus23
 
+WebPage: https://little-busters-studio.github.io/SlimeFall/
 Github repository: https://github.com/LITTLE-BUSTERS-STUDIO/FallSlime
 Trello: https://trello.com/b/ZRKRIdPU/little-busters
 See also our organization, Little Busters[https://github.com/LITTLE-BUSTERS-STUDIO) 
@@ -68,6 +80,16 @@ And finnaly take a look at, Ric's github  https://github.com/d0n3val
 
 ## Authors Creations
 # Marc Galvez: 
+1rst Assignment:
+* Set volume up/down
+* Created Licence
+* Player Flips
+* Camera follow player
+* Level Design
+* Animation player with tiled v1.2
+* Paralax Background
+
+2nd Assignment:
 * God Mode free flying
 * Special Attack mechanic 
 * Camera Tremble when player kill an enemy
@@ -83,6 +105,22 @@ And finnaly take a look at, Ric's github  https://github.com/d0n3val
 * Trello planification
 * Changelog and Readme
 * UML Entity System
+
+3rd Assignment
+* Personalized Cursor
+* Placed and selected music and sfx
+* Game Over logic
+* Safe Load with button inputs
+* Create Pause Menu
+* Pause game with dt
+* Coin entity
+* Animation Coin with Tiled v1.2
+* Tutorial level
+* Web Page
+* Hud  (life and coins)
+* UML UI System
+* Changed game icon.ico
+
 
 # Alejandro Gamarra : 
 * Debug pathfinding draw && Walkablemap draw 
@@ -110,11 +148,15 @@ And finnaly take a look at, Ric's github  https://github.com/d0n3val
 * [Black Forest Background](https://edermunizz.itch.io/free-pixel-art-forest)
 * [Tree tileset](https://genchevblog.wordpress.com/)
 * [First level music](https://www.youtube.com/watch?v=u94lVZa9xXU)
-* [Slime sounds](http://soundbible.com/tags-mine.html)
+* [Enemies sfx](https://minecraft.net/es-es/)
+* [Coin sfx](https://minecraft.net/es-es/)
+* [Button sfx](https://freesound.org)
+* [Gameplay  Music](https://downloads.khinsider.com/game-soundtracks/album/megaman-2-original-soundtrack)
+
 
 ## Acknowledgments
 * Thanks to all the people in class for supporting this project.
-* All extern QA people.
+* Thanks to all extern QA people too.
 
 
 # We hope you Enjoy! Thanks for playing.
