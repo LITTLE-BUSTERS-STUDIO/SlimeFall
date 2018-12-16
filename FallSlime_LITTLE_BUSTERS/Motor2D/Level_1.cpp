@@ -196,7 +196,7 @@ bool Level_1::OutClick(Object * object)
 
 		if (object == button_exit_to_menu)
 		{
-			App->LoadGame();
+			App->SaveGame();
 			App->gui->is_locked = false;
 		}
 
@@ -213,8 +213,8 @@ bool Level_1::OutClick(Object * object)
 	else if (object == button_load)
 	{
 		App->pause_game = false;
-		ResumeScene();
 		App->LoadGame();
+		ResumeScene();
 	}
 	
 	return true;

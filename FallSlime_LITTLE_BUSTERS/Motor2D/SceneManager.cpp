@@ -240,10 +240,11 @@ bool SceneManager::LoadPhase(uint phase_number)
 	// Hardcode =========================================
 	if (ret)
 	{
-		App->render->CameraReset();
 		current_phase = phase_number;
 		App->render->SetCameraLimits(item->data->x_limit, item->data->y_limit);
 		App->render->CameraFollowPlayer(item->data->camera_follow_player);
+		App->render->CameraReset();
+
 	}
 
 	return ret;
