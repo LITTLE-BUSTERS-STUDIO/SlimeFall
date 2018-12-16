@@ -196,19 +196,15 @@ bool Level_1::OutClick(Object * object)
 
 		if (object == button_exit_to_menu)
 		{
-			App->SaveGame();
-			App->gui->is_locked = false;
+			App->LoadGame();
 		}
 
 	}
 	else if (object == button_save)
 	{
 		App->pause_game = false;
-		App->gui->is_locked = false;
-
 		ResumeScene();
 		App->SaveGame();
-
 	}
 	else if (object == button_load)
 	{
@@ -241,8 +237,6 @@ bool Level_1::SetGameOver()
 	App->gui->SetStateToBranch(ObjectState::visible, game_over_anchor);
 	App->gui->SetStateToBranch(ObjectState::hidden, paused_menu);
 	App->audio->PlayMusic(game_over_path.GetString());
-
-
 	App->pause_game = false;
 	return true;
 }

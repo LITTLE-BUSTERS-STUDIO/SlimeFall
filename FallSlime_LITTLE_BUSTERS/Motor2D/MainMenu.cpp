@@ -190,6 +190,11 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	button_continue->SetLabel(iPoint(320, 246), p2SString("CONTINUE"), karma_font_settings, color);
 	button_continue->SetAnchor(logo);
 
+	if (!App->save_doc_exist)
+	{
+		button_continue->SetState(ObjectState::locked);
+	}
+
 	button_exit = App->gui->CreateButton(iPoint(320, 292), button_rectangle, this);
 	button_exit->SetLabel(iPoint(320, 288), p2SString("EXIT"), karma_font_settings, color);
 	button_exit->SetAnchor(logo);
@@ -381,7 +386,7 @@ bool MainMenu::OutClick(Object * object)
 
 		LOG("Mute ON!");
 	}*/
-	else if (object == button_continue && !App->gui->is_locked)
+	else if (object == button_continue)
 	{
 		App->LoadGame();
 	}

@@ -100,7 +100,6 @@ public:
 	uint				fx_button_hovered;
 	uint				fx_button_clicked;
 	SDL_Texture*		game_over;
-	bool				is_locked = true;
 
 
 private:

@@ -9,26 +9,22 @@
 	<fonts />
 	<map />
 	<scene_manager>
-		<scene name="main_menu" phase="1" />
+		<scene name="level_1" phase="1" />
 	</scene_manager>
 	<pathfinding />
 	<entity_manager>
-		<entity name="player" id="1" x="836" y="95" spawned="true" active="true">
-			<velocity x="0" y="-333.927094" />
+		<entity name="enemy_skeleton" id="1" x="661" y="263" spawned="false" active="false" />
+		<entity name="enemy_skeleton" id="2" x="738" y="262" spawned="false" active="false" />
+		<entity name="enemy_bat" id="3" x="1087" y="271" spawned="false" active="false" />
+		<entity name="coin" id="4" x="1014" y="279" spawned="false" active="false">
+			<enable_coin bool="0" />
+			<state main_collider="collider_none" />
+		</entity>
+		<entity name="player" id="5" x="65" y="265" spawned="true" active="true">
+			<velocity x="0" y="-400" />
 			<conditions apply_jump_speed="false" on_ground="false" check_fall="false" flip_x="false" gummy_jump="false" />
 			<state current_state="jumping" collider_type="collider_player" />
 		</entity>
-		<entity name="player" id="2" x="1760" y="200" spawned="true" active="true">
-			<velocity x="0" y="-134.109497" />
-			<conditions apply_jump_speed="false" on_ground="false" check_fall="false" flip_x="false" gummy_jump="false" />
-			<state current_state="jumping" collider_type="collider_player" />
-		</entity>
-		<entity name="enemy_bat" id="3" x="64" y="160" spawned="true" active="true" />
-		<entity name="enemy_bat" id="4" x="96" y="272" spawned="true" active="true" />
-		<entity name="enemy_bat" id="5" x="592" y="128" spawned="true" active="true" />
-		<entity name="enemy_bat" id="6" x="528" y="256" spawned="true" active="true" />
-		<entity name="enemy_skeleton" id="7" x="1896" y="166" spawned="false" active="false" />
-		<entity name="enemy_skeleton" id="8" x="1853" y="261" spawned="false" active="false" />
 	</entity_manager>
 	<:anonymous />
 	<gui />
@@ -36,9 +32,9 @@
 		<counter coins="0" lifes="5" />
 	</hud>
 	<renderer>
-		<camera_position x="0" y="0" />
-		<camera_smoth_position x="0" y="0" />
+		<camera_position x="0" y="161" />
+		<camera_smoth_position x="0" y="161" />
 		<debug zoom="1" />
-		<conditions free_camera_x="true" free_camera_y="true" />
+		<conditions free_camera_x="false" free_camera_y="true" />
 	</renderer>
 </game_state>

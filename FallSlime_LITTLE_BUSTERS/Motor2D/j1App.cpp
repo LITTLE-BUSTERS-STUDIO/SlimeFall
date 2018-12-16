@@ -90,6 +90,16 @@ bool j1App::Awake()
 	
 	save_game.create("data/save_game.xml");
 	load_game.create("data/save_game.xml");
+
+	pugi::xml_document	save_doc;
+	save_doc.load_file(save_game.GetString());
+	if (save_doc != NULL)
+	{
+		save_doc_exist = true;
+	}
+
+	save_doc.reset();
+
 	config = LoadConfig(config_file);
 
 	if(config.empty() == false)
@@ -395,12 +405,6 @@ void j1App::SaveGame() const
 	want_to_save = true;
 }
 
-// ---------------------------------------
-void j1App::GetSaveGames(p2List<p2SString>& list_to_fill) const
-{
-	// need to add functionality to file_system module for this to work
-}
-
 bool j1App::LoadGameNow()
 {
 	bool ret = false;
@@ -434,6 +438,7 @@ bool j1App::LoadGameNow()
 	else
 		LOG("Could not parse game state xml file %s. pugi error: %s", load_game.GetString(), result.description());
 
+	save_doc_exist = true;
 	want_to_load = false;
 	return ret;
 }
