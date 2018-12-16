@@ -16095,22 +16095,22 @@
   <object id="398" x="741.121" y="229.75" width="20.4847" height="12.8636"/>
   <object id="399" x="882.64" y="229.714" width="246.54" height="39.1969"/>
   <object id="400" x="966.455" y="-0.189376" width="37.9089" height="129.841"/>
-  <object id="401" x="103.87" y="10.5682" width="973.804" height="16.3636"/>
+  <object id="401" x="103.87" y="0.5682" width="973.804" height="26.3636"/>
   <object id="402" x="10.9092" y="0.484867" width="93.1817" height="86.3636"/>
   <object id="403" x="1114.71" y="-0.587167" width="44.5756" height="139.174"/>
   <object id="404" x="1077.38" y="-0.587" width="36.5756" height="85.174"/>
   <object id="405" x="1129.51" y="196.818" width="30.2347" height="89.0681"/>
   <object id="406" x="1159.8" y="229.027" width="16.1722" height="23.5454"/>
-  <object id="407" x="1221.09" y="327.131" width="84.8313" height="13.3636"/>
-  <object id="408" x="1162.99" y="420.955" width="139.172" height="18.8181"/>
+  <object id="407" x="1221.09" y="321.381" width="84.8313" height="28.3636"/>
+  <object id="408" x="1162.99" y="415.455" width="145.672" height="24.3181"/>
   <object id="409" x="1150.14" y="368.028" width="12.9449" height="72.0681"/>
-  <object id="413" x="1288.21" y="0.651533" width="17.5889" height="326.03"/>
+  <object id="413" x="1288.21" y="0.651533" width="26.0889" height="326.03"/>
   <object id="414" x="1076.35" y="268.511" width="12.9449" height="144.477"/>
   <object id="415" x="12.6852" y="210.432" width="12.9449" height="211.932"/>
   <object id="431" x="871.258" y="262.318" width="12.2347" height="9.1136"/>
   <object id="433" x="0.179724" y="0.134085" width="12.9449" height="180.23"/>
   <object id="435" x="1160.08" y="0.0682" width="127.681" height="16.3636"/>
-  <object id="437" x="1162.94" y="408.33" width="14.2631" height="12.6439"/>
+  <object id="437" x="1162.94" y="397.83" width="14.2631" height="41.6439"/>
   <object id="440" x="24.788" y="403.897" width="1065.33" height="25.1027"/>
   <object id="441" x="1136.86" y="285.82" width="12.9449" height="83.6931"/>
  </objectgroup>
@@ -16132,7 +16132,7 @@
   <properties>
    <property name="type" value="colliders"/>
   </properties>
-  <object id="411" x="1290" y="342.417" width="10.5" height="75.75"/>
+  <object id="411" x="1306.5" y="346.917" width="28.75" height="69"/>
  </objectgroup>
  <objectgroup id="70" name="entities">
   <properties>
@@ -16144,7 +16144,7 @@
   <object id="443" name="bat" x="319.5" y="292.5">
    <point/>
   </object>
-  <object id="444" name="skeleton" x="1260.5" y="315">
+  <object id="444" name="skeleton" x="1260.25" y="306.25">
    <point/>
   </object>
   <object id="446" name="bat" x="1260.83" y="401.833">
