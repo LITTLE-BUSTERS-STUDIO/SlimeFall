@@ -111,6 +111,8 @@ public:
 	SceneManager *      scene_manager = nullptr;
 	Hud *				hud = nullptr;
 
+	mutable bool        save_doc_exist = false;
+
 	// Framerate ==============================
 	bool			    apply_cap_frames = true;
 	j1Timer				timer;
@@ -130,7 +132,6 @@ private:
 	bool				want_to_load = false;
 	p2SString			load_game;
 	mutable p2SString	save_game;
-
 
 	// Framerate =======================================                
 	uint				frames = 0;
