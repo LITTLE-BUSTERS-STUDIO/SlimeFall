@@ -182,17 +182,17 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	// Images ============================================
 	Animation logo_anim;
 	logo_anim.PushBack({ 0, 0, 219, 94 });
-	logo = App->gui->CreateImage(iPoint(340, 84), logo_anim, this);
+	logo = App->gui->CreateImage(iPoint(340 + 640, 84), logo_anim, this);
 	logo->SetAnchor(menu);
 
 	// Buttons ============================================
 	Button_Definition button_rectangle({ 219 , 0, 122, 36 }, { 219, 36, 122, 36 }, { 219, 72, 122, 36 });
-	button_new_game = App->gui->CreateButton(iPoint(320, 208), button_rectangle, this);
-	button_new_game->SetLabel(iPoint(320, 204), p2SString("NEW GAME"), karma_font_settings, color);
+	button_new_game = App->gui->CreateButton(iPoint(320 + 640, 208), button_rectangle, this);
+	button_new_game->SetLabel(iPoint(320 + 640, 204), p2SString("NEW GAME"), karma_font_settings, color);
 	button_new_game->SetAnchor(logo);
 
 	button_continue = App->gui->CreateButton(iPoint(320, 250), button_rectangle, this);
-	button_continue->SetLabel(iPoint(320, 246), p2SString("CONTINUE"), karma_font_settings, color);
+	button_continue->SetLabel(iPoint(320 + 640, 246), p2SString("CONTINUE"), karma_font_settings, color);
 	button_continue->SetAnchor(logo);
 
 	if (!App->save_doc_exist)
@@ -201,22 +201,22 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	}
 
 	button_exit = App->gui->CreateButton(iPoint(320, 292), button_rectangle, this);
-	button_exit->SetLabel(iPoint(320, 288), p2SString("EXIT"), karma_font_settings, color);
+	button_exit->SetLabel(iPoint(320 + 640, 288), p2SString("EXIT"), karma_font_settings, color);
 	button_exit->SetAnchor(logo);
 
 	Button_Definition button_def_credits({ 866 ,0, 42,45 }, { 866 ,45, 42,45 }, { 866 ,90, 42,45 });
-	button_credits = App->gui->CreateButton(iPoint(84, 329), button_def_credits, this);
+	button_credits = App->gui->CreateButton(iPoint(84 + 640, 329), button_def_credits, this);
 	button_credits->SetAnchor(logo);
 
 	Button_Definition button_def_web({ 954 ,0, 42,45 }, { 954 ,45, 42,45 }, { 954 ,90, 42,45 });
-	button_web = App->gui->CreateButton(iPoint(141, 329), button_def_web, this);
+	button_web = App->gui->CreateButton(iPoint(141 + 640, 329), button_def_web, this);
 	button_web->SetAnchor(logo);
 
-	Button_Definition button_def_settings({ 910 ,0, 42,45 }, { 910 ,45, 42,45 }, { 910 ,90, 42,45 });
-	button_settings = App->gui->CreateButton(iPoint(555, 329), button_def_settings, this);
+	Button_Definition button_def_settings({ 910 + 640 ,0, 42,45 }, { 910 ,45, 42,45 }, { 910 ,90, 42,45 });
+	button_settings = App->gui->CreateButton(iPoint(555 + 640, 329), button_def_settings, this);
 	button_settings->SetAnchor(logo);
 
-	logo->SetPosition(iPoint(320 + 640, logo->GetPosition().y));
+	//logo->SetPosition(iPoint(320 + 640, logo->GetPosition().y));
 
 	// =============================================================
     // ==================   Settings   =============================
@@ -225,7 +225,7 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	// Images ============================================
 	Animation panel_anim;
 	panel_anim.PushBack({ 387, 0, 389, 293 });
-	settings_panel = App->gui->CreateImage(iPoint(320, 182), panel_anim, this);
+	settings_panel = App->gui->CreateImage(iPoint(320 +1280, 182), panel_anim, this);
 	settings_panel->SetAnchor(menu);
 
 	Animation panel_anim2; //TODO: Change this for Alejandor's work vertical slider panel credits
@@ -235,12 +235,12 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 
 	Animation settings_anim;
 	settings_anim.PushBack({ 915, 5, 31, 30 });
-	settings_image = App->gui->CreateImage(iPoint(363, 78), settings_anim, this);
+	settings_image = App->gui->CreateImage(iPoint(363 + 1280, 78), settings_anim, this);
 	settings_image->SetAnchor(settings_panel);
 
 	// Buttons ============================================
 	Button_Definition button_def_return_settings({ 778 ,0, 42,45 }, { 778 ,45, 42,45 }, { 778 ,90, 42,45 });
-	button_return_settings = App->gui->CreateButton(iPoint(320, 318), button_def_return_settings, this);
+	button_return_settings = App->gui->CreateButton(iPoint(320 + 1280, 318), button_def_return_settings, this);
 	button_return_settings->SetAnchor(settings_panel);
 
 	Button_Definition button_def_return_credits({ 778 ,136, 42,45 }, { 778 ,181, 42,45 }, { 778 ,230, 42,45 });
@@ -248,15 +248,15 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	button_return_credits->SetAnchor(credits_panel);
 
 	// Labels ============================================
-	settings_label = App->gui->CreateLabel(iPoint(295, 75), "Settings", karma_font_settings, this, color);
+	settings_label = App->gui->CreateLabel(iPoint(295 + 1280, 75), "Settings", karma_font_settings, this, color);
 	settings_label->SetAnchor(settings_panel);
-	music_volume_label = App->gui->CreateLabel(iPoint(229, 130), "Music volume", karma_font_settings, this, color);
+	music_volume_label = App->gui->CreateLabel(iPoint(229 + 1280, 130), "Music volume", karma_font_settings, this, color);
 	music_volume_label->SetAnchor(settings_panel);
-	sfx_volume_label = App->gui->CreateLabel(iPoint(218, 173), "Sfx volume", karma_font_settings, this, color);
+	sfx_volume_label = App->gui->CreateLabel(iPoint(218 + 1280, 173), "Sfx volume", karma_font_settings, this, color);
 	sfx_volume_label->SetAnchor(settings_panel);
-	mute_label = App->gui->CreateLabel(iPoint(185, 216), "Mute", karma_font_settings, this, color);
+	mute_label = App->gui->CreateLabel(iPoint(185 + 1280, 216), "Mute", karma_font_settings, this, color);
 	mute_label->SetAnchor(settings_panel);
-	limitate_fps_label = App->gui->CreateLabel(iPoint(225, 255), "Limitate FPS", karma_font_settings, this, color);
+	limitate_fps_label = App->gui->CreateLabel(iPoint(225 + 1280, 255), "Limitate FPS", karma_font_settings, this, color);
 	limitate_fps_label->SetAnchor(settings_panel);
 
 	// Sliders ============================================
@@ -268,10 +268,10 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	slider_def.thumb_definition.pushed_rect = { 328 ,111, 13,24 };
 	slider_def.rail_draw_rect = { 248 ,136, 136,7 };
 
-	slider_music_volume = App->gui->CreateSlider(iPoint(399, 134), slider_def, this);
+	slider_music_volume = App->gui->CreateSlider(iPoint(399 + 1280, 134), slider_def, this);
 	slider_music_volume->SetAnchor(settings_panel);
 
-	slider_sfx_volume = App->gui->CreateSlider(iPoint(399, 178), slider_def, this);
+	slider_sfx_volume = App->gui->CreateSlider(iPoint(399 + 1280, 178), slider_def, this);
 	slider_sfx_volume->SetAnchor(settings_panel);
 
 	// Checkboxes ========================================
@@ -284,14 +284,12 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	checkbox_def.check_on_button.hover_rect = { 324, 144 , 19, 21 };
 	checkbox_def.check_on_button.pushed_rect = { 343, 144 , 19, 21 };
 
-	checkbox_mute = App->gui->CreateCheckbox(iPoint(398, 219), checkbox_def, this);
+	checkbox_mute = App->gui->CreateCheckbox(iPoint(398 + 1280, 219), checkbox_def, this);
 	checkbox_mute->SetAnchor(settings_panel);
 
-	checkbox_limitate_fps = App->gui->CreateCheckbox(iPoint(398, 257), checkbox_def, this);
+	checkbox_limitate_fps = App->gui->CreateCheckbox(iPoint(398 + 1280, 257), checkbox_def, this);
 	checkbox_limitate_fps->SetAnchor(settings_panel);
 
-	settings_panel->SetPosition(iPoint(320 + 1280, 180));
-	credits_panel->SetPosition(iPoint(320, 180));
 
 	// =============================================================
     // ==================   Credits   ==============================
@@ -303,12 +301,10 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	license_text_panel_def.font = karma_font_settings;
 	license_text_panel_def.width = 100;
 	license_text_panel_def.text.create("abcdfghijklmnopk boi");
+
 	license_text_panel = App->gui->CreateTextPanel(iPoint(320, 180), license_text_panel_def, this);
 	license_text_panel->SetAnchor(menu);
 
-	//App->gui->UpdateGuiPositions(App->gui->GetScreen(), iPoint(0,0));
-	//App->gui->SetStateToBranch(ObjectState::hidden, menu);
-	App->hud->HideHud();
 	return true;
 }
 
