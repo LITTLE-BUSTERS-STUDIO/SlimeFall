@@ -19,7 +19,6 @@ Enemy_Skeleton::Enemy_Skeleton(fPoint position, fPoint spawn_pos, Properties *pr
 	name.create("enemy_skeleton");
 
 	Enemy_Skeleton_Properties* enemy_properties = (Enemy_Skeleton_Properties *)properties;
-
 	target = (Entity*)App->entity_manager->GetPlayer();
 
 	// Textures ------------------------------------------
@@ -136,7 +135,7 @@ bool Enemy_Skeleton::Draw()
 	else
 	{
 		flip_x = true;
-		margin_flip = main_collider->rect.w + main_collider->rect.w / 2;
+ 		margin_flip = main_collider->rect.w + main_collider->rect.w / 2;
 	}
 	
 	App->render->Blit(texture, position.x - margin_flip, position.y - main_collider->rect.h *3/2 + 5, &frame, flip_x);

@@ -99,37 +99,17 @@ bool j1Collision::Update(float dt)
 
 	// Remove all colliders scheduled for deletion
 	p2List_item<Collider*>* collider = colliders.start;
-	p2List_item<Collider*>* iterator = nullptr;
-	p2List_item<Collider*>* item_2 = nullptr;
 	Collider* c1 = nullptr;
 	Collider* c2 = nullptr;
 
-	int deleted_colliders = 0;
-
 	// Collision detection and callbacks ============================================== 
-	collider = colliders.start;
 
-	while (collider != NULL)
+	for (p2List_item<Collider*>* item_1 = colliders.start; item_1; item_1 = item_1->next)
 	{
-		c1 = collider->data;
+		c1 = item_1->data;
 
-
-		if (collider != NULL)
+		for (p2List_item<Collider*>* item_2 = item_1->next; item_2; item_2 = item_2->next)
 		{
-			item_2 = collider->next;
-		}
-
-
-		// Avoid checking collisions already checked
-
-		while (item_2 != NULL)
-		{
-			if (item_2->data == nullptr)
-			{
-				item_2 = item_2->next;
-				continue;
-			}
-				
 			c2 = item_2->data;
 
 			if (c1->CheckCollision(c2->rect) == true)
@@ -140,12 +120,51 @@ bool j1Collision::Update(float dt)
 				if (matrix[c2->type][c1->type] && c2->callback)
 					c2->callback->OnCollision(c2, c1);
 			}
-
-			item_2 = item_2->next;
 		}
-
-		collider = collider->next;
 	}
+
+
+
+
+
+
+	//while (collider != NULL)
+	//{
+	//	c1 = collider->data;
+
+
+	//	if (collider != NULL)
+	//	{
+	//		item_2 = collider->next;
+	//	}
+
+
+	//	// Avoid checking collisions already checked
+
+	//	while (item_2 != NULL)
+	//	{
+	//		if (item_2->data == nullptr)
+	//		{
+	//			item_2 = item_2->next;
+	//			continue;
+	//		}
+	//			
+	//		c2 = item_2->data;
+
+	//		if (c1->CheckCollision(c2->rect) == true)
+	//		{
+	//			if (matrix[c1->type][c2->type] && c1->callback)
+	//				c1->callback->OnCollision(c1, c2);
+
+	//			if (matrix[c2->type][c1->type] && c2->callback)
+	//				c2->callback->OnCollision(c2, c1);
+	//		}
+
+	//		item_2 = item_2->next;
+	//	}
+
+	//	collider = collider->next;
+	//}
 	return true;
 }
 
@@ -268,23 +287,24 @@ bool j1Collision::CheckOverlap(p2List<Direction> &directions , Collider *dynamic
 
 bool j1Collision::DeleteCollider(Collider * collider)
 {
-	if (colliders.count() == 0)
-	{
-		return true;
-	}
+	p2List_item<Collider*> * collider_to_delete = nullptr;
 
-	for (p2List_item<Collider*> * item = colliders.start; item != nullptr; item = item->next)
+	for (p2List_item<Collider*> * item = colliders.start; item ; item = item->next)
 	{
 		if (item->data == collider)
 		{
-			RELEASE(item->data);
-			colliders.del(item);
-			return true;
+			collider_to_delete = item;
 		}
 	}
+	if (collider_to_delete == nullptr)
+	{
+		LOG("Collider to delete not found");
+		return false;
+	}
 
-	LOG("Collider to delete not found");
-	return false;
+	RELEASE(collider_to_delete->data);
+	colliders.del(collider_to_delete);
+
 }
 
 Direction j1Collision::SolveOverlap(Collider *dynamic_col, Collider *static_col, fPoint &position , fPoint &velocity)

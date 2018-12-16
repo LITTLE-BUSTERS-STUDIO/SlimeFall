@@ -25,17 +25,9 @@ void Entity::SetPosition( fPoint position)
 	this->position = position;
 }
 
-bool Entity::FindCollider( Collider *collider) const
+Collider* Entity::GetMainCollider() 
 {
-	for (p2List_item<Collider*>*item = colliders.start ; item ; item = item->next )
-	{
-		if (item->data == collider) 
-		{
-			return true;
-		}
-	}
-	
-	return false;
+	return main_collider;
 }
 
 

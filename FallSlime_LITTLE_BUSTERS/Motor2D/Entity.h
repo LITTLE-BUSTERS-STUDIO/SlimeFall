@@ -166,7 +166,7 @@ public:
 
 	void  SetPosition(fPoint position);
 
-	bool FindCollider(Collider *collider) const;
+	Collider * GetMainCollider();
 
 protected:
 	// Variables =======================================
@@ -181,7 +181,7 @@ protected:
 	fPoint                velocity;
 	fPoint                acceleration;
 	// Colliders =======================================
-	p2List<Collider*>     colliders;
+	Collider *            main_collider = nullptr;
 
 private:
 	friend EntityManager;

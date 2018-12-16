@@ -34,7 +34,6 @@ public:
 
 	// Variables  ===================================
 
-	Collider*             main_collider = nullptr;
 	j1Timer               path_timer;
 	p2DynArray<iPoint>    last_path;
 	Entity*               target = nullptr;                 // Entity to follow

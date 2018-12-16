@@ -45,12 +45,11 @@ struct CollidersGroup
 {
 	p2SString			    name;
 	COLLIDER_TYPE		    type;
-	Collider**              colls = nullptr;
-	uint                    num_colliders = 0u;
+	p2List<Collider*>       colliders;
 
 	~CollidersGroup()
 	{
-		RELEASE_ARRAY(colls);
+
 	}
 };
 

@@ -5604,10 +5604,10 @@
   <properties>
    <property name="type" value="entities"/>
   </properties>
-  <object id="439" name="player" x="834.667" y="106">
+  <object id="439" name="player" x="836" y="60">
    <point/>
   </object>
-  <object id="456" name="player" x="1770" y="258">
+  <object id="456" name="player" x="1760.67" y="258">
    <point/>
   </object>
   <object id="457" name="bat" x="64" y="160">
@@ -5625,12 +5625,11 @@
   <object id="472" name="skeleton" x="1896" y="166">
    <point/>
   </object>
-  <object id="473" x="1833.94" y="269.063" width="56.125" height="22.875"/>
   <object id="474" name="skeleton" x="1853.76" y="261.363">
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="6" name="ToDelete">
+ <objectgroup id="6" name="ToDelete" visible="0">
   <object id="442" x="1269.27" y="0.0909091" width="10.8182" height="11.2727"/>
   <object id="443" x="1269.82" y="357.636" width="10.1818" height="10.3636"/>
   <object id="444" x="640.091" y="0" width="11" height="10.4545"/>
