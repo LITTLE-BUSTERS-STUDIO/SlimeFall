@@ -16139,7 +16139,7 @@
   <properties>
    <property name="type" value="entities"/>
   </properties>
-  <object id="442" name="skeleton" x="526.75" y="217">
+  <object id="442" name="skeleton" x="623.75" y="218.5">
    <point/>
   </object>
   <object id="443" name="bat" x="304.5" y="240">
@@ -16148,7 +16148,7 @@
   <object id="444" name="skeleton" x="1260.5" y="315">
    <point/>
   </object>
-  <object id="446" name="bat" x="1235.5" y="64.5">
+  <object id="446" name="bat" x="1260.83" y="401.833">
    <point/>
   </object>
   <object id="447" name="coin" x="945.667" y="123.333">

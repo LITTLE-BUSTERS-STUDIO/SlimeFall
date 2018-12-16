@@ -1830,7 +1830,7 @@
    <tile gid="50"/>
    <tile gid="50"/>
    <tile gid="50"/>
-   <tile gid="50"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -16132,7 +16132,7 @@
   <object id="372" x="702.499" y="385.633" width="48.457" height="14.7348"/>
   <object id="373" x="751.422" y="385.587" width="13.207" height="14.7348"/>
   <object id="376" x="1138.42" y="464.871" width="109.818" height="14.1061"/>
-  <object id="392" x="1025.76" y="272.864" width="60.3206" height="14.7348"/>
+  <object id="392" x="1025.76" y="272.864" width="44.8661" height="14.7348"/>
  </objectgroup>
  <objectgroup color="#ffff00" id="20" name="colliders_next_level">
   <properties>
