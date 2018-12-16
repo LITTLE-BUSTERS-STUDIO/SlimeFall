@@ -81,7 +81,7 @@ bool Slider::Update(float dt)
 		thumb->SetPosition(iPoint( thumb->GetPosition().x, position.y));
 	}
 
-	current_value = ((pos.x - point_A) * definition.max_value) / definition.distance;
+	current_value =   definition.max_value * ( ( (float) (pos.x - point_A) * 1.0f) / (float)definition.distance ) ;
 
 	return true;
 }

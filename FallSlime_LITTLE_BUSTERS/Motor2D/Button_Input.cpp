@@ -70,7 +70,7 @@ void Button_Input::SetDefinition(Button_Definition definition)
 
 bool Button_Input::PreUpdate()
 {
-	if (hover_state == HoverState::On)
+	if (hover_state == HoverState::On && App->gui->GetClickedObject() != this)
 	{
 		App->audio->PlayFx(App->gui->fx_button_hovered);
 	}
