@@ -128,8 +128,6 @@ public:
 	bool				show_cursor = true; 
 	Image *				cursor = nullptr;
 
-	
-
 };
 
 

@@ -923,7 +923,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="10"/>
+   <tile/>
    <tile gid="10"/>
    <tile gid="10"/>
    <tile/>
@@ -16122,7 +16122,6 @@
   <object id="420" x="1150.67" y="287" width="12.6667" height="80.6667"/>
   <object id="421" x="1203.58" y="405.886" width="10.3638" height="11.083"/>
   <object id="422" x="947.875" y="212" width="10.25" height="12.0625"/>
-  <object id="425" x="963.391" y="129.652" width="10.4783" height="10.4783"/>
   <object id="426" x="979.043" y="129.696" width="10.9565" height="10.3913"/>
   <object id="427" x="994.783" y="129.739" width="11.2174" height="9.52174"/>
   <object id="428" x="675.636" y="143.818" width="22.5455" height="63.2727"/>
@@ -16142,7 +16141,7 @@
   <object id="442" name="skeleton" x="623.75" y="218.5">
    <point/>
   </object>
-  <object id="443" name="bat" x="304.5" y="240">
+  <object id="443" name="bat" x="319.5" y="292.5">
    <point/>
   </object>
   <object id="444" name="skeleton" x="1260.5" y="315">
@@ -16151,7 +16150,7 @@
   <object id="446" name="bat" x="1260.83" y="401.833">
    <point/>
   </object>
-  <object id="447" name="coin" x="945.667" y="123.333">
+  <object id="447" name="coin" x="944.667" y="97.833">
    <point/>
   </object>
   <object id="448" name="player" x="77.5" y="151.5">
