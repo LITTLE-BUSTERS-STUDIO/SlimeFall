@@ -17,20 +17,20 @@ public:
 	virtual ~Properties() {}
 
 	p2SString            name;
-	SDL_Rect             collider_rect;
-	SDL_Rect             spawn_rect;
+	SDL_Rect             collider_rect = {0,0,0,0};
+	SDL_Rect             spawn_rect = { 0,0,0,0 };
 };
 
 class Player_Properties : public Properties
 {
 public:
 	//------------Valeues-------------------
-	float			    gravity;
-	float			    speed_ground;
-	float			    speed_air;
-	float			    speed_jump;
-	float			    speed_gummy_jump;
-	float               speed_attack;
+	float			    gravity = 0.0f;
+	float			    speed_ground = 0.0f;
+	float			    speed_air = 0.0f;
+	float			    speed_jump = 0.0f;
+	float			    speed_gummy_jump = 0.0f;
+	float               speed_attack = 0.0f;
 
 	//-----------Animations-----------------
 	Animation           jumping_anim;
@@ -38,18 +38,18 @@ public:
 	Animation		    attack_anim;
 
 	//-----------Textures-------------------
-	SDL_Texture*        player_tex;
-	SDL_Texture*        death_tex;
-	SDL_Texture*        attack_tex;
+	SDL_Texture*        player_tex = nullptr;
+	SDL_Texture*        death_tex = nullptr;
+	SDL_Texture*        attack_tex = nullptr;
 	
 	//------------Sfx----------------------
-	int                 id_jump_fx1;
-	int                 id_jump_fx2;
-	int                 id_jump_fx3;
-	int                 id_jump_fx4;
-	int                 id_jump_fx5;
-	int                 id_death_fx;
-	int                 id_attack_fx;
+	int                 id_jump_fx1 = 0;
+	int                 id_jump_fx2 = 0;
+	int                 id_jump_fx3 = 0;
+	int                 id_jump_fx4 = 0;
+	int                 id_jump_fx5 = 0;
+	int                 id_death_fx = 0;
+	int                 id_attack_fx = 0;
 };
 
 
@@ -91,7 +91,7 @@ public:
 	SDL_Texture      *skeleton_tex;
 
 	//------------Sfx----------------------
-	int               id_skeleton_death_fx;
+	int               id_skeleton_death_fx = 0;
 
 };
 
@@ -107,32 +107,6 @@ public:
 	int                 pick_up_coin_fx;
 };
 
-class Entity;
-
-class Entity_Info
-{
-public:
-	p2SString            name;
-	int                  id;
-	fPoint               position;
-	Properties*          properties = nullptr;
-	SDL_Rect             spawn_rect;
-	Entity              *entity = nullptr;
-	bool                 spawned = false;
-
-	Entity_Info() {}
-
-	Entity_Info(fPoint spawn_position, Properties * properties)
-	{
-		position = spawn_position;
-		name = properties->name;
-		this->properties = properties;
-
-		spawn_rect = properties->spawn_rect;
-	    spawn_rect.x = spawn_position.x - properties->spawn_rect.w / 2;
-		spawn_rect.y = spawn_position.y - properties->spawn_rect.h / 2;
-	}
-};
 
 class Entity
 {
@@ -173,13 +147,13 @@ protected:
 	bool                  active = false;
 	bool                  spawned = false;
 	p2SString             name;
-	int                   id;
-	fPoint                spawn_pos;
+	int                   id = 0;
+	fPoint                spawn_pos = {0.0f, 0.0f};
 	Properties *          properties = nullptr;
 	// Transform ======================================= 
-	fPoint                position;
-	fPoint                velocity;
-	fPoint                acceleration;
+	fPoint                position = { 0.0f, 0.0f };
+	fPoint                velocity = { 0.0f, 0.0f };
+	fPoint                acceleration = { 0.0f, 0.0f };
 	// Colliders =======================================
 	Collider *            main_collider = nullptr;
 

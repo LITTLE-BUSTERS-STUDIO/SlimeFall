@@ -76,7 +76,7 @@ private:
 	bool                check_fall = false;
 	bool                flip_x = false;
 	// Collision ================================
-	SDL_Rect            collider_rect;
+	SDL_Rect            collider_rect = {0,0,0,0};
 
 	// Abilities ================================
 	j1Timer             timer_invulnerability;

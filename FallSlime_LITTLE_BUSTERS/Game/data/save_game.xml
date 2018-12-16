@@ -9,32 +9,33 @@
 	<fonts />
 	<map />
 	<scene_manager>
-		<scene name="level_1" phase="1" />
+		<scene name="level_1" phase="2" />
 	</scene_manager>
 	<pathfinding />
 	<entity_manager>
-		<entity name="enemy_skeleton" id="1" x="661" y="263" spawned="false" active="false" />
-		<entity name="enemy_skeleton" id="2" x="738" y="262" spawned="false" active="false" />
-		<entity name="enemy_bat" id="3" x="1087" y="271" spawned="false" active="false" />
-		<entity name="coin" id="4" x="1014" y="279" spawned="false" active="false">
+		<entity name="enemy_bat" id="1" x="593" y="168" spawned="true" active="true" />
+		<entity name="enemy_bat" id="2" x="1197" y="392" spawned="false" active="false" />
+		<entity name="enemy_skeleton" id="3" x="679" y="306" spawned="true" active="true" />
+		<entity name="enemy_skeleton" id="4" x="265" y="211" spawned="true" active="true" />
+		<entity name="coin" id="5" x="376" y="225" spawned="true" active="true">
 			<enable_coin bool="0" />
-			<state main_collider="collider_none" />
+			<state main_collider="collider_coin" />
 		</entity>
-		<entity name="player" id="5" x="51" y="265" spawned="true" active="true">
-			<velocity x="0" y="450" />
-			<conditions apply_jump_speed="false" on_ground="true" check_fall="true" flip_x="false" gummy_jump="false" />
-			<state current_state="boucing" collider_type="collider_player" />
+		<entity name="player" id="6" x="121" y="156" spawned="true" active="true">
+			<velocity x="0" y="0.119831085" />
+			<conditions apply_jump_speed="false" on_ground="false" check_fall="false" flip_x="false" gummy_jump="false" />
+			<state current_state="jumping" collider_type="collider_player" />
 		</entity>
 	</entity_manager>
 	<:anonymous />
 	<gui />
 	<hud>
-		<counter coins="0" lifes="5" />
+		<counter coins="0" lifes="4" />
 	</hud>
 	<renderer>
-		<camera_position x="0" y="161" />
-		<camera_smoth_position x="0" y="161" />
+		<camera_position x="0" y="0" />
+		<camera_smoth_position x="0" y="0" />
 		<debug zoom="1" />
-		<conditions free_camera_x="false" free_camera_y="true" />
+		<conditions free_camera_x="false" free_camera_y="false" />
 	</renderer>
 </game_state>
