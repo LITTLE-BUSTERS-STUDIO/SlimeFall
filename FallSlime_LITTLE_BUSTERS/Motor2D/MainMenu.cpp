@@ -277,9 +277,9 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	license_text_panel_def.color = color;
 	license_text_panel_def.font = karma_font_settings;
 	license_text_panel_def.width = 100;
-	license_text_panel_def.text.create("BOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOI");
-
+	license_text_panel_def.text.create("abcdfghijklmnopk boi");
 	license_text_panel = App->gui->CreateTextPanel(iPoint(320, 180), license_text_panel_def, this);
+	license_text_panel->SetAnchor(menu);
 
 	/*App->gui->SetStateToBranch(ObjectState::hidden, menu);*/
 	return true;
