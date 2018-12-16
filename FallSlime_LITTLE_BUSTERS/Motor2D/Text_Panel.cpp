@@ -34,7 +34,7 @@ void TextPanel::SetText(p2SString text)
 	const char * char_text = txt.GetString();
 	int last_line_first_char = 0;
 	int previous_word_last_letter = 0;
-	int previous_word_first_letter = 0;
+	int current_line_fist_letter = 0;
 
 	lines = 0;
 	// Determinate font height ----------------------------------
@@ -44,104 +44,78 @@ void TextPanel::SetText(p2SString text)
 
 	for (uint i = 0; i < total_text_length; ++i)
 	{
-		p2SString cutted_str(txt);
-		cutted_str.CutString(last_line_first_char - 1, i + 1);
-		App->font->CalcSize(cutted_str.GetString(), font_width, font_height, definition.font);
-
-		if (font_width > definition.width)
+		if (char_text[i + 1] == ' ')
 		{
-			p2SString line_str(txt);
-			line_str.CutString(last_line_first_char - 1, previous_word_last_letter + 1);
-			App->font->CalcSize(cutted_str.GetString(), font_width, font_height, definition.font);
-			rects.PushBack({ last_texture_x , 0 , font_width, font_height });
-			last_texture_x = last_texture_x + font_width;
+			// Check pixel width of substring -----------------------------
+			p2SString str(txt);
 
+			str.CutString(current_line_fist_letter - 1, i + 1);
+			App->font->CalcSize(str.GetString(), font_width, font_height, definition.font);
 
-			last_line_first_char = previous_word_first_letter;
-			i = last_line_first_char;
+			LOG("%s", str.GetString());
+
+			// If substring is wider than a line create a line from the previous word last letter
+			if (font_width > definition.width)
+			{
+				p2SString line_str(txt);
+
+				// Skip spaces between lines ==============
+				uint j = i + 1;
+
+				if (previous_word_last_letter == 0)
+				{
+					previous_word_last_letter = i;
+				}
+
+				while (j <= total_text_length)
+				{
+					if (char_text[j] != ' ')
+					{
+						break;
+					}
+					++j;
+				}
+				i = j;
+
+				line_str.CutString(current_line_fist_letter - 1, previous_word_last_letter + 1);
+				LOG("%s", line_str.GetString());
+				App->font->CalcSize(line_str.GetString(), font_width, font_height, definition.font);
+				rects.PushBack({ last_texture_x, 0 , font_width, font_height });
+				// Set values ============================
+				previous_word_last_letter = i;
+				last_texture_x = last_texture_x + font_width;
+				current_line_fist_letter = j;
+				++lines;
+
+				continue;
+			}
+
+			if (char_text[i] != ' ')
+			{
+				previous_word_last_letter = i;
+			}
+
+		}
+		else if (char_text[i + 1] == '\0')
+		{
+			// Add leftover text
+			++lines;
+
+			p2SString str(txt);
+
+			str.CutString(current_line_fist_letter - 1, i + 1);
+			App->font->CalcSize(str.GetString(), font_width, font_height, definition.font);
+			rects.PushBack({ last_texture_x, 0 , font_width, font_height });
+
+			LOG("%s", str.GetString());
 		}
 
-		if (i != total_text_length && char_text[i +  1] == ' ')
-		{
-			previous_word_last_letter = i;
-		}
-
-		if (i != 0 && char_text[i - 1] == ' ')
-		{
-			previous_word_first_letter = i;
-		}
+		section.w = definition.width;
+		section.h = lines * (font_height + definition.line_spacing);
+		text_texture = App->font->Print(text.GetString(), definition.color, definition.font);
 	}
-
-	section.w = definition.width;
-	section.h = lines * (font_height + definition.line_spacing);
-	text_texture = App->font->Print(text.GetString(), definition.color, definition.font);
 }
 
-//if (char_text[i + 1] == ' ')
-//{
-//	// Check pixel width of substring -----------------------------
-//	p2SString str(txt);
-
-//	str.CutString(current_line_fist_letter - 1, i + 1);
-//	App->font->CalcSize(str.GetString(), font_width, font_height, definition.font);
-
-//	LOG("%s", str.GetString());
-
-//	// If substring is wider than a line create a line from the previous word last letter
-//	if (font_width > definition.width)
-//	{
-//		p2SString line_str(txt);
-
-//		// Skip spaces between lines ==============
-//		uint j = i + 1;
-
-//		if (previous_word_last_letter == 0)
-//		{
-//			previous_word_last_letter = i;
-//		}
-
-//		while (j <= total_text_length)
-//		{
-//			if (char_text[j] != ' ')
-//			{
-//				break;
-//			}
-//			++j;
-//		}
-//		i = j;
-
-//		line_str.CutString(current_line_fist_letter - 1, previous_word_last_letter + 1);
-//		LOG("%s", line_str.GetString());
-//		App->font->CalcSize(line_str.GetString(), font_width, font_height, definition.font);
-//		rects.PushBack({ last_texture_x, 0 , font_width, font_height });
-//		// Set values ============================
-//		previous_word_last_letter = i;
-//		last_texture_x = last_texture_x + font_width;
-//		current_line_fist_letter = j;
-//		++lines;
-
-//		continue;
-//	}
-
-//	if (char_text[i] != ' ')
-//	{
-//		previous_word_last_letter = i;
-//	}
-
-//}
-//else if (char_text[i + 1] == '\0')
-//{
-//	// Add leftover text
-//	++lines;
-
-//	p2SString str(txt);
-
-//	str.CutString(current_line_fist_letter - 1, i + 1);
-//	App->font->CalcSize(str.GetString(), font_width, font_height, definition.font);
-//	rects.PushBack({ last_texture_x, 0 , font_width, font_height });
-
-//	LOG("%s", str.GetString());
-//}
 
 bool TextPanel::Draw()
 {

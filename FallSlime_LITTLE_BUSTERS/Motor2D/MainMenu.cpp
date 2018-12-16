@@ -337,7 +337,7 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 
 
 	Button_Definition button_def_return_credits({ 778 ,136, 42,45 }, { 778 ,181, 42,45 }, { 778 ,230, 42,45 });
-	button_return_credits = App->gui->CreateButton(iPoint(320, 318), button_def_return_credits, this);
+	button_return_credits = App->gui->CreateButton(iPoint(320, 330), button_def_return_credits, this);
 	button_return_credits->SetAnchor(credits_panel);
 
 
