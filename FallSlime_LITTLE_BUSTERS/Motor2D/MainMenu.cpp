@@ -127,10 +127,12 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	camera_pos = { 1280, 0 };
 	camera_speed = 1515.0f;
 
-	// Paralax ========================================================
+	// Music ========================================================
 	music_path = node.child("music").attribute("path").as_string("");
+	credits_music_path = node.child("credits").attribute("path").as_string("");
 	App->audio->PlayMusic(music_path.GetString());
 
+	// Paralax ========================================================
 	paralax_tex_1 = App->tex->Load(node.child("background1").attribute("path").as_string(""));
 	paralax_tex_2 = App->tex->Load(node.child("background2").attribute("path").as_string(""));
 	paralax_tex_3 = App->tex->Load(node.child("background3").attribute("path").as_string(""));
@@ -366,6 +368,7 @@ bool MainMenu::OutClick(Object * object)
 	}
 	else if (object == button_credits)
 	{
+		App->audio->PlayMusic(credits_music_path.GetString()); 
 		MoveToSection(MenuSection::credits);
 		
 	}

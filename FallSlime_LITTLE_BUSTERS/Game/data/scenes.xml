@@ -7,6 +7,8 @@
     <phase id ="1" x_limit ="0" y_limit="0" map_path ="Intro.tmx" camera_follow_player ="false" />
 
     <music path="audio/music/MainMenu.ogg"/>
+    <credits path="audio/music/Credits.ogg"/>
+    
     <background1 path="textures/Parallax1.png"/>
     <background2 path="textures/Parallax2.png"/>
     <background3 path="textures/Parallax3.png"/>
