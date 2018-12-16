@@ -45,6 +45,11 @@ bool MainMenu::Update(float dt)
 {
 	BROFILER_CATEGORY("MainMenu Update", Profiler::Color::MediumBlue);
 
+	if (App->first_frame)
+	{
+		return true;
+	}
+
 	if (camera_velocity.x < 0.0f)
 	{
 		if (camera_pos.x > move_to_point[(int)current_section].x)
