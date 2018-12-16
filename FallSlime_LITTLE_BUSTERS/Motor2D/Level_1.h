@@ -62,6 +62,9 @@ private:
 	Button_Input*       button_save = nullptr;
 	Button_Input*       button_load = nullptr;
 	Button_Input*       button_exit_to_menu = nullptr;
+	Label*				score_label = nullptr;
+	Label*				timer_label = nullptr;
+	j1Timer				timer;
 
 	// -----------GameOver --------------------
 	Object*             game_over_anchor = nullptr;
