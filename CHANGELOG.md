@@ -1,3 +1,19 @@
+# *CHANGELOG* [3.0]  2018-12-16
+
+### Summarized
+* UI
+
+### Added
+
+* Personalized Cursor (Blits only in menus)
+* Coin entity with Tiled v1.2.0
+* Kinesthetic Main menu nevigation
+* Tutorial level added
+* Different music for each "scene"
+* Credits vertical slider
+* At the end game your total score is been revealed
+* Personalized Icon.ico 
+
 # *CHANGELOG* [2.0]  2018-11-17
 
 ### Summarized
