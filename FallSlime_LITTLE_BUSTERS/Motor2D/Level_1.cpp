@@ -142,6 +142,7 @@ bool Level_1::PostUpdate()
 	SDL_Rect game_over_rect = { 0, 0, 640, 360 };
 	if (App->hud->Getlife() <= 0)
 	{
+		App->gui->show_cursor = true;
 		App->render->Blit(App->gui->game_over, 0, 0, &game_over_rect, false, 0.0f);
 	}
 
