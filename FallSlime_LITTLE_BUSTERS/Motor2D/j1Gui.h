@@ -97,11 +97,12 @@ private:
 	void UpdateGuiPositions(Object* object, iPoint cumulated_position);
 
 public:
-	//SFX --------------------------------------------------
+	//Public extern vars --------------------------------------------------
 	p2SString			fx_hovered_path;
 	p2SString			game_over_path;
 	uint				fx_button_hovered;
 	SDL_Texture*		game_over;
+	bool				is_locked = true;
 
 
 private:

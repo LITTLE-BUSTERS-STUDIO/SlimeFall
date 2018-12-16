@@ -173,7 +173,7 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	// Images ============================================
 	Animation logo_anim;
 	logo_anim.PushBack({ 0, 0, 219, 94 });
-	logo = App->gui->CreateImage(iPoint(326, 76), logo_anim, this);
+	logo = App->gui->CreateImage(iPoint(340, 84), logo_anim, this);
 	logo->SetAnchor(menu);
 
 	// Buttons ============================================
@@ -365,7 +365,7 @@ bool MainMenu::OutClick(Object * object)
 		MoveToSection(MenuSection::credits);
 		
 	}
-	else if (object == checkbox_mute)
+	/*else if (object == checkbox_mute)
 	{
 		App->audio->mute = !App->audio->mute;
 		if (App->audio->mute)
@@ -374,6 +374,10 @@ bool MainMenu::OutClick(Object * object)
 			Mix_VolumeMusic(App->audio->volume_music);
 
 		LOG("Mute ON!");
+	}*/
+	else if (object == button_continue && !App->gui->is_locked)
+	{
+		App->LoadGame();
 	}
 
 	return true;

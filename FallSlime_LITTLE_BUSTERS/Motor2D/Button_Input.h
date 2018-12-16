@@ -54,7 +54,7 @@ private:
 
 public:
 	// Components =================================
-	Label* label = nullptr;
+	Label*			label = nullptr;
 
 private:
 	friend j1Gui;
