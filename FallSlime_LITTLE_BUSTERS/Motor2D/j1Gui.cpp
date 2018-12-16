@@ -151,8 +151,7 @@ bool j1Gui::PreUpdate()
 bool j1Gui::Update(float dt)
 {
 	// Draggable ================================================
-
-	/*if (clicked_object && clicked_object->is_draggable)
+	if (clicked_object && clicked_object->is_draggable)
 	{
 		switch (click_state)
 		{
@@ -167,7 +166,7 @@ bool j1Gui::Update(float dt)
 			App->gui->SetCursorOffset({ 0,0 });
 			break;
 		}
-	}*/
+	}
 	// Click Callbacks =============================================
 
 	if (clicked_object && clicked_object->listener)
@@ -407,6 +406,18 @@ void j1Gui::SetStateToBranch(const ObjectState state, Object * branch_root)
 	{
 		SetStateToBranch(state, item->data);
 	}
+
+}
+
+iPoint j1Gui::GetCursorOffset() const
+{
+
+	return cursor_offset;
+}
+
+void j1Gui::SetCursorOffset(const iPoint offset)
+{
+	cursor_offset = offset;
 
 }
 
