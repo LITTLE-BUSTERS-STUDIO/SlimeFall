@@ -173,6 +173,7 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 
 	menu = App->gui->CreateObject(iPoint( 0,0), this);
 	karma_font_settings = App->font->Load("fonts/KarmaSuture.ttf", 24);
+
 	SDL_Color color = { 231,94,152,255 };
 
 	// =============================================================
@@ -300,12 +301,36 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	credits_panel = App->gui->CreateImage(iPoint(320, 182), panel_anim2, this);
 	credits_panel->SetAnchor(menu);
 
+	karma_font_credits = App->font->Load("fonts/ProFontWindows.ttf", 11);
+
 	TextPanel_Definition license_text_panel_def;
 	license_text_panel_def.line_spacing = 2;
 	license_text_panel_def.color = color;
-	license_text_panel_def.font = karma_font_settings;
-	license_text_panel_def.width = 100;
-	license_text_panel_def.text.create("abcdfghijklmnopk boi");
+	license_text_panel_def.font = karma_font_credits;
+	license_text_panel_def.width = 360;
+	license_text_panel_def.text.create(
+		
+		"MIT License"
+
+		"Copyright(c) 2018 @alejandro61299 (Alejandro Gamarra Niño) and @optus23 (Marc Gálvez Llorens) "
+
+		"Permission is hereby granted, free of charge, to any person obtaining a copy"
+		"of this software and associated documentation files(the Software), to deal"
+		"in the Software without restriction, including without limitation the rights"
+		"to use, copy, modify, merge, publish, distribute, sublicense, and/or sell"
+		"copies of the Software, and to permit persons to whom the Software is"
+		"furnished to do so, subject to the following conditions :"
+
+	    "The above copyright notice and this permission notice shall be included in all"
+		"copies or substantial portions of the Software."
+
+		"THE SOFTWARE IS PROVIDED  AS IS , WITHOUT WARRANTY OF ANY KIND, EXPRESS OR"
+		"IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,"
+		"FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE"
+		"AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER"
+		"LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,"
+		"OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE"
+		"SOFTWARE"  );
 
 	license_text_panel = App->gui->CreateTextPanel(iPoint(320, 180), license_text_panel_def, this);
 	license_text_panel->SetAnchor(menu);
