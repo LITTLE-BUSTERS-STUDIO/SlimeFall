@@ -26,7 +26,6 @@
 			<state current_state="boucing" collider_type="collider_player" />
 		</entity>
 	</entity_manager>
-	<:anonymous />
 	<gui />
   <hud>
     <counter coins="0" lifes="5"/>

@@ -102,7 +102,7 @@ bool Level_1::LoadScene(pugi::xml_node& node)
 	button_return_gameover->SetAnchor(game_over_anchor);
 
 	App->gui->SetStateToBranch(ObjectState::hidden, game_over_anchor);
-
+	App->gui->show_cursor = false;
 	return true;
 }
 
@@ -216,12 +216,14 @@ bool Level_1::OutClick(Object * object)
 bool Level_1::PauseScene()
 {
 	App->gui->SetStateToBranch(ObjectState::visible, paused_menu);
+	App->gui->show_cursor = true;
 	return true;
 }
 
 bool Level_1::ResumeScene()
 {
 	App->gui->SetStateToBranch(ObjectState::hidden, paused_menu);
+	App->gui->show_cursor = false;
 	return true;
 }
 

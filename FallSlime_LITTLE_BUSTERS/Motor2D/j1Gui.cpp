@@ -9,6 +9,7 @@
 #include "j1Audio.h"
 #include "SceneManager.h"
 #include "j1Scene.h"
+#include "Hud.h"
 
 #include "Object.h"
 #include "Label.h"
@@ -50,7 +51,9 @@ bool j1Gui::Start()
 	fx_button_clicked = App->audio->LoadFx(fx_clicked_path.GetString());
 	game_over = App->tex->Load(game_over_path.GetString());
 
+	cursor_rect = { 0, 165, 16, 24 };
 
+	SDL_ShowCursor(SDL_DISABLE);
 	return true;
 }
 
@@ -149,7 +152,7 @@ bool j1Gui::Update(float dt)
 {
 	// Draggable ================================================
 
-	if (clicked_object && clicked_object->is_draggable)
+	/*if (clicked_object && clicked_object->is_draggable)
 	{
 		switch (click_state)
 		{
@@ -164,7 +167,7 @@ bool j1Gui::Update(float dt)
 			App->gui->SetCursorOffset({ 0,0 });
 			break;
 		}
-	}
+	}*/
 	// Click Callbacks =============================================
 
 	if (clicked_object && clicked_object->listener)
@@ -245,6 +248,11 @@ bool j1Gui::PostUpdate()
 	}
 
 	DrawGui(screen);
+
+	// Cursor =================================================
+	App->input->GetMousePosition(cursor_position.x, cursor_position.y);
+	if(show_cursor)
+		App->render->Blit(atlas, cursor_position.x, cursor_position.y, &cursor_rect, false, 0.0F);
 	return true;
 }
 
@@ -400,16 +408,6 @@ void j1Gui::SetStateToBranch(const ObjectState state, Object * branch_root)
 		SetStateToBranch(state, item->data);
 	}
 
-}
-
-iPoint j1Gui::GetCursorOffset() const
-{
-	return cursor_offset;
-}
-
-void j1Gui::SetCursorOffset(const iPoint offset)
-{
-	cursor_offset = offset;
 }
 
 bool j1Gui::SelectClickedObject()

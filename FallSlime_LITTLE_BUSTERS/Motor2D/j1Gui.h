@@ -80,14 +80,6 @@ public:
 
 	void SetStateToBranch(const ObjectState state, Object* branch_root);
 
-	// Cursor functions ----------------------------------------------------------
-
-	iPoint GetCursorOffset() const;
-
-	void SetCursorOffset(const iPoint offset);
-
-	//bool UpdateMouseIcon();
-
 private:
 
 	bool SelectClickedObject();
@@ -125,10 +117,13 @@ private:
 
 	ClickState click_state = ClickState::None;
 
+public:
 	// Cursor ----------------------------------------------
+	SDL_Rect			cursor_rect;
 	iPoint				cursor_position;
-	iPoint				cursor_offset;
-	bool				show_cursor = false; 
+	bool				show_cursor = true; 
+	Image *				cursor = nullptr;
+
 	
 
 };

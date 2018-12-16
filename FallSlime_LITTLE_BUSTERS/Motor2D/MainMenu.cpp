@@ -108,7 +108,7 @@ bool MainMenu::PostUpdate()
 
 
 	App->map->Draw();
-
+	App->gui->show_cursor = true;
 	return true;
 }
 
@@ -327,8 +327,6 @@ bool MainMenu::UnloadScene()
 	// --------- Credits -----------------------
 
 	App->gui->DeleteObject(license_text_panel);
-
-
 
 	App->tex->UnLoad(paralax_tex_1);
 	App->tex->UnLoad(paralax_tex_2);
