@@ -79,39 +79,58 @@ bool j1Audio::PreUpdate()
 {
 	BROFILER_CATEGORY("Audio PreUpdate", Profiler::Color::BurlyWood);
 
-	if (App->input->keyboard[SDL_SCANCODE_F7] == KEY_DOWN && mute == false) //Mute
+	if (App->input->keyboard[SDL_SCANCODE_F7] == KEY_DOWN) //Mute
 	{
-		mute = true;
+		mute = !mute;
+	}
+
+	//if (!mute)
+	//{
+	//	if (App->input->keyboard[SDL_SCANCODE_KP_MINUS] == KEY_REPEAT) //Set DOWN Volume Music
+	//	{
+	//		if (App->audio->volume_music > 0)
+	//			App->audio->volume_music--;
+	//		Mix_VolumeMusic(App->audio->volume_music);
+	//		setdown_volume_fx = true;
+	//		LOG("Volume = %d", Mix_VolumeMusic(volume_music));
+	//	}
+	//	if (App->input->keyboard[SDL_SCANCODE_KP_PLUS] == KEY_REPEAT) //Set UP Volume Music
+	//	{
+	//		if (App->audio->volume_music < max_volume)
+	//			App->audio->volume_music++;
+	//		setup_volume_fx = true;
+	//		Mix_VolumeMusic(App->audio->volume_music);
+	//		LOG("Volume = %d", Mix_VolumeMusic(volume_music));
+
+	//	}
+	//}
+
+	return true;
+}
+
+bool j1Audio::Update(float dt)
+{
+	if (mute)
+	{
 		Mix_VolumeMusic(0);
-		LOG("Mute ON!");
 	}
-	else if (App->input->keyboard[SDL_SCANCODE_F7] == KEY_DOWN && mute == true)
+	else
 	{
-		mute = false;
-		Mix_VolumeMusic(App->audio->volume_music);
-		LOG("Mute OFF!");
+		Mix_VolumeMusic(volume_music);
 	}
 
-	if (!mute)
+	for (p2List_item<Mix_Chunk*> * item = fx.start; item; item = item->next)
 	{
-		if (App->input->keyboard[SDL_SCANCODE_KP_MINUS] == KEY_REPEAT) //Set DOWN Volume Music
+		if (mute)
 		{
-			if (App->audio->volume_music > 0)
-				App->audio->volume_music--;
-			Mix_VolumeMusic(App->audio->volume_music);
-			setdown_volume_fx = true;
-			LOG("Volume = %d", Mix_VolumeMusic(volume_music));
+			Mix_VolumeChunk(item->data, 0);
 		}
-		if (App->input->keyboard[SDL_SCANCODE_KP_PLUS] == KEY_REPEAT) //Set UP Volume Music
+		else
 		{
-			if (App->audio->volume_music < max_volume)
-				App->audio->volume_music++;
-			setup_volume_fx = true;
-			Mix_VolumeMusic(App->audio->volume_music);
-			LOG("Volume = %d", Mix_VolumeMusic(volume_music));
-
-		}
+			Mix_VolumeChunk(item->data, volume_sfx);
+		}	
 	}
+
 	return true;
 }
 
@@ -233,33 +252,7 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 
 	if(id > 0 && id <= fx.count())
 	{
-		if (mute)
-		{
-			Mix_VolumeChunk(fx[id - 1], 0);
-			Mix_PlayChannel(-1, fx[id - 1], repeat, 0);
-		}
-			
-		else
-			Mix_VolumeChunk(fx[id - 1], volume_sfx);
-			Mix_PlayChannel(-1, fx[id - 1], repeat, 0);
-	}
-
-	if (setdown_volume_fx) //Set DOWN Volume Music
-	{
-		if (App->audio->volume_sfx > 0)
-			App->audio->volume_sfx = volume_music;
-		Mix_VolumeChunk(fx[id - 1], volume_sfx);
 		Mix_PlayChannel(-1, fx[id - 1], repeat, 0);
-	setdown_volume_fx = false;
-	}
-
-	if (setup_volume_fx) //Set UP Volume Music
-	{
-		if (App->audio->volume_sfx < max_volume)
-			App->audio->volume_sfx = volume_music;
-		Mix_VolumeChunk(fx[id - 1], volume_sfx);
-		Mix_PlayChannel(-1, fx[id - 1], repeat, 0);
-		setup_volume_fx = false;
 	}
 
 	return ret;

@@ -22,6 +22,8 @@ public:
 
 	bool PreUpdate();
 
+	bool Update(float dt);
+
 	// Called before quitting
 	bool CleanUp();
 
@@ -45,10 +47,13 @@ private:
 	p2List<Mix_Chunk*>	fx;
 
 public:
-	uint		fade_time;
-	uint		volume_music;
-	uint		max_volume;
-	uint		volume_sfx;
+
+	int		    volume_sfx = 0;
+	int	     	volume_music = 0;
+
+	uint		fade_time = 0u;
+	uint		max_volume = 0u;
+	
 	uint 		setdown_volume_fx = false;
 	uint 		setup_volume_fx = false;
 

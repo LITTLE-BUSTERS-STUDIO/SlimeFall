@@ -37,6 +37,16 @@ Checkbox::~Checkbox()
 void Checkbox::SetValue(const bool value)
 {
 	this->value = value;
+
+	if (value)
+	{
+		button->SetDefinition(definition.check_on_button);
+	}
+	else
+	{
+		button->SetDefinition(definition.check_off_button);
+	}
+
 }
 
 bool Checkbox::GetValue()
@@ -57,6 +67,11 @@ bool Checkbox::OutClick(Object * object)
 		else
 		{
 			button->SetDefinition(definition.check_off_button);
+		}
+
+		if (listener != nullptr)
+		{
+			listener->OutClick(this);
 		}
 	}
 	return true;

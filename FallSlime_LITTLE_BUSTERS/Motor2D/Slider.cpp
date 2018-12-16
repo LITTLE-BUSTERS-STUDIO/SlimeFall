@@ -86,5 +86,18 @@ bool Slider::Update(float dt)
 	return true;
 }
 
+bool Slider::RepeatClick(Object * object)
+{
+	if (object == thumb)
+	{
+		if (listener != nullptr)
+		{
+			listener->RepeatClick(this);
+		}
+	}
+
+	return true;
+}
+
 
 

@@ -5610,13 +5610,13 @@
   <object id="457" name="bat" x="64" y="160">
    <point/>
   </object>
-  <object id="458" name="bat" x="96" y="272">
+  <object id="458" name="bat" x="93.3333" y="290.667">
    <point/>
   </object>
-  <object id="459" name="bat" x="592" y="128">
+  <object id="459" name="bat" x="442.667" y="109.333">
    <point/>
   </object>
-  <object id="460" name="bat" x="528" y="256">
+  <object id="460" name="bat" x="496" y="288">
    <point/>
   </object>
   <object id="472" name="skeleton" x="1896" y="166">

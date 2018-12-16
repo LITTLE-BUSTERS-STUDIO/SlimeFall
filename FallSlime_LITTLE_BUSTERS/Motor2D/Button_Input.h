@@ -22,9 +22,9 @@ public:
 		this->pushed_rect = pushed_rect;
 	}
 
-	SDL_Rect idle_rect;
-	SDL_Rect pushed_rect;
-	SDL_Rect hover_rect;
+	SDL_Rect idle_rect = {0,0,0,0};
+	SDL_Rect pushed_rect = { 0,0,0,0 };
+	SDL_Rect hover_rect = { 0,0,0,0 };
 };
 
 class Button_Input : public Object, public Gui_Listener

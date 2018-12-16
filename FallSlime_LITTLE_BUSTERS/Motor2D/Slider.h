@@ -39,6 +39,8 @@ public:
 private:
 	bool Update(float dt);
 
+	bool RepeatClick(Object* object);
+
 private:
 	Button_Input*       thumb = nullptr;
 	Slider_Definition   definition;

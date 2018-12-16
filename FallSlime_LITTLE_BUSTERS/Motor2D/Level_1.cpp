@@ -235,6 +235,7 @@ bool Level_1::ResumeScene()
 
 bool Level_1::SetGameOver()
 {
+	App->entity_manager->UnloadEntities();
 	App->hud->HideHud();
 	App->gui->SetStateToBranch(ObjectState::visible, game_over_anchor);
 	App->gui->SetStateToBranch(ObjectState::hidden, paused_menu);

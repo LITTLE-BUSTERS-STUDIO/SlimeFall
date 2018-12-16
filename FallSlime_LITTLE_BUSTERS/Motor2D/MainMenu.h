@@ -40,7 +40,7 @@ public:
 
 	bool UnloadScene();
 
-	bool OnClick(Object* object);
+	bool RepeatClick(Object* object);
 
 	bool OutClick(Object* object);
 

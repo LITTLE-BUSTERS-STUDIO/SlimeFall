@@ -261,6 +261,8 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	slider_def.rail_draw_rect = { 248 ,136, 136,7 };
 
 	slider_music_volume = App->gui->CreateSlider(iPoint(399 , 134), slider_def, this);
+	
+
 	slider_music_volume->SetAnchor(settings_panel);
 
 	slider_sfx_volume = App->gui->CreateSlider(iPoint(399 , 178), slider_def, this);
@@ -277,10 +279,12 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	checkbox_def.check_on_button.pushed_rect = { 343, 144 , 19, 21 };
 
 	checkbox_mute = App->gui->CreateCheckbox(iPoint(398 , 219), checkbox_def, this);
+	checkbox_mute->SetValue(App->audio->mute);
 	checkbox_mute->SetAnchor(settings_panel);
 
 	checkbox_limitate_fps = App->gui->CreateCheckbox(iPoint(398 , 257), checkbox_def, this);
 	checkbox_limitate_fps->SetAnchor(settings_panel);
+	checkbox_limitate_fps->SetValue(App->apply_cap_frames);
 
 	settings_panel->SetPosition(iPoint(320 + 1280, 180));
 
@@ -364,8 +368,17 @@ bool MainMenu::UnloadScene()
 	return true;
 }
 
-bool MainMenu::OnClick(Object * object)
+bool MainMenu::RepeatClick(Object * object)
 {
+	if (object == slider_music_volume)
+	{
+		App->audio->volume_music = slider_music_volume->GetValue();
+	}
+	if (object == slider_sfx_volume)
+	{
+		App->audio->volume_sfx = slider_sfx_volume->GetValue();
+	}
+
 	return false;
 }
 
@@ -397,27 +410,25 @@ bool MainMenu::OutClick(Object * object)
 	{
 		App->audio->PlayMusic(credits_music_path.GetString()); 
 		MoveToSection(MenuSection::credits);
-		
 	}
 	else if (object == button_return_credits)
 	{
 		App->audio->PlayMusic(music_path.GetString());
 		MoveToSection(MenuSection::main_menu);
 	}
-	/*else if (object == checkbox_mute)
+	else if (object == checkbox_mute)
 	{
-		App->audio->mute = !App->audio->mute;
-		if (App->audio->mute)
-			Mix_VolumeMusic(0);
-		else
-			Mix_VolumeMusic(App->audio->volume_music);
-
-		LOG("Mute ON!");
-	}*/
+		App->audio->mute = checkbox_mute->GetValue();
+	}
+	else if (object == checkbox_limitate_fps)
+	{
+		App->apply_cap_frames = checkbox_limitate_fps->GetValue();
+	}
 	else if (object == button_continue)
 	{
 		App->LoadGame();
 	}
+
 
 	return true;
 }

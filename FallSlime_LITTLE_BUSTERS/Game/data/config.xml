@@ -16,7 +16,7 @@
   </renderer>
 
   <audio>
-    <mute value="true"/>
+    <mute value="false"/>
     <fade_time default="1.0"/>
     <volume_music default="40"/>
     <volume_sfx default ="40"/>
