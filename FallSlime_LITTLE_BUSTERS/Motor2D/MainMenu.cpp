@@ -332,7 +332,7 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 		"OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE"
 		"SOFTWARE"  );
 
-	license_text_panel = App->gui->CreateTextPanel(iPoint(320, 180), license_text_panel_def, this);
+	license_text_panel = App->gui->CreateTextPanel(iPoint(320, 175), license_text_panel_def, this);
 	license_text_panel->SetAnchor(menu);
 
 
@@ -344,7 +344,7 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	button_github_1 = App->gui->CreateButton(iPoint(50, 329), button_def_github, this);
 	button_github_1->SetAnchor(credits_panel);
 
-	button_github_2 = App->gui->CreateButton(iPoint(80, 329), button_def_github, this);
+	button_github_2 = App->gui->CreateButton(iPoint(590, 329), button_def_github, this);
 	button_github_2->SetAnchor(credits_panel);
 
 
