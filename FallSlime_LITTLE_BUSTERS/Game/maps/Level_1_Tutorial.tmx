@@ -8073,7 +8073,7 @@
   <properties>
    <property name="type" value="colliders"/>
   </properties>
-  <object id="455" x="1274" y="-15.6667" width="21.6667" height="241"/>
+  <object id="455" x="1305" y="-5.6667" width="21.6667" height="241"/>
  </objectgroup>
  <objectgroup id="78" name="colliders_death">
   <properties>
@@ -8106,7 +8106,7 @@
   <object id="472" x="885.017" y="178.086" width="37.8409" height="23.2025"/>
   <object id="473" x="980.705" y="179.274" width="38.8409" height="23.2025"/>
   <object id="474" x="1060.08" y="179.649" width="38.8409" height="23.2025"/>
-  <object id="475" x="1145.16" y="228.149" width="143.758" height="174.786"/>
+  <object id="475" x="1145.16" y="228.149" width="160.758" height="174.786"/>
   <object id="476" x="919.496" y="308.065" width="207.925" height="92.5358"/>
   <object id="478" x="1122.67" y="291.944" width="26.6591" height="108.187"/>
   <object id="479" x="857.92" y="275.944" width="14.6591" height="128.862"/>
