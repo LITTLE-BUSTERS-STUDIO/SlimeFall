@@ -32,6 +32,7 @@ bool Level_1::LoadScene(pugi::xml_node& node)
 	LOG("Loading Level 1");
 
 	music_path = node.child("music").attribute("path").as_string("");
+	game_over_path = node.child("game_over").attribute("path").as_string("");
 	App->audio->PlayMusic(music_path.GetString());
 
 	paralax_tex_1 = App->tex->Load(node.child("background1").attribute("path").as_string(""));
@@ -102,8 +103,6 @@ bool Level_1::LoadScene(pugi::xml_node& node)
 
 	App->gui->SetStateToBranch(ObjectState::hidden, game_over_anchor);
 
-
-
 	return true;
 }
 
@@ -139,10 +138,15 @@ bool Level_1::PostUpdate()
 
 	App->map->Draw();
 	
-	// Blit Game Over
+	// Blit Game Over + Music
 	SDL_Rect game_over_rect = { 0, 0, 640, 360 };
 	if (App->hud->Getlife() <= 0)
+	{
 		App->render->Blit(App->gui->game_over, 0, 0, &game_over_rect, false, 0.0f);
+	}
+
+
+
 	return ret;
 }
 
@@ -227,6 +231,8 @@ bool Level_1::SetGameOver()
 	App->gui->SetStateToBranch(ObjectState::hidden, App->hud->hud_object);
 	App->gui->SetStateToBranch(ObjectState::visible, game_over_anchor);
 	App->gui->SetStateToBranch(ObjectState::hidden, paused_menu);
+	App->audio->PlayMusic(game_over_path.GetString());
+
 
 	App->pause_game = false;
 	return true;

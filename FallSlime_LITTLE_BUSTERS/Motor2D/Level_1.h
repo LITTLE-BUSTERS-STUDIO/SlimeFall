@@ -66,6 +66,7 @@ private:
 	// -----------GameOver --------------------
 	Object*             game_over_anchor = nullptr;
 	Button_Input*       button_return_gameover = nullptr;
+	p2SString			game_over_path;
 
 };
 

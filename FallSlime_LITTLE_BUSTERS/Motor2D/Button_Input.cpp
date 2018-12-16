@@ -93,6 +93,8 @@ bool Button_Input::Update(float dt)
 		{
 		case ClickState::On:
 			label->SetPosition(iPoint(label->position.x, label->position.y + LABEL_PRESSED_OFFSET));
+			App->audio->PlayFx(App->gui->fx_button_clicked);
+
 			break;
 		case ClickState::Out:
 			label->SetPosition(iPoint(label->position.x, label->position.y - LABEL_PRESSED_OFFSET));

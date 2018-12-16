@@ -68,7 +68,6 @@ bool Hud::Update(float dt)
 
 bool Hud::PostUpdate()
 {
-
 	return true;
 }
 
@@ -76,7 +75,6 @@ bool Hud::CleanUp()
 {
 	App->gui->DeleteObject(hud_object);
 	App->gui->DeleteObject(panel_stages);
-
 
 	for (p2List_item<Image*>* item = lifes_list.start; item; item = item->next)
 	{

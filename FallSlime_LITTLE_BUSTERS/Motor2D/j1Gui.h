@@ -99,8 +99,10 @@ private:
 public:
 	//Public extern vars --------------------------------------------------
 	p2SString			fx_hovered_path;
+	p2SString			fx_clicked_path;
 	p2SString			game_over_path;
 	uint				fx_button_hovered;
+	uint				fx_button_clicked;
 	SDL_Texture*		game_over;
 	bool				is_locked = true;
 
