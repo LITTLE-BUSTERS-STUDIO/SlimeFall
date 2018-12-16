@@ -75,17 +75,6 @@ bool SceneManager::PreUpdate()
 		current_scene->PreUpdate();
 	}
 
-
-	if (App->hud->Getlife() <= 0)
-	{
-		current_scene->SetGameOver();
-	}
-	else
-	{
-		current_scene->OutGameOver();
-	}
-
-
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && current_scene->is_pausable == true)
 	{
 		App->pause_game = !App->pause_game;

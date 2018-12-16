@@ -11,6 +11,7 @@
 #include "Image.h"
 #include "j1Render.h"
 #include "j1Window.h"
+#include "j1Scene.h"
 
 Hud::Hud() :j1Module()
 {
@@ -146,9 +147,10 @@ int Hud::Getlife()
  int Hud::SubstractLife()
 {
 	 --lifes_counter;
-	 if (lifes_counter < 0)
+	 if (lifes_counter <= 0)
 	 {
 		 lifes_counter = 0;
+		 App->scene_manager->GetCurrentScene()->SetGameOver();
 	 }
 
 	 for (uint i= 0 ; i < MAX_LIVES ; ++i)
