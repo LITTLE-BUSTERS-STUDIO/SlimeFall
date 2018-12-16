@@ -8080,8 +8080,8 @@
    <property name="type" value="colliders"/>
   </properties>
   <object id="452" x="334.333" y="292.583" width="210.833" height="12"/>
-  <object id="453" x="962.568" y="292.205" width="27.5795" height="12.5"/>
-  <object id="454" x="1042.09" y="291.546" width="28.4545" height="12.2727"/>
+  <object id="453" x="962.568" y="292.205" width="25.3068" height="12.5"/>
+  <object id="454" x="1046.36" y="291.546" width="24.1818" height="12.2727"/>
  </objectgroup>
  <objectgroup id="79" name="colliders_ground">
   <properties>
@@ -13984,8 +13984,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="56"/>
-   <tile gid="58"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -16133,10 +16133,10 @@
   <object id="464" name="skeleton" x="738.5" y="262.5">
    <point/>
   </object>
-  <object id="466" name="bat" x="1018" y="277.333">
+  <object id="466" name="bat" x="1087.5" y="271.333">
    <point/>
   </object>
-  <object id="486" name="coin" x="1100.2" y="284.103">
+  <object id="486" name="coin" x="1014.7" y="279.603">
    <point/>
   </object>
   <object id="489" name="player" x="65" y="250.333">

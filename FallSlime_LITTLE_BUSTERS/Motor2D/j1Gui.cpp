@@ -36,6 +36,7 @@ bool j1Gui::Awake(pugi::xml_node& config)
 
 	atlas_file_name = config.child("atlas").attribute("path").as_string("");
 	fx_hovered_path = config.child("fx_button_hover").attribute("path").as_string("");
+	fx_clicked_path = config.child("fx_button_clicked").attribute("path").as_string("");
 	game_over_path = config.child("game_over").attribute("path").as_string("");
 
 	return ret;
@@ -46,6 +47,7 @@ bool j1Gui::Start()
 {
 	atlas = App->tex->Load(atlas_file_name.GetString());
 	fx_button_hovered = App->audio->LoadFx(fx_hovered_path.GetString());
+	fx_button_clicked = App->audio->LoadFx(fx_clicked_path.GetString());
 	game_over = App->tex->Load(game_over_path.GetString());
 
 

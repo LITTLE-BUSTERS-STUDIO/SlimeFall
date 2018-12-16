@@ -143,8 +143,6 @@ bool Coin::Load(pugi::xml_node& node)
 {
 	bool ret = true;
 
-
-	coin_counter = node.child("coin_counter").attribute("value").as_int(0);
 	enable_coin = node.child("enable_coin").attribute("bool").as_bool(false);
 	
 	if (main_collider != nullptr)
@@ -170,9 +168,6 @@ bool Coin::Save(pugi::xml_node& node) const
 {
 	bool ret = true;
 
-	pugi::xml_node counter = node.append_child("coin_counter");
-
-	counter.append_attribute("value") = coin_counter;
 
 	pugi::xml_node conditions = node.append_child("enable_coin");
 

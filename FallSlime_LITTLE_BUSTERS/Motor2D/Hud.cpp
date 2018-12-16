@@ -20,7 +20,7 @@ Hud::Hud() :j1Module()
 
 bool Hud::Awake(pugi::xml_node &node)
 {
-	lifes_counter = MAX_LIVES; //MAGIC NUMBER to xml 
+	lifes_counter = MAX_LIFES; //MAGIC NUMBER to xml 
 	coin_counter = 0; //MAGIC NUMBER to xml 
 	return true;
 }
@@ -33,7 +33,7 @@ bool Hud::Start()
 	anim_lives.PushBack({ 0, 96, 17, 14 });
 	anim_lives.PushBack({ 50, 165, 29, 32 });
 
-	for (uint i = 0 ; i < MAX_LIVES; ++i)
+	for (uint i = 0 ; i < MAX_LIFES; ++i)
 	{
 		Image* live = App->gui->CreateImage(iPoint(25 * i + 40, 30), anim_lives, this);
 		lifes_list.add(live);
@@ -68,7 +68,6 @@ bool Hud::Update(float dt)
 
 bool Hud::PostUpdate()
 {
-
 	return true;
 }
 
@@ -76,7 +75,6 @@ bool Hud::CleanUp()
 {
 	App->gui->DeleteObject(hud_object);
 	App->gui->DeleteObject(panel_stages);
-
 
 	for (p2List_item<Image*>* item = lifes_list.start; item; item = item->next)
 	{
@@ -102,16 +100,33 @@ bool Hud::Reset()
 	lifes_counter = 5;
 	coin_counter = 0;
 
+	for (uint i = 0; i < MAX_COINS; ++i)
+	{
+		coins_list[i]->SetAnimationFrame(0);
+	}
+
+	for (uint i = 0; i < MAX_LIFES; ++i)
+	{
+		lifes_list[i]->SetAnimationFrame(0);
+	}
+
 	return true;
 }
 
-bool Hud::Load(pugi::xml_node &)
+bool Hud::Load(pugi::xml_node &node)
 {
+	coin_counter = node.child("counter").attribute("coins").as_int(0);
+	lifes_counter = node.child("counter").attribute("lifes").as_int(0);
+
 	return true;
 }
 
-bool Hud::Save(pugi::xml_node &) const
+bool Hud::Save(pugi::xml_node &node) const
 {
+	pugi::xml_node counter = node.append_child("counter");
+
+	counter.append_attribute("coins") = coin_counter;
+	counter.append_attribute("lifes") = lifes_counter;
 	return true;
 }
 
@@ -150,7 +165,7 @@ int Hud::Getlife()
 		 App->scene_manager->GetCurrentScene()->SetGameOver();
 	 }
 
-	 for (uint i= 0 ; i < MAX_LIVES ; ++i)
+	 for (uint i= 0 ; i < MAX_LIFES; ++i)
 	 {
 		 if (i >= lifes_counter)
 		 {

@@ -348,6 +348,7 @@ bool MainMenu::OutClick(Object * object)
 	{
 		App->scene_manager->ChangeScene("level_1", 1);
 		App->hud->Reset();
+		
 	}
 	else if (object == button_settings)
 	{

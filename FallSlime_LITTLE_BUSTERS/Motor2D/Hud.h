@@ -5,7 +5,7 @@
 #include "Animation.h"
 #include "j1Gui.h"
 
-#define MAX_LIVES 5
+#define MAX_LIFES 5
 #define MAX_COINS 3
 
 struct SDL_Texture;
@@ -54,7 +54,6 @@ private:
 	// Vars ===================================
 	int 				lifes_counter;
 	int				    coin_counter;
-	bool				game_over;
 	iPoint				panel_pos;
 
 public: 

@@ -28,6 +28,8 @@
     <phase id= "3" x_limit ="2600" y_limit="1000" map_path ="Level_1_2.tmx"/>
 
     <music path="audio/music/Level1.ogg"/>
+    <game_over path="audio/music/GameOver.ogg"/>
+    
     <background1 path="textures/Parallax1.png"/>
     <background2 path="textures/Parallax2.png"/>
     <background3 path="textures/Parallax3.png"/>
