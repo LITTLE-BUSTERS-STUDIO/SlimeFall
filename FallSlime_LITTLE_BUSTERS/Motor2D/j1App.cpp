@@ -53,7 +53,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(collision);          
 	AddModule(gui);
 	AddModule(hud);
-	AddModule(render);             
+	AddModule(render);       
+
+	first_frame = true;
 }
 
 // Destructor

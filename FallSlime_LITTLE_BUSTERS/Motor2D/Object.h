@@ -44,7 +44,7 @@ public:
 	// Common methods =================================
 	iPoint GetPosition() const;
 
-	void SetPosition(const iPoint position);
+	void SetPosition(iPoint position);
 
 	bool UpdateRelativePosition();
 
