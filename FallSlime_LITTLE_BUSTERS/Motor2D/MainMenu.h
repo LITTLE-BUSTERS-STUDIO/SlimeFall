@@ -74,9 +74,11 @@ private:
 
 	// ---------- Settings ----------------------
 	Image*              settings_panel = nullptr;
+	Image*              credits_panel = nullptr;
 	Image*              settings_image = nullptr;
 
 	Button_Input*       button_return_settings = nullptr;
+	Button_Input*       button_return_credits = nullptr;
 
 	Label*              settings_label = nullptr;
 	Label*              music_volume_label = nullptr;
