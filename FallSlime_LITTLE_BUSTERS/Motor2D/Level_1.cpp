@@ -122,6 +122,7 @@ bool Level_1::Update(float dt)
 {
 	BROFILER_CATEGORY("Level_1 Update", Profiler::Color::MediumBlue);
 
+
 	return true;
 }
 
