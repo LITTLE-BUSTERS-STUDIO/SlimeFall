@@ -131,7 +131,6 @@ bool j1Player::HandleInput()
 		attack = true;
 		current_state = Player_State::attack;
 		main_collider->type = COLLIDER_ATTACK;
-
 		App->audio->PlayFx(fx_attack);
 
 	}
@@ -164,8 +163,8 @@ bool j1Player::HandleInput()
 	}
 
 
-	if (apply_invulnerability && Invulnerability(1.F))
-		apply_invulnerability = false;
+	//if (apply_invulnerability && Invulnerability(1.F))
+	//	apply_invulnerability = false;
 
 	//Random Jump Fx
 	if (on_ground && current_state == Player_State::jumping  )
@@ -240,8 +239,8 @@ bool j1Player::Update(float dt)
 	
 	velocity += {acceleration.x *dt, acceleration.y *dt};
 	
-	if (velocity.y > 800)
-		velocity.y = 800;
+	if (velocity.y > 450)
+		velocity.y = 450;
 
 	position += {velocity.x *dt, velocity.y *dt};
 
@@ -322,7 +321,7 @@ bool j1Player::Draw()
 		{
 			App->audio->PlayFx(id_death_fx);
 			dead_enable = true;
-			App->hud->SubstractLife();
+			App->hud->SetLifes(App->hud->GetLifes() - 1);
 		}
 		break;
 	case Player_State::attack:
@@ -503,6 +502,7 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 
 		if (current_state == Player_State::attack)
 		{
+			App->collision->CheckOverlap( p2List<Direction>() ,main_collider, COLLIDER_ENEMY, position, velocity);
 			on_ground = true;
 	/*		apply_invulnerability = true;*/
 			attack_tremble = true;

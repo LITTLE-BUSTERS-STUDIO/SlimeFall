@@ -109,7 +109,7 @@ bool Coin::OnCollision(Collider* c1, Collider* c2)
 			{
 				App->audio->PlayFx(fx_pick_up);
 				enable_coin = true;
-				App->hud->AddCoin();
+				App->hud->SetCoins( App->hud->GetCoins() +1);
 			}
 			Desactive();
 		}
