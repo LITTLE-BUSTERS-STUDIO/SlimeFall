@@ -48,19 +48,22 @@ private:
 	// Gui ===================================
 	p2List<Image*>		lifes_list;
 	p2List<Image*>		coins_list;
-
 	Image *				panel_stages = nullptr;
 
 	// Vars ===================================
-	int 				lifes_counter;
-	int				    coin_counter;
+	int 				lifes_counter = 5;
+	int				    coin_counter = 0;
+	int					timer_game = 0;
 	iPoint				panel_pos;
+	j1Timer				timer;
 
 public: 
 	bool		        SetLifes(int lifes);
 	bool			    SetCoins(int coins);
+	bool			    SetTimer(int timer);
 	int                 GetLifes() const;
 	int                 GetCoins() const;
+	int                 GetTimer() const;
 };
 
 

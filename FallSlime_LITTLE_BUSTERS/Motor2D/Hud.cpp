@@ -12,6 +12,7 @@
 #include "j1Render.h"
 #include "j1Window.h"
 #include "j1Scene.h"
+#include "j1Timer.h"
 
 Hud::Hud() :j1Module()
 {
@@ -61,11 +62,13 @@ bool Hud::PreUpdate()
 
 bool Hud::Update(float dt)
 {
+	
 	return true;
 }
 
 bool Hud::PostUpdate()
 {
+	timer_game = timer_game + timer.Read() / 1000;
 	return true;
 }
 
@@ -120,6 +123,9 @@ bool Hud::Load(pugi::xml_node &node)
 
 	SetLifes(node.child("counter").attribute("lifes").as_int(0));
 	SetCoins(node.child("counter").attribute("coins").as_int(0));
+	SetTimer(node.child("counter").attribute("timer").as_int(0));
+	
+
 	return true;
 }
 
@@ -129,6 +135,7 @@ bool Hud::Save(pugi::xml_node &node) const
 
 	counter.append_attribute("coins") = coin_counter;
 	counter.append_attribute("lifes") = lifes_counter;
+	counter.append_attribute("timer") = timer_game;
 
 	return true;
 }
@@ -223,6 +230,14 @@ bool Hud::SetCoins(int coins)
 	return true;
 }
 
+bool Hud::SetTimer(int timer)
+{
+
+	timer_game = timer;
+	return true;
+}
+
+
 int Hud::GetLifes() const
 {
 	return lifes_counter;
@@ -231,5 +246,10 @@ int Hud::GetLifes() const
 int Hud::GetCoins() const
 {
 	return coin_counter;
+}
+
+int Hud::GetTimer() const
+{
+	return timer_game;
 }
 

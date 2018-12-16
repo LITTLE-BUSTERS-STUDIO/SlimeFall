@@ -12,7 +12,6 @@
 #include "Brofiler/Brofiler.h"
 #include "j1Gui.h"
 #include "Hud.h"
-#include "j1PerfTimer.h"
 
 #include "Button_Input.h"
 #include "Label.h"
@@ -133,7 +132,8 @@ bool Level_1::Update(float dt)
 {
 	BROFILER_CATEGORY("Level_1 Update", Profiler::Color::MediumBlue);
 
-	p2SString timer_str("Timer: %i", timer.Read()/1000);
+	
+	p2SString timer_str("Timer: %i", App->hud->GetTimer());
 	timer_label->SetText(timer_str);
 
 	p2SString score_str("Score: %i", App->hud->GetCoins());
