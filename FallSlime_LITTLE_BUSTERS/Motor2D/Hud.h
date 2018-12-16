@@ -29,6 +29,8 @@ public:
 
 	bool CleanUp();
 
+	bool Reset();
+
 	bool Load(pugi::xml_node&);
 
 	bool Save(pugi::xml_node&) const;

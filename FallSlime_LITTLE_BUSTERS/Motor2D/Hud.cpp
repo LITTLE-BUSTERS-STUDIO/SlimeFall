@@ -98,6 +98,15 @@ bool Hud::CleanUp()
 	return true;
 }
 
+bool Hud::Reset()
+{
+	BROFILER_CATEGORY("Hud Reset", Profiler::Color::LightGray);
+	lifes_counter = 5;
+	coin_counter = 0;
+
+	return true;
+}
+
 bool Hud::Load(pugi::xml_node &)
 {
 	return true;

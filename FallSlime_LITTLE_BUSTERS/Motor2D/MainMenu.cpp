@@ -11,6 +11,8 @@
 #include "j1Gui.h"
 #include "j1Fonts.h"
 #include "SceneManager.h"
+#include "Hud.h"
+#include "EntityManager.h"
 #include "Brofiler/Brofiler.h"
 
 
@@ -343,6 +345,8 @@ bool MainMenu::OutClick(Object * object)
 	if (object == button_new_game)
 	{
 		App->scene_manager->ChangeScene("level_1", 1);
+		App->scene_manager->ResetScene();
+		App->hud->Reset();
 	}
 	else if (object == button_settings)
 	{
