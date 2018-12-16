@@ -285,7 +285,7 @@ bool MainMenu::LoadScene(pugi::xml_node & node)
 	license_text_panel = App->gui->CreateTextPanel(iPoint(320, 180), license_text_panel_def, this);
 	license_text_panel->SetAnchor(menu);
 
-	/*App->gui->SetStateToBranch(ObjectState::hidden, menu);*/
+	//App->gui->SetStateToBranch(ObjectState::hidden, menu);
 	return true;
 }
 

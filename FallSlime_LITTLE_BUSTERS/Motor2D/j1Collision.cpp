@@ -238,16 +238,16 @@ bool j1Collision:: CleanUp()
 	int count = 0;
 	for (p2List_item<Collider*>* item = colliders.start; item; item = item->next)
 	{
-		if (item->data)
+		if (item->data != nullptr)
 		{
 			++count;
 			RELEASE(item->data);
 		}
 
 	}
+	LOG("Deleted %i colliders", count);
 	colliders.clear();
 
-	LOG("Deleted %i colliders", count);
 
 
 	return true;

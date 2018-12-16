@@ -348,7 +348,7 @@ public:
 			{
 				char* tmp = buffer.str;
 				buffer.Alloc(s);
-				delete[] tmp;
+				/*delete[] tmp;*/
 			}
 			strncpy_s(buffer.str, s, &str[start], s);
 			buffer.str[s] = '\0';

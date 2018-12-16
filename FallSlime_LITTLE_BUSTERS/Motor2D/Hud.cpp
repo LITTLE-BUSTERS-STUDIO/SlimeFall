@@ -80,21 +80,18 @@ bool Hud::CleanUp()
 
 	for (p2List_item<Image*>* item = lifes_list.start; item; item = item->next)
 	{
-		if (item->data)
-		{
-			App->gui->DeleteObject(item->data);
-		}
+		App->gui->DeleteObject(item->data);
+
 	}
 	lifes_list.clear();
 
 
 	for (p2List_item<Image*>* item = coins_list.start; item; item = item->next)
 	{
-		if (item->data)
-		{
-			App->gui->DeleteObject(item->data);
-		}
+
+		App->gui->DeleteObject(item->data);
 	}
+
 	coins_list.clear();
 	return true;
 }

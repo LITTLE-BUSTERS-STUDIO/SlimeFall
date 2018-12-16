@@ -175,7 +175,7 @@ bool j1Map::CleanUp()
 
 	while (collider_group != NULL)
 	{
-		for (p2List_item<Collider*>* item = collider_group->data->colliders.start ; item != nullptr; item = item->next)
+		for (p2List_item<Collider*>* item = collider_group->data->colliders.start ; item ; item = item->next)
 		{
 			App->collision->DeleteCollider(item->data);
 		} 
