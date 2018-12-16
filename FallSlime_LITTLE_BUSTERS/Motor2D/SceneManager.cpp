@@ -61,6 +61,11 @@ bool SceneManager::PreUpdate()
 		default_scene_loaded = true;
 	}
 
+	if (change_phase == true)
+	{
+		LoadPhase(phase_to_load);
+	}
+
 	if (current_scene == nullptr)
 	{
 		return true;
@@ -181,16 +186,6 @@ bool SceneManager::ResetScene()
 	return true;
 }
 
-bool SceneManager::ChangeScene(const p2SString name, int phase)
-{
-	if (App->render->FadeToBlack(1000) == true)
-	{
-		scene_to_load = name;
-		phase_to_load = phase;
-	}
-	return true;
-}
-
 void SceneManager::Exit()
 {
 	exit = true;
@@ -215,6 +210,51 @@ bool  SceneManager::Save(pugi::xml_node& node) const
 	scene_node.append_attribute("phase") = current_phase;
 
 	return true;
+}
+
+bool SceneManager::LoadPhase(uint phase_number)
+{
+	BROFILER_CATEGORY("Scene LoadPhase", Profiler::Color::LimeGreen);
+
+	p2List_item<Phase*>* item = nullptr;
+	bool ret = true;
+
+	if (phase_number <= 0)
+	{
+		LOG("Couldn't load phase id: %i <= 0 ", phase_number);
+		return true;
+	}
+	// Found phase id =====================================
+
+	for (item = current_scene->phases.start; item; item = item->next)
+	{
+		if (item->data->id == phase_number)
+		{
+			break;
+		}
+	}
+
+	if (item == NULL)
+	{
+		LOG("Couldn't load phase %i not found", phase_number);
+		return false;
+	}
+	// Unload old map  ====================================
+	App->entity_manager->UnloadEntities();
+	App->map->CleanUp();
+
+	// Load new map  ====================================
+	ret = App->map->Load(item->data->map_path.GetString() );
+
+	// Hardcode =========================================
+	if (ret)
+	{
+		current_phase = phase_number;
+		App->render->SetCameraLimits(item->data->x_limit, item->data->y_limit);
+		App->render->CameraFollowPlayer(item->data->camera_follow_player);
+	}
+
+	return ret;
 }
 
 bool SceneManager::LoadScene(const p2SString name, int phase)   // phase = -1 -> default phase
@@ -258,7 +298,7 @@ bool SceneManager::LoadScene(const p2SString name, int phase)   // phase = -1 ->
 	{
 		scene_to_load = new MainMenu;
 	}
-	
+
 	if (scene_to_load == nullptr)
 	{
 		LOG("Scene %s class not found. Add scene in LoadScene");
@@ -328,66 +368,49 @@ bool SceneManager::UnloadScene()
 	return true;
 }
 
-bool SceneManager::LoadPhase(uint phase_number)
+bool SceneManager::ChangeScene(const p2SString name, int phase)
 {
-	BROFILER_CATEGORY("Scene LoadPhase", Profiler::Color::LimeGreen);
-
-	p2List_item<Phase*>* item = nullptr;
-	bool ret = true;
-
-	if (phase_number <= 0)
+	if (App->render->FadeToBlack(1000) == true)
 	{
-		LOG("Couldn't load phase id: %i <= 0 ", phase_number);
-		return true;
-	}
-	// Found phase id =====================================
-
-	for (item = current_scene->phases.start; item; item = item->next)
-	{
-		if (item->data->id == phase_number)
-		{
-			break;
-		}
+		scene_to_load = name;
+		phase_to_load = phase;
 
 	}
-
-	if (item == NULL)
+	else
 	{
-		LOG("Couldn't load phase %i not found", phase_number);
+		LOG("Change scene error : currently changing scene");
 		return false;
 	}
-	// Unload old map  ====================================
-	App->entity_manager->UnloadEntities();
-	App->map->CleanUp();
 
-	// Load new map  ====================================
-	ret = App->map->Load(item->data->map_path.GetString() );
-
-	// Hardcode =========================================
-	if (ret)
-	{
-		current_phase = phase_number;
-		App->render->SetCameraLimits(item->data->x_limit, item->data->y_limit);
-		App->render->CameraFollowPlayer(item->data->camera_follow_player);
-	}
-
-	return ret;
+	return true;
 }
 
-bool SceneManager::NextPhase()
+bool SceneManager::ChangePhase(int phase)
 {
-	BROFILER_CATEGORY("Scene NextPhase", Profiler::Color::Magenta);
-
-	bool ret = true;
-	ret = LoadPhase(++current_phase);
-
-	if (!ret)
+	if (change_phase)
 	{
-		current_phase = 1;
-		LoadPhase(current_phase);
+		LOG("Change phase error : currently changing phase");
+		return false;
 	}
 
-	return ret;
+	change_phase = true;
+	phase_to_load = phase;
+
+	return true;
+}
+
+bool SceneManager::ChangeToNextPhase()
+{
+	if (change_phase)
+	{
+		LOG("Change phase error : currently changing phase");
+		return false;
+	}
+
+	change_phase = true;
+	phase_to_load = current_phase + 1;
+
+	return true;
 }
 
 

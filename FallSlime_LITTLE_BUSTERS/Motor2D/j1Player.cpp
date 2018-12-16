@@ -493,7 +493,7 @@ bool j1Player::OnCollision(Collider* c1, Collider* c2)
 		main_collider->type = COLLIDER_NONE;
 		break;
 	case COLLIDER_NEXT_LEVEL:
-		App->scene_manager->NextPhase();
+		App->scene_manager->ChangeToNextPhase();
 		break;
 	case COLLIDER_ENEMY:
 

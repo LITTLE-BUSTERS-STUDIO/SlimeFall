@@ -34,7 +34,11 @@ public:
 
 	bool ResetScene(); // All scene ========================
 
-	bool ChangeScene(const p2SString name, int phase);
+	bool ChangeScene(const p2SString name, int phase =0 ); // 0 =  Default phase
+
+	bool ChangePhase(int phase);
+
+	bool ChangeToNextPhase();
 
 	void Exit();
 
@@ -42,12 +46,6 @@ public:
 	bool Load(pugi::xml_node& node);
 
 	bool Save(pugi::xml_node& node) const;
-
-	// Load & Unload phases and its map  ====================
-
-	bool LoadPhase(uint phase_number);
-
-	bool NextPhase();
 	 
 private:
 	// Load & Save scene ==================================
@@ -55,20 +53,26 @@ private:
 
 	bool UnloadScene();
 
+	// Load & Unload phases and its map  ====================
+	bool LoadPhase(uint phase_number);
+
 private:
 
 	j1Scene*                 current_scene = nullptr;
 	uint                     current_phase = 0u;
+
 	p2SString                default_scene_str;
 	bool                     default_scene_loaded = false;
+
 	bool                     exit = false;
-	// Scene to load ========================
+	// Scene and Phase to load ========================
 	p2SString                scene_to_load;
 	uint                     phase_to_load;
-
+	bool                     change_phase = false;
 	// Document scenes.xml ==================
-
 	p2SString                scene_doc_path;
+
+
 private:
 	friend j1Render;
 };
