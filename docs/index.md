@@ -57,6 +57,16 @@ Currently we are studying VideoGames Design and Development at the "Centre de la
 * Camera pulling, all tilesets out of camera despawn
 * Load Entities with tiled v1.2.0
 
+## Innovation features A3
+* Personalized Cursor (Blits only in menus)
+* Coin entity with Tiled v1.2.0
+* Kinesthetic Main menu nevigation
+* Tutorial level added
+* Different music for each "scene"
+* Credits vertical slider
+* At the end game your total score is been revealed
+* Personalized Icon.ico 
+
 ![Skeleton Death gif](https://media.giphy.com/media/3tKcEoLd4V0dBpB8jb/giphy.gif)
 
 ## Download link
