@@ -57,6 +57,8 @@ Currently we are studying VideoGames Design and Development at the "Centre de la
 * Camera pulling, all tilesets out of camera despawn
 * Load Entities with tiled v1.2.0
 
+![Skeleton Idle gif](https://raw.githubusercontent.com/LITTLE-BUSTERS-STUDIO/SlimeFall/master/docs/Skeleton%20Idle.gif)
+
 ## Innovation features A3
 * Personalized Cursor (Blits only in menus)
 * Coin entity with Tiled v1.2.0
