@@ -69,6 +69,85 @@ See also our UML System:  [Entities](https://github.com/LITTLE-BUSTERS-STUDIO/Sl
 
 ![team Logo](https://raw.githubusercontent.com/LITTLE-BUSTERS-STUDIO/SlimeFall/master/docs/Slime%20Fall%20Logo.png)
 
+## Authors Creations
+# Marc Galvez: 
+1rst Assignment:
+* Set volume up/down
+* Created Licence
+* Player Flips
+* Camera follow player
+* Level Design
+* Animation player with tiled v1.2
+* Paralax Background
+
+2nd Assignment:
+* God Mode free flying
+* Special Attack mechanic 
+* Camera Tremble when player kill an enemy
+* Camera follow smooth
+* Fade to black
+* Invulnerability function
+* Load parallax improved fot low quality Laptop
+* Brofiler added
+* F11 to change cap frames ON/OFF
+* Animations Enemies: Bat, Skeleton
+* Enemy Bat vs Player Logic
+* Enemy Skeleton vs Player Logic
+* Trello planification
+* Changelog and Readme
+* UML Entity System
+
+3rd Assignment:
+* Personalized Cursor
+* Placed and selected music and sfx
+* Game Over logic
+* Safe Load with button inputs
+* Create Pause Menu
+* Pause game with dt
+* Coin entity
+* Animation Coin with Tiled v1.2
+* Tutorial level
+* Web Page
+* Hud  (life and coins)
+* UML UI System
+* Changed game icon.ico
+* Timer and Score
+
+
+# Alejandro Gamarra : 
+
+1rst Assignment:
+* Save & Load logic
+* Player movement 
+* Load & Unload Levels
+* Load colliders with Tiled v1.2
+* Collision logic
+
+2nd Assignment:
+* Debug pathfinding draw && Walkablemap draw 
+* A* algorithm && pathfinding new methods
+* Enemy Bat (flyer enemy)
+* Entity Manager logic
+* Entity && Entity_Info Class 
+* Entities Properties System && Classes
+* Adapt Player Module to Player Entity
+* New solve collision overlap method
+* Limit Blit Draw and improve Map Draw
+* Framerate Cap 
+* Fix several bugs 
+* Organize code 
+
+3rd Assignment:
+* All GUI Manager logic 
+* All Scene Manager logic
+* Load & Unload scenes
+* Create Main Menu
+* Buttons, sliders, panels, panels text, labels , images & checkboxes (logic & art)  
+* Tittle art
+* Settings logic
+* Load & Unload entities
+* Organize code 
+* Fix several bugs 
 
 ~~~~~~~~~~~~~~~
 MIT License
