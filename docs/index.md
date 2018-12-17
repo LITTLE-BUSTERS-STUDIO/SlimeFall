@@ -77,12 +77,13 @@ Download Slime Fall Releases [here](https://github.com/LITTLE-BUSTERS-STUDIO/Sli
 
 See also our UML System:  [Entities](https://github.com/LITTLE-BUSTERS-STUDIO/SlimeFall/blob/master/docs/UML%20Entity.pdf) -  [UI](https://github.com/LITTLE-BUSTERS-STUDIO/SlimeFall/blob/master/docs/UML%20UI.pdf)
 
-**We hope you Enjoy! Thanks for playing.**
+
+## **We hope you Enjoy! Thanks for playing.**
 
 ![team Logo](https://raw.githubusercontent.com/LITTLE-BUSTERS-STUDIO/SlimeFall/master/docs/Slime%20Fall%20Logo.png)
 
 ## Authors Creations
-# Marc Galvez: 
+### Marc Galvez: 
 1rst Assignment:
 * Set volume up/down
 * Created Licence
@@ -126,7 +127,7 @@ See also our UML System:  [Entities](https://github.com/LITTLE-BUSTERS-STUDIO/Sl
 * Timer and Score
 
 
-# Alejandro Gamarra : 
+### Alejandro Gamarra : 
 
 1rst Assignment:
 * Save & Load logic
