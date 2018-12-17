@@ -46,7 +46,7 @@ Currently we are studying VideoGames Design and Development at the "Centre de la
 * Load Animations with Tiled v1.2.0
 * Random SFx Jump (4 slime sounds)
 
-![Skeleton Walking gif](https://media.giphy.com/media/3XCqoGPMbbnfDMXVaH/giphy.gif)
+![Skeleton Walking gif](https://raw.githubusercontent.com/LITTLE-BUSTERS-STUDIO/SlimeFall/master/docs/Skeleton%20Walk.gif)
 
 ## Innovation features A2:
 
@@ -69,7 +69,7 @@ Currently we are studying VideoGames Design and Development at the "Centre de la
 * At the end game your total score is been revealed
 * Personalized Icon.ico 
 
-![Skeleton Death gif](https://media.giphy.com/media/3tKcEoLd4V0dBpB8jb/giphy.gif)
+![Skeleton Death gif](https://raw.githubusercontent.com/LITTLE-BUSTERS-STUDIO/SlimeFall/master/docs/Skeleton%20Dead.gif)
 
 ## Download link
 
