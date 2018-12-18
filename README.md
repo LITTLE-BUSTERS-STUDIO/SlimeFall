@@ -1,7 +1,7 @@
 ﻿# Game Tittle: Slime Fall
 
 ## Current Version
-v2.0
+v3.1
 
 ## Description
 This is a Platform Game about a jumping slime. Reach the end if you can!
