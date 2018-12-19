@@ -1,5 +1,4 @@
 ﻿<link rel="Slime Fall Logo2" type="image/x-icon" href="Slime Fall Logo2.ico">
-<link rel="shortcut icon" type="image/png" href="https://raw.githubusercontent.com/LITTLE-BUSTERS-STUDIO/SlimeFall/master/docs/Slime%20Fall%20Logo2.png">
 
 # Welcome to our website! ![slime Small Logo](https://raw.githubusercontent.com/LITTLE-BUSTERS-STUDIO/SlimeFall/master/docs/Slime%20Fall%20Logo2.png)
 
