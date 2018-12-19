@@ -25,8 +25,11 @@ Currently we are studying VideoGames Design and Development at the "Centre de la
 ## Litter Busters Team
 ![team photo](Japan2018.jpeg)
 
+## Trailer
 
-## Tribute gameplay
+<iframe width="560" height="315" src="https://www.youtube.com/embed/7XKoazgWiWY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Full Walkthrough
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/4CPGicF9IMY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
